@@ -1,0 +1,8 @@
+rasterio
+matplotlib
+networkx
+numpy
+pillow
+geopandas
+descartes
+rtree
