@@ -123,6 +123,6 @@ dmypy.json
 .pyre/
 
 # ignore the temp folders
-hams2/tmp/*
-hams2/gempy/*
+test_data/tmp/*
+hams2/output/*
 hams2/dtm/*

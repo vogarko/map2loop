@@ -1,2 +1,5 @@
-# map2model
- make model input data from geological map
+# map2model Package
+
+More to come...
+
+A package to extract information from geological maps to feed 3D modelling packages
