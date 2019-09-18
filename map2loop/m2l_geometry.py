@@ -7,7 +7,7 @@ from pandas import DataFrame
 from geopandas import GeoDataFrame
 import geopandas as gpd
 from math import acos, sqrt, cos, sin, degrees, radians, fabs, atan2
-import m2m_utils
+import m2l_utils
 
 #Export orientation data in csv format with heights and strat code added
 def save_orientations(structures,mname,path_out,ddcode,dcode,ccode,orientation_decimate,dtm):
@@ -15,12 +15,12 @@ def save_orientations(structures,mname,path_out,ddcode,dcode,ccode,orientation_d
     f=open(path_out+'/'+mname+'_orientations.txt',"w")
     f.write("X,Y,Z,azimuth,dip,polarity,formation\n")
     for apoint in structures.iterrows():
-        if(apoint[1][dcode]!=0 and m2m_utils.mod_safe(i,orientation_decimate)==0):
+        if(apoint[1][dcode]!=0 and m2l_utils.mod_safe(i,orientation_decimate)==0):
             locations=[(apoint[1]['geometry'].x, apoint[1]['geometry'].y)]
 
         if(apoint[1]['geometry'].x > dtm.bounds[0] and apoint[1]['geometry'].x < dtm.bounds[2] and  
                apoint[1]['geometry'].y > dtm.bounds[1] and apoint[1]['geometry'].y < dtm.bounds[3]):       
-                height=m2m_utils.value_from_raster(dtm,locations)
+                height=m2l_utils.value_from_raster(dtm,locations)
                 ostr=str(apoint[1]['geometry'].x)+","+str(apoint[1]['geometry'].y)+","+height+","+str(apoint[1][ddcode])+","+str(apoint[1][dcode])+",1,"+str(apoint[1][ccode])+"\n"
                 f.write(ostr)
                 i+=1
@@ -81,7 +81,7 @@ def create_orientations(mname, path_in, dtm,geology,structures,ccode,gcode):
                     apoint=apoly.representative_point()
                     #print(apoint.x,apoint.y)
                     locations=[(apoint.x,apoint.y)]
-                    height=m2m_utils.value_from_raster(dtm,locations)
+                    height=m2l_utils.value_from_raster(dtm,locations)
                     if(height==-999):
                         print("point off map",locations)
                         height=0   # needs a better solution!
@@ -169,12 +169,12 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                 id=id+1
                                 for lineC in LineStringC: #process all linestrings
                                     #if(contact_decimate!=0): #decimate to reduce number of points
-                                    if(m2m_utils.mod_safe(k,contact_decimate)==0 or k==int((len(LineStringC)-1)/2) or k==len(LineStringC)-1): #decimate to reduce number of points, but also take second and third point of a series to keep gempy happy
+                                    if(m2l_utils.mod_safe(k,contact_decimate)==0 or k==int((len(LineStringC)-1)/2) or k==len(LineStringC)-1): #decimate to reduce number of points, but also take second and third point of a series to keep gempy happy
                                         locations=[(lineC.coords[0][0],lineC.coords[0][1])] #doesn't like point right on edge?
                                         #print(k,type(lineC))
                                         if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
                                            lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
-                                                height=m2m_utils.value_from_raster(dtm,locations)
+                                                height=m2l_utils.value_from_raster(dtm,locations)
                                                 ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(ageol[1][ccode])+"\n"
                                                 ac.write(ostr)
                                                 allc.write(agp+","+str(ageol[1]['OBJECTID_1'])+","+ostr)
@@ -187,7 +187,7 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                         locations=[(lineC.coords[0][0]+0.0000001,lineC.coords[0][1])] #doesn't like point right on edge?
                                         if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
                                             lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
-                                            height=m2m_utils.value_from_raster(dtm,locations)
+                                            height=m2l_utils.value_from_raster(dtm,locations)
                                             ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(ageol[1][ccode])+"\n"
                                             #ls_dict_decimate[allpts] = {"id": id,"CODE":ageol[1]['CODE'],"GROUP_":ageol[1]['GROUP_'], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                             allc.write(agp+","+str(ageol[1]['OBJECTID_1'])+","+ostr)
@@ -303,7 +303,7 @@ def save_contacts_with_faults_removed(mname,path_fault,path_out,dist_buffer,ls_d
             #print(cdn.x,cdn.y)
             locations=[(cdn.x,cdn.y)] #doesn't like point right on edge?
           
-            height=m2m_utils.value_from_raster(dataset,locations)
+            height=m2l_utils.value_from_raster(dataset,locations)
             ostr=str(cdn.x)+","+str(cdn.y)+","+height+","+str(df_nf.iloc[i][ccode])+"\n"
             ac.write(ostr)
 
@@ -334,9 +334,9 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,fault_de
             print(len(flt_ls.coords))
             for afs in flt_ls.coords:
                 #print(afs[1])
-                if(m2m_utils.mod_safe(i,fault_decimate)==0 or i==int((len(flt_ls.coords)-1)/2) or i==len(flt_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
+                if(m2l_utils.mod_safe(i,fault_decimate)==0 or i==int((len(flt_ls.coords)-1)/2) or i==len(flt_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
                     locations=[(afs[0],afs[1])]     
-                    height=m2m_utils.value_from_raster(dataset,locations)
+                    height=m2l_utils.value_from_raster(dataset,locations)
                     ostr=str(afs[0])+","+str(afs[1])+","+height+","+fault_name+"\n"
                     f.write(ostr)                
                 i=i+1  
@@ -352,7 +352,7 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,fault_de
             azimuth = (degrees(angle) + 360) % 360 
             print(azimuth)
             locations=[(flt_ls.coords[int((len(afs)-1)/2)][0],flt_ls.coords[int((len(afs)-1)/2)][1])]     
-            height=m2m_utils.value_from_raster(dataset,locations)
+            height=m2l_utils.value_from_raster(dataset,locations)
             ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+",90,1,"+fault_name+"\n"
             fo.write(ostr)
 
@@ -379,7 +379,7 @@ def create_basal_contact_orientations(mname,contacts,structures,output_path,dtm,
             if(np.distance(orig)<dist_buffer):
 
                 for line in acontact[1].geometry: # loop through line segments
-                    for pair in m2m_utils.pairs(list(line.coords)): # loop through line segments
+                    for pair in m2l_utils.pairs(list(line.coords)): # loop through line segments
                         segpair=LineString((pair[0],pair[1]))
                         if segpair.distance(np)< 0.0001: # line segment closest to close point
                             ddx=sin(radians(astr[1][ddcode]))
@@ -392,7 +392,7 @@ def create_basal_contact_orientations(mname,contacts,structures,output_path,dtm,
 
                             if(fabs(angle-90)<30.0): # dip_dir normal and contact are close enough to parallel
                                 locations=[(np.x,np.y)]
-                                height= m2m_utils.value_from_raster(dtm,locations)
+                                height= m2l_utils.value_from_raster(dtm,locations)
                                 ls_ddir=degrees(atan2(lsy,-lsx)) #normal to line segment
 
                                

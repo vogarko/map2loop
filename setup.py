@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="map2model",
+    name="map2loop",
     version="0.0.23",
     author="Mark Jessell",
     author_email="mark.jessell@gmail.com",
     description="A package to extract information from geological maps to feed 3D modelling packages",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Loop3D/map2model",
+    url="https://github.com/Loop3D/map2loop",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
