@@ -320,7 +320,8 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,fault_de
     fo.write("X,Y,Z,azimuth,dip,polarity,formation\n")
 
     for flt in faults_clip.iterrows():
-        if(flt[1][ncode]=='Karra Well Fault'): #<<<<<<<<<<<< Too many faults gets ugly!
+        #if(flt[1][ncode]=='Karra Well Fault'): #<<<<<<<<<<<< When too many faults gets ugly!
+        if(True): #<<<<<<<<<<<< Not sure what to do with so many faults!
             #print(flt)
             flt_ls=LineString(flt[1].geometry)
             #print(flt_ls)
