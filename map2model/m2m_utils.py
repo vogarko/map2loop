@@ -12,10 +12,12 @@ import re
 from urllib.request import urlopen
 from PIL import Image
 
-
+def v():
+    print('0.0.23')
+    
 #first test
 def hw():
-	print("Hello world")
+    print("Hello world")
 
 #calculate mod with 0 meaning no mod
 def mod_safe(a,b):

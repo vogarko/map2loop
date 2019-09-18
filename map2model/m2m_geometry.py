@@ -322,6 +322,10 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,fault_de
     for flt in faults_clip.iterrows():
         #if(flt[1][ncode]=='Karra Well Fault'): #<<<<<<<<<<<< When too many faults gets ugly!
         if(True): #<<<<<<<<<<<< Not sure what to do with so many faults!
+            if(str(flt[1]['NAME'])=='None'):
+                fault_name='Fault_'+str(flt[1]['OBJECTID'])
+            else:
+                fault_name=str(flt[1]['NAME'])   
             #print(flt)
             flt_ls=LineString(flt[1].geometry)
             #print(flt_ls)
@@ -333,13 +337,15 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,fault_de
                 if(m2m_utils.mod_safe(i,fault_decimate)==0 or i==int((len(flt_ls.coords)-1)/2) or i==len(flt_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
                     locations=[(afs[0],afs[1])]     
                     height=m2m_utils.value_from_raster(dataset,locations)
-                    ostr=str(afs[0])+","+str(afs[1])+","+height+","+flt[1][ncode]+"\n"
+                    ostr=str(afs[0])+","+str(afs[1])+","+height+","+fault_name+"\n"
                     f.write(ostr)                
                 i=i+1  
-            print(flt_ls.coords[0][0],flt_ls.coords[0][1],flt_ls.coords[len(flt_ls.coords)-1][0],flt_ls.coords[len(flt_ls.coords)-1][1])
-            print()
+            #print(flt_ls.coords[0][0],flt_ls.coords[0][1],flt_ls.coords[len(flt_ls.coords)-1][0],flt_ls.coords[len(flt_ls.coords)-1][1])
+            #print()
             dlsx=flt_ls.coords[0][0]-flt_ls.coords[len(flt_ls.coords)-1][0]
             dlsy=flt_ls.coords[0][1]-flt_ls.coords[len(flt_ls.coords)-1][1]
+            if(dlsx==0.0 or dlsy == 0.0):
+                continue
             lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
             lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))        
             angle = acos(lsx)
@@ -347,7 +353,7 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,fault_de
             print(azimuth)
             locations=[(flt_ls.coords[int((len(afs)-1)/2)][0],flt_ls.coords[int((len(afs)-1)/2)][1])]     
             height=m2m_utils.value_from_raster(dataset,locations)
-            ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+",90,1,"+flt[1][ncode]+"\n"
+            ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+",90,1,"+fault_name+"\n"
             fo.write(ostr)
 
     f.close()

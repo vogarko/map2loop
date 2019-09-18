@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="map2model",
-    version="0.0.17",
+    version="0.0.23",
     author="Mark Jessell",
     author_email="mark.jessell@gmail.com",
     description="A package to extract information from geological maps to feed 3D modelling packages",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/map2model",
+    url="https://github.com/Loop3D/map2model",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
