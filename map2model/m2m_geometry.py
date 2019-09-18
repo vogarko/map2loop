@@ -6,7 +6,7 @@ import rasterio
 from pandas import DataFrame
 from geopandas import GeoDataFrame
 import geopandas as gpd
-from math import acos, sqrt, degrees
+from math import acos, sqrt, cos, sin, degrees, radians, fabs, atan2
 import m2m_utils
 
 #Export orientation data in csv format with heights and strat code added
@@ -82,6 +82,9 @@ def create_orientations(mname, path_in, dtm,geology,structures,ccode,gcode):
                     #print(apoint.x,apoint.y)
                     locations=[(apoint.x,apoint.y)]
                     height=m2m_utils.value_from_raster(dtm,locations)
+                    if(height==-999):
+                        print("point off map",locations)
+                        height=0   # needs a better solution!
                     ostr=str(apoint.x)+","+str(apoint.y)+","+height+",0,45,1"+","+str(ageol[1][ccode])+"\n"
                     f.write(ostr)
                     plt.title(str(ageol[1][ccode]))
@@ -349,3 +352,48 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,fault_de
     f.close()
     fo.close()
 
+#Create basal contact points with orientation from orientations and basal points
+def create_basal_contact_orientations(mname,contacts,structures,output_path,dtm,dist_buffer,ccode,gcode,dcode,ddcode):
+    f=open(output_path+mname+'_projected_dip_contacts2.txt',"w")
+    f.write('X,Y,Z,azimuth,dip,polarity,formation\n')
+    #print("len=",len(contacts))
+    i=0
+    for acontact in contacts.iterrows():   #loop through distinct linestrings
+        #display(acontact[1].geometry)
+        thegroup=acontact[1][gcode]
+        #print("thegroup=",thegroup)
+        is_gp=structures[gcode] == thegroup # subset orientations to just those with this group
+        all_structures = structures[is_gp]
+
+        for astr in all_structures.iterrows(): # loop through valid orientations
+
+            orig = Point(astr[1]['geometry'])
+            np = acontact[1].geometry.interpolate(acontact[1].geometry.project(orig))
+            if(np.distance(orig)<dist_buffer):
+
+                for line in acontact[1].geometry: # loop through line segments
+                    for pair in m2m_utils.pairs(list(line.coords)): # loop through line segments
+                        segpair=LineString((pair[0],pair[1]))
+                        if segpair.distance(np)< 0.0001: # line segment closest to close point
+                            ddx=sin(radians(astr[1][ddcode]))
+                            ddy=cos(radians(astr[1][ddcode]))
+                            dlsx=pair[0][0]-pair[1][0]
+                            dlsy=pair[0][1]-pair[1][1]
+                            lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
+                            lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))
+                            angle=degrees(acos((ddx*lsx)+(ddy*lsy)))
+
+                            if(fabs(angle-90)<30.0): # dip_dir normal and contact are close enough to parallel
+                                locations=[(np.x,np.y)]
+                                height= m2m_utils.value_from_raster(dtm,locations)
+                                ls_ddir=degrees(atan2(lsy,-lsx)) #normal to line segment
+
+                               
+                                if (ddx*lsy)+(-ddy*lsx)<0: #dot product tests right quadrant
+                                    ls_ddir=(ls_ddir-180)%360
+                                ostr=str(np.x)+","+str(np.y)+","+height+","+str(ls_ddir)+","+str(astr[1][dcode])+",1,"+acontact[1][ccode]+"\n" 
+                                f.write(ostr)
+                                i=i+1
+
+
+    f.close()

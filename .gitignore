@@ -124,5 +124,10 @@ dmypy.json
 
 # ignore the temp folders
 test_data/tmp/*
-hams2/output/*
-hams2/dtm/*
+test_data/output/*
+test_data/dtm/*
+./_cropped_DEM.tif
+notebooks/_cropped_DEM.tif
+notebooks/topo.xyz
+topo.xyz
+_cropped_DEM.tif

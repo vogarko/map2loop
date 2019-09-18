@@ -27,19 +27,27 @@ def mod_safe(a,b):
         
 # get value froma rasterio raster at location x,y (real world coords)
 def value_from_raster(dataset,locations):
+    #print(locations[0][0],locations[0][1],dataset.bounds[0],dataset.bounds[1],dataset.bounds[2],dataset.bounds[3])
+    if(locations[0][0] > dataset.bounds[0] and locations[0][0] < dataset.bounds[2] and  
+    locations[0][1] > dataset.bounds[1] and locations[0][1] < dataset.bounds[3]):       
+        for val in dataset.sample(locations):
+            value=str(val).replace("[","").replace("]","")
+        return(value)
+    else:
+        return(-999)
 
-    for val in dataset.sample(locations):
-        value=str(val).replace("[","").replace("]","")
-    return(value)
+def pairs(lst):
+    for i in range(1, len(lst)):
+        yield lst[i-1], lst[i]
 
 #get dtm data from Hawaiian SRTM server and save as geotiff
-def get_dtm(path_out, minlong,maxlong,minlat,maxlat):
+def get_dtm(path_out, minlong,maxlong,minlat,maxlat,step_out):
 
-    minxll=int((minlong+180)*120)
-    maxxll=int((maxlong+180)*120)
-    minyll=int((minlat+90)*120)
-    maxyll=int((maxlat+90)*120)
-    
+    minxll=int(((minlong+180)*120)-step_out)
+    maxxll=int(((maxlong+180)*120)+step_out)
+    minyll=int(((minlat+90)*120)-step_out)
+    maxyll=int(((maxlat+90)*120)+step_out)  
+      
     sizex=round(maxxll-minxll+1)
     sizey=round(maxyll-minyll+1)
     
