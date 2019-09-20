@@ -348,8 +348,9 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,fault_de
                 continue
             lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
             lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))        
-            angle = acos(lsx)
-            azimuth = (degrees(angle) + 360) % 360 
+            #angle = acos(lsx)
+ 						azimuth=degrees(atan2(lsy,-lsx)) % 180 #normal to line segment           
+ 						#azimuth = (degrees(angle) + 360) % 180 
             print(azimuth)
             locations=[(flt_ls.coords[int((len(afs)-1)/2)][0],flt_ls.coords[int((len(afs)-1)/2)][1])]     
             height=m2l_utils.value_from_raster(dataset,locations)
