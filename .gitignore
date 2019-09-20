@@ -126,6 +126,7 @@ dmypy.json
 test_data/tmp/*
 test_data/output/*
 test_data/dtm/*
+test_data/data/*.lock
 ./_cropped_DEM.tif
 notebooks/_cropped_DEM.tif
 notebooks/topo.xyz
