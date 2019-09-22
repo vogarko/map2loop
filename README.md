@@ -16,7 +16,8 @@ Outputs:<br>
 Decimated Bed dips as	csv file<br>
 Decimated basal contacts of units as csv file<br>
 Decimated faults with representative orientation as csv files<br>
-Decimated estimated dips on basal contacts<br>
+Decimated estimated dips on basal contacts as csv file<br>
+Decimated pluton margins with dips as csv files<br>
 <br>
 Does not deal with intrusions yet.<br>
 Sample code to feed to gempy, but second sample code that does it better broken!<br>
