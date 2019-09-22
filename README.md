@@ -1,4 +1,4 @@
-# map2model Package
+# map2loop Package
 
 More to come...
 
@@ -19,10 +19,10 @@ Decimated faults with representative orientation as csv files<br>
 Decimated estimated dips on basal contacts as csv file<br>
 Decimated pluton margins with dips as csv files<br>
 <br>
-Does not deal with intrusions yet.<br>
+Does not deal with sills yet.<br>
 Sample code to feed to gempy, but second sample code that does it better broken!<br>
 <br>
-Standalone map2model code from Vitaliy provides fault/fault and fault/strat relationships (but has a bug right now)<br>
+Standalone map2model cpp code from Vitaliy provides fault/fault and fault/strat relationships (but has a bug right now)<br>
 
 # Installation
 For the moment installation uses:<br>

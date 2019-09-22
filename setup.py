@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="map2loop",
-    version="0.0.25",
+    version="0.0.26",
     author="Mark Jessell",
     author_email="mark.jessell@gmail.com",
     description="A package to extract information from geological maps to feed 3D modelling packages",
