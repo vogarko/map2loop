@@ -22,4 +22,23 @@ Does not deal with intrusions yet.<br>
 Sample code to feed to gempy, but second sample code that does it better broken!<br>
 <br>
 Standalone map2model code from Vitaliy provides fault/fault and fault/strat relationships (but has a bug right now)<br>
-	
+
+# Installation
+For the moment installation uses:<br>
+
+pip install --index-url https://test.pypi.org/simple/ --no-deps map2loop 
+
+# Requirements
+rasterio
+matplotlib
+networkx
+numpy
+pillow
+pandas
+geopandas
+os
+urllib
+sys
+math
+shapely
+gempy

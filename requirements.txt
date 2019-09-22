@@ -3,6 +3,12 @@ matplotlib
 networkx
 numpy
 pillow
+pandas
 geopandas
-descartes
-rtree
+os
+urllib
+sys
+math
+shapely
+gempy
+
