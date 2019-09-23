@@ -96,7 +96,7 @@ def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gc
     f.close()
 
 #Export contact information subset of each polygon to csv format
-def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode):
+def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode):
     print("decimation: 1 /",contact_decimate)
 
     ## Reproject topography to approriate metre-based CRS
@@ -125,9 +125,9 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
     ls_dict_decimate={}
     id=0
     for ageol in geol_clip.iterrows(): # central polygon
-        agp=str(ageol[1]['GROUP_'])
+        agp=str(ageol[1][gcode])
         if(agp=='None'):
-            agp=ageol[1]['CODE']
+            agp=ageol[1][ccode]
         #print(agp,type(agp))
         neighbours=[]
         #print(ageol[1].geometry)
@@ -177,8 +177,8 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                                 height=m2l_utils.value_from_raster(dtm,locations)
                                                 ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(ageol[1][ccode])+"\n"
                                                 ac.write(ostr)
-                                                allc.write(agp+","+str(ageol[1]['OBJECTID_1'])+","+ostr)
-                                                ls_dict_decimate[allpts] = {"id": allpts,"CODE":ageol[1]['CODE'],"GROUP_":ageol[1]['GROUP_'], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                allc.write(agp+","+str(ageol[1][ocode])+","+ostr)
+                                                ls_dict_decimate[allpts] = {"id": allpts,"CODE":ageol[1][ccode],"GROUP_":ageol[1][gcode], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                 allpts+=1 
                                         else:
                                             continue
@@ -190,7 +190,7 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                             height=m2l_utils.value_from_raster(dtm,locations)
                                             ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(ageol[1][ccode])+"\n"
                                             #ls_dict_decimate[allpts] = {"id": id,"CODE":ageol[1]['CODE'],"GROUP_":ageol[1]['GROUP_'], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
-                                            allc.write(agp+","+str(ageol[1]['OBJECTID_1'])+","+ostr)
+                                            allc.write(agp+","+str(ageol[1][ocode])+","+ostr)
                                             allpts+=1    
                                     """        
                                     else:
@@ -312,7 +312,7 @@ def save_contacts_with_faults_removed(mname,path_fault,path_out,dist_buffer,ls_d
     print("decimated points:",i)
 
 #Save faults as contact info and make vertical (for the moment)
-def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,fault_decimate):
+def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fault_decimate):
     faults_clip=gpd.read_file(path_faults)
     f=open(path_fault_orientations+'/'+mname+'_faults.txt',"w")
     f.write("X,Y,Z,formation\n")
@@ -322,10 +322,10 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,fault_de
     for flt in faults_clip.iterrows():
         #if(flt[1][ncode]=='Karra Well Fault'): #<<<<<<<<<<<< When too many faults gets ugly!
         if(True): #<<<<<<<<<<<< Not sure what to do with so many faults!
-            if(str(flt[1]['NAME'])=='None'):
-                fault_name='Fault_'+str(flt[1]['OBJECTID'])
+            if(str(flt[1][ncode])=='None'):
+                fault_name='Fault_'+str(flt[1][ocode])
             else:
-                fault_name=str(flt[1]['NAME'])   
+                fault_name=str(flt[1][ncode])   
             #print(flt)
             flt_ls=LineString(flt[1].geometry)
             #print(flt_ls)
