@@ -13,7 +13,7 @@ from urllib.request import urlopen
 from PIL import Image
 
 def v():
-    print('0.0.27')
+    print('0.0.30')
     
 #first test
 def hw():

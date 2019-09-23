@@ -12,7 +12,7 @@ import m2l_utils
 #Export orientation data in csv format with heights and strat code added
 def save_orientations(structures,mname,path_out,ddcode,dcode,ccode,orientation_decimate,dtm):
     i=0
-    f=open(path_out+'/'+mname+'_orientations.txt',"w")
+    f=open(path_out+'/'+mname+'_orientations.csv',"w")
     f.write("X,Y,Z,azimuth,dip,polarity,formation\n")
     for apoint in structures.iterrows():
         if(apoint[1][dcode]!=0 and m2l_utils.mod_safe(i,orientation_decimate)==0):
@@ -21,7 +21,7 @@ def save_orientations(structures,mname,path_out,ddcode,dcode,ccode,orientation_d
         if(apoint[1]['geometry'].x > dtm.bounds[0] and apoint[1]['geometry'].x < dtm.bounds[2] and  
                apoint[1]['geometry'].y > dtm.bounds[1] and apoint[1]['geometry'].y < dtm.bounds[3]):       
                 height=m2l_utils.value_from_raster(dtm,locations)
-                ostr=str(apoint[1]['geometry'].x)+","+str(apoint[1]['geometry'].y)+","+height+","+str(apoint[1][ddcode])+","+str(apoint[1][dcode])+",1,"+str(apoint[1][ccode])+"\n"
+                ostr=str(apoint[1]['geometry'].x)+","+str(apoint[1]['geometry'].y)+","+height+","+str(apoint[1][ddcode])+","+str(apoint[1][dcode])+",1,"+str(apoint[1][ccode].replace(" ","_").replace("-","_"))+"\n"
                 f.write(ostr)
                 i+=1
         
@@ -29,7 +29,7 @@ def save_orientations(structures,mname,path_out,ddcode,dcode,ccode,orientation_d
 
 #Find those series that don't have any orientation or contact point data and add some random data
 def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gcode):
-    f=open(path_in+'/'+mname+'_groups.txt',"r")
+    f=open(path_in+'/'+mname+'_groups.csv',"r")
     contents =f.readlines()
     f.close
 
@@ -45,7 +45,10 @@ def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gc
 
     for i in range (0,ngroups):
         for apoint in structures.iterrows():
-            agroup=apoint[1][gcode]
+            if(str(apoint[1][gcode])=='None'):
+                agroup=apoint[1][ccode].replace(" ","_").replace("-","_")
+            else:
+                agroup=apoint[1][gcode].replace(" ","_").replace("-","_")
             #print(agroup)
             if(groups[i][0]==agroup):
                 lgroups=list(groups[i])
@@ -57,7 +60,7 @@ def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gc
 
     for i in range (0,ngroups):
         for apoly in geology.iterrows():
-            agroup=apoint[1][gcode]
+            agroup=apoint[1][gcode].replace(" ","_").replace("-","_")
             #print(agroup)
             if(groups[i][0]==agroup):
                 lgroups=list(groups[i])
@@ -71,7 +74,7 @@ def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gc
 
     print("Contacts----------\n",len(set(all_codes)),set(all_codes))
 
-    f=open(path_out+'/'+mname+'_orientations.txt',"a")
+    f=open(path_out+'/'+mname+'_orientations.csv',"a")
 
     for i in range (0,ngroups):
         if(groups[i][1]==0):
@@ -85,9 +88,9 @@ def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gc
                     if(height==-999):
                         print("point off map",locations)
                         height=0   # needs a better solution!
-                    ostr=str(apoint.x)+","+str(apoint.y)+","+height+",0,45,1"+","+str(ageol[1][ccode])+"\n"
+                    ostr=str(apoint.x)+","+str(apoint.y)+","+height+",0,45,1"+","+str(ageol[1][ccode].replace(" ","_").replace("-","_"))+"\n"
                     f.write(ostr)
-                    plt.title(str(ageol[1][ccode]))
+                    plt.title(str(ageol[1][ccode].replace(" ","_").replace("-","_")))
                     plt.scatter(apoint.x,apoint.y,color="red")
                     plt.plot(*apoly.exterior.xy)
                     plt.show()
@@ -102,7 +105,7 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
     ## Reproject topography to approriate metre-based CRS
                
     #dataset = rasterio.open(path_in+'/'+mname+'_dtm_rp.tif')
-    ag=open(path_in+'/'+mname+'_all_sorts.txt',"r")
+    ag=open(path_in+'/'+mname+'_all_sorts.csv',"r")
     contents =ag.readlines()
     ag.close
     print("surfaces:",len(contents))
@@ -114,9 +117,9 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
         ulist.append([i, cont_list[4].replace("\n","")])
     print(ulist)
 
-    allc=open(path_in+'/'+mname+'all_contacts.txt',"w")
+    allc=open(path_in+'/'+mname+'all_contacts.csv',"w")
     allc.write('GROUP_,id,x,y,z,code\n')
-    ac=open(path_in+'/'+mname+'_contacts.txt',"w")
+    ac=open(path_in+'/'+mname+'_contacts.csv',"w")
     ac.write("X,Y,Z,formation\n")
     print(dtm.bounds)
     j=0
@@ -127,19 +130,19 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
     for ageol in geol_clip.iterrows(): # central polygon
         agp=str(ageol[1][gcode])
         if(agp=='None'):
-            agp=ageol[1][ccode]
+            agp=ageol[1][ccode].replace(" ","_").replace("-","_")
         #print(agp,type(agp))
         neighbours=[]
         #print(ageol[1].geometry)
         j+=1
-        out=[item for item in ulist if ageol[1][ccode] in item]
+        out=[item for item in ulist if ageol[1][ccode].replace(" ","_").replace("-","_") in item]
         if(len(out)>0):
             central=out[0][0]    #relative age of central polygon
             central_poly=ageol[1].geometry
             for bgeol in geol_clip.iterrows(): #potential neighbouring polygons  
                 if(ageol[1].geometry!=bgeol[1].geometry): #do not compare with self
                     if (ageol[1].geometry.intersects(bgeol[1].geometry)): # is a neighbour
-                        neighbours.append([(bgeol[1][ccode],bgeol[1].geometry)])  
+                        neighbours.append([(bgeol[1][ccode].replace(" ","_").replace("-","_"),bgeol[1].geometry)])  
 
             if(len(neighbours) >0):
                 for i in range (0,len(neighbours)):
@@ -165,7 +168,7 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                 #print("lenlenlen",len(LineStringC))
                                 
                                 #display(LineStringC)
-                                ls_dict[id] = {"id": id,"CODE":ageol[1][ccode],"GROUP_":ageol[1][gcode], "geometry": LineStringC}
+                                ls_dict[id] = {"id": id,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": LineStringC}
                                 id=id+1
                                 for lineC in LineStringC: #process all linestrings
                                     #if(contact_decimate!=0): #decimate to reduce number of points
@@ -175,10 +178,10 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                         if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
                                            lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
                                                 height=m2l_utils.value_from_raster(dtm,locations)
-                                                ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(ageol[1][ccode])+"\n"
+                                                ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(ageol[1][ccode].replace(" ","_").replace("-","_"))+"\n"
                                                 ac.write(ostr)
                                                 allc.write(agp+","+str(ageol[1][ocode])+","+ostr)
-                                                ls_dict_decimate[allpts] = {"id": allpts,"CODE":ageol[1][ccode],"GROUP_":ageol[1][gcode], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                ls_dict_decimate[allpts] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                 allpts+=1 
                                         else:
                                             continue
@@ -188,7 +191,7 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                         if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
                                             lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
                                             height=m2l_utils.value_from_raster(dtm,locations)
-                                            ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(ageol[1][ccode])+"\n"
+                                            ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(ageol[1][ccode].replace(" ","_").replace("-","_"))+"\n"
                                             #ls_dict_decimate[allpts] = {"id": id,"CODE":ageol[1]['CODE'],"GROUP_":ageol[1]['GROUP_'], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                             allc.write(agp+","+str(ageol[1][ocode])+","+ostr)
                                             allpts+=1    
@@ -264,7 +267,7 @@ def save_basal_no_faults(mname,path_out,path_fault,ls_dict,dist_buffer,ccode,gco
         if(cnf_copy.iloc[j].geom_type=="GeometryCollection"):#remove rows with geometry collections (== empty?)
             cnf_copy.drop([j-1,j],inplace=True)
         else: # save to dataframe
-            ls_nf[i]= {"id": i,"CODE":df.iloc[i][ccode],"GROUP_":df.iloc[i][gcode], "geometry": cnf_copy.iloc[j]}
+            ls_nf[i]= {"id": i,"CODE":df.iloc[i][ccode].replace(" ","_").replace("-","_"),"GROUP_":df.iloc[i][gcode].replace(" ","_").replace("-","_"), "geometry": cnf_copy.iloc[j]}
 
 
 
@@ -295,7 +298,7 @@ def save_contacts_with_faults_removed(mname,path_fault,path_out,dist_buffer,ls_d
     contacts_decimate_nofaults = contacts_nf_deci.difference(all_fz) #deletes contact nodes within buffer
     cnf_de_copy=contacts_decimate_nofaults.copy()
 
-    ac=open(path_out+'/'+mname+'_contacts4.txt',"w")
+    ac=open(path_out+'/'+mname+'_contacts4.csv',"w")
     ac.write("X,Y,Z,formation\n")
     i=0
     for cdn in contacts_decimate_nofaults:
@@ -304,7 +307,7 @@ def save_contacts_with_faults_removed(mname,path_fault,path_out,dist_buffer,ls_d
             locations=[(cdn.x,cdn.y)] #doesn't like point right on edge?
           
             height=m2l_utils.value_from_raster(dataset,locations)
-            ostr=str(cdn.x)+","+str(cdn.y)+","+height+","+str(df_nf.iloc[i][ccode])+"\n"
+            ostr=str(cdn.x)+","+str(cdn.y)+","+height+","+str(df_nf.iloc[i][ccode].replace(" ","_").replace("-","_"))+"\n"
             ac.write(ostr)
 
         i=i+1
@@ -314,9 +317,9 @@ def save_contacts_with_faults_removed(mname,path_fault,path_out,dist_buffer,ls_d
 #Save faults as contact info and make vertical (for the moment)
 def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fault_decimate):
     faults_clip=gpd.read_file(path_faults)
-    f=open(path_fault_orientations+'/'+mname+'_faults.txt',"w")
+    f=open(path_fault_orientations+'/'+mname+'_faults.csv',"w")
     f.write("X,Y,Z,formation\n")
-    fo=open(path_fault_orientations+'/'+mname+'_fault_orientations.txt',"w")
+    fo=open(path_fault_orientations+'/'+mname+'_fault_orientations.csv',"w")
     fo.write("X,Y,Z,azimuth,dip,polarity,formation\n")
 
     for flt in faults_clip.iterrows():
@@ -362,15 +365,15 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fa
 
 #Create basal contact points with orientation from orientations and basal points
 def create_basal_contact_orientations(mname,contacts,structures,output_path,dtm,dist_buffer,ccode,gcode,dcode,ddcode):
-    f=open(output_path+mname+'_projected_dip_contacts2.txt',"w")
+    f=open(output_path+mname+'_projected_dip_contacts2.csv',"w")
     f.write('X,Y,Z,azimuth,dip,polarity,formation\n')
     #print("len=",len(contacts))
     i=0
     for acontact in contacts.iterrows():   #loop through distinct linestrings
         #display(acontact[1].geometry)
-        thegroup=acontact[1][gcode]
+        thegroup=acontact[1][gcode].replace(" ","_").replace("-","_")
         #print("thegroup=",thegroup)
-        is_gp=structures[gcode] == thegroup # subset orientations to just those with this group
+        is_gp=structures[gcode].replace(" ","_").replace("-","_") == thegroup # subset orientations to just those with this group
         all_structures = structures[is_gp]
 
         for astr in all_structures.iterrows(): # loop through valid orientations
@@ -399,7 +402,7 @@ def create_basal_contact_orientations(mname,contacts,structures,output_path,dtm,
                                
                                 if (ddx*lsy)+(-ddy*lsx)<0: #dot product tests right quadrant
                                     ls_ddir=(ls_ddir-180)%360
-                                ostr=str(np.x)+","+str(np.y)+","+height+","+str(ls_ddir)+","+str(astr[1][dcode])+",1,"+acontact[1][ccode]+"\n" 
+                                ostr=str(np.x)+","+str(np.y)+","+height+","+str(ls_ddir)+","+str(astr[1][dcode])+",1,"+acontact[1][ccode].replace(" ","_").replace("-","_")+"\n" 
                                 f.write(ostr)
                                 i=i+1
 

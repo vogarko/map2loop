@@ -1,0 +1,9 @@
+finite fault elipsoids:
+length, depth, normal thickness
+
+geomod names have no spaces or hyphens
+all files as csv
+add ign fm to top of groups and to all_sorts
+ign intrusions use all contact points regardless of age
+fix bug in group fault relationships
+add fake data in each distinct fault/group contact 

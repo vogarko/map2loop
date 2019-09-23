@@ -127,8 +127,12 @@ test_data/tmp/*
 test_data/output/*
 test_data/dtm/*
 test_data/data/*.lock
+test_data2/tmp/*
+test_data2/output/*
+test_data2/dtm/*
+test_data2/data/*.lock
 notebooks/_cropped_DEM.tif
 notebooks/topo.xyz
 _cropped_DEM.tif
 topo.xyz
-
+test_model/*
