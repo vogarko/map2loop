@@ -28,7 +28,7 @@ def save_orientations(structures,mname,path_out,ddcode,dcode,ccode,orientation_d
     f.close()
 
 #Find those series that don't have any orientation or contact point data and add some random data
-def create_orientations(mname, path_in, dtm,geology,structures,ccode,gcode):
+def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gcode):
     f=open(path_in+'/'+mname+'_groups.txt',"r")
     contents =f.readlines()
     f.close
@@ -71,7 +71,7 @@ def create_orientations(mname, path_in, dtm,geology,structures,ccode,gcode):
 
     print("Contacts----------\n",len(set(all_codes)),set(all_codes))
 
-    f=open(path_in+'/'+mname+'_orientations.txt',"a")
+    f=open(path_out+'/'+mname+'_orientations.txt',"a")
 
     for i in range (0,ngroups):
         if(groups[i][1]==0):
