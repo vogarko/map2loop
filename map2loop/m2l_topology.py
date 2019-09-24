@@ -107,7 +107,7 @@ def save_group(G,mname,path_out,glabels):
     ag=open(path_out+"/"+mname+'_all_sorts.csv',"w")
     ag.write("index,group number,index in group, number in group,code,group\n")
     for i in range(1,int(hdr[1])+1):
-        f=open(path_out+"/"+contents[i].replace("\n","")+".csv","r")#check underscore
+        f=open(path_out+"/"+contents[i].replace("\n","").replace(" ","_")+".csv","r")#check underscore
         ucontents =f.readlines()
         f.close
         uhdr=ucontents[0].split(" ")

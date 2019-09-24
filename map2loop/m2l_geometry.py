@@ -371,9 +371,9 @@ def create_basal_contact_orientations(mname,contacts,structures,output_path,dtm,
     i=0
     for acontact in contacts.iterrows():   #loop through distinct linestrings
         #display(acontact[1].geometry)
-        thegroup=acontact[1][gcode].replace(" ","_").replace("-","_")
+        thegroup=acontact[1][gcode].replace("_"," ")
         #print("thegroup=",thegroup)
-        is_gp=structures[gcode].replace(" ","_").replace("-","_") == thegroup # subset orientations to just those with this group
+        is_gp=structures[gcode] == thegroup # subset orientations to just those with this group
         all_structures = structures[is_gp]
 
         for astr in all_structures.iterrows(): # loop through valid orientations
