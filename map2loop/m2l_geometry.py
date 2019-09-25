@@ -10,20 +10,20 @@ from math import acos, sqrt, cos, sin, degrees, radians, fabs, atan2
 import m2l_utils
 
 #Export orientation data in csv format with heights and strat code added
-def save_orientations(structures,mname,path_out,ddcode,dcode,ccode,orientation_decimate,dtm):
+def save_orientations(structures,mname,path_out,ddcode,dcode,ccode,rcode,orientation_decimate,dtm):
     i=0
     f=open(path_out+'/'+mname+'_orientations.csv',"w")
     f.write("X,Y,Z,azimuth,dip,polarity,formation\n")
     for apoint in structures.iterrows():
-        if(apoint[1][dcode]!=0 and m2l_utils.mod_safe(i,orientation_decimate)==0):
-            locations=[(apoint[1]['geometry'].x, apoint[1]['geometry'].y)]
-
-        if(apoint[1]['geometry'].x > dtm.bounds[0] and apoint[1]['geometry'].x < dtm.bounds[2] and  
-               apoint[1]['geometry'].y > dtm.bounds[1] and apoint[1]['geometry'].y < dtm.bounds[3]):       
-                height=m2l_utils.value_from_raster(dtm,locations)
-                ostr=str(apoint[1]['geometry'].x)+","+str(apoint[1]['geometry'].y)+","+height+","+str(apoint[1][ddcode])+","+str(apoint[1][dcode])+",1,"+str(apoint[1][ccode].replace(" ","_").replace("-","_"))+"\n"
-                f.write(ostr)
-                i+=1
+        if(not 'intrusive' in apoint[1][rcode]):
+            if(apoint[1][dcode]!=0 and m2l_utils.mod_safe(i,orientation_decimate)==0):
+                locations=[(apoint[1]['geometry'].x, apoint[1]['geometry'].y)]
+                if(apoint[1]['geometry'].x > dtm.bounds[0] and apoint[1]['geometry'].x < dtm.bounds[2] and  
+                    apoint[1]['geometry'].y > dtm.bounds[1] and apoint[1]['geometry'].y < dtm.bounds[3]):       
+                    height=m2l_utils.value_from_raster(dtm,locations)
+                    ostr=str(apoint[1]['geometry'].x)+","+str(apoint[1]['geometry'].y)+","+height+","+str(apoint[1][ddcode])+","+str(apoint[1][dcode])+",1,"+str(apoint[1][ccode].replace(" ","_").replace("-","_"))+"\n"
+                    f.write(ostr)
+                    i+=1
         
     f.close()
 
@@ -79,7 +79,7 @@ def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gc
     for i in range (0,ngroups):
         if(groups[i][1]==0):
             for ageol in geology.iterrows():
-                if(ageol[1][ccode]==groups[i][0] and groups[i][1]==0):
+                if(ageol[1][ccode].replace("-","_")==groups[i][0] and groups[i][1]==0):
                     apoly=Polygon(ageol[1]['geometry'])
                     apoint=apoly.representative_point()
                     #print(apoint.x,apoint.y)
