@@ -1,0 +1,20 @@
+7 Boongal Formation
+18 Bunjinah Formation
+8 Fortescue Group
+6 Hardey Formation
+17 Mount Roe Basalt
+1 Pyradie Formation
+15 Rocklea Inlier greenstones
+5 Rocklea Inlier metagranitic unit
+
+1 8 1
+5 6 1
+5 15 1
+5 17 1
+6 15 1
+6 17 1
+6 8 1
+17 15 1
+1 7 1
+1 18 1
+6 7 1
