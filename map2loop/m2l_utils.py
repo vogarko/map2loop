@@ -11,9 +11,10 @@ from rasterio import features
 import re
 from urllib.request import urlopen
 from PIL import Image
+from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow
 
 def v():
-    print('0.0.30')
+    print('0.0.31')
     
 #first test
 def hw():
@@ -382,4 +383,27 @@ def have_access(url):
         conn.close()
         display(Image.open("./graphics/no.png"))
         print("NOT available: "+url)
+
+def ddd2dircos(dip,dipdir):
+    l = sin(radians(dipdir))*cos(radians(90-dip))
+    m = cos(radians(dipdir))*cos(radians(90-dip))
+    n = sin(radians(90-dip))
+    return(l,m,n)
+
+def dircos2ddd(l,m,n):
+    if(m>0):
+        dipdir=(360+degrees(atan(l/m)))%360
+    else:
+        dipdir=(540+degrees(atan(l/m)))%360
+    dip =90-degrees(asin(n))
+    return(dip,dipdir)
+
+def pts2dircos(p1x,p1y,p2x,p2y):
+    dlsx=p1x-p2x
+    dlsy=p1y-p2y
+    if(p1x==p2x and p1y==p2y):
+        return(0,0)
+    l=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
+    m=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))        
+    return(l,m)
     
