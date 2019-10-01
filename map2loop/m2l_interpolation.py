@@ -59,14 +59,14 @@ def plot(x,y,z,grid):
 def call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny):
     # Calculate IDW or other interpolators
 
-    display(x)
-    display(y)
-    display(l)
-    display(m)
-    display(xi)
-    display(yi)
-    display(nx)
-    display(ny)
+    #display(x)
+    #display(y)
+    #display(l)
+    #display(m)
+    #display(xi)
+    #display(yi)
+    #display(nx)
+    #display(ny)
         
     if(calc=='simple_idw'):
         ZIl = simple_idw(x,y,l,xi,yi)
@@ -196,6 +196,10 @@ def interpolate_orientations(structure_file,output_path,bbox,dcode,ddcode,gcode,
     fl.close()
     fm.close()
     fn.close()
+    
+    fig, ax = plt.subplots(figsize=(10, 10),)
+    q = ax.quiver(xi, yi, -ZIm, ZIl,headwidth=0)
+    plt.show()
 
 def interpolate_contacts(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,gridx,gridy):
     print(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,gridx,gridy)
@@ -306,6 +310,8 @@ def interpolate_contacts(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,g
     fi.close()
     fl.close()
     fm.close()
+    fig, ax = plt.subplots(figsize=(10, 10))
+    q = ax.quiver(xi, yi, -ZIm, ZIl,headwidth=0)
     plt.show()
     
 def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_reproj_file,ccode,lo,mo,no,lc,mc,xy,dst_crs,bbox):
