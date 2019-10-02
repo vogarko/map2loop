@@ -341,7 +341,7 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fa
             #print(flt_ls)
 
             i=0
-            print(len(flt_ls.coords))
+            #print(len(flt_ls.coords))
             for afs in flt_ls.coords:
                 #print(afs[1])
                 if(m2l_utils.mod_safe(i,fault_decimate)==0 or i==int((len(flt_ls.coords)-1)/2) or i==len(flt_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
@@ -361,7 +361,7 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fa
             #angle = acos(lsx)
             azimuth=degrees(atan2(lsy,-lsx)) % 180 #normal to line segment           
             #azimuth = (degrees(angle) + 360) % 180 
-            print(azimuth)
+            #print(azimuth)
             locations=[(flt_ls.coords[int((len(afs)-1)/2)][0],flt_ls.coords[int((len(afs)-1)/2)][1])]     
             height=m2l_utils.value_from_raster(dataset,locations)
             ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+",90,1,"+fault_name+"\n"
