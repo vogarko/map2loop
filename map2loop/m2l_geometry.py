@@ -168,7 +168,10 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                 #print("lenlenlen",len(LineStringC))
                                 
                                 #display(LineStringC)
-                                ls_dict[id] = {"id": id,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": LineStringC}
+                                if(str(ageol[1][gcode])=='None'):
+                                    ls_dict[id] = {"id": id,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][ccode].replace(" ","_").replace("-","_"), "geometry": LineStringC}
+                                else:
+                                    ls_dict[id] = {"id": id,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": LineStringC}
                                 id=id+1
                                 for lineC in LineStringC: #process all linestrings
                                     #if(contact_decimate!=0): #decimate to reduce number of points
@@ -181,7 +184,11 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                                 ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(ageol[1][ccode].replace(" ","_").replace("-","_"))+"\n"
                                                 ac.write(ostr)
                                                 allc.write(agp+","+str(ageol[1][ocode])+","+ostr)
-                                                ls_dict_decimate[allpts] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                if(str(ageol[1][gcode])=='None'):
+                                                    ls_dict_decimate[id] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][ccode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                else:
+                                                    ls_dict_decimate[id] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                #ls_dict_decimate[allpts] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                 allpts+=1 
                                         else:
                                             continue
@@ -263,9 +270,9 @@ def save_basal_no_faults(mname,path_out,path_fault,ls_dict,dist_buffer,ccode,gco
     print(contacts_nofaults.shape)
     for i in range(0,len(contacts_nofaults)): 
         j=len(contacts_nofaults)-i-1
-
+        #print(j)
         if(cnf_copy.iloc[j].geom_type=="GeometryCollection"):#remove rows with geometry collections (== empty?)
-            cnf_copy.drop([j-1,j],inplace=True)
+            cnf_copy.drop([j,j],inplace=True)
         else: # save to dataframe
             ls_nf[i]= {"id": i,"CODE":df.iloc[i][ccode].replace(" ","_").replace("-","_"),"GROUP_":df.iloc[i][gcode].replace(" ","_").replace("-","_"), "geometry": cnf_copy.iloc[j]}
 
