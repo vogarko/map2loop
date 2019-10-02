@@ -311,7 +311,7 @@ def interpolate_contacts(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,g
     fl.close()
     fm.close()
     fig, ax = plt.subplots(figsize=(10, 10))
-    q = ax.quiver(xi, yi, -ZIm, ZIl,headwidth=0)
+    q = ax.quiver(xi, yi, ZIl, ZIm,headwidth=0)
     plt.show()
     
 def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_reproj_file,ccode,lo,mo,no,lc,mc,xy,dst_crs,bbox):
