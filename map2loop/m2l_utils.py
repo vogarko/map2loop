@@ -14,7 +14,7 @@ from PIL import Image
 from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow
 
 def v():
-    print('0.0.33')
+    print('0.0.34')
     
 #first test
 def hw():
