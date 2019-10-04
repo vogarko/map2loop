@@ -41,6 +41,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Clipped fault & fold axial traces shapefile  | \*/tmp/faults_clip.shp | Notebook 2 |  2 |
 | Clipped orientations shapefile  | \*/tmp/structure_clip.shp | Notebook 2 |  2 |
 | Various topology graphs  | \*/graph/\*.gml | map2model cpp code in Notebook 1 |  1 |
+| Basic vtk model thanks to gempy  | \*/vtk/\*.vtp | gempy |  3 |
 
   
 Does not deal with sills yet.  

@@ -132,6 +132,8 @@ test_data2/output/*
 test_data2/dtm/*
 test_data2/data/*.lock
 test_data2/vtk*
+test_data3/data/*.lock
+test_data3/tmp/*.lock
 notebooks/_cropped_DEM.tif
 notebooks/topo.xyz
 _cropped_DEM.tif

@@ -100,7 +100,7 @@ def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gc
     f.close()
 
 #Export contact information subset of each polygon to csv format
-def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode):
+def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode,dscode):
     print("decimation: 1 /",contact_decimate)
 
     ## Reproject topography to approriate metre-based CRS
@@ -125,6 +125,7 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
     print(dtm.bounds)
     j=0
     allpts=0
+    deci_points=0
     ls_dict={}
     ls_dict_decimate={}
     id=0
@@ -142,7 +143,7 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
             central_poly=ageol[1].geometry
             for bgeol in geol_clip.iterrows(): #potential neighbouring polygons  
                 if(ageol[1].geometry!=bgeol[1].geometry): #do not compare with self
-                    if (ageol[1].geometry.intersects(bgeol[1].geometry)): # is a neighbour
+                    if (ageol[1].geometry.intersects(bgeol[1].geometry) and not 'sill' in bgeol[1][dscode]): # is a neighbour
                         neighbours.append([(bgeol[1][ccode].replace(" ","_").replace("-","_"),bgeol[1].geometry)])  
 
             if(len(neighbours) >0):
@@ -151,7 +152,7 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                     #print(out)
                     if(len(out)>0):
                         #if(out[0][0] > central and out[0][0] < youngest_older): # neighbour is older than central, and younger than previous candidate
-                        if(out[0][0] > central ): # neighbour is older than central
+                        if(out[0][0] > central  ): # neighbour is older than central
                             older_polygon=neighbours[i][0][1]
                             if(not central_poly.is_valid ):
                                 central_poly = central_poly.buffer(0)
@@ -186,11 +187,12 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                                 ac.write(ostr)
                                                 allc.write(agp+","+str(ageol[1][ocode])+","+ostr)
                                                 if(str(ageol[1][gcode])=='None'):
-                                                    ls_dict_decimate[id] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][ccode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                    ls_dict_decimate[deci_points] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][ccode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                 else:
-                                                    ls_dict_decimate[id] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                    ls_dict_decimate[deci_points] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                 #ls_dict_decimate[allpts] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                 allpts+=1 
+                                                deci_points=deci_points+1
                                         else:
                                             continue
                                             #print("debug:edge points")
@@ -249,7 +251,7 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
 
     ac.close()
     allc.close()
-    print("allpts=",allpts)
+    print("allpts=",allpts,"deci_pts=",deci_points)
     return(ls_dict,ls_dict_decimate)
 
 #Remove all basal contacts that are defined by faults and save to shapefile (no decimation)
@@ -293,35 +295,36 @@ def save_contacts_with_faults_removed(mname,path_fault,path_out,dist_buffer,ls_d
 
     df = DataFrame.from_dict(ls_dict, "index")
     contacts = GeoDataFrame(df,crs=dst_crs, geometry='geometry')
-
     fault_zone = faults_clip.buffer(dist_buffer) #defines buffer around faults where strat nodes will be removed
     all_fz = fault_zone.unary_union
-
-    print(len(ls_dict_decimate))
+    #display(all_fz)
+    print("undecimated points:",len(ls_dict_decimate))
     df_nf = DataFrame.from_dict(ls_dict_decimate, "index")
 
     contacts_nf_deci = GeoDataFrame(df_nf,crs=dst_crs, geometry='geometry')
- 
- 
-    contacts_decimate_nofaults = contacts_nf_deci.difference(all_fz) #deletes contact nodes within buffer
+    
+    #contacts_decimate_nofaults = contacts_nf_deci.difference(all_fz) #deletes contact nodes within buffer
+    
+    contacts_decimate_nofaults = contacts_nf_deci[~contacts_nf_deci.geometry.within(all_fz)]
+    
     cnf_de_copy=contacts_decimate_nofaults.copy()
-
+    
     ac=open(path_out+'/'+mname+'_contacts4.csv',"w")
     ac.write("X,Y,Z,formation\n")
     i=0
-    for cdn in contacts_decimate_nofaults:
-        if(not cdn.geom_type=="GeometryCollection"):
+    for cdn in contacts_decimate_nofaults.iterrows():
+        if(not cdn[1].geometry.geom_type=="GeometryCollection"):
             #print(cdn.x,cdn.y)
-            locations=[(cdn.x,cdn.y)] #doesn't like point right on edge?
+            locations=[(cdn[1].geometry.x,cdn[1].geometry.y)] #doesn't like point right on edge?
           
             height=m2l_utils.value_from_raster(dataset,locations)
-            ostr=str(cdn.x)+","+str(cdn.y)+","+height+","+str(df_nf.iloc[i][ccode].replace(" ","_").replace("-","_"))+"\n"
+            ostr=str(cdn[1].geometry.x)+","+str(cdn[1].geometry.y)+","+height+","+str(cdn[1][ccode].replace(" ","_").replace("-","_"))+"\n"
             ac.write(ostr)
 
         i=i+1
     ac.close()
     print("decimated points:",i)
-
+    
 #Save faults as contact info and make vertical (for the moment)
 def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fault_decimate):
     faults_clip=gpd.read_file(path_faults)
