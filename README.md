@@ -14,7 +14,8 @@ A package to extract information from geological maps to feed 3D modelling packa
   
 #### map2loop outputs:
   
-| content | filename | created by | Example Notebook |
+| content | filename | created by | example notebook |
+| ----- | ----- | ----- | ----- |
 | dtm in lat long wgs83 | */dtm/*_dtm.tif | m2l_utils.get_dtm |  Notebook 2 |
 | georeferenced dtm | */dtm/*_dtm_rp.tif| m2l_utils.reproject_dtm | Notebook 2 |
 | Bed dip dd data with z and formation | */output/*_orientations.csv | m2l_geometry.save_orientations | Notebook 2 |
