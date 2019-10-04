@@ -1,0 +1,79 @@
+6 A-FO-od
+0 A-FO-xo-a
+5 A-FOh-xs-f
+4 A-FOj-xs-b
+12 A-FOo-bbo
+3 A-FOp-bs
+28 A-FOr-b
+13 A-FOu-bbo
+8 A-HAd-kd
+9 A-HAm-cib
+1 A-HAu-xsl-ci
+23 A-b-PRK
+15 A-mgn-PMI
+25 A-mgn-PRK
+14 A-s-PMI
+24 A-s-PRK
+2 P_-HAb-cib
+7 P_-HAj-xci-od
+10 P_-HAo-ci
+16 P_-HAw-fr
+20 P_-SKb-bb
+21 P_-SKq-stq
+11 P_-TK-s
+26 P_-TKa-xs-k
+19 P_-TKk-sf
+22 P_-TKo-stq
+27 P_-WYa-s
+18 P_-WYd-kd
+17 P_-WYm-sp
+
+0 13 0
+0 6 1
+2 1 0
+7 2 0
+0 3 0
+6 3 0
+4 6 1
+6 5 0
+12 5 0
+5 15 0
+1 9 0
+8 9 0
+1 8 0
+2 8 0
+11 10 0
+10 16 1
+9 6 0
+13 3 0
+9 4 0
+0 12 0
+6 12 0
+4 13 0
+6 13 0
+0 5 0
+16 7 0
+1 4 0
+17 18 1
+17 19 0
+17 20 0
+17 21 0
+20 19 0
+19 21 1
+19 22 1
+19 26 1
+20 21 0
+22 26 1
+5 24 0
+5 25 0
+5 23 0
+5 28 0
+25 23 0
+28 25 0
+21 11 1
+28 23 0
+3 12 0
+5 14 0
+27 18 0
+19 10 0
+21 26 1

@@ -201,7 +201,7 @@ def interpolate_orientations(structure_file,output_path,bbox,dcode,ddcode,gcode,
     q = ax.quiver(xi, yi, -ZIm, ZIl,headwidth=0)
     plt.show()
 
-def interpolate_contacts(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,gridx,gridy):
+def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,ccode,calc,gridx,gridy):
     print(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,gridx,gridy)
     geol_file = gpd.read_file(geology_file,bbox=bbox)
     print(len(geol_file))
@@ -216,12 +216,12 @@ def interpolate_contacts(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,g
     yi = np.linspace(bbox[1],bbox[3], ny-1)
     xi, yi = np.meshgrid(xi, yi)
     xi, yi = xi.flatten(), yi.flatten()
-    x = np.zeros(10000)
-    y = np.zeros(10000)
-    l = np.zeros(10000)
-    m = np.zeros(10000)
+    x = np.zeros(20000)
+    y = np.zeros(20000)
+    l = np.zeros(20000)
+    m = np.zeros(20000)
     f=open(output_path+'raw_contacts.csv','w')
-    f.write("x,y,angle,lsx,lsy\n")
+    f.write("X,Y,Z,angle,lsx,lsy,formation,group\n")
     j=0
     i=0
     for acontact in geol_file.iterrows():   #loop through distinct linestrings in MultiLineString
@@ -242,8 +242,12 @@ def interpolate_contacts(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,g
                         angle=degrees(atan2(lsx,lsy))
                         l[i]=lsx
                         m[i]=lsy
-                        ostr=str(x[i])+","+str(y[i])+","+str(angle%180)+","+str(lsx)+","+str(lsy)+"\n"
-                        #print(ostr)
+                        locations=[(x[i],y[i])] #doesn't like point right on edge?
+                        height=m2l_utils.value_from_raster(dtm,locations)
+                        if(str(acontact[1][gcode])=='None'):
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][ccode].replace(" ","_").replace("-","_")+"\n"
+                        else:
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][gcode].replace(" ","_").replace("-","_")+"\n"
                         f.write(ostr)
                         npts=npts+1
                 i=i+1
@@ -313,6 +317,76 @@ def interpolate_contacts(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,g
     fig, ax = plt.subplots(figsize=(10, 10))
     q = ax.quiver(xi, yi, ZIl, ZIm,headwidth=0)
     plt.show()
+
+def save_contact_vectors(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,ccode,calc,decimate):
+    print(geology_file,output_path,bbox,dcode,ddcode,gcode,calc)
+    geol_file = gpd.read_file(geology_file,bbox=bbox)
+    print(len(geol_file))
+    geol_file.plot( color='black',edgecolor='black') 
+    
+    npts = 0
+    x = np.zeros(20000)
+    y = np.zeros(20000)
+    l = np.zeros(20000)
+    m = np.zeros(20000)
+    
+    f=open(output_path+'raw_contacts.csv','w')
+    f.write("X,Y,Z,angle,lsx,lsy,formation,group\n")
+    j=0
+    i=0
+    for acontact in geol_file.iterrows():   #loop through distinct linestrings in MultiLineString
+        if(acontact[1].geometry.type=='MultiLineString'):
+            #print(i)
+            for line in acontact[1].geometry: # loop through line segments
+                #print(i,len(acontact[1].geometry))
+                if(i%decimate ==0):
+                    #if(acontact[1]['id']==170): 
+                        #display(npts,line.coords[0][0],line.coords[1][0]) 
+                    dlsx=line.coords[0][0]-line.coords[1][0]
+                    dlsy=line.coords[0][1]-line.coords[1][1]
+                    if(not line.coords[0][0]==line.coords[1][0] or not line.coords[0][1]==line.coords[1][1]):               
+                        lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
+                        lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))
+                        x[i]=line.coords[1][0]+(dlsx/2)
+                        y[i]=line.coords[1][1]+(dlsy/2)
+                        angle=degrees(atan2(lsx,lsy))
+                        l[i]=lsx
+                        m[i]=lsy
+                        locations=[(x[i],y[i])] #doesn't like point right on edge?
+                        height=m2l_utils.value_from_raster(dtm,locations)
+                        if(str(acontact[1][gcode])=='None'):
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][ccode].replace(" ","_").replace("-","_")+"\n"
+                        else:
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][gcode].replace(" ","_").replace("-","_")+"\n"
+                        f.write(ostr)
+                        npts=npts+1
+                i=i+1
+        else:
+            #display(acontact[1].geometry,acontact[1].geometry.coords)
+            #for line in acontact[1]: # loop through line segments in LineString
+            if(  i%decimate ==0):
+                dlsx=acontact[1].geometry.coords[0][0]-acontact[1].geometry.coords[1][0]
+                dlsy=acontact[1].geometry.coords[0][1]-acontact[1].geometry.coords[1][1]
+                if(not acontact[1].geometry.coords[0][0]==acontact[1].geometry.coords[1][0] 
+                   or not acontact[1].geometry.coords[0][1]==acontact[1].geometry.coords[1][1]):
+                    lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
+                    lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))
+                    x[i]=acontact[1].geometry.coords[1][0]+(dlsx/2)
+                    y[i]=acontact[1].geometry.coords[1][1]+(dlsy/2)
+                    angle=degrees(atan2(lsx,lsy))
+                    l[i]=lsx
+                    m[i]=lsy
+                    ostr=str(x[i])+","+str(y[i])+","+str(angle%180)+","+str(lsx)+","+str(lsy)+"\n"
+                    #print(ostr)
+                    f.write(ostr)
+                    print(npts,dlsx,dlsy)
+                    npts=npts+1
+                i=i+1
+        j=j+1
+    f.close()
+    print(npts,'points saved to',output_path+'raw_contacts.csv')
+
+
     
 def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_reproj_file,ccode,lo,mo,no,lc,mc,xy,dst_crs,bbox):
     f=open(combo_file,'w')

@@ -140,3 +140,4 @@ test_model/*
 .idea/*
 m2m_cpp/*
 m2m_cpp/map2model.exe
+test_data2/old*

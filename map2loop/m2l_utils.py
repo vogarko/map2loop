@@ -10,11 +10,11 @@ from rasterio.transform import from_origin
 from rasterio import features
 import re
 from urllib.request import urlopen
-from PIL import Image
+from IPython.display import Image
 from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow
 
 def v():
-    print('0.0.34')
+    print('0.0.43')
     
 #first test
 def hw():
@@ -377,11 +377,11 @@ def have_access(url):
     try:
         conn.request("HEAD", "/")
         conn.close()
-        display(Image.open("./graphics/yes.png"))
+        Image(url='../graphics/yes.png')
         print("available: "+url)
     except:
         conn.close()
-        display(Image.open("./graphics/no.png"))
+        Image(url='../graphics/no.png')
         print("NOT available: "+url)
 
 def ddd2dircos(dip,dipdir):

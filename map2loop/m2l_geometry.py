@@ -74,7 +74,8 @@ def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gc
 
     print("Contacts----------\n",len(set(all_codes)),set(all_codes))
 
-    f=open(path_out+'/'+mname+'_orientations.csv',"a")
+    f=open(path_out+'/'+mname+'_empty_series_orientations.csv',"w")
+    f.write("X,Y,Z,azimuth,dip,polarity,formation\n")
 
     for i in range (0,ngroups):
         if(groups[i][1]==0):
@@ -117,7 +118,7 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
         ulist.append([i, cont_list[4].replace("\n","")])
     print(ulist)
 
-    allc=open(path_in+'/'+mname+'all_contacts.csv',"w")
+    allc=open(path_in+'/'+mname+'_all_contacts.csv',"w")
     allc.write('GROUP_,id,x,y,z,code\n')
     ac=open(path_in+'/'+mname+'_contacts.csv',"w")
     ac.write("X,Y,Z,formation\n")
@@ -274,7 +275,7 @@ def save_basal_no_faults(mname,path_out,path_fault,ls_dict,dist_buffer,ccode,gco
         if(cnf_copy.iloc[j].geom_type=="GeometryCollection"):#remove rows with geometry collections (== empty?)
             cnf_copy.drop([j,j],inplace=True)
         else: # save to dataframe
-            ls_nf[i]= {"id": i,"CODE":df.iloc[i][ccode].replace(" ","_").replace("-","_"),"GROUP_":df.iloc[i][gcode].replace(" ","_").replace("-","_"), "geometry": cnf_copy.iloc[j]}
+            ls_nf[j]= {"id": j,"CODE":df.iloc[j][ccode].replace(" ","_").replace("-","_"),"GROUP_":df.iloc[j][gcode].replace(" ","_").replace("-","_"), "geometry": cnf_copy.iloc[j]}
 
 
 
@@ -347,7 +348,7 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fa
                 if(m2l_utils.mod_safe(i,fault_decimate)==0 or i==int((len(flt_ls.coords)-1)/2) or i==len(flt_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
                     locations=[(afs[0],afs[1])]     
                     height=m2l_utils.value_from_raster(dataset,locations)
-                    ostr=str(afs[0])+","+str(afs[1])+","+height+","+fault_name+"\n"
+                    ostr=str(afs[0])+","+str(afs[1])+","+str(height)+","+fault_name+"\n"
                     f.write(ostr)                
                 i=i+1  
             #print(flt_ls.coords[0][0],flt_ls.coords[0][1],flt_ls.coords[len(flt_ls.coords)-1][0],flt_ls.coords[len(flt_ls.coords)-1][1])
@@ -368,6 +369,28 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fa
             fo.write(ostr)
 
     f.close()
+    fo.close()
+    
+#Save fold axial traces 
+def save_fold_axial_traces(mname,path_folds,path_fold_orientations,dataset,ocode,tcode,fcode,fold_decimate):
+    folds_clip=gpd.read_file(path_folds)
+    fo=open(path_fold_orientations+'/'+mname+'_fold_axial_traces.csv',"w")
+    fo.write("X,Y,Z,code,type\n")
+
+    for fold in folds_clip.iterrows():
+        fold_name=str(fold[1][ocode])   
+        fold_ls=LineString(fold[1].geometry)
+
+        i=0
+        for afs in fold_ls.coords:
+            if('Fold' in fold[1][fcode]):
+                if(m2l_utils.mod_safe(i,fold_decimate)==0 or i==int((len(fold_ls.coords)-1)/2) or i==len(fold_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
+                    locations=[(afs[0],afs[1])]     
+                    height=m2l_utils.value_from_raster(dataset,locations)
+                    ostr=str(afs[0])+','+str(afs[1])+','+str(height)+','+'FA_'+fold_name+','+fold[1][tcode].replace(',','')+'\n'
+                    fo.write(ostr)                
+            i=i+1  
+
     fo.close()
 
 #Create basal contact points with orientation from orientations and basal points
