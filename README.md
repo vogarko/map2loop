@@ -25,7 +25,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Fault orientation with z | */output/*_fault_orientations.csv | m2l_geometry. save_faults |  2 |
 | Pluton contacts with z and formation | */output/ign_contacts.csv | Notebook 8 |  8 |
 | Pluton contact orientations | */output/ign_orientations_*.csv | Notebook 8 |  8 |
-| Interpolated d dd grid | */tmp/interpolation_scipy_rbf.csv | m2l_interpolation. interpolate_orientations | Noebook 4 |
+| Interpolated dip dip direction grid | */tmp/interpolation_scipy_rbf.csv | m2l_interpolation. interpolate_orientations |  4 |
 | Interpolated contact vector grid | */tmp/interpolation_contacts_scipy_rbf.csv | m2l_interpolation. interpolate_contacts |  5 |
 | Combined interpolation grid | */tmp/combo_full.csv | m2l_interpolation. join_contacts_and_orientations |  6 |
 | Fault-fault relationship table | */output/fault-fault-relationships.csv | Notebook 7 |  7 |
@@ -50,7 +50,7 @@ Standalone map2model cpp code from Vitaliy provides fault/fault and fault/strat 
 #### Installation
 For the moment installation uses:<br>
 
-pip install --index-url https://test.pypi.org/simple/ --no-deps map2loop 
+pip install --index-url https://test.pypi.org/simple/ --no-deps map2loop  
 or   
 setup.py install
   
