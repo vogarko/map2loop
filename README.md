@@ -4,7 +4,10 @@ A package to extract information from geological maps to feed 3D modelling packa
 
 #### What it does:
   
-- Inputs: (example data supplied)  
+-  Combines information extracted from geology map in various forms to supoprt 3D geological modelling. Outputs are simple csv files that should be readble by any 3D mdoelling system (I think).
+
+#### Inputs: (example data supplied) 
+   
 - Geology Polygons  
 - Fault and fold axial trace PolyLines  
 - Structure measurements (bed dips)
