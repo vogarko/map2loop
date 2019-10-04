@@ -14,7 +14,7 @@ from IPython.display import Image
 from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow
 
 def v():
-    print('0.0.43')
+    print('0.0.44')
     
 #first test
 def hw():
