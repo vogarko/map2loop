@@ -5,12 +5,10 @@ A package to extract information from geological maps to feed 3D modelling packa
 #### What it does:
   
 - Inputs: (example data supplied)  
-- Graph from Vitaliy's map2model ArcPlugin (and soon via standalone code)  
 - Geology Polygons  
-- Fault PolyLines  
+- Fault and fold axial trace PolyLines  
 - Structure measurements (bed dips)
-- Fold axial traces
-- Interoplated structural data  
+- Graph from Vitaliy's map2model cpp code 
   
 #### map2loop outputs:
   
