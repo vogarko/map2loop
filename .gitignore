@@ -136,6 +136,7 @@ test_data3/data/*.lock
 test_data3/tmp/*.lock
 notebooks/_cropped_DEM.tif
 notebooks/topo.xyz
+notebooks/old/*
 _cropped_DEM.tif
 topo.xyz
 test_model/*

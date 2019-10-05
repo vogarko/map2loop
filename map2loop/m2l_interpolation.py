@@ -229,7 +229,7 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
             #print(i)
             for line in acontact[1].geometry: # loop through line segments
                 #print(i,len(acontact[1].geometry))
-                if(i%decimate ==0):
+                if(m2l_utils.mod_safe(i,decimate)  ==0):
                     #if(acontact[1]['id']==170): 
                         #display(npts,line.coords[0][0],line.coords[1][0]) 
                     dlsx=line.coords[0][0]-line.coords[1][0]
@@ -254,7 +254,7 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
         else:
             #display(acontact[1].geometry,acontact[1].geometry.coords)
             #for line in acontact[1]: # loop through line segments in LineString
-            if(  i%decimate ==0):
+            if(  m2l_utils.mod_safe(i,decimate)  ==0):
                 dlsx=acontact[1].geometry.coords[0][0]-acontact[1].geometry.coords[1][0]
                 dlsy=acontact[1].geometry.coords[0][1]-acontact[1].geometry.coords[1][1]
                 if(not acontact[1].geometry.coords[0][0]==acontact[1].geometry.coords[1][0] 
@@ -318,8 +318,8 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
     q = ax.quiver(xi, yi, ZIl, ZIm,headwidth=0)
     plt.show()
 
-def save_contact_vectors(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,ccode,calc,decimate):
-    print(geology_file,output_path,bbox,dcode,ddcode,gcode,calc)
+def save_contact_vectors(geology_file,tmp_path,dtm,bbox,dcode,ddcode,gcode,ccode,calc,decimate):
+    print(geology_file,tmp_path,bbox,dcode,ddcode,gcode,calc)
     geol_file = gpd.read_file(geology_file,bbox=bbox)
     print(len(geol_file))
     geol_file.plot( color='black',edgecolor='black') 
@@ -330,7 +330,7 @@ def save_contact_vectors(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
     l = np.zeros(20000)
     m = np.zeros(20000)
     
-    f=open(output_path+'raw_contacts.csv','w')
+    f=open(tmp_path+'raw_contacts.csv','w')
     f.write("X,Y,Z,angle,lsx,lsy,formation,group\n")
     j=0
     i=0
@@ -339,7 +339,7 @@ def save_contact_vectors(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
             #print(i)
             for line in acontact[1].geometry: # loop through line segments
                 #print(i,len(acontact[1].geometry))
-                if(i%decimate ==0):
+                if(m2l_utils.mod_safe(i,decimate)  ==0):
                     #if(acontact[1]['id']==170): 
                         #display(npts,line.coords[0][0],line.coords[1][0]) 
                     dlsx=line.coords[0][0]-line.coords[1][0]
@@ -364,7 +364,7 @@ def save_contact_vectors(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
         else:
             #display(acontact[1].geometry,acontact[1].geometry.coords)
             #for line in acontact[1]: # loop through line segments in LineString
-            if(  i%decimate ==0):
+            if(  m2l_utils.mod_safe(i,decimate)  ==0):
                 dlsx=acontact[1].geometry.coords[0][0]-acontact[1].geometry.coords[1][0]
                 dlsy=acontact[1].geometry.coords[0][1]-acontact[1].geometry.coords[1][1]
                 if(not acontact[1].geometry.coords[0][0]==acontact[1].geometry.coords[1][0] 
@@ -376,7 +376,9 @@ def save_contact_vectors(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
                     angle=degrees(atan2(lsx,lsy))
                     l[i]=lsx
                     m[i]=lsy
-                    ostr=str(x[i])+","+str(y[i])+","+str(angle%180)+","+str(lsx)+","+str(lsy)+"\n"
+                    locations=[(x[i],y[i])] #doesn't like point right on edge?
+                    height=m2l_utils.value_from_raster(dtm,locations)
+                    ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][gcode].replace(" ","_").replace("-","_")+"\n"
                     #print(ostr)
                     f.write(ostr)
                     print(npts,dlsx,dlsy)
@@ -384,7 +386,7 @@ def save_contact_vectors(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
                 i=i+1
         j=j+1
     f.close()
-    print(npts,'points saved to',output_path+'raw_contacts.csv')
+    print(npts,'points saved to',tmp_path+'raw_contacts.csv')
 
 
     
