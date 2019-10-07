@@ -200,6 +200,8 @@ def interpolate_orientations(structure_file,output_path,bbox,dcode,ddcode,gcode,
     fig, ax = plt.subplots(figsize=(10, 10),)
     q = ax.quiver(xi, yi, -ZIm, ZIl,headwidth=0)
     plt.show()
+    print("orientations interpolated as dip dip direction",output_path+'interpolation_'+calc+'.csv')
+    print("orientations interpolated as l,m,n dir cos",output_path+'interpolation_l.csv etc.')
 
 def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,ccode,calc,gridx,gridy):
     print(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,gridx,gridy)
@@ -274,7 +276,7 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
                 i=i+1
         j=j+1
     f.close()
-    print("i",i,"npts",npts)
+    #print("i",i,"npts",npts)
 
     for i in range(0,npts):
         x[i]=x[i]+(np.random.ranf()*0.01)
@@ -317,6 +319,8 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
     fig, ax = plt.subplots(figsize=(10, 10))
     q = ax.quiver(xi, yi, ZIl, ZIm,headwidth=0)
     plt.show()
+    print("contacts interpolated as strike",output_path+'interpolation_contacts_'+calc+'.csv')
+    print("contacts interpolated as l,m dir cos",output_path+'interpolation_contacts_l.csv etc.')
 
 def save_contact_vectors(geology_file,tmp_path,dtm,bbox,dcode,ddcode,gcode,ccode,calc,decimate):
     print(geology_file,tmp_path,bbox,dcode,ddcode,gcode,calc)
@@ -439,4 +443,6 @@ def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_repro
 
         if(not str(a_point[1][ccode])=='nan'):
             f.write(ostr)
-    f.close()   
+    f.close()  
+    print("contacts and orientations interpolated as dip dip direction",output_path+'combo_full.csv')
+ 

@@ -95,7 +95,8 @@ def get_dtm(path_out, minlong,maxlong,minlat,maxlat,step_out):
 
     new_dataset.write(OPeNDAP, 1)
     new_dataset.close()
-
+    print("dtm geotif saved as",path_out)
+    
 #reproject a dtm 
 def reproject_dtm(path_in,path_out,src_crs,dst_crs):
     with rasterio.open(path_in) as src:
@@ -120,6 +121,8 @@ def reproject_dtm(path_in,path_out,src_crs,dst_crs):
                     dst_transform=transform,
                     dst_crs=dst_crs,
                     resampling=Resampling.nearest)
+                    
+    print("reprojected dtm geotif saved as",path_out)
 
 #get bounds of a dtm
 def get_dtm_bounds(path_in,dst_crs):            
