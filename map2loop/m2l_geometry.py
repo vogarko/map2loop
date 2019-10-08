@@ -125,7 +125,7 @@ def extract_poly_coords(geom,i):
             'interior_coords': interior_coords}
 
 #Export contact information subset of each polygon to csv format
-def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode,dscode,r1code):
+def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode,dscode,r1code,intrusion_mode):
     print("decimation: 1 /",contact_decimate)
     plist=[]
     i=0
@@ -187,8 +187,9 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                         #if(plist[a_poly+6]==98 and plist[b_poly+6]==84):
                             #display(plist[a_poly],plist[b_poly],plist[b_poly+3],plist[b_poly+5])
                         if (a_polygon.intersects(b_polygon)) : # is a neighbour, but not a sill
-                            if( not 'intrusive' in plist[b_poly+5]):
-#                            if( not 'sill' in plist[b_poly+3] or not 'intrusive' in plist[b_poly+5]):
+                            if( not 'intrusive' in plist[b_poly+5] and intrusion_mode == 1):
+                                 neighbours.append((b_poly))                               
+                            elif( not 'sill' in plist[b_poly+3] or not 'intrusive' in plist[b_poly+5]):
                                 neighbours.append((b_poly))
                                # print(b_polygon)
 
