@@ -283,9 +283,9 @@ graph [
     graphics [ style "line" arrow "last" width 3 fill "#ff0000" ]
   ]
   edge [
-    source 8
-    target 10
-    graphics [ style "line" arrow "both" width 7 fill "#0014ea" ]
+    source 10
+    target 8
+    graphics [ style "line" arrow "last" width 7 fill "#0014ea" ]
   ]
   edge [
     source 17
@@ -325,7 +325,7 @@ graph [
   edge [
     source 12
     target 18
-    graphics [ style "line" arrow "both" width 5 fill "#0012ec" ]
+    graphics [ style "line" arrow "last" width 5 fill "#0012ec" ]
   ]
   edge [
     source 13
@@ -473,9 +473,9 @@ graph [
     graphics [ style "line" arrow "last" width 5 fill "#fe0000" ]
   ]
   edge [
-    source 11
-    target 22
-    graphics [ style "line" arrow "both" width 3 fill "#0015e9" ]
+    source 22
+    target 11
+    graphics [ style "line" arrow "last" width 3 fill "#0015e9" ]
   ]
   edge [
     source 11
@@ -500,6 +500,6 @@ graph [
   edge [
     source 24
     target 25
-    graphics [ style "line" arrow "both" width 3 fill "#04fa00" ]
+    graphics [ style "line" arrow "last" width 3 fill "#04fa00" ]
   ]
 ]

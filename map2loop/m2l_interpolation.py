@@ -146,11 +146,11 @@ def interpolate_orientations(structure_file,output_path,bbox,dcode,ddcode,gcode,
     ZIl,ZIm,ZIn=call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny)
     
     # Comparisons...
-    plot(x,y,l,ZIl)
+    plot(x,-y,l,ZIl)
     plt.title('l')
-    plot(x,y,m,ZIm)
+    plot(x,-y,m,ZIm)
     plt.title('m')
-    plot(x,y,n,ZIn)
+    plot(x,-y,n,ZIn)
     plt.title('n')
     
     plt.show()
@@ -268,7 +268,12 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
                     angle=degrees(atan2(lsx,lsy))
                     l[i]=lsx
                     m[i]=lsy
-                    ostr=str(x[i])+","+str(y[i])+","+str(angle%180)+","+str(lsx)+","+str(lsy)+"\n"
+                    locations=[(x[i],y[i])] #doesn't like point right on edge?
+                    height=m2l_utils.value_from_raster(dtm,locations)
+                    if(str(acontact[1][gcode])=='None'):
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][ccode].replace(" ","_").replace("-","_")+"\n"
+                    else:
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][gcode].replace(" ","_").replace("-","_")+"\n"
                     #print(ostr)
                     f.write(ostr)
                     print(npts,dlsx,dlsy)
@@ -285,9 +290,9 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
     ZIl,ZIm,ZIn=call_interpolator(calc,x[:npts],y[:npts],l[:npts],m[:npts],0,xi,yi,nx,ny)    
     
     # Comparisons...
-    plot(x,y,l,ZIl)
+    plot(x,-y,l,ZIl)
     plt.title('l')
-    plot(x,y,m,ZIm)
+    plot(x,-y,m,ZIm)
     plt.title('m')
 
     fi=open(output_path+'interpolation_contacts_'+calc+'.csv','w')
@@ -382,10 +387,13 @@ def save_contact_vectors(geology_file,tmp_path,dtm,bbox,dcode,ddcode,gcode,ccode
                     m[i]=lsy
                     locations=[(x[i],y[i])] #doesn't like point right on edge?
                     height=m2l_utils.value_from_raster(dtm,locations)
-                    ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][gcode].replace(" ","_").replace("-","_")+"\n"
+                    if(str(acontact[1][gcode])=='None'):
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][ccode].replace(" ","_").replace("-","_")+"\n"
+                    else:
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][gcode].replace(" ","_").replace("-","_")+"\n"
                     #print(ostr)
                     f.write(ostr)
-                    print(npts,dlsx,dlsy)
+                    #print(npts,dlsx,dlsy)
                     npts=npts+1
                 i=i+1
         j=j+1

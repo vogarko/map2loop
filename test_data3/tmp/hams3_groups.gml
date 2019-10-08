@@ -30,11 +30,11 @@ graph [
   ]
   node [
     id 7
-    label "-23"
+    label "-21"
   ]
   node [
     id 8
-    label "-21"
+    label "-23"
   ]
   node [
     id 9
@@ -73,19 +73,19 @@ graph [
     target 0
   ]
   edge [
-    source 6
-    target 7
+    source 7
+    target 8
   ]
   edge [
     source 8
-    target 7
-  ]
-  edge [
-    source 9
-    target 7
+    target 6
   ]
   edge [
     source 9
     target 8
+  ]
+  edge [
+    source 9
+    target 7
   ]
 ]

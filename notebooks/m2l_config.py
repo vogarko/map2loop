@@ -104,4 +104,9 @@ if(not os.path.isdir(dtm_path)):
 if(not os.path.isdir(vtk_path)):
    os.mkdir(vtk_path)
 
-print('default parameters loaded from m2l_config.py')
+print('Default parameters loaded from m2l_config.py:')
+with open('../notebooks/m2l_config.py', 'r') as myfile:
+  data = myfile.read()
+  print(data)
+  myfile.close()
+print('\nModify these parameters in the cell below')

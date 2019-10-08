@@ -1,5 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+import geopandas as gpd
+import pandas as pd
 
 #parse stratigraphy GML file to get number of series and series names
 def get_series(path_in,id_label):
@@ -57,17 +59,76 @@ def save_units(G,path_out,glabels):
                 print("....")
         f.close()
 
+
+#save out a list of max/min/ave ages of all formations in a group
+def abs_age_groups(geol,tmp_path):
+    groups=[]
+    info=[]
+    ages=[]
+    for a_poly in geol.iterrows(): #loop through all polygons
+        if(str(a_poly[1][gcode])=='None'):
+            grp=a_poly[1][ccode].replace(" ","_").replace("-","_")
+        else:
+            grp=a_poly[1][gcode].replace(" ","_").replace("-","_")
+        #print(grp)
+        if(not grp in groups):
+            groups+=[(grp)]
+
+        info+=[(grp,a_poly[1][mincode],a_poly[1][maxcode])]
+
+    #display(info)
+    #display(groups)
+    for j in range(0,len(groups)):
+        #print(groups[j],'------------------')
+        min_age=1e10
+        max_age=0
+        for i in range(0,len(info)):
+            if(info[i][0]==groups[j]):
+                if(float(info[i][1])<min_age):
+                    min_age=float(info[i][1])
+                    min_ind=i
+                if(float(info[i][2])>max_age):
+                    max_age=float(info[i][2])
+                    max_ind=i
+        print(groups[j],min_age,max_age,(max_age+min_age)/2)
+        ages+=[(groups[j],min_age,max_age,(max_age+min_age)/2)]
+    print()
+    for j in range(0,len(ages)):
+        print(ages[j][0],ages[j][1],ages[j][2],ages[j][3],sep='\t')
+    print()
+
+    slist=sorted(ages,key=lambda l:l[3])
+    f=open(tmp_path+'age_sorted_groups.csv','w')
+    f.write('index,group,min,max,ave\n')
+    for j in range(0,len(slist)):
+        f.write(str(j)+','+slist[j][0]+','+str(slist[j][1])+','+str(slist[j][2])+','+str(slist[j][3])+'\n')
+    f.close()
+    
+    
 def save_group(G,mname,path_out,glabels):
     Gp=nx.Graph().to_directed() #New Group graph
-
+    
+    geology_file=gpd.read_file(path_out+'geol_clip.shp')
+    #abs_age_groups(geol,path_out)
+    gp_ages = pd.read_csv(path_out+'age_sorted_groups.csv') 
+    #display(gp_ages)
+    gp_ages.drop_duplicates(subset ="code",  inplace = True)
+    gp_ages.set_index("code",  inplace = True)
+    display(gp_ages)
+    gp_ids=[]
     nlist=list(G.nodes)
     for n in nlist: # Find out total number of groups and their names groups
         if('isGroup' in G.nodes[n]):
             G.add_nodes_from([n])
-
+    
+    display(gp_ids)
     for e in G.edges:
         if(G.nodes[e[0]]['gid']!=G.nodes[e[1]]['gid']):
-            Gp.add_edge(G.nodes[e[0]]['gid'],G.nodes[e[1]]['gid'])
+            glabel_0=G.nodes[e[0]]['LabelGraphics']['text'].replace(" ","_").replace("-","_")
+            glabel_1=G.nodes[e[1]]['LabelGraphics']['text'].replace(" ","_").replace("-","_")
+            print(G.nodes[e[0]]['gid'],G.nodes[e[1]]['gid'],glabel_0,glabel_1)
+            if(gp_ages.loc[glabel_0]['ave']<gp_ages.loc[glabel_1]['ave']):
+                Gp.add_edge(G.nodes[e[0]]['gid'],G.nodes[e[1]]['gid'])
     
     GpD=Gp.copy() #temporary copy of full graph
     GpD2=Gp.copy() #temporary copy of full graph
@@ -116,3 +177,4 @@ def save_group(G,mname,path_out,glabels):
             ag.write(str(k)+","+str(i)+","+str(j)+","+uhdr[1].replace("\n","")+","+ucontents[j].replace("\n","")+","+contents[i].replace("\n","").replace(" ","_").replace("-","_")+"\n")
             k=k+1
     ag.close()
+   
