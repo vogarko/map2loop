@@ -187,10 +187,12 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                         #if(plist[a_poly+6]==98 and plist[b_poly+6]==84):
                             #display(plist[a_poly],plist[b_poly],plist[b_poly+3],plist[b_poly+5])
                         if (a_polygon.intersects(b_polygon)) : # is a neighbour, but not a sill
-                            if( not 'intrusive' in plist[b_poly+5] and intrusion_mode == 1):
+                           if(  (not 'sill' in plist[b_poly+3] or not 'intrusive' in plist[b_poly+5]) and intrusion_mode==0): #intrusion_mode=0 (sills only excluded)
                                  neighbours.append((b_poly))                               
-                            elif( not 'sill' in plist[b_poly+3] or not 'intrusive' in plist[b_poly+5]):
-                                neighbours.append((b_poly))
+                           elif((not 'intrusive' in plist[b_poly+5])  and intrusion_mode==1): #intrusion_mode=1 (all intrusions  excluded)
+                                 neighbours.append((b_poly))                               
+                            #elif( not 'sill' in plist[b_poly+3] or not 'intrusive' in plist[b_poly+5]):
+                                #neighbours.append((b_poly))
                                # print(b_polygon)
 
                 #print(plist[a_poly+6],len(neighbours)) 

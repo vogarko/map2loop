@@ -61,7 +61,7 @@ gridx=100
 gridy=100
 scheme='scipy_rbf'
 dist_buffer=5
-intrusion_mode=1 # all instrusions exluded from basal contacts, 0 only sills
+intrusion_mode=0 # all instrusions exluded from basal contacts, 0 only sills
 
 #ASSUMPTIONS
 pluton_dip=45
