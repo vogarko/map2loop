@@ -61,7 +61,7 @@ def save_units(G,path_out,glabels):
 
 
 #save out a list of max/min/ave ages of all formations in a group
-def abs_age_groups(geol,tmp_path):
+def abs_age_groups(geol,tmp_path,ccode,gcode,mincode,maxcode):
     groups=[]
     info=[]
     ages=[]
@@ -90,30 +90,36 @@ def abs_age_groups(geol,tmp_path):
                 if(float(info[i][2])>max_age):
                     max_age=float(info[i][2])
                     max_ind=i
-        print(groups[j],min_age,max_age,(max_age+min_age)/2)
+#        print(groups[j],min_age,max_age,(max_age+min_age)/2)
         ages+=[(groups[j],min_age,max_age,(max_age+min_age)/2)]
-    print()
-    for j in range(0,len(ages)):
-        print(ages[j][0],ages[j][1],ages[j][2],ages[j][3],sep='\t')
-    print()
+#    print()
+#    for j in range(0,len(ages)):
+#        print(ages[j][0],ages[j][1],ages[j][2],ages[j][3],sep='\t')
+#    print()
 
     slist=sorted(ages,key=lambda l:l[3])
     f=open(tmp_path+'age_sorted_groups.csv','w')
-    f.write('index,group,min,max,ave\n')
+    f.write('index,group_,min,max,ave\n')
     for j in range(0,len(slist)):
         f.write(str(j)+','+slist[j][0]+','+str(slist[j][1])+','+str(slist[j][2])+','+str(slist[j][3])+'\n')
     f.close()
     
     
-def save_group(G,mname,path_out,glabels):
+def save_group(G,mname,path_out,glabels,geol,ccode,gcode,mincode,maxcode):
     Gp=nx.Graph().to_directed() #New Group graph
     
     geology_file=gpd.read_file(path_out+'geol_clip.shp')
-    #abs_age_groups(geol,path_out)
+
+    abs_age_groups(geol,path_out,ccode,gcode,mincode,maxcode)
+    geology_file.drop_duplicates(subset =ccode,  inplace = True)
+    
+
+    geology_file.set_index(ccode,  inplace = True)
+    #display(geology_file)
+    
     gp_ages = pd.read_csv(path_out+'age_sorted_groups.csv') 
-    #display(gp_ages)
-    gp_ages.drop_duplicates(subset ="code",  inplace = True)
-    gp_ages.set_index("code",  inplace = True)
+    gp_ages.set_index(gcode,  inplace = True)
+
     display(gp_ages)
     gp_ids=[]
     nlist=list(G.nodes)
@@ -124,10 +130,21 @@ def save_group(G,mname,path_out,glabels):
     display(gp_ids)
     for e in G.edges:
         if(G.nodes[e[0]]['gid']!=G.nodes[e[1]]['gid']):
-            glabel_0=G.nodes[e[0]]['LabelGraphics']['text'].replace(" ","_").replace("-","_")
-            glabel_1=G.nodes[e[1]]['LabelGraphics']['text'].replace(" ","_").replace("-","_")
-            print(G.nodes[e[0]]['gid'],G.nodes[e[1]]['gid'],glabel_0,glabel_1)
-            if(gp_ages.loc[glabel_0]['ave']<gp_ages.loc[glabel_1]['ave']):
+            glabel_0=G.nodes[e[0]]['LabelGraphics']['text']
+            glabel_1=G.nodes[e[1]]['LabelGraphics']['text']
+            #print(glabel_0,glabel_1)
+            #print(geology_file.loc[glabel_0][gcode])
+            if(str(geology_file.loc[glabel_0][gcode])=='None'):
+                grp0=glabel_0.replace(" ","_").replace("-","_")
+            else:
+                grp0=geology_file.loc[glabel_0][gcode].replace(" ","_").replace("-","_")
+            if(str(geology_file.loc[glabel_1][gcode])=='None'):
+                grp1=glabel_1.replace(" ","_").replace("-","_")
+            else:
+                grp1=geology_file.loc[glabel_1][gcode].replace(" ","_").replace("-","_")
+                
+            #print(glabel_0,glabel_1,gp_ages.loc[grp0],gp_ages.loc[grp1])
+            if(gp_ages.loc[grp0]['ave']<gp_ages.loc[grp1]['ave']):
                 Gp.add_edge(G.nodes[e[0]]['gid'],G.nodes[e[1]]['gid'])
     
     GpD=Gp.copy() #temporary copy of full graph
@@ -144,8 +161,8 @@ def save_group(G,mname,path_out,glabels):
     nx.draw_networkx_labels(Gp,pos=nx.kamada_kawai_layout(Gp), labels=glabels, font_size=12,font_family='sans-serif')
 
     glist=list(nx.all_topological_sorts(Gp)) #all possible sorted directional graphs    
-    print("group choices:",len(glist))
-    print(glist)
+    #print("group choices:",len(glist))
+    #print(glist)
     nx.write_gml(Gp, path_out+"/"+mname+'_groups.gml')
     plt.show()
 
@@ -177,4 +194,3 @@ def save_group(G,mname,path_out,glabels):
             ag.write(str(k)+","+str(i)+","+str(j)+","+uhdr[1].replace("\n","")+","+ucontents[j].replace("\n","")+","+contents[i].replace("\n","").replace(" ","_").replace("-","_")+"\n")
             k=k+1
     ag.close()
-   

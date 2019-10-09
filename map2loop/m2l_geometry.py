@@ -226,9 +226,9 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                     k=0
 
                                     if(str(plist[a_poly+4])=='None'):
-                                        ls_dict[id] = {"id": id,"CODE":plist[a_poly+2].replace(" ","_").replace("-","_"),"GROUP_":plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": LineStringC}
+                                        ls_dict[id] = {"id": id,ccode:plist[a_poly+2].replace(" ","_").replace("-","_"),gcode:plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": LineStringC}
                                     else:
-                                        ls_dict[id] = {"id": id,"CODE":plist[a_poly+2].replace(" ","_").replace("-","_"),"GROUP_":plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": LineStringC}
+                                        ls_dict[id] = {"id": id,ccode:plist[a_poly+2].replace(" ","_").replace("-","_"),gcode:plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": LineStringC}
                                     id=id+1
                                     for lineC in LineStringC: #process all linestrings
                                         #print(ageol[1][ccode],len(LineStringC))
@@ -242,9 +242,9 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
                                                     ac.write(ostr)
                                                     allc.write(agp+","+str(ageol[1][ocode])+","+ostr)
                                                     if(str(plist[neighbours[i]+4])=='None'):
-                                                        ls_dict_decimate[deci_points] = {"id": allpts,"CODE":plist[a_poly+2].replace(" ","_").replace("-","_"),"GROUP_":plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                        ls_dict_decimate[deci_points] = {"id": allpts,ccode:plist[a_poly+2].replace(" ","_").replace("-","_"),gcode:plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                     else:
-                                                        ls_dict_decimate[deci_points] = {"id": allpts,"CODE":plist[a_poly+2].replace(" ","_").replace("-","_"),"GROUP_":plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                        ls_dict_decimate[deci_points] = {"id": allpts,ccode:plist[a_poly+2].replace(" ","_").replace("-","_"),gcode:plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                     #ls_dict_decimate[allpts] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                     allpts+=1 
                                                     deci_points=deci_points+1
@@ -336,7 +336,7 @@ def save_basal_no_faults(mname,path_out,path_fault,ls_dict,dist_buffer,ccode,gco
         if(cnf_copy.iloc[j].geom_type=="GeometryCollection"):#remove rows with geometry collections (== empty?)
             cnf_copy.drop([j,j],inplace=True)
         else: # save to dataframe
-            ls_nf[j]= {"id": j,"CODE":df.iloc[j][ccode].replace(" ","_").replace("-","_"),"GROUP_":df.iloc[j][gcode].replace(" ","_").replace("-","_"), "geometry": cnf_copy.iloc[j]}
+            ls_nf[j]= {"id": j,ccode:df.iloc[j][ccode].replace(" ","_").replace("-","_"),gcode:df.iloc[j][gcode].replace(" ","_").replace("-","_"), "geometry": cnf_copy.iloc[j]}
 
 
 
@@ -385,7 +385,7 @@ def save_contacts_with_faults_removed(mname,path_fault,path_out,dist_buffer,ls_d
     print(i,"decimated contact points saved as",path_out+'/'+mname+'_contacts4.csv')
     
 #Save faults as contact info and make vertical (for the moment)
-def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fault_decimate):
+def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fcode,fault_decimate):
     faults_clip=gpd.read_file(path_faults)
     f=open(path_fault_orientations+'/'+mname+'_faults.csv',"w")
     f.write("X,Y,Z,formation\n")
@@ -394,11 +394,11 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fa
 
     for flt in faults_clip.iterrows():
         #if(flt[1][ncode]=='Karra Well Fault'): #<<<<<<<<<<<< When too many faults gets ugly!
-        if(True): #<<<<<<<<<<<< Not sure what to do with so many faults!
-            if(str(flt[1][ncode])=='None'):
-                fault_name='Fault_'+str(flt[1][ocode])
-            else:
-                fault_name=str(flt[1][ncode])   
+        if('Fault' in flt[1][fcode]):
+            #if(str(flt[1][ncode])=='None'):
+            fault_name='Fault_'+str(flt[1][ocode])
+            #else:
+            #fault_name=str(flt[1][ncode])   
             #print(flt)
             flt_ls=LineString(flt[1].geometry)
             #print(flt_ls)
@@ -432,8 +432,8 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fa
 
     f.close()
     fo.close()
-    print("fault orientations saved as",path_fault_orientations+'/'+mname+'_fault_orientations.csv')
-    print("fault positions saved as",path_fault_orientations+'/'+mname+'_faults.csv')
+    print("fault orientations saved as",path_fault_orientations+mname+'_fault_orientations.csv')
+    print("fault positions saved as",path_fault_orientations+mname+'_faults.csv')
     
 #Save fold axial traces 
 def save_fold_axial_traces(mname,path_folds,path_fold_orientations,dataset,ocode,tcode,fcode,fold_decimate):

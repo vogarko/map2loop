@@ -44,6 +44,8 @@ maxcode='MAX_AGE_MA'
 sill_label='sill'
 intrusive_label='intrusive'
 fold_label='Fold axial trace'
+fault_label='Fault'
+bedding_label='Bed'
 
 #MODEL_EXTENTS
 model_base=-8200
@@ -61,7 +63,7 @@ gridx=100
 gridy=100
 scheme='scipy_rbf'
 dist_buffer=5
-intrusion_mode=0 # all instrusions exluded from basal contacts, 0 only sills
+intrusion_mode=0 # 1 all instrusions exluded from basal contacts, 0 only sills
 
 #ASSUMPTIONS
 pluton_dip=45
@@ -70,6 +72,7 @@ fault_dip=90
 
 #PATHS
 
+local_paths=False
 test_data_path='../test_data3/'
 graph_path=test_data_path+'graph/'
 tmp_path=test_data_path+'tmp/'

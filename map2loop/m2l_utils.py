@@ -382,10 +382,12 @@ def have_access(url):
         conn.close()
         Image(url='../graphics/yes.png')
         print("available: "+url)
+        return(True)
     except:
         conn.close()
         Image(url='../graphics/no.png')
         print("NOT available: "+url)
+        return(False)
 
 def ddd2dircos(dip,dipdir):
     l = sin(radians(dipdir))*cos(radians(90-dip))
