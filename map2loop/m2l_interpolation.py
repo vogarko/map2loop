@@ -311,7 +311,7 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
             M=ZIm[xxx,yyy]/(sqrt((pow(ZIl[xxx,yyy],2.0))+(pow(ZIm[xxx,yyy],2.0))))
             S=degrees(atan2(L,M))
     
-            ostr=str(bbox[0]+(xx*((bbox[2]-bbox[0])/100)))+","+str(bbox[1]+((gridy-2-yy)*((bbox[3]-bbox[1])/100)))+","+str(int(S))+'\n'
+            ostr=str(bbox[0]+(xx*((bbox[2]-bbox[0])/(gridx+1))))+","+str(bbox[1]+((gridy-2-yy)*((bbox[3]-bbox[1])/(gridy+1))))+","+str(int(S))+'\n'
             fi.write(ostr)
             
             ostr=str(xx)+","+str(yy)+","+str(L)+'\n'

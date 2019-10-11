@@ -1,19 +1,19 @@
 --- COLUMN NAMES IN CSV DATA FILES: -------------------------------------------------------------
 OBJECT COORDINATES              =WKT
-FAULT: ID                       =objectid
-FAULT: FEATURE                  =feature
-POINT: ID                       =geopnt_id
-POINT: DIP                      =dip
-POINT: DIP DIR                  =dip_dir
-POLYGON: ID                     =objectid
-POLYGON: LEVEL1 NAME            =unitname
-POLYGON: LEVEL2 NAME            =group_
-POLYGON: MIN AGE                =min_age_ma
-POLYGON: MAX AGE                =max_age_ma
-POLYGON: CODE                   =code
-POLYGON: DESCRIPTION            =descriptn
-POLYGON: ROCKTYPE1              =rocktype1
-POLYGON: ROCKTYPE2              =rocktype2
+FAULT: ID                       =OBJECTID
+FAULT: FEATURE                  =FEATURE
+POINT: ID                       =GEOPNT_ID
+POINT: DIP                      =DIP
+POINT: DIP DIR                  =DIP_DIR
+POLYGON: ID                     =OBJECTID
+POLYGON: LEVEL1 NAME            =UNITNAME
+POLYGON: LEVEL2 NAME            =GROUP_
+POLYGON: MIN AGE                =MIN_AGE_MA
+POLYGON: MAX AGE                =MAX_AGE_MA
+POLYGON: CODE                   =CODE
+POLYGON: DESCRIPTION            =DESCRIPTN
+POLYGON: ROCKTYPE1              =ROCKTYPE1
+POLYGON: ROCKTYPE2              =ROCKTYPE2
 --- SOME CONSTANTS: ----------------------------------------------------------------------------
 FAULT AXIAL FEATURE NAME        =Fold axial trace
 SILL UNIT DESCRIPTION CONTAINS  =sill

@@ -6,19 +6,19 @@ graph [
   ]
   node [
     id 1
-    label "-13"
-  ]
-  node [
-    id 2
-    label "-16"
-  ]
-  node [
-    id 3
     label "-14"
   ]
   node [
-    id 4
+    id 2
     label "-12"
+  ]
+  node [
+    id 3
+    label "-16"
+  ]
+  node [
+    id 4
+    label "-13"
   ]
   node [
     id 5
@@ -61,8 +61,12 @@ graph [
     target 5
   ]
   edge [
-    source 3
-    target 4
+    source 1
+    target 2
+  ]
+  edge [
+    source 1
+    target 3
   ]
   edge [
     source 6

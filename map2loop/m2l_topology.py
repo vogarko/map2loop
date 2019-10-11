@@ -118,7 +118,8 @@ def save_group(G,mname,path_out,glabels,geol,ccode,gcode,mincode,maxcode):
     #display(geology_file)
     
     gp_ages = pd.read_csv(path_out+'age_sorted_groups.csv') 
-    gp_ages.set_index(gcode,  inplace = True)
+    display(gp_ages)
+    gp_ages.set_index('group_',  inplace = True)
 
     display(gp_ages)
     gp_ids=[]
@@ -183,7 +184,7 @@ def save_group(G,mname,path_out,glabels,geol,ccode,gcode,mincode,maxcode):
 
     k=0
     ag=open(path_out+"/"+mname+'_all_sorts.csv',"w")
-    ag.write("index,group number,index in group, number in group,code,group\n")
+    ag.write("index,group number,index in group,number in group,code,group\n")
     for i in range(1,int(hdr[1])+1):
         f=open(path_out+"/"+contents[i].replace("\n","").replace(" ","_")+".csv","r")#check underscore
         ucontents =f.readlines()
