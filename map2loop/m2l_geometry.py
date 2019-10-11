@@ -391,6 +391,8 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fc
     f.write("X,Y,Z,formation\n")
     fo=open(path_fault_orientations+'/'+mname+'_fault_orientations.csv',"w")
     fo.write("X,Y,Z,azimuth,dip,polarity,formation\n")
+    fd=open(path_fault_orientations+'/'+mname+'_fault_dimensions.csv',"w")
+    fd.write("strike,dip_direction,down_dip\n")
 
     for flt in faults_clip.iterrows():
         #if(flt[1][ncode]=='Karra Well Fault'): #<<<<<<<<<<<< When too many faults gets ugly!
@@ -429,11 +431,16 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fc
             height=m2l_utils.value_from_raster(dataset,locations)
             ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+",90,1,"+fault_name+"\n"
             fo.write(ostr)
+            strike=sqrt((dlsx*dlsx)+(dlsy*dlsy))
+            ostr=fault_name+","+str(strike)+","+str(strike/2.0)+","+str(strike)+"\n"
+            fd.write(ostr)
 
     f.close()
     fo.close()
+    fd.close()
     print("fault orientations saved as",path_fault_orientations+mname+'_fault_orientations.csv')
     print("fault positions saved as",path_fault_orientations+mname+'_faults.csv')
+    print("fault dimensions saved as",path_fault_orientations+mname+'_fault_dimensions.csv')
     
 #Save fold axial traces 
 def save_fold_axial_traces(mname,path_folds,path_fold_orientations,dataset,ocode,tcode,fcode,fold_decimate):
