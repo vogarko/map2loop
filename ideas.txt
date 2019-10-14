@@ -1,0 +1,210 @@
+M2L thoughts
+
+General to do
+1. XxxAdd fault dimensions to read me, classify
+2. Functionise plugs, wkt, parfile, tidy
+3. Add parse fault relationships
+4. Thickness no faults
+5. Thickness no intervening layers and bigger search radius
+6. Tidy up all in one to reduce duplications
+7. Reproject lat long from dst_srs
+8. Priors all in one place
+9. Add formation thickness to all in one?
+10. Sills. Can be inter or intra. 
+11. Plutons: are they working?!
+12. Add polarity code to orientations 
+13. Filter faults by size?
+14. Calculate offsets?
+15. Calculate fold wavelengths, amplitudes?
+16. Expose all file names in functions
+17. Labelled list of codes and labels or function?
+18. Labelled list of filenames and paths? or￼ function?
+19. Code/group = formation/series
+20. Cope with warox naming conventions and add to geoserver
+21. Search all warox layers for points and combine
+22. Get all warox layers
+23. Extended topology to reduce uncertainty (group, intragroup)
+24. If gempy else geomodeller else loopstructural else surfe just after tidy
+25. feature/FEATURE vs [‘fcode’] ?
+26. Local store dtm for example in dtm 
+27. Analysis folder (interpolations, thickness etc)?
+28. Clip/shp folder? Clipped and basal strat files
+29. Rename combo_full
+30. Standardise filenames (hams or probs not)
+31. Contacts4 etc clean up filenames
+32. Use roi file as input?
+33. Redo groups as clean tables cols = one possible topological sort after transpose
+34. Why is combo saved?
+35. Read_raster and read_vector wrappers
+36. Save row of csv wrapper or just make lists? Ostr 
+37. Interpolate using contacts and points outside box?
+38. Documentation!!
+39. Geopandas Hawaii
+40. Topology as falsifier. Pluton vs fault example
+41. Clever: topology. Contact interpolation. Basal contacts. Thickness maps. Tidy. 
+42. Analyse interpolation orientations for structure (saddles, domes, etc))
+43. Erode vs onlap via go vs gp topology
+44. Make test data, data and graph paths if needed
+45. Use stratigraphic offsets across faults to filter big throw combined with estimated thickness!!
+46. Remanence tomofastx
+
+Better models
+1. Supergroup similar groups
+2. Keep groups but duplicate orientation data
+3. Add extra true contacts 
+4. Add extra interpolated orientations 
+5. Fix topology errors
+6. Do high resolution interpolations but only pass a subset?
+
+Tidy
+
+1. Every series needs a formation
+2. every formation needs two contacts
+3. Every series needs an orientation 
+4. No orientations that don’t belong to a formation
+5. No formations that don’t belong to series
+
+
+Inputs:
+Csv geopandas 
+shapefile geopandas 
+Tabfile geopandas
+Opendap rasterio
+Wfs geopandas
+Wcs rasterio
+Geotif rasterio
+Postgis/Postgres geopandas
+Netcdf both??
+
+
+Natural language conceptual priors:
+
+Zero level. Individual observation 
+This is bedding
+That is a granite
+This is a fault contact
+This unit unconformably overlays that one
+
+First level: specific group behaviour
+Faults dip to east
+NS faults younger
+Plutons are pancakes
+The folds in the turbidites have chevron geometries 
+This fault is listric
+
+
+Second level: ensemble
+This is a fold and thrust terrane
+These are refolded folds
+This is an inverted basin
+This is a greenstone belt 
+This is a core complex
+
+map2loop outputs
+
+Topography
+⁃ dtm in lat long wgs83 raster
+⁃ georeferenced dtm raster 
+
+Structural Orientations
+⁃ Bed dip dd data with z and formation
+⁃ Extra orientations for empty series
+⁃ Pluton contact orientations
+⁃ Fault orientations
+⁃ Interpolated stratigraphic orientations
+⁃ Hybrid stratigraphic contact/orientation interpolations
+⁃ clipped orientations as shapefile
+
+Geometry
+⁃ Basal stratigraphic contacts as pts and shapefile
+⁃ Fault trace with z
+⁃ Pluton contacts with z and formation
+⁃ Interpolated stratigraphic contacts
+⁃ Mapped formation thickness estimates
+⁃ Clipped geology & faults shapefile
+⁃ Fault dimensions table
+
+Topology
+⁃ Fault-fault relationship table
+⁃ Fault-unit relationship table
+⁃ Fault-group relationship table
+⁃ Group-level stratigraphic relationships graph
+⁃ Formation-level stratigraphic relationships graph
+⁃ Summary strat relationships table 
+
+Elevator pitch
+
+The international Loop Consortium led by Laurent Ailleres at Monash University has joined forces with the MinEx CRC project on Automated 3D geological modelling led by Mark’s Jessell & Lindsay at UWA to launch a new Open Source initiative to drive innovation in 3D geomodelling. This builds on the many years of work carried out by these and other groups highlighted in this slide.
+
+Loop: better world for 3D modellers
+MinEx 1: week for uncertainty-charactetised model suites
+DARE: Cohort of natural data scientists
+DECRA: what data for all this?
+
+Full MinEx:
+
+Life-of-Project Performance Target for Project 6: Reduce to one week the time taken from receiving data to constructing probabilistic models at the mine scale. 
+
+Status: We can make a first-pass model now in 10 minutes, without code optimisation. We have 6 days, 23 hours and 50 minutes worth of computation time and 8 years of development time to improve our models and still meet our time target. 
+
+fiona.supported_drivers
+{'ESRI Shapefile': 'raw', 
+'ARCGEN': 'r', 
+'PCIDSK': 'r', 
+'SUA': 'r', 
+'DGN': 'raw', 
+'SEGY': 'r', 
+'MapInfo File': 'raw', 
+'GeoJSON': 'rw', 
+'PDS': 'r', 
+'FileGDB': 'raw', 
+'GPX': 'raw', 
+'DXF': 'raw', 
+'GMT': 'raw', 
+'Idrisi': 'r', 
+'GPKG': 'rw', 
+'OpenFileGDB': 'r', 
+'BNA': 'raw', 
+'AeronavFAA': 'r', 
+'GPSTrackMaker': 'raw'}
+
+
+
+Geopandas
+Wfs
+'ESRI Shapefile': 'raw', 
+'DGN': 'raw', 
+'SEGY': 'r', 
+'MapInfo File': 'raw', 
+'GeoJSON': 'rw', 
+'GPX': 'raw', 
+'DXF': 'raw', 
+'GMT': 'raw', 
+
+Ows supports wcs 
+Opendap supports opendap
+Netcdf supports netcdf
+SQL
+
+Monash Visit
+
+Standards:
+⁃ Intra-code data transfer 
+⁃ GeoData storage
+⁃ Documentation
+⁃ Parameter files
+⁃ RDB
+⁃ Code commenting
+⁃ Model storage 
+
+map2loop loopstructural
+
+
+
+
+
+Mark Jessell
+Professor/ Western Australian Fellow
+Centre for Exploration Targeting/ SES • M006, Perth WA 6009 Australia
+T +61 8 6488 5803 • E mark.jessell@uwa.edu.au
+
