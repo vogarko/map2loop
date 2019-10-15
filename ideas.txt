@@ -2,14 +2,14 @@ M2L thoughts
 
 General to do
 1. XxxAdd fault dimensions to read me, classify
-2. Functionise plugs, wkt, parfile, tidy
-3. Add parse fault relationships
+2. XxxFunctionise plugs, wkt, parfile, tidy
+3. XxxAdd parse fault relationships
 4. Thickness no faults
 5. Thickness no intervening layers and bigger search radius
 6. Tidy up all in one to reduce duplications
-7. Reproject lat long from dst_srs
+7. XxxReproject lat long from dst_srs
 8. Priors all in one place
-9. Add formation thickness to all in one?
+9. Add formation thickness to all in one? No
 10. Sills. Can be inter or intra. 
 11. Plutons: are they working?!
 12. Add polarity code to orientations 
@@ -39,7 +39,7 @@ General to do
 36. Save row of csv wrapper or just make lists? Ostr 
 37. Interpolate using contacts and points outside box?
 38. Documentation!!
-39. Geopandas Hawaii
+39. XxxGeopandas Hawaii
 40. Topology as falsifier. Pluton vs fault example
 41. Clever: topology. Contact interpolation. Basal contacts. Thickness maps. Tidy. 
 42. Analyse interpolation orientations for structure (saddles, domes, etc))
@@ -47,6 +47,7 @@ General to do
 44. Make test data, data and graph paths if needed
 45. Use stratigraphic offsets across faults to filter big throw combined with estimated thickness!!
 46. Remanence tomofastx
+47. Need unique codes for geol,structure,faults
 
 Better models
 1. Supergroup similar groups

@@ -125,7 +125,6 @@ dmypy.json
 # ignore the temp folders
 test_data/tmp/*
 test_data/output/*
-test_data/dtm/*
 test_data/data/*.lock
 test_data2/tmp/*
 test_data2/output/*
@@ -144,3 +143,4 @@ test_model/*
 m2m_cpp/*
 m2m_cpp/map2model.exe
 test_data2/old*
+mansfield/*

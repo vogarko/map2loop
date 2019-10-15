@@ -10,7 +10,7 @@ import pandas as pd
 import os
 from shapely.geometry import Polygon
 from shapely.geometry import Point
-import m2l_utils 
+from map2loop import m2l_utils
 import rasterio
 
 #inspired by https://stackoverflow.com/questions/3104781/inverse-distance-weighted-idw-interpolation-with-python
@@ -203,7 +203,7 @@ def interpolate_orientations(structure_file,output_path,bbox,dcode,ddcode,gcode,
     print("orientations interpolated as dip dip direction",output_path+'interpolation_'+calc+'.csv')
     print("orientations interpolated as l,m,n dir cos",output_path+'interpolation_l.csv etc.')
 
-def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,ccode,calc,gridx,gridy):
+def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,use_gcode,ccode,calc,gridx,gridy):
     print(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,gridx,gridy)
     geol_file = gpd.read_file(geology_file,bbox=bbox)
     print(len(geol_file))
@@ -218,7 +218,7 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
     yi = np.linspace(bbox[1],bbox[3], ny-1)
     xi, yi = np.meshgrid(xi, yi)
     xi, yi = xi.flatten(), yi.flatten()
-    x = np.zeros(20000)
+    x = np.zeros(20000)   ############## FUDGE ################
     y = np.zeros(20000)
     l = np.zeros(20000)
     m = np.zeros(20000)
@@ -231,7 +231,7 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
             #print(i)
             for line in acontact[1].geometry: # loop through line segments
                 #print(i,len(acontact[1].geometry))
-                if(m2l_utils.mod_safe(i,decimate)  ==0):
+                if(m2l_utils.mod_safe(i,decimate)  ==0 and acontact[1][gcode] in use_gcode):
                     #if(acontact[1]['id']==170): 
                         #display(npts,line.coords[0][0],line.coords[1][0]) 
                     dlsx=line.coords[0][0]-line.coords[1][0]
@@ -256,7 +256,7 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,cc
         else:
             #display(acontact[1].geometry,acontact[1].geometry.coords)
             #for line in acontact[1]: # loop through line segments in LineString
-            if(  m2l_utils.mod_safe(i,decimate)  ==0):
+            if(  m2l_utils.mod_safe(i,decimate)  ==0 and acontact[1][gcode] in use_gcode):
                 dlsx=acontact[1].geometry.coords[0][0]-acontact[1].geometry.coords[1][0]
                 dlsy=acontact[1].geometry.coords[0][1]-acontact[1].geometry.coords[1][1]
                 if(not acontact[1].geometry.coords[0][0]==acontact[1].geometry.coords[1][0] 

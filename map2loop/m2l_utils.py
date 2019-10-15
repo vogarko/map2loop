@@ -398,8 +398,10 @@ def ddd2dircos(dip,dipdir):
 def dircos2ddd(l,m,n):
     if(m>0):
         dipdir=(360+degrees(atan(l/m)))%360
-    else:
+    elif(m<0):
         dipdir=(540+degrees(atan(l/m)))%360
+    else:
+        dipdir=90
     dip =90-degrees(asin(n))
     return(dip,dipdir)
 

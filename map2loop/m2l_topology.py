@@ -108,7 +108,7 @@ def abs_age_groups(geol,tmp_path,ccode,gcode,mincode,maxcode):
     f.close()
     
     
-def save_group(G,mname,path_out,glabels,geol,ccode,gcode,mincode,maxcode):
+def save_group(G,path_out,glabels,geol,ccode,gcode,mincode,maxcode):
     Gp=nx.Graph().to_directed() #New Group graph
     
     geology_file=gpd.read_file(path_out+'geol_clip.shp')
@@ -167,10 +167,10 @@ def save_group(G,mname,path_out,glabels,geol,ccode,gcode,mincode,maxcode):
     glist=list(nx.all_topological_sorts(Gp)) #all possible sorted directional graphs    
     #print("group choices:",len(glist))
     #print(glist)
-    nx.write_gml(Gp, path_out+"/"+mname+'_groups.gml')
+    nx.write_gml(Gp, path_out+'groups.gml')
     plt.show()
 
-    f = open(path_out+"/"+mname+'_groups.csv', 'w')
+    f = open(path_out+'groups.csv', 'w')
     f.write(str(len(glist))+" ")
     f.write(str(len(glist[0]))+"\n")
 
@@ -180,13 +180,13 @@ def save_group(G,mname,path_out,glabels,geol,ccode,gcode,mincode,maxcode):
     f.close()
 
 
-    g=open(path_out+"/"+mname+'_groups.csv',"r")
+    g=open(path_out+'groups.csv',"r")
     contents =g.readlines()
     g.close
     hdr=contents[0].split(" ")
 
     k=0
-    ag=open(path_out+"/"+mname+'_all_sorts.csv',"w")
+    ag=open(path_out+'/all_sorts.csv',"w")
     ag.write("index,group number,index in group,number in group,code,group\n")
     for i in range(1,int(hdr[1])+1):
         f=open(path_out+"/"+contents[i].replace("\n","").replace(" ","_")+".csv","r")#check underscore
@@ -232,12 +232,12 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
         uf.write(ostr+"\n")
     uf.close()
 
-    summary=pd.read_csv(tmp_path+'hams3_all_sorts.csv')
+    summary=pd.read_csv(tmp_path+'all_sorts.csv')
     summary.set_index("code", inplace=True)
 
     uf_rel=pd.read_csv(output_path+'unit-fault-relationships.csv')
 
-    f=open(tmp_path+'hams3_groups.csv',"r")
+    f=open(tmp_path+'groups.csv',"r")
     groups =f.readlines()
     f.close
     ngroups=groups[0].split(" ")
@@ -358,12 +358,14 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
     print(output_path+'unit-fault-relationships.csv')
 
 def save_geol_wkt(sub_geol,geology_file_csv,ocode,gcode,mincode,maxcode,ccode,r1code,r2code,dscode,ucode):
+    #print(sub_geol,geology_file_csv,ocode,gcode,mincode,maxcode,ccode,r1code,r2code,dscode,ucode)
     f= open(geology_file_csv,"w+")
-    f.write('WKT\t'+ocode+'\t'+ucode+'\t'+gcode+'\t'+mincode+'\t'+maxcode+'\t'+ccode+'\t'+r1code+'\t'+r2code+'\t'+dscode+'\n')
+    f.write('WKT\t'+ocode.replace("\n","")+'\t'+ucode.replace("\n","")+'\t'+gcode.replace("\n","")+'\t'+mincode.replace("\n","")+'\t'+maxcode.replace("\n","")+'\t'+ccode.replace("\n","")+'\t'+r1code.replace("\n","")+'\t'+r2code.replace("\n","")+'\t'+dscode.replace("\n","")+'\n')
     #display(sub_geol)        
     print(len(sub_geol)," polygons")
     #print(sub_geol)
     for i in range(0,len(sub_geol)):
+        #print('**',sub_geol.loc[i][ocode],'++')
         f.write("\""+str(sub_geol.loc[i].geometry)+"\"\t")
         f.write("\""+str(sub_geol.loc[i][ocode])+"\"\t")
         f.write("\""+str(sub_geol.loc[i][ccode])+"\"\t")
@@ -395,14 +397,14 @@ def save_structure_wkt(sub_pts,structure_file_csv,gcode,dcode,ddcode,gicode):
         
     f.close()
     
-def save_faults_wkt(sub_lines,fault_file_csv,ocode,fcode):
+def save_faults_wkt(sub_lines,fault_file_csv,ocode,fcode,fault_label):
     f= open(fault_file_csv,"w+")
     f.write('WKT\t'+ocode+'\t'+fcode+'\n')
 
     print(len(sub_lines)," polylines")
 
     for i in range(0,len(sub_lines)):
-        if('Fault' in sub_lines.loc[i][fcode]):
+        if(fault_label in sub_lines.loc[i][fcode]):
             f.write("\""+str(sub_lines.loc[i].geometry)+"\"\t")
             f.write("\""+str(sub_lines.loc[i][ocode])+"\"\t")
             f.write("\""+str(sub_lines.loc[i][fcode])+"\"\n")

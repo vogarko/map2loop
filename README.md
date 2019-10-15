@@ -19,9 +19,9 @@ A package to extract information from geological maps to feed 3D modelling packa
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
 | Various topology graphs  | \*/graph/\*.gml | map2model cpp code in Notebook 1 |  1 |
-| Group-level stratigraphic relationships | \*/tmp/\*_Group.csv | m2l_topology. save_group |  1 |
+| Group-level stratigraphic relationships | \*/tmp/groups.csv | m2l_topology. save_group |  1 |
 | Formation-level stratigraphic relationships | \*/tmp/\*_groups.csv | m2l_topology. save_units |  1 |
-| Summary strat relationships | \*/tmp/\*_all_sorts.csv| m2l_topology. save_units |  1 |
+| Summary strat relationships | \*/tmp/all_sorts.csv| m2l_topology. save_units |  1 |
 | Fault-fault relationship table | \*/output/fault-fault-relationships.csv | Notebook 1 |  1 |
 | Fault-unit relationship table | \*/output/unit-fault-relationships.csv | Notebook 1 |  1 |
 | Fault-group relationship table | \*/output/group-fault-relationships.csv | Notebook 1 |  1 |
@@ -30,30 +30,30 @@ A package to extract information from geological maps to feed 3D modelling packa
 
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
-| dtm in lat long wgs83 | \*/dtm/\*_dtm.tif | m2l_utils.get_dtm |   1 |
-| georeferenced dtm | \*/dtm/\*_dtm_rp.tif| m2l_utils.reproject_dtm |  1 |
+| dtm in lat long wgs83 | \*/dtm/\dtm.tif | m2l_utils.get_dtm |   1 |
+| georeferenced dtm | \*/dtm/\dtm_rp.tif| m2l_utils.reproject_dtm |  1 |
 
 ##### Geometry:
 
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
-| Contact info with z and formation | \*/output/\*_contacts4.csv | m2l_geometry. save_basal_contacts |  1 |
+| Contact info with z and formation | \*/output/contacts4.csv | m2l_geometry. save_basal_contacts |  1 |
 | Fault trace with z | \*/output/\*_faults.csv | m2l_geometry. save_faults |  1 |
-| Basal contacts shapefile | \*/tmp/\*_basal_contacts2.shp | m2l_geometry. save_basal_no_faults |  1 |
+| Basal contacts shapefile | \*/tmp/\basal_contacts.shp | m2l_geometry. save_basal_no_faults |  1 |
 | Clipped geology map shapefile | \*/tmp/geol_clip.shp | Notebook 1 |  1 |
 | Clipped fault & fold axial traces shapefile  | \*/tmp/faults_clip.shp | Notebook 1 |  1 |
-| Basic vtk model thanks to gempy  | \*/vtk/\*.vtp | gempy |  3 |
+| Basic vtk model thanks to gempy  | \*/vtk/\*.vtp | gempy |  1 |
 | Pluton contacts with z and formation | \*/output/ign_contacts.csv | Notebook 1 |  1 |
 | Local formation thickness estimates | \*/output/formation_thicknesses.csv | Notebook 2 |  2 |
-| Fault diemnsions | \*/output/\*_fault_dimensions.csv | Notebook 1 |  1 |
+| Fault diemnsions | \*/output/\fault_dimensions.csv | Notebook 1 |  1 |
 
 ##### Orientations:
 
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
-| Bed dip dd data with z and formation | \*/output/\*_orientations.csv | m2l_geometry. save_orientations |  1 |
-| Extra orientations for empty series | \*/output/\*_empty_series_orientations.csv | m2l_geometry. create_orientations |  1 |
-| Fault orientation with z | \*/output/\*_fault_orientations.csv |  m2l_geometry. save_faults |  1 |
+| Bed dip dd data with z and formation | \*/output/orientations.csv | m2l_geometry. save_orientations |  1 |
+| Extra orientations for empty series | \*/output/empty_series_orientations.csv | m2l_geometry. create_orientations |  1 |
+| Fault orientation with z | \*/output/fault_orientations.csv |  m2l_geometry. save_faults |  1 |
 | Clipped orientations shapefile | \*/tmp/structure_clip.shp | Notebook 1 |  1 |
 | Interpolated dip dip direction grid | \*/tmp/interpolation_scipy_rbf.csv | m2l_interpolation. interpolate_orientations |  1 |
 | Interpolated contact vector grid | \*/tmp/interpolation_contacts_scipy_rbf.csv | m2l_interpolation. interpolate_contacts |  1 |

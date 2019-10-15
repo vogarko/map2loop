@@ -1,8 +1,4 @@
 #ROI
-minlong=117 # should back calc from metre system\n",
-maxlong=118
-minlat=-23
-maxlat=-22
 
 step_out=0
 inset=0
@@ -36,6 +32,7 @@ r1code='ROCKTYPE1'
 r2code='ROCKTYPE2'
 tcode='TYPE'
 fcode='FEATURE'
+sfcode='FEATURE'
 dscode='DESCRIPTN'
 ucode='UNITNAME'
 mincode='MIN_AGE_MA'
@@ -63,6 +60,7 @@ gridy=50
 scheme='scipy_rbf'
 dist_buffer=5
 intrusion_mode=0 # 1 all instrusions exluded from basal contacts, 0 only sills
+use_interpolations=False
 
 #ASSUMPTIONS
 pluton_dip=45
@@ -94,20 +92,23 @@ strat_graph_file=test_data_path+'graph/graph_strat.gml'
 dtm_file=dtm_path+mname+'_dtm.tif'
 dtm_reproj_file=dtm_path+mname+'_dtm_rp.tif'
 
+if(not os.path.isdir(test_data_path)):
+   os.mkdir(test_data_path)
 if(not os.path.isdir(tmp_path)):
    os.mkdir(tmp_path)
 if(not os.path.isdir(output_path)):
    os.mkdir(output_path)
 if(not os.path.isdir(dtm_path)):
    os.mkdir(dtm_path)
-if(not os.path.isdir(dtm_path)):
-   os.mkdir(dtm_path)
 if(not os.path.isdir(vtk_path)):
    os.mkdir(vtk_path)
+if(not os.path.isdir(graph_path)):
+   os.mkdir(graph_path)
 
-print('Default parameters loaded from m2l_config.py:')
-with open('../test_data3/m2l_config.py', 'r') as myfile:
+print('Default parameters loaded from '+test_data_path+'m2l_config.py:')
+with open(test_data_path+'m2l_config.py', 'r') as myfile:
   data = myfile.read()
   print(data)
   myfile.close()
+
 print('\nModify these parameters in the cell below')

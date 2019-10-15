@@ -8,13 +8,13 @@ from geopandas import GeoDataFrame
 import geopandas as gpd
 import pandas as pd
 from math import acos, sqrt, cos, sin, degrees, radians, fabs, atan2
-import m2l_utils
+from map2loop import m2l_utils
 import numpy as np
 
 #Export orientation data in csv format with heights and strat code added
-def save_orientations(structures,mname,path_out,ddcode,dcode,ccode,rcode,intrusive_label,orientation_decimate,dtm):
+def save_orientations(structures,path_out,ddcode,dcode,ccode,rcode,intrusive_label,orientation_decimate,dtm):
     i=0
-    f=open(path_out+'/'+mname+'_orientations.csv',"w")
+    f=open(path_out+'/orientations.csv',"w")
     f.write("X,Y,Z,azimuth,dip,polarity,formation\n")
     for apoint in structures.iterrows():
         if(not intrusive_label in apoint[1][rcode]):
@@ -28,11 +28,11 @@ def save_orientations(structures,mname,path_out,ddcode,dcode,ccode,rcode,intrusi
                     i+=1
         
     f.close()
-    print(i,'orientations saved to',path_out+'/'+mname+'_orientations.csv')
+    print(i,'orientations saved to',path_out+'/orientations.csv')
 
 #Find those series that don't have any orientation or contact point data and add some random data
-def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gcode,r1code,intrusive_label):
-    f=open(path_in+'/'+mname+'_groups.csv',"r")
+def create_orientations( path_in, path_out,dtm,geology,structures,ccode,gcode,r1code,intrusive_label):
+    f=open(path_in+'/groups.csv',"r")
     contents =f.readlines()
     f.close
 
@@ -77,7 +77,7 @@ def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gc
 
     print("Contacts----------\n",len(set(all_codes)),set(all_codes))
 
-    f=open(path_out+'/'+mname+'_empty_series_orientations.csv',"w")
+    f=open(path_out+'/empty_series_orientations.csv',"w")
     f.write("X,Y,Z,azimuth,dip,polarity,formation\n")
 
     for i in range (0,ngroups):
@@ -101,7 +101,7 @@ def create_orientations(mname, path_in, path_out,dtm,geology,structures,ccode,gc
                     break
 
     f.close()
-    print('extra orientations saved as',path_out+'/'+mname+'_empty_series_orientations.csv')
+    print('extra orientations saved as',path_out+'/empty_series_orientations.csv')
 
 #modified from https://stackoverflow.com/questions/21824157/how-to-extract-interior-polygon-coordinates-using-shapely
 def extract_poly_coords(geom,i):
@@ -127,7 +127,7 @@ def extract_poly_coords(geom,i):
             'interior_coords': interior_coords}
 
 #Export contact information subset of each polygon to csv format
-def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode,dscode,r1code,intrusion_mode):
+def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode,dscode,r1code,intrusion_mode):
     print("decimation: 1 /",contact_decimate)
     plist=[]
     i=0
@@ -143,8 +143,8 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
             plist+=(i,list(all_coords['interior_coords'][j+1]),ageol[1][ccode],ageol[1][dscode],ageol[1][gcode],ageol[1][r1code],ageol[1][ocode])
             i=i+1
                
-    #dataset = rasterio.open(path_in+'/'+mname+'_dtm_rp.tif')
-    ag=open(path_in+'/'+mname+'_all_sorts.csv',"r")
+    #dataset = rasterio.open(path_in+'/dtm_rp.tif')
+    ag=open(path_in+'/all_sorts.csv',"r")
     contents =ag.readlines()
     ag.close
     print("surfaces:",len(contents))
@@ -156,9 +156,9 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
         ulist.append([i, cont_list[4].replace("\n","")])
     print(ulist)
 
-    allc=open(path_in+'/'+mname+'_all_contacts.csv',"w")
+    allc=open(path_in+'/all_contacts.csv',"w")
     allc.write('GROUP_,id,x,y,z,code\n')
-    ac=open(path_in+'/'+mname+'_contacts.csv',"w")
+    ac=open(path_in+'/contacts.csv',"w")
     ac.write("X,Y,Z,formation\n")
     print(dtm.bounds)
     j=0
@@ -312,11 +312,11 @@ def save_basal_contacts(mname,path_in,dtm,geol_clip,contact_decimate,ccode,gcode
     ac.close()
     allc.close()
     print("basal contacts saved allpts=",allpts,"deci_pts=",deci_points)
-    print("saved as",path_in+mname+'_all_contacts.csv',"and",path_in+mname+'_contacts.csv')
+    print("saved as",path_in+'all_contacts.csv',"and",path_in+'contacts.csv')
     return(ls_dict,ls_dict_decimate)
 
 #Remove all basal contacts that are defined by faults and save to shapefile (no decimation)
-def save_basal_no_faults(mname,path_out,path_fault,ls_dict,dist_buffer,ccode,gcode,dst_crs):
+def save_basal_no_faults(path_out,path_fault,ls_dict,dist_buffer,ccode,gcode,dst_crs):
     faults_clip = gpd.read_file(path_fault)
 
 
@@ -351,7 +351,7 @@ def save_basal_no_faults(mname,path_out,path_fault,ls_dict,dist_buffer,ccode,gco
     print("basal contacts without faults saved as",path_out)
 
 #Remove faults from decimated basal contacts as save as csv file   
-def save_contacts_with_faults_removed(mname,path_fault,path_out,dist_buffer,ls_dict,ls_dict_decimate,ccode,dst_crs,dataset):
+def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls_dict_decimate,ccode,dst_crs,dataset):
     faults_clip = gpd.read_file(path_fault)
 
     df = DataFrame.from_dict(ls_dict, "index")
@@ -370,7 +370,7 @@ def save_contacts_with_faults_removed(mname,path_fault,path_out,dist_buffer,ls_d
     
     cnf_de_copy=contacts_decimate_nofaults.copy()
     
-    ac=open(path_out+'/'+mname+'_contacts4.csv',"w")
+    ac=open(path_out+'/contacts4.csv',"w")
     ac.write("X,Y,Z,formation\n")
     i=0
     for cdn in contacts_decimate_nofaults.iterrows():
@@ -384,21 +384,21 @@ def save_contacts_with_faults_removed(mname,path_fault,path_out,dist_buffer,ls_d
 
         i=i+1
     ac.close()
-    print(i,"decimated contact points saved as",path_out+'/'+mname+'_contacts4.csv')
+    print(i,"decimated contact points saved as",path_out+'/contacts4.csv')
     
 #Save faults as contact info and make vertical (for the moment)
-def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fcode,fault_decimate):
+def save_faults(path_faults,path_fault_orientations,dataset,ncode,ocode,fcode,fault_decimate,fault_label):
     faults_clip=gpd.read_file(path_faults)
-    f=open(path_fault_orientations+'/'+mname+'_faults.csv',"w")
+    f=open(path_fault_orientations+'/faults.csv',"w")
     f.write("X,Y,Z,formation\n")
-    fo=open(path_fault_orientations+'/'+mname+'_fault_orientations.csv',"w")
+    fo=open(path_fault_orientations+'/fault_orientations.csv',"w")
     fo.write("X,Y,Z,azimuth,dip,polarity,formation\n")
-    fd=open(path_fault_orientations+'/'+mname+'_fault_dimensions.csv',"w")
-    fd.write("strike,dip_direction,down_dip\n")
+    fd=open(path_fault_orientations+'/fault_dimensions.csv',"w")
+    fd.write("Fault_ID,strike,dip_direction,down_dip\n")
 
     for flt in faults_clip.iterrows():
         #if(flt[1][ncode]=='Karra Well Fault'): #<<<<<<<<<<<< When too many faults gets ugly!
-        if('Fault' in flt[1][fcode]):
+        if(fault_label in flt[1][fcode]):
             #if(str(flt[1][ncode])=='None'):
             fault_name='Fault_'+str(flt[1][ocode])
             #else:
@@ -440,14 +440,14 @@ def save_faults(mname,path_faults,path_fault_orientations,dataset,ncode,ocode,fc
     f.close()
     fo.close()
     fd.close()
-    print("fault orientations saved as",path_fault_orientations+mname+'_fault_orientations.csv')
-    print("fault positions saved as",path_fault_orientations+mname+'_faults.csv')
-    print("fault dimensions saved as",path_fault_orientations+mname+'_fault_dimensions.csv')
+    print("fault orientations saved as",path_fault_orientations+'fault_orientations.csv')
+    print("fault positions saved as",path_fault_orientations+'faults.csv')
+    print("fault dimensions saved as",path_fault_orientations+'fault_dimensions.csv')
     
 #Save fold axial traces 
-def save_fold_axial_traces(mname,path_folds,path_fold_orientations,dataset,ocode,tcode,fcode,fold_decimate):
+def save_fold_axial_traces(path_folds,path_fold_orientations,dataset,ocode,tcode,fcode,fold_decimate):
     folds_clip=gpd.read_file(path_folds)
-    fo=open(path_fold_orientations+'/'+mname+'_fold_axial_traces.csv',"w")
+    fo=open(path_fold_orientations+'/fold_axial_traces.csv',"w")
     fo.write("X,Y,Z,code,type\n")
 
     for fold in folds_clip.iterrows():
@@ -465,11 +465,11 @@ def save_fold_axial_traces(mname,path_folds,path_fold_orientations,dataset,ocode
             i=i+1  
 
     fo.close()
-    print("fold axial traces saved as",path_fold_orientations+mname+'_fold_axial_traces.csv')
+    print("fold axial traces saved as",path_fold_orientations+'fold_axial_traces.csv')
 
 #Create basal contact points with orientation from orientations and basal points
-def create_basal_contact_orientations(mname,contacts,structures,output_path,dtm,dist_buffer,ccode,gcode,dcode,ddcode):
-    f=open(output_path+mname+'_projected_dip_contacts2.csv',"w")
+def create_basal_contact_orientations(contacts,structures,output_path,dtm,dist_buffer,ccode,gcode,dcode,ddcode):
+    f=open(output_path+'projected_dip_contacts2.csv',"w")
     f.write('X,Y,Z,azimuth,dip,polarity,formation\n')
     #print("len=",len(contacts))
     i=0
@@ -512,10 +512,10 @@ def create_basal_contact_orientations(mname,contacts,structures,output_path,dtm,
 
 
     f.close()
-    print("basal contact orientations saved as",output_path+mname+'_projected_dip_contacts2.csv')
+    print("basal contact orientations saved as",output_path+'projected_dip_contacts2.csv')
 
 def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pluton_form,pluton_dip,intrusive_label,contact_decimate,mincode,maxcode,ccode,gcode,ocode,r1code,dscode):
-    f=open(tmp_path+'hams3_groups.csv',"r")
+    f=open(tmp_path+'groups.csv',"r")
     groups =f.readlines()
     f.close
 
@@ -703,12 +703,12 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pl
     #f=ga[:,0].argsort()
     #display(f)
       
-    an=open('../test_data3/tmp/hams3_groups2.csv',"w")
+    an=open(tmp_path+'groups2.csv',"w")
     an.write('1 '+str(ngroups)+'\n')
     for i in range (orig_ngroups,ngroups):
         print(i,gp_names[i].replace(" ","_").replace("-","_"))
         an.write(gp_names[i].replace(" ","_").replace("-","_")+'\n')
-        gp=open('../test_data3/tmp/'+gp_names[i].replace(" ","_").replace("-","_")+'.csv',"w")
+        gp=open(tmp_path+''+gp_names[i].replace(" ","_").replace("-","_")+'.csv',"w")
         gp.write('1 1\n'+gp_names[i].replace(" ","_").replace("-","_")+'\n')
         gp.close()
     for i in range (0,orig_ngroups):
@@ -716,13 +716,13 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pl
         an.write(gp_names[i].replace(" ","_").replace("-","_")+'\n')
     an.close()
 
-    all_sorts=pd.read_csv('../test_data3/tmp/hams3_all_sorts.csv',",")
+    all_sorts=pd.read_csv(tmp_path+'all_sorts.csv',",")
 
-    as_2=open('../test_data3/tmp/hams3_all_sorts.csv',"r")
+    as_2=open(tmp_path+'all_sorts.csv',"r")
     contents =as_2.readlines()
     as_2.close
 
-    all_sorts_file=open('../test_data3/tmp/hams3_all_sorts2.csv',"w")
+    all_sorts_file=open(tmp_path+'all_sorts2.csv',"w")
     all_sorts_file.write('index,group number,index in group,number in group,code,group\n')
     j=1
     for i in range (orig_ngroups,ngroups):
@@ -741,19 +741,23 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pl
     print(output_path+'ign_contacts.csv')
     print(output_path+'ign_orientations_'+pluton_form+'.csv')
 
-def tidy_data(mname):
-    contacts=pd.read_csv('../test_data3/output/'+mname+'_contacts4.csv',",")
-    orientations=pd.read_csv('../test_data3/output/'+mname+'_orientations.csv',",")
-    invented_orientations=pd.read_csv('../test_data3/output/'+mname+'_empty_series_orientations.csv',",")
-    interpolated_orientations=pd.read_csv('../test_data3/tmp/combo_full.csv',",")
-    intrusive_orientations=pd.read_csv('../test_data3/output/ign_orientations_saucers.csv',",")
-    intrusive_contacts=pd.read_csv('../test_data3/output/ign_contacts.csv',",")
-    fault_contact=pd.read_csv('../test_data3/output/hams3_faults.csv',",")
-    fault_orientations=pd.read_csv('../test_data3/output/hams3_fault_orientations.csv',",")
-    all_sorts=pd.read_csv('../test_data3/tmp/hams3_all_sorts2.csv',",")
-    combo_full_orientations=pd.read_csv('../test_data3/tmp/combo_full.csv',",")
+def tidy_data(output_path,tmp_path,use_group,use_interpolations):
+    contacts=pd.read_csv(output_path+'contacts4.csv',",")
+    orientations=pd.read_csv(output_path+'orientations.csv',",")
+    invented_orientations=pd.read_csv(output_path+'empty_series_orientations.csv',",")
+    interpolated_orientations=pd.read_csv(tmp_path+'combo_full.csv',",")
+    intrusive_orientations=pd.read_csv(output_path+'ign_orientations_saucers.csv',",")
+    intrusive_contacts=pd.read_csv(output_path+'ign_contacts.csv',",")
+    fault_contact=pd.read_csv(output_path+'faults.csv',",")
+    fault_orientations=pd.read_csv(output_path+'fault_orientations.csv',",")
+    all_sorts=pd.read_csv(tmp_path+'all_sorts2.csv',",")
+    combo_full_orientations=pd.read_csv(tmp_path+'combo_full.csv',",")
 
-    all_orientations=pd.concat([orientations,invented_orientations,intrusive_orientations,combo_full_orientations.iloc[::2, :]])
+    if(use_interpolations):
+        all_orientations=pd.concat([orientations,invented_orientations,intrusive_orientations,combo_full_orientations.iloc[::2, :]])
+    else:
+        all_orientations=pd.concat([orientations,invented_orientations,intrusive_orientations])
+        
     all_orientations.reset_index(inplace=True)
 
     all_sorts.set_index('code',  inplace = True)
@@ -761,10 +765,10 @@ def tidy_data(mname):
     #all_contacts=pd.concat([intrusive_contacts,contacts.iloc[::2, :]])
     all_contacts=pd.concat([intrusive_contacts,contacts])
     all_contacts.reset_index(inplace=True)
-    display(all_sorts)
+    #display(all_sorts)
     all_groups=set(all_sorts['group'])
-    print(all_groups)
-    #display(all_contacts.formation.unique())
+    #print(all_groups)
+    #display("all_sorts",all_sorts,"all_contact_fm",all_contacts.formation.unique(),"all_gps",all_groups,"use_gp",use_group)
     unique_contacts=set(all_contacts['formation'])
 
     # Remove groups that don't have any contact info
@@ -774,8 +778,10 @@ def tidy_data(mname):
         found=False
         #print('GROUP',agroup)
         for acontact in all_contacts.iterrows():
-            if(all_sorts.loc[acontact[1]['formation']]['group'] in agroup):
+            #if(all_sorts.loc[acontact[1]['formation']]['group'] in agroup and all_sorts.loc[acontact[1]['formation']]['group'] in use_group):
+            if(all_sorts.loc[acontact[1]['formation']]['group'] in agroup ):
                 found=True
+                #print(all_sorts.loc[acontact[1]['formation']]['group'])
                 break
         if(not found):
             no_contacts.append(agroup)
@@ -785,7 +791,7 @@ def tidy_data(mname):
 
     # Update list of all groups that have formations info
 
-    f=open('../test_data3/tmp/hams3_groups2.csv',"r")
+    f=open(tmp_path+'groups2.csv',"r")
     contents =f.readlines()
     f.close
 
@@ -798,7 +804,7 @@ def tidy_data(mname):
         found=False
         #print('GROUP',agroup)
         for acontact in all_contacts.iterrows():
-            if(all_sorts.loc[acontact[1]['formation']]['group'] in contents[i]):
+            if(all_sorts.loc[acontact[1]['formation']]['group'] in contents[i] and all_sorts.loc[acontact[1]['formation']]['group'] in use_group):
                 found=True
                 break
         if(not found):
@@ -809,7 +815,7 @@ def tidy_data(mname):
 
     # Make new list of groups
 
-    fgp=open('../test_data3/tmp/hams3_groups_clean.csv',"w")
+    fgp=open(tmp_path+'groups_clean.csv',"w")
     fgp.write('1 '+str(len(groups))+'\n')
     for i in range(0,len(groups)):
         fgp.write(contents[i+1].replace("\n","")+'\n')
@@ -821,7 +827,7 @@ def tidy_data(mname):
         found=False
         #print('GROUP',agroup)
         for ano in all_orientations.iterrows():
-            if(all_sorts.loc[ano[1]['formation']]['group'] in agroup):
+            if(all_sorts.loc[ano[1]['formation']]['group'] in agroup and all_sorts.loc[ano[1]['formation']]['group'] in use_group):
                 found=True
                 break
         if(not found):
@@ -832,23 +838,23 @@ def tidy_data(mname):
 
     # Update master list of  groups and formations info
 
-    fas=open('../test_data3/tmp/hams3_all_sorts_clean.csv',"w")
-    fas.write('index,group number,index in group,number in group,code,group\n')
+    fas=open(tmp_path+'all_sorts_clean.csv',"w")
+    fas.write('index,group number,index in group,number in group,code,group,uctype\n')
     for a_sort in all_sorts.iterrows():
         #print(a_sort[0])
         if(a_sort[1]['group'] not in no_contacts):
-            ostr=str(a_sort[1]['index'])+","+str(a_sort[1]['group number'])+","+str(a_sort[1]['index in group'])+","+str(a_sort[1]['number in group'])+","+a_sort[0]+","+a_sort[1]['group']+"\n"
+            ostr=str(a_sort[1]['index'])+","+str(a_sort[1]['group number'])+","+str(a_sort[1]['index in group'])+","+str(a_sort[1]['number in group'])+","+a_sort[0]+","+a_sort[1]['group']+",erode\n"
             fas.write(ostr)
     fas.close()
 
     # Update orientation info
 
-    fao=open('../test_data3/output/'+mname+'_orientations_clean.csv',"w")
+    fao=open(output_path+'orientations_clean.csv',"w")
     fao.write('X,Y,Z,azimuth,dip,polarity,formation\n')
 
     for ano in all_orientations.iterrows():
         #if any(grp in all_sorts.loc[ano[1]['formation']]['group'] for grp in no_contacts):
-        if(all_sorts.loc[ano[1]['formation']]['group'] in no_contacts or not ano[1]['formation'] in unique_contacts):  #fix here################################
+        if(all_sorts.loc[ano[1]['formation']]['group'] in no_contacts or not ano[1]['formation'] in unique_contacts or not all_sorts.loc[ano[1]['formation']]['group'] in use_group):  #fix here################################
             print('dud orientation:',ano[1]['formation'])
         else:
             ostr=str(ano[1]['X'])+","+str(ano[1]['Y'])+","+str(ano[1]['Z'])+","+\
@@ -859,11 +865,11 @@ def tidy_data(mname):
 
     # Update formation info
 
-    fac=open('../test_data3/output/'+mname+'_contacts_clean.csv',"w")
+    fac=open(output_path+'contacts_clean.csv',"w")
     fac.write('X,Y,Z,formation\n')
 
     for acontact in all_contacts.iterrows():
-        if(all_sorts.loc[acontact[1]['formation']]['group'] in no_contacts):
+        if(all_sorts.loc[acontact[1]['formation']]['group'] in no_contacts or not all_sorts.loc[acontact[1]['formation']]['group'] in use_group):
             print('dud contact:',acontact[1]['formation'])
         else:
             ostr=str(acontact[1]['X'])+","+str(acontact[1]['Y'])+","+str(acontact[1]['Z'])+","+acontact[1]['formation']+"\n"
