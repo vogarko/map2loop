@@ -21,7 +21,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Various topology graphs  | \*/graph/\*.gml | map2model cpp code in Notebook 1 |  1 |
 | Group-level stratigraphic relationships | \*/tmp/groups.csv | m2l_topology. save_group |  1 |
 | Formation-level stratigraphic relationships | \*/tmp/\*_groups.csv | m2l_topology. save_units |  1 |
-| Summary strat relationships | \*/tmp/all_sorts.csv| m2l_topology. save_units |  1 |
+| Summary strat relationships | \*/tmp/all_sorts.csv or all_sorts_clean.csv| m2l_topology. save_units |  1 |
 | Fault-fault relationship table | \*/output/fault-fault-relationships.csv | Notebook 1 |  1 |
 | Fault-unit relationship table | \*/output/unit-fault-relationships.csv | Notebook 1 |  1 |
 | Fault-group relationship table | \*/output/group-fault-relationships.csv | Notebook 1 |  1 |
@@ -37,21 +37,21 @@ A package to extract information from geological maps to feed 3D modelling packa
 
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
-| Contact info with z and formation | \*/output/contacts4.csv | m2l_geometry. save_basal_contacts |  1 |
-| Fault trace with z | \*/output/\*_faults.csv | m2l_geometry. save_faults |  1 |
-| Basal contacts shapefile | \*/tmp/\basal_contacts.shp | m2l_geometry. save_basal_no_faults |  1 |
+| Contact info with z and formation | \*/output/contacts4.csv or contacts_clean.csv| m2l_geometry. save_basal_contacts |  1 |
+| Fault trace with z | \*/output/faults.csv | m2l_geometry. save_faults |  1 |
+| Basal contacts shapefile | \*/tmp/basal_contacts.shp | m2l_geometry. save_basal_no_faults |  1 |
 | Clipped geology map shapefile | \*/tmp/geol_clip.shp | Notebook 1 |  1 |
 | Clipped fault & fold axial traces shapefile  | \*/tmp/faults_clip.shp | Notebook 1 |  1 |
 | Basic vtk model thanks to gempy  | \*/vtk/\*.vtp | gempy |  1 |
 | Pluton contacts with z and formation | \*/output/ign_contacts.csv | Notebook 1 |  1 |
-| Local formation thickness estimates | \*/output/formation_thicknesses.csv | Notebook 2 |  2 |
-| Fault diemnsions | \*/output/\fault_dimensions.csv | Notebook 1 |  1 |
+| Local formation thickness estimates | \*/output/formation_thicknesses_norm.csv | Notebook 2 |  2 |
+| Fault dimensions | \*/output/fault_dimensions.csv | Notebook 1 |  1 |
 
 ##### Orientations:
 
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
-| Bed dip dd data with z and formation | \*/output/orientations.csv | m2l_geometry. save_orientations |  1 |
+| Bed dip dd data with z and formation | \*/output/orientations.csv or orientations_clean.csv| m2l_geometry. save_orientations |  1 |
 | Extra orientations for empty series | \*/output/empty_series_orientations.csv | m2l_geometry. create_orientations |  1 |
 | Fault orientation with z | \*/output/fault_orientations.csv |  m2l_geometry. save_faults |  1 |
 | Clipped orientations shapefile | \*/tmp/structure_clip.shp | Notebook 1 |  1 |
