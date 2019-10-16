@@ -1,73 +1,85 @@
 #ROI
 
-step_out=0
-inset=0
+step_out=0   #padding arounf dtm to ensure reprojected dtm covers target area
+inset=0      #unused??
 
-minx=500057
+minx=500057  #region of interest coordinates in metre-based system (or non-degree system)
 maxx=603028
 miny=7455348
 maxy=7567953
-
-#CRS
-src_crs = {'init': 'EPSG:4326'}  
-dst_crs = {'init': 'EPSG:28350'} 
-
-#PATH
-mname='hams3'
-geology_file='hams2_geol.shp'
-fault_file='GEOS_GEOLOGY_LINEARSTRUCTURE_500K_GSD.shp'
-structure_file='hams2_structure.shp'
-
-
-
-#CODES
-gcode='GROUP_'
-dcode='DIP'
-ddcode='DIP_DIR'
-ccode='CODE'
-ncode='NAME'
-ocode='OBJECTID'
-gicode='GEOPNT_ID'
-r1code='ROCKTYPE1'
-r2code='ROCKTYPE2'
-tcode='TYPE'
-fcode='FEATURE'
-sfcode='FEATURE'
-dscode='DESCRIPTN'
-ucode='UNITNAME'
-mincode='MIN_AGE_MA'
-maxcode='MAX_AGE_MA'
-sill_label='sill'
-intrusive_label='intrusive'
-fold_label='Fold axial trace'
-fault_label='Fault'
-bedding_label='Bed'
-
-#MODEL_EXTENTS
 model_base=-8200
 
 
+#CRS
+
+src_crs = {'init': 'EPSG:4326'}  # coordinate reference system for imported dtms (geodetic lat/long WGS84)
+dst_crs = {'init': 'EPSG:28350'} # coordinate system for data
+
+#PATH
+
+mname='hams3'  # not used?
+geology_file='hams2_geol.shp'   #input geology file
+fault_file='GEOS_GEOLOGY_LINEARSTRUCTURE_500K_GSD.shp' #input fault file
+structure_file='hams2_structure.shp' #input bedding orientation file
+
+
+#CODES
+
+#Orientations
+dcode='DIP'             #field that contains dip information
+ddcode='DIP_DIR'        #field that contains dip direction information
+sfcode='FEATURE'        #field that contains information on type of structure
+bedding_label='Bed'     #text to search for in field defined by sfcode to show that this is a bedding measurement
+
+#Stratigraphy
+gcode='GROUP_'          #field that contains coarser stratigraphic coding
+ccode='CODE'            #field that contains finer stratigraphic coding
+dscode='DESCRIPTN'      #field that contains information about lithology
+ucode='UNITNAME'        #field that contains alternate stratigraphic coding (not used)
+r1code='ROCKTYPE1'      #field that contains  extra lithology information
+r2code='ROCKTYPE2'      #field that contains even more lithology information
+sill_label='sill'       #text to search for in field defined by dscode to show that this is a sill
+intrusive_label='intrusive' #text to search for in field defined by dscode to show that this is an intrusion
+
+#Timing
+mincode='MIN_AGE_MA'    #field that contains minimum age of unit defined by ccode
+maxcode='MAX_AGE_MA'    #field that contains maximum age of unit defined by ccode
+
+#faults and folds
+fcode='FEATURE'         #field that contains information on type of structure
+fault_label='Fault'     #text to search for in field defined by fcode to show that this is a fault
+fold_label='Fold axial trace'   #text to search for in field defined by fcode to show that this is a fold axial trace
+ncode='NAME'            #field that contains information on name of fault (not used)
+tcode='TYPE'            #field that contains information on type of fold
+
+#ids
+ocode='OBJECTID'        #field that contains unique id of geometry object
+gicode='GEOPNT_ID'      #field that contains unique id of structure point
+
 #DECIMATION
-orientation_decimate=0
-contact_decimate=10
-fault_decimate=5
-fold_decimate=5
+
+orientation_decimate=0  #store every nth orientation (in object order) 0 = save all
+contact_decimate=10     #store every nth contact point (in object order) 0 = save all
+fault_decimate=5        #store every nth fault point (in object order) 0 = save all
+fold_decimate=5         #store every nth fold axial trace point (in object order) 0 = save all
 
 
 #INTERPOLATION
-gridx=50
-gridy=50
-scheme='scipy_rbf'
-dist_buffer=5
-intrusion_mode=0 # 1 all instrusions exluded from basal contacts, 0 only sills
-use_interpolations=False
+
+gridx=50                #x grid dimensions (no of points, not distance) for interpolations
+gridy=50                #x grid dimensions (no of points, not distance) for interpolations
+scheme='scipy_rbf'      #interpolation scheme
+dist_buffer=5           #buffer distance for clipping points by faults (in metres or same units as dst_crs)
+intrusion_mode=0        # 1 all intrusions exluded from basal contacts, 0 only sills
+use_interpolations=False    # flag to sue interpolated orientations or not.
 
 #ASSUMPTIONS
-pluton_dip=45
-pluton_form='saucers' #pluton_form='dontknow'  #saucers \_____/  pancakes /_____\   domes /‾‾‾‾‾\  dontknow ???
-fault_dip=90
 
-#PATHS
+pluton_dip=45           #surface dip of pluton contacts
+pluton_form='dontknow'  #saucers: \__+_+__/  pancakes: +/       \+   domes: /  +  + \  dontknow: +\_____/+
+fault_dip=90            #surface dip of faults
+
+#DERIVED PATHS
 
 local_paths=False
 test_data_path='../test_data3/'
