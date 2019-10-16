@@ -6,10 +6,10 @@ General to do
 3. XxxAdd parse fault relationships
 4. Thickness no faults
 5. Thickness no intervening layers and bigger search radius
-6. Tidy up all in one to reduce duplications
+6. XxxTidy up all in one to reduce duplications
 7. XxxReproject lat long from dst_srs
 8. Priors all in one place
-9. Add formation thickness to all in one? No
+9. XxxAdd formation thickness to all in one? No
 10. Sills. Can be inter or intra. 
 11. Plutons: are they working?!
 12. Add polarity code to orientations 
@@ -25,12 +25,12 @@ General to do
 22. Get all warox layers
 23. Extended topology to reduce uncertainty (group, intragroup)
 24. If gempy else geomodeller else loopstructural else surfe just after tidy
-25. feature/FEATURE vs [‘fcode’] ?
-26. Local store dtm for example in dtm 
+25. Xxxfeature/FEATURE vs [‘fcode’] ?
+26. XxxLocal store dtm for example in dtm 
 27. Analysis folder (interpolations, thickness etc)?
 28. Clip/shp folder? Clipped and basal strat files
 29. Rename combo_full
-30. Standardise filenames (hams or probs not)
+30. XxxStandardise filenames (hams or probs not)
 31. Contacts4 etc clean up filenames
 32. Use roi file as input?
 33. Redo groups as clean tables cols = one possible topological sort after transpose
@@ -44,10 +44,15 @@ General to do
 41. Clever: topology. Contact interpolation. Basal contacts. Thickness maps. Tidy. 
 42. Analyse interpolation orientations for structure (saddles, domes, etc))
 43. Erode vs onlap via go vs gp topology
-44. Make test data, data and graph paths if needed
+44. XxxMake test data, data and graph paths if needed
 45. Use stratigraphic offsets across faults to filter big throw combined with estimated thickness!!
-46. Remanence tomofastx
+46. XxxRemanence tomofastx
 47. Need unique codes for geol,structure,faults
+48. Templates for specific databases or map sets 
+49. 3D potential fields with grav/mag Mahtab
+50. Preprocessor notebook with widgets for codes and labels
+51. Save out fm level summary thickness stats
+
 
 Better models
 1. Supergroup similar groups

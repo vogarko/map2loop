@@ -30,8 +30,8 @@ A package to extract information from geological maps to feed 3D modelling packa
 
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
-| dtm in lat long wgs83 | \*/dtm/\dtm.tif | m2l_utils.get_dtm |   1 |
-| georeferenced dtm | \*/dtm/\dtm_rp.tif| m2l_utils.reproject_dtm |  1 |
+| dtm in lat long wgs83 | \*/dtm/dtm.tif | m2l_utils.get_dtm |   1 |
+| georeferenced dtm | \*/dtm/dtm_rp.tif| m2l_utils.reproject_dtm |  1 |
 
 ##### Geometry:
 
