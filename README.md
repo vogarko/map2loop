@@ -44,7 +44,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Clipped fault & fold axial traces shapefile  | \*/tmp/faults_clip.shp | Notebook 1 |  1 |
 | Basic vtk model thanks to gempy  | \*/vtk/\*.vtp | gempy |  1 |
 | Pluton contacts with z and formation | \*/output/ign_contacts.csv | Notebook 1 |  1 |
-| Local formation thickness estimates | \*/output/formation_thicknesses_norm.csv | Notebook 2 |  2 |
+| Local formation thickness estimates | \*/output/formation_thicknesses_norm.csv and formation_summary_thickness.csv| Notebook 2 |  2 |
 | Fault dimensions | \*/output/fault_dimensions.csv | Notebook 1 |  1 |
 
 ##### Orientations:
