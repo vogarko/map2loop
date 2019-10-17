@@ -74,7 +74,7 @@ def call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny):
         ZIl = scipy_rbf(x,y,l,xi,yi)
     if(calc=='scipy_idw'):
         ZIl = scipy_idw(x,y,l,xi,yi)
-    ZIl = ZIl.reshape((ny-1, nx-1))
+    ZIl = ZIl.reshape((ny, nx))
     
     if(calc=='simple_idw'):
         ZIm = simple_idw(x,y,m,xi,yi)
@@ -82,7 +82,7 @@ def call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny):
         ZIm = scipy_rbf(x,y,m,xi,yi)
     if(calc=='scipy_idw'):
         ZIm = scipy_idw(x,y,m,xi,yi)
-    ZIm = ZIm.reshape((ny-1, nx-1))
+    ZIm = ZIm.reshape((ny, nx))
     
     if(type(n) is not int):
         if(calc=='simple_idw'):
@@ -91,26 +91,25 @@ def call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny):
             ZIn = scipy_rbf(x,y,n,xi,yi)
         if(calc=='scipy_idw'):
             ZIn = scipy_idw(x,y,n,xi,yi)
-        ZIn = ZIn.reshape((ny-1, nx-1))   
+        ZIn = ZIn.reshape((ny, nx))   
     else:
         ZIn=0
         
     return(ZIl,ZIm,ZIn)
      
-def interpolate_orientations(structure_file,output_path,bbox,dcode,ddcode,gcode,this_gcode,calc,gridx,gridy):
-    print(structure_file,output_path,bbox,dcode,ddcode,gcode,this_gcode,calc,gridx,gridy)
+def interpolate_orientations(structure_file,output_path,bbox,c_l,this_gcode,calc,gridx,gridy):
     structure = gpd.read_file(structure_file,bbox=bbox)
     
     if(len(this_gcode)==1):       
-        is_gp=structure[gcode] == thisgcode # subset orientations to just those with this group
+        is_gp=structure[c_l['g']] == thisgcode # subset orientations to just those with this group
         gp_structure = structure[is_gp]
     else:
-        is_gp=structure[gcode] == this_gcode[0] # subset orientations to just those with this group
+        is_gp=structure[c_l['g']] == this_gcode[0] # subset orientations to just those with this group
         gp_structure = structure[is_gp]
         gp_structure_all = gp_structure.copy()
         
         for i in range (1,len(this_gcode)):
-            is_gp=structure[gcode] == this_gcode[i] # subset orientations to just those with this group
+            is_gp=structure[c_l['g']] == this_gcode[i] # subset orientations to just those with this group
             temp_gp_structure = structure[is_gp]
             gp_structure_all = pd.concat([gp_structure_all, temp_gp_structure], ignore_index=True)
     
@@ -119,8 +118,8 @@ def interpolate_orientations(structure_file,output_path,bbox,dcode,ddcode,gcode,
     
     nx, ny = gridx,gridy
 
-    xi = np.linspace(bbox[0],bbox[2], nx-1)
-    yi = np.linspace(bbox[1],bbox[3], ny-1)
+    xi = np.linspace(bbox[0],bbox[2], nx)
+    yi = np.linspace(bbox[1],bbox[3], ny)
     xi, yi = np.meshgrid(xi, yi)
     xi, yi = xi.flatten(), yi.flatten()
     x = np.zeros(npts)
@@ -132,8 +131,8 @@ def interpolate_orientations(structure_file,output_path,bbox,dcode,ddcode,gcode,
     for a_pt in gp_structure_all.iterrows():
         x[i]=a_pt[1]['geometry'].x
         y[i]=a_pt[1]['geometry'].y
-        dip[i] = a_pt[1][dcode]
-        dipdir[i] = a_pt[1][ddcode]
+        dip[i] = a_pt[1][c_l['d']]
+        dipdir[i] = a_pt[1][c_l['dd']]
         i=i+1
     
     l=np.zeros(npts)
@@ -171,8 +170,8 @@ def interpolate_orientations(structure_file,output_path,bbox,dcode,ddcode,gcode,
         ostr=str(x[i])+","+str(y[i])+","+str(int(dip[i]))+","+str(int(dipdir[i]))+'\n'
         f.write(ostr)
     
-    for xx in range (0,gridx-1):
-        for yy in range (0,gridy-1):
+    for xx in range (0,gridx):
+        for yy in range (0,gridy):
             yyy=xx
             xxx=gridy-2-yy
             L=ZIl[xxx,yyy]/(sqrt((pow(ZIl[xxx,yyy],2.0))+(pow(ZIm[xxx,yyy],2.0))+(pow(ZIn[xxx,yyy],2.0))))
@@ -181,7 +180,7 @@ def interpolate_orientations(structure_file,output_path,bbox,dcode,ddcode,gcode,
             
             dip,dipdir=m2l_utils.dircos2ddd(L,M,N)
 
-            ostr=str(bbox[0]+(xx*((bbox[2]-bbox[0])/gridx+1)))+","+str(bbox[1]+((gridy-1-yy)*((bbox[3]-bbox[1])/gridy+1)))+","+str(int(dip))+","+str(int(dipdir))+'\n'
+            ostr=str(bbox[0]+(xx*((bbox[2]-bbox[0])/gridx)))+","+str(bbox[1]+((gridy-1-yy)*((bbox[3]-bbox[1])/gridy)))+","+str(int(dip))+","+str(int(dipdir))+'\n'
             fi.write(ostr)
             
             ostr=str(xx)+","+str(yy)+","+str(L)+'\n'
@@ -203,8 +202,7 @@ def interpolate_orientations(structure_file,output_path,bbox,dcode,ddcode,gcode,
     print("orientations interpolated as dip dip direction",output_path+'interpolation_'+calc+'.csv')
     print("orientations interpolated as l,m,n dir cos",output_path+'interpolation_l.csv etc.')
 
-def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,use_gcode,ccode,calc,gridx,gridy):
-    print(geology_file,output_path,bbox,dcode,ddcode,gcode,calc,gridx,gridy)
+def interpolate_contacts(geology_file,output_path,dtm,bbox,c_l,use_gcode,calc,gridx,gridy):
     geol_file = gpd.read_file(geology_file,bbox=bbox)
     print(len(geol_file))
     geol_file.plot( color='black',edgecolor='black') 
@@ -214,8 +212,8 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,us
     decimate=1
     nx, ny = gridx,gridy
 
-    xi = np.linspace(bbox[0],bbox[2], nx-1)
-    yi = np.linspace(bbox[1],bbox[3], ny-1)
+    xi = np.linspace(bbox[0],bbox[2], nx)
+    yi = np.linspace(bbox[1],bbox[3], ny)
     xi, yi = np.meshgrid(xi, yi)
     xi, yi = xi.flatten(), yi.flatten()
     x = np.zeros(20000)   ############## FUDGE ################
@@ -231,7 +229,7 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,us
             #print(i)
             for line in acontact[1].geometry: # loop through line segments
                 #print(i,len(acontact[1].geometry))
-                if(m2l_utils.mod_safe(i,decimate)  ==0 and acontact[1][gcode] in use_gcode):
+                if(m2l_utils.mod_safe(i,decimate)  ==0 and acontact[1][c_l['g']] in use_gcode):
                     #if(acontact[1]['id']==170): 
                         #display(npts,line.coords[0][0],line.coords[1][0]) 
                     dlsx=line.coords[0][0]-line.coords[1][0]
@@ -246,17 +244,17 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,us
                         m[i]=lsy
                         locations=[(x[i],y[i])] #doesn't like point right on edge?
                         height=m2l_utils.value_from_raster(dtm,locations)
-                        if(str(acontact[1][gcode])=='None'):
-                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][ccode].replace(" ","_").replace("-","_")+"\n"
+                        if(str(acontact[1][c_l['g']])=='None'):
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+"\n"
                         else:
-                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][gcode].replace(" ","_").replace("-","_")+"\n"
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['g']].replace(" ","_").replace("-","_")+"\n"
                         f.write(ostr)
                         npts=npts+1
                 i=i+1
         else:
             #display(acontact[1].geometry,acontact[1].geometry.coords)
             #for line in acontact[1]: # loop through line segments in LineString
-            if(  m2l_utils.mod_safe(i,decimate)  ==0 and acontact[1][gcode] in use_gcode):
+            if(  m2l_utils.mod_safe(i,decimate)  ==0 and acontact[1][c_l['g']] in use_gcode):
                 dlsx=acontact[1].geometry.coords[0][0]-acontact[1].geometry.coords[1][0]
                 dlsy=acontact[1].geometry.coords[0][1]-acontact[1].geometry.coords[1][1]
                 if(not acontact[1].geometry.coords[0][0]==acontact[1].geometry.coords[1][0] 
@@ -270,10 +268,10 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,us
                     m[i]=lsy
                     locations=[(x[i],y[i])] #doesn't like point right on edge?
                     height=m2l_utils.value_from_raster(dtm,locations)
-                    if(str(acontact[1][gcode])=='None'):
-                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][ccode].replace(" ","_").replace("-","_")+"\n"
+                    if(str(acontact[1][c_l['g']])=='None'):
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+"\n"
                     else:
-                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][gcode].replace(" ","_").replace("-","_")+"\n"
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['g']].replace(" ","_").replace("-","_")+"\n"
                     #print(ostr)
                     f.write(ostr)
                     print(npts,dlsx,dlsy)
@@ -303,15 +301,15 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,us
     fl.write("x,y,l\n")
     fm.write("x,y,m\n")
     
-    for xx in range (0,gridx-1):
-        for yy in range (0,gridy-1):
+    for xx in range (0,gridx):
+        for yy in range (0,gridy):
             yyy=xx
             xxx=gridy-2-yy
             L=ZIl[xxx,yyy]/(sqrt((pow(ZIl[xxx,yyy],2.0))+(pow(ZIm[xxx,yyy],2.0))))
             M=ZIm[xxx,yyy]/(sqrt((pow(ZIl[xxx,yyy],2.0))+(pow(ZIm[xxx,yyy],2.0))))
             S=degrees(atan2(L,M))
     
-            ostr=str(bbox[0]+(xx*((bbox[2]-bbox[0])/(gridx+1))))+","+str(bbox[1]+((gridy-2-yy)*((bbox[3]-bbox[1])/(gridy+1))))+","+str(int(S))+'\n'
+            ostr=str(bbox[0]+(xx*((bbox[2]-bbox[0])/(gridx))))+","+str(bbox[1]+((gridy-2-yy)*((bbox[3]-bbox[1])/(gridy))))+","+str(int(S))+'\n'
             fi.write(ostr)
             
             ostr=str(xx)+","+str(yy)+","+str(L)+'\n'
@@ -327,8 +325,7 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,dcode,ddcode,gcode,us
     print("contacts interpolated as strike",output_path+'interpolation_contacts_'+calc+'.csv')
     print("contacts interpolated as l,m dir cos",output_path+'interpolation_contacts_l.csv etc.')
 
-def save_contact_vectors(geology_file,tmp_path,dtm,bbox,dcode,ddcode,gcode,ccode,calc,decimate):
-    print(geology_file,tmp_path,bbox,dcode,ddcode,gcode,calc)
+def save_contact_vectors(geology_file,tmp_path,dtm,bbox,c_l,calc,decimate):
     geol_file = gpd.read_file(geology_file,bbox=bbox)
     print(len(geol_file))
     geol_file.plot( color='black',edgecolor='black') 
@@ -363,10 +360,10 @@ def save_contact_vectors(geology_file,tmp_path,dtm,bbox,dcode,ddcode,gcode,ccode
                         m[i]=lsy
                         locations=[(x[i],y[i])] #doesn't like point right on edge?
                         height=m2l_utils.value_from_raster(dtm,locations)
-                        if(str(acontact[1][gcode])=='None'):
-                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][ccode].replace(" ","_").replace("-","_")+"\n"
+                        if(str(acontact[1][c_l['g']])=='None'):
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+"\n"
                         else:
-                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][gcode].replace(" ","_").replace("-","_")+"\n"
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['g']].replace(" ","_").replace("-","_")+"\n"
                         f.write(ostr)
                         npts=npts+1
                 i=i+1
@@ -387,10 +384,10 @@ def save_contact_vectors(geology_file,tmp_path,dtm,bbox,dcode,ddcode,gcode,ccode
                     m[i]=lsy
                     locations=[(x[i],y[i])] #doesn't like point right on edge?
                     height=m2l_utils.value_from_raster(dtm,locations)
-                    if(str(acontact[1][gcode])=='None'):
-                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][ccode].replace(" ","_").replace("-","_")+"\n"
+                    if(str(acontact[1][c_l['g']])=='None'):
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+"\n"
                     else:
-                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][ccode].replace(" ","_").replace("-","_")+","+acontact[1][gcode].replace(" ","_").replace("-","_")+"\n"
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['g']].replace(" ","_").replace("-","_")+"\n"
                     #print(ostr)
                     f.write(ostr)
                     #print(npts,dlsx,dlsy)
@@ -402,7 +399,7 @@ def save_contact_vectors(geology_file,tmp_path,dtm,bbox,dcode,ddcode,gcode,ccode
 
 
     
-def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_reproj_file,ccode,lo,mo,no,lc,mc,xy,dst_crs,bbox):
+def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_reproj_file,c_l,lo,mo,no,lc,mc,xy,dst_crs,bbox):
     f=open(combo_file,'w')
     f.write('x,y,dip,dipdirection,misorientation,dotproduct\n')
 
@@ -447,9 +444,9 @@ def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_repro
         ostr=ostr+str(a_point[1]['y'])+','
         ostr=ostr+str(height)+','+str(int(a_point[1]['dipdirection']))+','
         ostr=ostr+str(int(a_point[1]['dip']))+',1,'
-        ostr=ostr+str(a_point[1][ccode]).replace("-","_")+'\n'
+        ostr=ostr+str(a_point[1][c_l['c']]).replace("-","_")+'\n'
 
-        if(not str(a_point[1][ccode])=='nan'):
+        if(not str(a_point[1][c_l['c']])=='nan'):
             f.write(ostr)
     f.close()  
     print("contacts and orientations interpolated as dip dip direction",output_path+'combo_full.csv')

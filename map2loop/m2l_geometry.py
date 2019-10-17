@@ -12,18 +12,18 @@ from map2loop import m2l_utils
 import numpy as np
 
 #Export orientation data in csv format with heights and strat code added
-def save_orientations(structures,path_out,ddcode,dcode,ccode,rcode,intrusive_label,orientation_decimate,dtm):
+def save_orientations(structures,path_out,c_l,orientation_decimate,dtm):
     i=0
     f=open(path_out+'/orientations.csv',"w")
     f.write("X,Y,Z,azimuth,dip,polarity,formation\n")
     for apoint in structures.iterrows():
-        if(not intrusive_label in apoint[1][rcode]):
-            if(apoint[1][dcode]!=0 and m2l_utils.mod_safe(i,orientation_decimate)==0):
+        if(not c_l['intrusive'] in apoint[1][c_l['r1']]):
+            if(apoint[1][c_l['d']]!=0 and m2l_utils.mod_safe(i,orientation_decimate)==0):
                 locations=[(apoint[1]['geometry'].x, apoint[1]['geometry'].y)]
                 if(apoint[1]['geometry'].x > dtm.bounds[0] and apoint[1]['geometry'].x < dtm.bounds[2] and  
                     apoint[1]['geometry'].y > dtm.bounds[1] and apoint[1]['geometry'].y < dtm.bounds[3]):       
                     height=m2l_utils.value_from_raster(dtm,locations)
-                    ostr=str(apoint[1]['geometry'].x)+","+str(apoint[1]['geometry'].y)+","+height+","+str(apoint[1][ddcode])+","+str(apoint[1][dcode])+",1,"+str(apoint[1][ccode].replace(" ","_").replace("-","_"))+"\n"
+                    ostr=str(apoint[1]['geometry'].x)+","+str(apoint[1]['geometry'].y)+","+height+","+str(apoint[1][c_l['dd']])+","+str(apoint[1][c_l['d']])+",1,"+str(apoint[1][c_l['c']].replace(" ","_").replace("-","_"))+"\n"
                     f.write(ostr)
                     i+=1
         
@@ -31,7 +31,7 @@ def save_orientations(structures,path_out,ddcode,dcode,ccode,rcode,intrusive_lab
     print(i,'orientations saved to',path_out+'/orientations.csv')
 
 #Find those series that don't have any orientation or contact point data and add some random data
-def create_orientations( path_in, path_out,dtm,geology,structures,ccode,gcode,r1code,intrusive_label):
+def create_orientations( path_in, path_out,dtm,geology,structures,c_l):
     f=open(path_in+'/groups.csv',"r")
     contents =f.readlines()
     f.close
@@ -48,10 +48,10 @@ def create_orientations( path_in, path_out,dtm,geology,structures,ccode,gcode,r1
 
     for i in range (0,ngroups):
         for apoint in structures.iterrows():
-            if(str(apoint[1][gcode])=='None'):
-                agroup=apoint[1][ccode].replace(" ","_").replace("-","_")
+            if(str(apoint[1][c_l['g']])=='None'):
+                agroup=apoint[1][c_l['c']].replace(" ","_").replace("-","_")
             else:
-                agroup=apoint[1][gcode].replace(" ","_").replace("-","_")
+                agroup=apoint[1][c_l['g']].replace(" ","_").replace("-","_")
             #print(agroup)
             if(groups[i][0]==agroup):
                 lgroups=list(groups[i])
@@ -63,7 +63,7 @@ def create_orientations( path_in, path_out,dtm,geology,structures,ccode,gcode,r1
 
     for i in range (0,ngroups):
         for apoly in geology.iterrows():
-            agroup=apoint[1][gcode].replace(" ","_").replace("-","_")
+            agroup=apoint[1][c_l['g']].replace(" ","_").replace("-","_")
             #print(agroup)
             if(groups[i][0]==agroup):
                 lgroups=list(groups[i])
@@ -73,7 +73,7 @@ def create_orientations( path_in, path_out,dtm,geology,structures,ccode,gcode,r1
 
     all_codes=[]
     for ageol in geology.iterrows(): # central polygon
-            all_codes.append(ageol[1][ccode])
+            all_codes.append(ageol[1][c_l['c']])
 
     print("Contacts----------\n",len(set(all_codes)),set(all_codes))
 
@@ -83,7 +83,7 @@ def create_orientations( path_in, path_out,dtm,geology,structures,ccode,gcode,r1
     for i in range (0,ngroups):
         if(groups[i][1]==0):
             for ageol in geology.iterrows():
-                if(ageol[1][ccode].replace("-","_")==groups[i][0] and groups[i][1]==0 and not intrusive_label in ageol[1][r1code] ):
+                if(ageol[1][c_l['c']].replace("-","_")==groups[i][0] and groups[i][1]==0 and not c_l['intrusive'] in ageol[1][c_l['r1']] ):
                     apoly=Polygon(ageol[1]['geometry'])
                     apoint=apoly.representative_point()
                     #print(apoint.x,apoint.y)
@@ -92,9 +92,9 @@ def create_orientations( path_in, path_out,dtm,geology,structures,ccode,gcode,r1
                     if(height==-999):
                         print("point off map",locations)
                         height=0   # needs a better solution!
-                    ostr=str(apoint.x)+","+str(apoint.y)+","+height+",0,45,1"+","+str(ageol[1][ccode].replace(" ","_").replace("-","_"))+"\n"
+                    ostr=str(apoint.x)+","+str(apoint.y)+","+height+",0,45,1"+","+str(ageol[1][c_l['c']].replace(" ","_").replace("-","_"))+"\n"
                     f.write(ostr)
-                    plt.title(str(ageol[1][ccode].replace(" ","_").replace("-","_")))
+                    plt.title(str(ageol[1][c_l['c']].replace(" ","_").replace("-","_")))
                     plt.scatter(apoint.x,apoint.y,color="red")
                     plt.plot(*apoly.exterior.xy)
                     plt.show()
@@ -127,7 +127,7 @@ def extract_poly_coords(geom,i):
             'interior_coords': interior_coords}
 
 #Export contact information subset of each polygon to csv format
-def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode,dscode,r1code,intrusion_mode):
+def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,c_l,intrusion_mode):
     print("decimation: 1 /",contact_decimate)
     plist=[]
     i=0
@@ -137,10 +137,10 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode
 
     for ageol in all_geom.iterrows(): # central polygon
         all_coords=extract_poly_coords(ageol[1].geometry,0)
-        plist+=(i,list(all_coords['exterior_coords']),ageol[1][ccode],ageol[1][dscode],ageol[1][gcode],ageol[1][r1code],ageol[1][ocode])
+        plist+=(i,list(all_coords['exterior_coords']),ageol[1][c_l['c']],ageol[1][c_l['ds']],ageol[1][c_l['g']],ageol[1][c_l['r1']],ageol[1][c_l['o']])
         i=i+1
         for j in range(0,len(all_coords['interior_coords']),2):
-            plist+=(i,list(all_coords['interior_coords'][j+1]),ageol[1][ccode],ageol[1][dscode],ageol[1][gcode],ageol[1][r1code],ageol[1][ocode])
+            plist+=(i,list(all_coords['interior_coords'][j+1]),ageol[1][c_l['c']],ageol[1][c_l['ds']],ageol[1][c_l['g']],ageol[1][c_l['r1']],ageol[1][c_l['o']])
             i=i+1
                
     #dataset = rasterio.open(path_in+'/dtm_rp.tif')
@@ -185,19 +185,13 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode
                     b_polygon=LineString(plist[b_poly+1])
 
                     if(plist[a_poly] != plist[b_poly]): #do not compare with self
-                        #c_polygon=snap(a_polygon,b_polygon,5)
-                        #if(plist[a_poly+6]==98 and plist[b_poly+6]==84):
-                            #display(plist[a_poly],plist[b_poly],plist[b_poly+3],plist[b_poly+5])
-                        if (a_polygon.intersects(b_polygon)) : # is a neighbour, but not a sill
-                           if(  (not 'sill' in plist[b_poly+3] or not 'intrusive' in plist[b_poly+5]) and intrusion_mode==0): #intrusion_mode=0 (sills only excluded)
-                                 neighbours.append((b_poly))                               
-                           elif((not 'intrusive' in plist[b_poly+5])  and intrusion_mode==1): #intrusion_mode=1 (all intrusions  excluded)
-                                 neighbours.append((b_poly))                               
-                            #elif( not 'sill' in plist[b_poly+3] or not 'intrusive' in plist[b_poly+5]):
-                                #neighbours.append((b_poly))
-                               # print(b_polygon)
 
-                #print(plist[a_poly+6],len(neighbours)) 
+                        if (a_polygon.intersects(b_polygon)) : # is a neighbour, but not a sill
+                           if(  (not c_l['sill'] in plist[b_poly+3] or not c_l['intrusive'] in plist[b_poly+5]) and intrusion_mode==0): #intrusion_mode=0 (sills only excluded)
+                                 neighbours.append((b_poly))                               
+                           elif((not c_l['intrusive'] in plist[b_poly+5])  and intrusion_mode==1): #intrusion_mode=1 (all intrusions  excluded)
+                                 neighbours.append((b_poly))                               
+
 
                 if(len(neighbours) >0):
                     for i in range (0,len(neighbours)):
@@ -214,26 +208,25 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode
                                 if(not b_polygon.is_valid):
                                     b_polygon = b_polygon.buffer(0)                                    
                                 LineStringC = a_polygon.intersection(b_polygon)
-                                if(plist[a_poly+6]==98 and neighbours[i]==84):
-                                    display(LineStringC)
+
                                 if(LineStringC.wkt.split(" ")[0]=='GEOMETRYCOLLECTION' ): #ignore weird intersections for now, worry about them later!
                                     #print("debug:GC")
                                     continue
                                 elif(LineStringC.wkt.split(" ")[0]=='MULTIPOLYGON' or
                                      LineStringC.wkt.split(" ")[0]=='POLYGON'):
-                                         print("debug:MP,P",ageol[1][ccode])
+                                         print("debug:MP,P",ageol[1][c_l['c']])
                                          #display(LineStringC)
 
                                 elif(LineStringC.wkt.split(" ")[0]=='MULTILINESTRING'):
                                     k=0
 
                                     if(str(plist[a_poly+4])=='None'):
-                                        ls_dict[id] = {"id": id,ccode:plist[a_poly+2].replace(" ","_").replace("-","_"),gcode:plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": LineStringC}
+                                        ls_dict[id] = {"id": id,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": LineStringC}
                                     else:
-                                        ls_dict[id] = {"id": id,ccode:plist[a_poly+2].replace(" ","_").replace("-","_"),gcode:plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": LineStringC}
+                                        ls_dict[id] = {"id": id,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": LineStringC}
                                     id=id+1
                                     for lineC in LineStringC: #process all linestrings
-                                        #print(ageol[1][ccode],len(LineStringC))
+                                        #print(ageol[1][c_l['c']],len(LineStringC))
                                         if(m2l_utils.mod_safe(k,contact_decimate)==0 or k==int((len(LineStringC)-1)/2) or k==len(LineStringC)-1): #decimate to reduce number of points, but also take second and third point of a series to keep gempy happy
                                             locations=[(lineC.coords[0][0],lineC.coords[0][1])] #doesn't like point right on edge?
                                             #print(k,type(lineC))
@@ -242,12 +235,12 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode
                                                     height=m2l_utils.value_from_raster(dtm,locations)
                                                     ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(plist[a_poly+2].replace(" ","_").replace("-","_"))+"\n"
                                                     ac.write(ostr)
-                                                    allc.write(agp+","+str(ageol[1][ocode])+","+ostr)
+                                                    allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
                                                     if(str(plist[neighbours[i]+4])=='None'):
-                                                        ls_dict_decimate[deci_points] = {"id": allpts,ccode:plist[a_poly+2].replace(" ","_").replace("-","_"),gcode:plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                        ls_dict_decimate[deci_points] = {"id": allpts,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                     else:
-                                                        ls_dict_decimate[deci_points] = {"id": allpts,ccode:plist[a_poly+2].replace(" ","_").replace("-","_"),gcode:plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
-                                                    #ls_dict_decimate[allpts] = {"id": allpts,"CODE":ageol[1][ccode].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][gcode].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                        ls_dict_decimate[deci_points] = {"id": allpts,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                    #ls_dict_decimate[allpts] = {"id": allpts,"CODE":ageol[1][c_l['c']].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][c_l['g']].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                     allpts+=1 
                                                     deci_points=deci_points+1
                                             else:
@@ -259,8 +252,8 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode
                                                 lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
                                                 height=m2l_utils.value_from_raster(dtm,locations)
                                                 ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(plist[a_poly+2].replace(" ","_").replace("-","_"))+"\n"
-                                                #ls_dict_decimate[allpts] = {"id": id,"CODE":ageol[1]['CODE'],"GROUP_":ageol[1]['GROUP_'], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
-                                                allc.write(agp+","+str(ageol[1][ocode])+","+ostr)
+                                                #ls_dict_decimate[allpts] = {"id": id,c_l['c']:ageol[1][c_l['c']],c_l['g']:ageol[1][c_l['g']], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
                                                 allpts+=1    
                                         """        
                                         else:
@@ -269,7 +262,7 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode
                                                 lineC.coords[0][1] > dataset.bounds[1] and lineC.coords[0][1] < dataset.bounds[3]):       
                                                 for val in dataset.sample(locations):
                                                     height=str(val).replace("[","").replace("]","")
-                                                ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(ageol[1][ccode])+"\n"
+                                                ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(ageol[1][c_l['c']])+"\n"
                                                 ac.write(ostr)
                                                 allc.write(agp+","+str(ageol[1]['OBJECTID_1'])+","+ostr)
                                                 ls_dict_decimate[allpts] = {"id": id,"CODE":ageol[1]['CODE'],"GROUP_":ageol[1]['GROUP_'], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
@@ -277,7 +270,7 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode
                                         """
                                         k+=1
                                 elif(LineStringC.wkt.split(" ")[0]=='LINESTRING'): # apparently this is not needed
-                                    #print("debug:LINESTRING",ageol[1][ocode],ageol[1][ccode],list(LineStringC.coords))
+                                    #print("debug:LINESTRING",ageol[1][[c_l['o']]],ageol[1][c_l['c']],list(LineStringC.coords))
                                     #display(LineStringC)
                                     k=0
                                     for pt in LineStringC.coords: #process one linestring
@@ -287,7 +280,7 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode
                                         locations=[(float(pt[0]),float(pt[1]))]
                                         for val in dataset.sample(locations):
                                             height=str(val).replace("[","").replace("]","")
-                                        ostr=str(pt[0])+","+str(pt[1])+","+height+","+str(ageol[1][ccode])+"\n"
+                                        ostr=str(pt[0])+","+str(pt[1])+","+height+","+str(ageol[1][c_l['c']])+"\n"
                                         ac.write(ostr)
                                         """
                                         k+=1
@@ -299,7 +292,7 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode
                                     locations=[(float(pt[0]),float(pt[1]))]
                                     for val in dataset.sample(locations):
                                         height=str(val).replace("[","").replace("]","")
-                                    ostr=str(pt[0])+","+str(pt[1])+","+height+","+str(ageol[1][ccode])+"\n"
+                                    ostr=str(pt[0])+","+str(pt[1])+","+height+","+str(ageol[1][c_l['c']])+"\n"
                                     ac.write(ostr)
                                     """
                                     k+=1
@@ -316,7 +309,7 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,ccode,gcode,ocode
     return(ls_dict,ls_dict_decimate)
 
 #Remove all basal contacts that are defined by faults and save to shapefile (no decimation)
-def save_basal_no_faults(path_out,path_fault,ls_dict,dist_buffer,ccode,gcode,dst_crs):
+def save_basal_no_faults(path_out,path_fault,ls_dict,dist_buffer,c_l,dst_crs):
     faults_clip = gpd.read_file(path_fault)
 
 
@@ -338,7 +331,7 @@ def save_basal_no_faults(path_out,path_fault,ls_dict,dist_buffer,ccode,gcode,dst
         if(cnf_copy.iloc[j].geom_type=="GeometryCollection"):#remove rows with geometry collections (== empty?)
             cnf_copy.drop([j,j],inplace=True)
         else: # save to dataframe
-            ls_nf[j]= {"id": j,ccode:df.iloc[j][ccode].replace(" ","_").replace("-","_"),gcode:df.iloc[j][gcode].replace(" ","_").replace("-","_"), "geometry": cnf_copy.iloc[j]}
+            ls_nf[j]= {"id": j,c_l['c']:df.iloc[j][c_l['c']].replace(" ","_").replace("-","_"),c_l['g']:df.iloc[j][c_l['g']].replace(" ","_").replace("-","_"), "geometry": cnf_copy.iloc[j]}
 
 
 
@@ -351,7 +344,7 @@ def save_basal_no_faults(path_out,path_fault,ls_dict,dist_buffer,ccode,gcode,dst
     print("basal contacts without faults saved as",path_out)
 
 #Remove faults from decimated basal contacts as save as csv file   
-def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls_dict_decimate,ccode,dst_crs,dataset):
+def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls_dict_decimate,c_l,dst_crs,dataset):
     faults_clip = gpd.read_file(path_fault)
 
     df = DataFrame.from_dict(ls_dict, "index")
@@ -379,7 +372,7 @@ def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls
             locations=[(cdn[1].geometry.x,cdn[1].geometry.y)] #doesn't like point right on edge?
           
             height=m2l_utils.value_from_raster(dataset,locations)
-            ostr=str(cdn[1].geometry.x)+","+str(cdn[1].geometry.y)+","+height+","+str(cdn[1][ccode].replace(" ","_").replace("-","_"))+"\n"
+            ostr=str(cdn[1].geometry.x)+","+str(cdn[1].geometry.y)+","+height+","+str(cdn[1][c_l['c']].replace(" ","_").replace("-","_"))+"\n"
             ac.write(ostr)
 
         i=i+1
@@ -387,7 +380,7 @@ def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls
     print(i,"decimated contact points saved as",path_out+'/contacts4.csv')
     
 #Save faults as contact info and make vertical (for the moment)
-def save_faults(path_faults,path_fault_orientations,dataset,ncode,ocode,fcode,fault_decimate,fault_label):
+def save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decimate):
     faults_clip=gpd.read_file(path_faults)
     f=open(path_fault_orientations+'/faults.csv',"w")
     f.write("X,Y,Z,formation\n")
@@ -397,12 +390,12 @@ def save_faults(path_faults,path_fault_orientations,dataset,ncode,ocode,fcode,fa
     fd.write("Fault_ID,strike,dip_direction,down_dip\n")
 
     for flt in faults_clip.iterrows():
-        #if(flt[1][ncode]=='Karra Well Fault'): #<<<<<<<<<<<< When too many faults gets ugly!
-        if(fault_label in flt[1][fcode]):
-            #if(str(flt[1][ncode])=='None'):
-            fault_name='Fault_'+str(flt[1][ocode])
+        #if(flt[1][c_l['n']]=='Karra Well Fault'): #<<<<<<<<<<<< When too many faults gets ugly!
+        if(c_l['fault'] in flt[1][c_l['f']]):
+            #if(str(flt[1][c_l['n']])=='None'):
+            fault_name='Fault_'+str(flt[1][c_l['o']])
             #else:
-            #fault_name=str(flt[1][ncode])   
+            #fault_name=str(flt[1][c_l['n']])   
             #print(flt)
             flt_ls=LineString(flt[1].geometry)
             #print(flt_ls)
@@ -445,22 +438,22 @@ def save_faults(path_faults,path_fault_orientations,dataset,ncode,ocode,fcode,fa
     print("fault dimensions saved as",path_fault_orientations+'fault_dimensions.csv')
     
 #Save fold axial traces 
-def save_fold_axial_traces(path_folds,path_fold_orientations,dataset,ocode,tcode,fcode,fold_decimate):
+def save_fold_axial_traces(path_folds,path_fold_orientations,dataset,c_l,fold_decimate):
     folds_clip=gpd.read_file(path_folds)
     fo=open(path_fold_orientations+'/fold_axial_traces.csv',"w")
     fo.write("X,Y,Z,code,type\n")
 
     for fold in folds_clip.iterrows():
-        fold_name=str(fold[1][ocode])   
+        fold_name=str(fold[1][c_l['o']])   
         fold_ls=LineString(fold[1].geometry)
 
         i=0
         for afs in fold_ls.coords:
-            if('Fold' in fold[1][fcode]):
+            if(c_l['fold'] in fold[1][c_l['f']]):
                 if(m2l_utils.mod_safe(i,fold_decimate)==0 or i==int((len(fold_ls.coords)-1)/2) or i==len(fold_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
                     locations=[(afs[0],afs[1])]     
                     height=m2l_utils.value_from_raster(dataset,locations)
-                    ostr=str(afs[0])+','+str(afs[1])+','+str(height)+','+'FA_'+fold_name+','+fold[1][tcode].replace(',','')+'\n'
+                    ostr=str(afs[0])+','+str(afs[1])+','+str(height)+','+'FA_'+fold_name+','+fold[1][c_l['t']].replace(',','')+'\n'
                     fo.write(ostr)                
             i=i+1  
 
@@ -468,16 +461,16 @@ def save_fold_axial_traces(path_folds,path_fold_orientations,dataset,ocode,tcode
     print("fold axial traces saved as",path_fold_orientations+'fold_axial_traces.csv')
 
 #Create basal contact points with orientation from orientations and basal points
-def create_basal_contact_orientations(contacts,structures,output_path,dtm,dist_buffer,ccode,gcode,dcode,ddcode):
+def create_basal_contact_orientations(contacts,structures,output_path,dtm,dist_buffer,c_l):
     f=open(output_path+'projected_dip_contacts2.csv',"w")
     f.write('X,Y,Z,azimuth,dip,polarity,formation\n')
     #print("len=",len(contacts))
     i=0
     for acontact in contacts.iterrows():   #loop through distinct linestrings
         #display(acontact[1].geometry)
-        thegroup=acontact[1][gcode].replace("_"," ")
+        thegroup=acontact[1][c_l['g']].replace("_"," ")
         #print("thegroup=",thegroup)
-        is_gp=structures[gcode] == thegroup # subset orientations to just those with this group
+        is_gp=structures[c_l['g']] == thegroup # subset orientations to just those with this group
         all_structures = structures[is_gp]
 
         for astr in all_structures.iterrows(): # loop through valid orientations
@@ -490,8 +483,8 @@ def create_basal_contact_orientations(contacts,structures,output_path,dtm,dist_b
                     for pair in m2l_utils.pairs(list(line.coords)): # loop through line segments
                         segpair=LineString((pair[0],pair[1]))
                         if segpair.distance(np)< 0.0001: # line segment closest to close point
-                            ddx=sin(radians(astr[1][ddcode]))
-                            ddy=cos(radians(astr[1][ddcode]))
+                            ddx=sin(radians(astr[1][c_l['d']]))
+                            ddy=cos(radians(astr[1][c_l['d']]))
                             dlsx=pair[0][0]-pair[1][0]
                             dlsy=pair[0][1]-pair[1][1]
                             lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
@@ -506,7 +499,7 @@ def create_basal_contact_orientations(contacts,structures,output_path,dtm,dist_b
                                
                                 if (ddx*lsy)+(-ddy*lsx)<0: #dot product tests right quadrant
                                     ls_ddir=(ls_ddir-180)%360
-                                ostr=str(np.x)+","+str(np.y)+","+height+","+str(ls_ddir)+","+str(astr[1][dcode])+",1,"+acontact[1][ccode].replace(" ","_").replace("-","_")+"\n" 
+                                ostr=str(np.x)+","+str(np.y)+","+height+","+str(ls_ddir)+","+str(astr[1][c_l['d']])+",1,"+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+"\n" 
                                 f.write(ostr)
                                 i=i+1
 
@@ -514,7 +507,7 @@ def create_basal_contact_orientations(contacts,structures,output_path,dtm,dist_b
     f.close()
     print("basal contact orientations saved as",output_path+'projected_dip_contacts2.csv')
 
-def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pluton_form,pluton_dip,intrusive_label,contact_decimate,mincode,maxcode,ccode,gcode,ocode,r1code,dscode):
+def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,pluton_dip,contact_decimate,c_l):
     f=open(tmp_path+'groups.csv',"r")
     groups =f.readlines()
     f.close
@@ -549,35 +542,35 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pl
     ls_dict_decimate={}
     id=0
     for ageol in geol_clip.iterrows(): 
-        ades=str(ageol[1][dscode])
-        arck=str(ageol[1][r1code])
-        if(str(ageol[1][gcode])=='None'):
-            agroup=str(ageol[1][ccode])
+        ades=str(ageol[1][c_l['ds']])
+        arck=str(ageol[1][c_l['r1']])
+        if(str(ageol[1][c_l['g']])=='None'):
+            agroup=str(ageol[1][c_l['c']])
         else:
-            agroup=str(ageol[1][gcode])
+            agroup=str(ageol[1][c_l['g']])
         
         for i in range(0,ngroups):
             if (gp_names[i]==agroup):
-                if(int(ageol[1][maxcode]) > gp_ages[i][0]  ):
-                    gp_ages[i][0] = ageol[1][maxcode]
+                if(int(ageol[1][c_l['max']]) > gp_ages[i][0]  ):
+                    gp_ages[i][0] = ageol[1][c_l['max']]
                     #print("max",agroup,gp_ages[i][0])
-                if(int(ageol[1][mincode]) < gp_ages[i][1]  ):
-                    gp_ages[i][1] = ageol[1][mincode]
+                if(int(ageol[1][c_l['min']]) < gp_ages[i][1]  ):
+                    gp_ages[i][1] = ageol[1][c_l['min']]
                     #print("min",agroup,gp_ages[i][1])
-        if(intrusive_label in arck and sill_label not in ades):
-            newgp=str(ageol[1][ccode])+'_'+str(ageol[1][ocode])
-            #agp=str(ageol[1][gcode])
-            #print(newgp)
-            if(str(ageol[1][gcode])=='None'):
-                agp=str(ageol[1][ccode])
+        if(c_l['intrusive'] in arck and c_l['sill'] not in ades):
+            newgp=str(ageol[1][c_l['c']])+'_'+str(ageol[1][c_l['o']])
+            #agp=str(ageol[1][c_l['g']])
+            print(newgp)
+            if(str(ageol[1][c_l['g']])=='None'):
+                agp=str(ageol[1][c_l['c']])
             else:
-                agp=str(ageol[1][gcode])
+                agp=str(ageol[1][c_l['g']])
 
             if(not newgp  in gp_names):
                 #print("MMMMM",ngroups,newgp)
                 gp_names[ngroups]=newgp
-                gp_ages[ngroups][0]=ageol[1][maxcode]
-                gp_ages[ngroups][1]=ageol[1][mincode]
+                gp_ages[ngroups][0]=ageol[1][c_l['max']]
+                gp_ages[ngroups][1]=ageol[1][c_l['min']]
                 gp_ages[ngroups][2]=ngroups
                 ngroups=ngroups+1
             #else:
@@ -585,19 +578,19 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pl
                 
             neighbours=[]
             j+=1
-            central_age=ageol[1][mincode]    #absolute age of central polygon
+            central_age=ageol[1][c_l['min']]    #absolute age of central polygon
             central_poly=ageol[1].geometry
             for bgeol in geol_clip.iterrows(): #potential neighbouring polygons  
                 if(ageol[1].geometry!=bgeol[1].geometry): #do not compare with self
                     if (ageol[1].geometry.intersects(bgeol[1].geometry)): # is a neighbour
-                        neighbours.append([(bgeol[1][ccode],bgeol[1][mincode],bgeol[1][r1code],bgeol[1][dscode],bgeol[1].geometry)])  
+                        neighbours.append([(bgeol[1][c_l['c']],bgeol[1][c_l['min']],bgeol[1][c_l['r1']],bgeol[1][c_l['ds']],bgeol[1].geometry)])  
             #display(neighbours)
             if(len(neighbours) >0):
                 for i in range (0,len(neighbours)):
-                    if((intrusive_label in neighbours[i][0][2] and sill_label not in ades) 
+                    if((c_l['intrusive'] in neighbours[i][0][2] and c_l['sill'] not in ades) 
                        #or ('intrusive' not in neighbours[i][0][2]) and neighbours[i][0][1] > central_age ): # neighbour is older than central
-                       or (intrusive_label not in neighbours[i][0][2]) and neighbours[i][0][1]  ): # neighbour is older than central
-                        #print(ageol[1][ccode],neighbours[i][0][0])
+                       or (c_l['intrusive'] not in neighbours[i][0][2]) and neighbours[i][0][1]  ): # neighbour is older than central
+                        #print(ageol[1][c_l['c']],neighbours[i][0][0])
                         older_polygon=neighbours[i][0][4]
                         if(not central_poly.is_valid ):
                             central_poly = central_poly.buffer(0)
@@ -615,7 +608,7 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pl
                             #print("lenlenlen",len(LineStringC))
 
                             #display(LineStringC)
-                            ls_dict[id] = {"id": id,ccode:newgp,gcode:newgp, "geometry": LineStringC}
+                            ls_dict[id] = {"id": id,c_l['c']:newgp,c_l['g']:newgp, "geometry": LineStringC}
                             id=id+1
                             for lineC in LineStringC: #process all linestrings
                                 #if(contact_decimate!=0): #decimate to reduce number of points
@@ -627,8 +620,8 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pl
                                             height=m2l_utils.value_from_raster(dtm,locations)
                                             ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+newgp.replace(" ","_").replace("-","_")+"\n"
                                             ac.write(ostr)
-                                            allc.write(agp+","+str(ageol[1][ocode])+","+ostr)
-                                            ls_dict_decimate[allpts] = {"id": allpts,ccode:newgp,gcode:newgp, "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                            allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
+                                            ls_dict_decimate[allpts] = {"id": allpts,c_l['c']:newgp,c_l['g']:newgp, "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                             allpts+=1 
                                     else:
                                         continue
@@ -639,7 +632,7 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pl
                                         height=m2l_utils.value_from_raster(dtm,locations)
                                         ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+newgp.replace(" ","_").replace("-","_")+"\n"
                                         #ls_dict_decimate[allpts] = {"id": id,"CODE":ageol[1]['CODE'],"GROUP_":ageol[1]['GROUP_'], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
-                                        allc.write(agp+","+str(ageol[1][ocode])+","+ostr)
+                                        allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
                                         allpts+=1
                                 
                                 #print(m2l_utils.mod_safe(k,contact_decimate))
@@ -664,9 +657,9 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pl
                                     elif(pluton_form=='domes'):
                                         azimuth=(azimuth-180)%360
                                         ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",0,"+newgp.replace(" ","_").replace("-","_")+"\n"
-                                    elif(pluton_form=='dontknow'):
+                                    elif(pluton_form=='pendant'):
                                         ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",0,"+newgp.replace(" ","_").replace("-","_")+"\n"
-                                    else: #pluton_form == pancakes
+                                    else: #pluton_form == batholith
                                         azimuth=(azimuth-180)%360
                                         ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",1,"+newgp.replace(" ","_").replace("-","_")+"\n"
                                         
@@ -708,7 +701,7 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,sill_label,pl
     for i in range (orig_ngroups,ngroups):
         print(i,gp_names[i].replace(" ","_").replace("-","_"))
         an.write(gp_names[i].replace(" ","_").replace("-","_")+'\n')
-        gp=open(tmp_path+''+gp_names[i].replace(" ","_").replace("-","_")+'.csv',"w")
+        gp=open(tmp_path+''+gp_names[i].replace(" ","_").replace("\n","").replace("-","_")+'.csv',"w")
         gp.write('1 1\n'+gp_names[i].replace(" ","_").replace("-","_")+'\n')
         gp.close()
     for i in range (0,orig_ngroups):

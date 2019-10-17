@@ -9,52 +9,50 @@ miny=7455348
 maxy=7567953
 model_base=-8200
 
+#PATHS
+
+test_data_path='../test_data3/'
+geology_file='hams2_geol.shp'   #input geology file (if local)
+fault_file='GEOS_GEOLOGY_LINEARSTRUCTURE_500K_GSD.shp' #input fault file (if local)
+structure_file='hams2_structure.shp' #input bedding orientation file (if local)
+m2m_cpp_path='../m2m_cpp/'
+
 
 #CRS
 
 src_crs = {'init': 'EPSG:4326'}  # coordinate reference system for imported dtms (geodetic lat/long WGS84)
 dst_crs = {'init': 'EPSG:28350'} # coordinate system for data
 
-#PATH
-
-mname='hams3'  # not used?
-geology_file='hams2_geol.shp'   #input geology file
-fault_file='GEOS_GEOLOGY_LINEARSTRUCTURE_500K_GSD.shp' #input fault file
-structure_file='hams2_structure.shp' #input bedding orientation file
-
-
-#CODES
-
+#codes and labels these refer to specific fields (codes) in GIS layer or database that contain the info needed for these calcs and text substrings (labels) in the contents of these fields
+c_l= {
 #Orientations
-dcode='DIP'             #field that contains dip information
-ddcode='DIP_DIR'        #field that contains dip direction information
-sfcode='FEATURE'        #field that contains information on type of structure
-bedding_label='Bed'     #text to search for in field defined by sfcode to show that this is a bedding measurement
-
+  "d": "DIP",                  #field that contains dip information
+  "dd": "DIP_DIR",             #field that contains dip direction information
+  "sf": 'FEATURE',             #field that contains information on type of structure
+  "bedding": 'Bed',            #text to search for in field defined by sfcode to show that this is a bedding measurement
 #Stratigraphy
-gcode='GROUP_'          #field that contains coarser stratigraphic coding
-ccode='CODE'            #field that contains finer stratigraphic coding
-dscode='DESCRIPTN'      #field that contains information about lithology
-ucode='UNITNAME'        #field that contains alternate stratigraphic coding (not used)
-r1code='ROCKTYPE1'      #field that contains  extra lithology information
-r2code='ROCKTYPE2'      #field that contains even more lithology information
-sill_label='sill'       #text to search for in field defined by dscode to show that this is a sill
-intrusive_label='intrusive' #text to search for in field defined by dscode to show that this is an intrusion
-
+  "g": 'GROUP_',               #field that contains coarser stratigraphic coding
+  "c": 'CODE',                 #field that contains finer stratigraphic coding
+  "ds": 'DESCRIPTN',           #field that contains information about lithology
+  "u": 'UNITNAME',             #field that contains alternate stratigraphic coding (not used??)
+  "r1": 'ROCKTYPE1',           #field that contains  extra lithology information
+  "r2": 'ROCKTYPE2',           #field that contains even more lithology information
+  "sill": 'sill',              #text to search for in field defined by dscode to show that this is a sill
+  "intrusive": 'intrusive',    #text to search for in field defined by dscode to show that this is an intrusion
+  "volcanic": 'volcanic',      #text to search for in field defined by dscode to show that this is an intrusion
 #Timing
-mincode='MIN_AGE_MA'    #field that contains minimum age of unit defined by ccode
-maxcode='MAX_AGE_MA'    #field that contains maximum age of unit defined by ccode
-
+  "min": 'MIN_AGE_MA',         #field that contains minimum age of unit defined by ccode
+  "max": 'MAX_AGE_MA',         #field that contains maximum age of unit defined by ccode
 #faults and folds
-fcode='FEATURE'         #field that contains information on type of structure
-fault_label='Fault'     #text to search for in field defined by fcode to show that this is a fault
-fold_label='Fold axial trace'   #text to search for in field defined by fcode to show that this is a fold axial trace
-ncode='NAME'            #field that contains information on name of fault (not used)
-tcode='TYPE'            #field that contains information on type of fold
-
+  "f": 'FEATURE',              #field that contains information on type of structure
+  "fault": 'Fault',            #text to search for in field defined by fcode to show that this is a fault
+  "fold": 'Fold axial trace',  #text to search for in field defined by fcode to show that this is a fold axial trace
+  "n": 'NAME',                 #field that contains information on name of fault (not used??)
+  "t": 'TYPE',                 #field that contains information on type of fold
 #ids
-ocode='OBJECTID'        #field that contains unique id of geometry object
-gicode='GEOPNT_ID'      #field that contains unique id of structure point
+  "o": 'OBJECTID',             #field that contains unique id of geometry object
+  "gi": 'GEOPNT_ID'            #field that contains unique id of structure point
+}
 
 #DECIMATION
 
@@ -76,24 +74,23 @@ use_interpolations=False    # flag to sue interpolated orientations or not.
 #ASSUMPTIONS
 
 pluton_dip=45           #surface dip of pluton contacts
-pluton_form='dontknow'  #saucers: \__+_+__/  pancakes: +/       \+   domes: /  +  + \  dontknow: +\_____/+
+pluton_form='domes'     #saucers: \__+_+__/  batholith: +/       \+   domes: /  +  + \  pendant: +\_____/+
 fault_dip=90            #surface dip of faults
 
 #DERIVED PATHS
 
-local_paths=False
-test_data_path='../test_data3/'
+local_paths=False       #flag to use local or WFS source for data inputs (True = local)
+
 graph_path=test_data_path+'graph/'
 tmp_path=test_data_path+'tmp/'
 data_path=test_data_path+'data/'
 dtm_path=test_data_path+'dtm/'
 output_path=test_data_path+'output/'
 vtk_path=test_data_path+'vtk/'
-m2m_cpp_path='../m2m_cpp/'
 
-fault_file=data_path+'GEOS_GEOLOGY_LINEARSTRUCTURE_500K_GSD.shp'
-structure_file=data_path+'hams2_structure.shp'
-geology_file=data_path+'hams2_geol.shp'
+fault_file=data_path+fault_file
+structure_file=data_path+structure_file
+geology_file=data_path+geology_file
 
 fault_file_csv=fault_file.replace(".shp",".csv").replace("/data/","/tmp/")
 structure_file_csv=structure_file.replace(".shp",".csv").replace("/data/","/tmp/")
@@ -101,8 +98,8 @@ geology_file_csv=geology_file.replace(".shp",".csv").replace("/data/","/tmp/")
 
 strat_graph_file=test_data_path+'graph/graph_strat.gml'
 
-dtm_file=dtm_path+mname+'_dtm.tif'
-dtm_reproj_file=dtm_path+mname+'_dtm_rp.tif'
+dtm_file=dtm_path+'dtm.tif'
+dtm_reproj_file=dtm_path+'dtm_rp.tif'
 
 if(not os.path.isdir(test_data_path)):
    os.mkdir(test_data_path)

@@ -64,20 +64,20 @@ def save_units(G,path_out,glabels):
 
 
 #save out a list of max/min/ave ages of all formations in a group
-def abs_age_groups(geol,tmp_path,ccode,gcode,mincode,maxcode):
+def abs_age_groups(geol,tmp_path,c_l):
     groups=[]
     info=[]
     ages=[]
     for a_poly in geol.iterrows(): #loop through all polygons
-        if(str(a_poly[1][gcode])=='None'):
-            grp=a_poly[1][ccode].replace(" ","_").replace("-","_")
+        if(str(a_poly[1][c_l['g']])=='None'):
+            grp=a_poly[1][c_l['c']].replace(" ","_").replace("-","_")
         else:
-            grp=a_poly[1][gcode].replace(" ","_").replace("-","_")
+            grp=a_poly[1][c_l['g']].replace(" ","_").replace("-","_")
         #print(grp)
         if(not grp in groups):
             groups+=[(grp)]
 
-        info+=[(grp,a_poly[1][mincode],a_poly[1][maxcode])]
+        info+=[(grp,a_poly[1][c_l['min']],a_poly[1][c_l['max']])]
 
     #display(info)
     #display(groups)
@@ -108,16 +108,16 @@ def abs_age_groups(geol,tmp_path,ccode,gcode,mincode,maxcode):
     f.close()
     
     
-def save_group(G,path_out,glabels,geol,ccode,gcode,mincode,maxcode):
+def save_group(G,path_out,glabels,geol,c_l):
     Gp=nx.Graph().to_directed() #New Group graph
     
     geology_file=gpd.read_file(path_out+'geol_clip.shp')
 
-    abs_age_groups(geol,path_out,ccode,gcode,mincode,maxcode)
-    geology_file.drop_duplicates(subset =ccode,  inplace = True)
+    abs_age_groups(geol,path_out,c_l)
+    geology_file.drop_duplicates(subset =c_l['c'],  inplace = True)
     
 
-    geology_file.set_index(ccode,  inplace = True)
+    geology_file.set_index(c_l['c'],  inplace = True)
     #display(geology_file)
     
     gp_ages = pd.read_csv(path_out+'age_sorted_groups.csv') 
@@ -137,15 +137,15 @@ def save_group(G,path_out,glabels,geol,ccode,gcode,mincode,maxcode):
             glabel_0=G.nodes[e[0]]['LabelGraphics']['text']
             glabel_1=G.nodes[e[1]]['LabelGraphics']['text']
             #print(glabel_0,glabel_1)
-            #print(geology_file.loc[glabel_0][gcode])
-            if(str(geology_file.loc[glabel_0][gcode])=='None'):
+            #print(geology_file.loc[glabel_0][c_l['g']])
+            if(str(geology_file.loc[glabel_0][c_l['g']])=='None'):
                 grp0=glabel_0.replace(" ","_").replace("-","_")
             else:
-                grp0=geology_file.loc[glabel_0][gcode].replace(" ","_").replace("-","_")
-            if(str(geology_file.loc[glabel_1][gcode])=='None'):
+                grp0=geology_file.loc[glabel_0][c_l['g']].replace(" ","_").replace("-","_")
+            if(str(geology_file.loc[glabel_1][c_l['g']])=='None'):
                 grp1=glabel_1.replace(" ","_").replace("-","_")
             else:
-                grp1=geology_file.loc[glabel_1][gcode].replace(" ","_").replace("-","_")
+                grp1=geology_file.loc[glabel_1][c_l['g']].replace(" ","_").replace("-","_")
                 
             #print(glabel_0,glabel_1,gp_ages.loc[grp0],gp_ages.loc[grp1])
             if(gp_ages.loc[grp0]['ave']<gp_ages.loc[grp1]['ave']):
@@ -357,30 +357,30 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
     print(output_path+'group-fault-relationships.csv')
     print(output_path+'unit-fault-relationships.csv')
 
-def save_geol_wkt(sub_geol,geology_file_csv,ocode,gcode,mincode,maxcode,ccode,r1code,r2code,dscode,ucode):
+def save_geol_wkt(sub_geol,geology_file_csv,c_l):
     #print(sub_geol,geology_file_csv,ocode,gcode,mincode,maxcode,ccode,r1code,r2code,dscode,ucode)
     f= open(geology_file_csv,"w+")
-    f.write('WKT\t'+ocode.replace("\n","")+'\t'+ucode.replace("\n","")+'\t'+gcode.replace("\n","")+'\t'+mincode.replace("\n","")+'\t'+maxcode.replace("\n","")+'\t'+ccode.replace("\n","")+'\t'+r1code.replace("\n","")+'\t'+r2code.replace("\n","")+'\t'+dscode.replace("\n","")+'\n')
+    f.write('WKT\t'+c_l['o'].replace("\n","")+'\t'+c_l['u'].replace("\n","")+'\t'+c_l['g'].replace("\n","")+'\t'+c_l['min'].replace("\n","")+'\t'+c_l['max'].replace("\n","")+'\t'+c_l['c'].replace("\n","")+'\t'+c_l['r1'].replace("\n","")+'\t'+c_l['r2'].replace("\n","")+'\t'+c_l['ds'].replace("\n","")+'\n')
     #display(sub_geol)        
     print(len(sub_geol)," polygons")
     #print(sub_geol)
     for i in range(0,len(sub_geol)):
-        #print('**',sub_geol.loc[i][ocode],'++')
+        #print('**',sub_geol.loc[i][[c_l['o']]],'++')
         f.write("\""+str(sub_geol.loc[i].geometry)+"\"\t")
-        f.write("\""+str(sub_geol.loc[i][ocode])+"\"\t")
-        f.write("\""+str(sub_geol.loc[i][ccode])+"\"\t")
-        f.write("\""+str(sub_geol.loc[i][gcode]).replace("None","")+"\"\t") #since map2model is looking for "" not "None"
-        f.write("\""+str(sub_geol.loc[i][mincode])+"\"\t")
-        f.write("\""+str(sub_geol.loc[i][maxcode])+"\"\t")
-        f.write("\""+str(sub_geol.loc[i][ucode])+"\"\t")
-        f.write("\""+str(sub_geol.loc[i][r1code])+"\"\t")
-        f.write("\""+str(sub_geol.loc[i][r2code])+"\"\t")
-        f.write("\""+str(sub_geol.loc[i][dscode])+"\"\n")
+        f.write("\""+str(sub_geol.loc[i][c_l['o']])+"\"\t")
+        f.write("\""+str(sub_geol.loc[i][c_l['c']])+"\"\t")
+        f.write("\""+str(sub_geol.loc[i][c_l['g']]).replace("None","")+"\"\t") #since map2model is looking for "" not "None"
+        f.write("\""+str(sub_geol.loc[i][c_l['min']])+"\"\t")
+        f.write("\""+str(sub_geol.loc[i][c_l['max']])+"\"\t")
+        f.write("\""+str(sub_geol.loc[i][c_l['u']])+"\"\t")
+        f.write("\""+str(sub_geol.loc[i][c_l['r1']])+"\"\t")
+        f.write("\""+str(sub_geol.loc[i][c_l['r2']])+"\"\t")
+        f.write("\""+str(sub_geol.loc[i][c_l['ds']])+"\"\n")
     f.close()
         
-def save_structure_wkt(sub_pts,structure_file_csv,gcode,dcode,ddcode,gicode):
+def save_structure_wkt(sub_pts,structure_file_csv,c_l):
     f= open(structure_file_csv,"w+")
-    f.write('WKT\t'+gicode+'\t'+dcode+'\t'+ddcode+'\n')
+    f.write('WKT\t'+c_l['gi']+'\t'+c_l['d']+'\t'+c_l['dd']+'\n')
 
     print(len(sub_pts)," points")
 
@@ -391,49 +391,49 @@ def save_structure_wkt(sub_pts,structure_file_csv,gcode,dcode,ddcode,gicode):
     #            print(i,j)
 
     for i in range(0,len(sub_pts)):
-        line="\""+str(sub_pts.loc[i].geometry)+"\"\t\""+str(sub_pts.loc[i][gicode])+"\"\t\""+\
-          str(sub_pts.loc[i][dcode])+"\"\t\""+str(sub_pts.loc[i][ddcode])+"\"\n"    
+        line="\""+str(sub_pts.loc[i].geometry)+"\"\t\""+str(sub_pts.loc[i][c_l['gi']])+"\"\t\""+\
+          str(sub_pts.loc[i][c_l['d']])+"\"\t\""+str(sub_pts.loc[i][c_l['dd']])+"\"\n"    
         f.write(functools.reduce(operator.add, (line)))
         
     f.close()
     
-def save_faults_wkt(sub_lines,fault_file_csv,ocode,fcode,fault_label):
+def save_faults_wkt(sub_lines,fault_file_csv,c_l):
     f= open(fault_file_csv,"w+")
-    f.write('WKT\t'+ocode+'\t'+fcode+'\n')
+    f.write('WKT\t'+c_l['o']+'\t'+c_l['f']+'\n')
 
     print(len(sub_lines)," polylines")
 
     for i in range(0,len(sub_lines)):
-        if(fault_label in sub_lines.loc[i][fcode]):
+        if(c_l['fault'] in sub_lines.loc[i][c_l['f']]):
             f.write("\""+str(sub_lines.loc[i].geometry)+"\"\t")
-            f.write("\""+str(sub_lines.loc[i][ocode])+"\"\t")
-            f.write("\""+str(sub_lines.loc[i][fcode])+"\"\n")
+            f.write("\""+str(sub_lines.loc[i][c_l['o']])+"\"\t")
+            f.write("\""+str(sub_lines.loc[i][c_l['f']])+"\"\n")
         
     f.close()
 
-def save_Parfile(m2m_cpp_path,ocode,fcode,gicode,dcode,ddcode,ucode,gcode,mincode,maxcode,ccode,dscode,r1code,r2code,fold_label,sill_label,graph_path,geology_file_csv,fault_file_csv,structure_file_csv,minx,maxx,miny,maxy):
+def save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,structure_file_csv,minx,maxx,miny,maxy):
     f=open(m2m_cpp_path+'Parfile','w')
     f.write('--- COLUMN NAMES IN CSV DATA FILES: -------------------------------------------------------------\n')
     f.write('OBJECT COORDINATES              =WKT\n')
-    f.write('FAULT: ID                       ='+ocode+'\n')
-    f.write('FAULT: FEATURE                  ='+fcode+'\n')
-    f.write('POINT: ID                       ='+gicode+'\n')
-    f.write('POINT: DIP                      ='+dcode+'\n')
-    f.write('POINT: DIP DIR                  ='+ddcode+'\n')
-    f.write('POLYGON: ID                     ='+ocode+'\n')
-    f.write('POLYGON: LEVEL1 NAME            ='+ucode+'\n')
-    f.write('POLYGON: LEVEL2 NAME            ='+gcode+'\n')
-    f.write('POLYGON: MIN AGE                ='+mincode+'\n')
-    f.write('POLYGON: MAX AGE                ='+maxcode+'\n')
-    f.write('POLYGON: CODE                   ='+ccode+'\n')
-    f.write('POLYGON: DESCRIPTION            ='+dscode+'\n')
-    f.write('POLYGON: ROCKTYPE1              ='+r1code+'\n')
-    f.write('POLYGON: ROCKTYPE2              ='+r2code+'\n')
+    f.write('FAULT: ID                       ='+c_l['o']+'\n')
+    f.write('FAULT: FEATURE                  ='+c_l['f']+'\n')
+    f.write('POINT: ID                       ='+c_l['gi']+'\n')
+    f.write('POINT: DIP                      ='+c_l['d']+'\n')
+    f.write('POINT: DIP DIR                  ='+c_l['dd']+'\n')
+    f.write('POLYGON: ID                     ='+c_l['o']+'\n')
+    f.write('POLYGON: LEVEL1 NAME            ='+c_l['u']+'\n')
+    f.write('POLYGON: LEVEL2 NAME            ='+c_l['g']+'\n')
+    f.write('POLYGON: MIN AGE                ='+c_l['min']+'\n')
+    f.write('POLYGON: MAX AGE                ='+c_l['max']+'\n')
+    f.write('POLYGON: CODE                   ='+c_l['c']+'\n')
+    f.write('POLYGON: DESCRIPTION            ='+c_l['ds']+'\n')
+    f.write('POLYGON: ROCKTYPE1              ='+c_l['r1']+'\n')
+    f.write('POLYGON: ROCKTYPE2              ='+c_l['r2']+'\n')
     f.write('--- SOME CONSTANTS: ----------------------------------------------------------------------------\n')
-    f.write('FAULT AXIAL FEATURE NAME        ='+fold_label+'\n')
-    f.write('SILL UNIT DESCRIPTION CONTAINS  ='+sill_label+'\n')
-    f.write('IGNEOUS ROCKTYPE CONTAINS                           =igneous\n')
-    f.write('VOLCANIC ROCKTYPE CONTAINS                          =volcanic\n')
+    f.write('FAULT AXIAL FEATURE NAME        ='+c_l['fold']+'\n')
+    f.write('SILL UNIT DESCRIPTION CONTAINS  ='+c_l['sill']+'\n')
+    f.write('IGNEOUS ROCKTYPE CONTAINS                           ='+c_l['intrusive']+'\n')
+    f.write('VOLCANIC ROCKTYPE CONTAINS                          ='+c_l['volcanic']+'\n')
     f.write('Intersect Contact With Fault: angle epsilon (deg)   =1.0\n')
     f.write('Intersect Contact With Fault: distance epsilon (m)  =15.0\n')
     f.write('------------------------------------------------------------------------------------------------\n')

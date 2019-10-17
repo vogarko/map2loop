@@ -17,7 +17,7 @@
 # --- SOME CONSTANTS: ----------------------------------------------------------------------------
 # FAULT AXIAL FEATURE NAME        =Fold axial trace
 # SILL UNIT DESCRIPTION CONTAINS  =sill
-# IGNEOUS ROCKTYPE CONTAINS                           =igneous
+# IGNEOUS ROCKTYPE CONTAINS                           =intrusive
 # VOLCANIC ROCKTYPE CONTAINS                          =volcanic
 # Intersect Contact With Fault: angle epsilon (deg)   =1.0
 # Intersect Contact With Fault: distance epsilon (m)  =15.0

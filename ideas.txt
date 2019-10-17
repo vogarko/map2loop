@@ -11,7 +11,7 @@ General to do
 8. Priors all in one place
 9. XxxAdd formation thickness to all in one? No
 10. Sills. Can be inter or intra. 
-11. Plutons: are they working?!
+11. Xxx Plutons: are they working?!
 12. Add polarity code to orientations 
 13. Filter faults by size?
 14. Calculate offsets?
@@ -51,7 +51,7 @@ General to do
 48. Templates for specific databases or map sets 
 49. 3D potential fields with grav/mag Mahtab
 50. Preprocessor notebook with widgets for codes and labels
-51. Save out fm level summary thickness stats
+51. XxxSave out fm level summary thickness stats
 
 
 Better models
