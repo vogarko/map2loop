@@ -1,12 +1,13 @@
 #ROI
 
-step_out=0   #padding arounf dtm to ensure reprojected dtm covers target area
+step_out=0.1   #padding arounf dtm to ensure reprojected dtm covers target area (in degrees)
 inset=0      #unused??
 
 minx=500057  #region of interest coordinates in metre-based system (or non-degree system)
 maxx=603028
 miny=7455348
 maxy=7567953
+model_top=1200
 model_base=-8200
 
 #PATHS

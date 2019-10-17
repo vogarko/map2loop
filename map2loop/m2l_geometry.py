@@ -734,12 +734,12 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
     print(output_path+'ign_contacts.csv')
     print(output_path+'ign_orientations_'+pluton_form+'.csv')
 
-def tidy_data(output_path,tmp_path,use_group,use_interpolations):
+def tidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
     contacts=pd.read_csv(output_path+'contacts4.csv',",")
     orientations=pd.read_csv(output_path+'orientations.csv',",")
     invented_orientations=pd.read_csv(output_path+'empty_series_orientations.csv',",")
     interpolated_orientations=pd.read_csv(tmp_path+'combo_full.csv',",")
-    intrusive_orientations=pd.read_csv(output_path+'ign_orientations_saucers.csv',",")
+    intrusive_orientations=pd.read_csv(output_path+'ign_orientations_'+pluton_form+'.csv',",")
     intrusive_contacts=pd.read_csv(output_path+'ign_contacts.csv',",")
     fault_contact=pd.read_csv(output_path+'faults.csv',",")
     fault_orientations=pd.read_csv(output_path+'fault_orientations.csv',",")

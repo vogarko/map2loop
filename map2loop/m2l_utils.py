@@ -12,6 +12,8 @@ import re
 from urllib.request import urlopen
 from IPython.display import Image
 from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow
+from owslib.wcs import WebCoverageService
+from osgeo import gdal
 
 def v():
     print('0.0.46')
@@ -44,7 +46,7 @@ def pairs(lst):
         yield lst[i-1], lst[i]
 
 #get dtm data from Hawaiian SRTM server and save as geotiff
-def get_dtm(path_out, minlong,maxlong,minlat,maxlat,step_out):
+def get_dtm_hawaii(path_out, minlong,maxlong,minlat,maxlat,step_out):
 
     minxll=int(((minlong+180)*120)-step_out)
     maxxll=int(((maxlong+180)*120)+step_out)
@@ -61,7 +63,7 @@ def get_dtm(path_out, minlong,maxlong,minlat,maxlat,step_out):
     bbox="["+minyll+":1:"+maxyll+"]["+minxll+":1:"+maxxll+"]"
 
     link = "http://oos.soest.hawaii.edu/thredds/dodsC/srtm30plus_v11_land.ascii?elev"+bbox
-
+    print(link)
     f = urlopen(link)
     myfile = f.read()
     myfile2=myfile.decode("utf-8") 
@@ -95,6 +97,22 @@ def get_dtm(path_out, minlong,maxlong,minlat,maxlat,step_out):
 
     new_dataset.write(OPeNDAP, 1)
     new_dataset.close()
+    print("dtm geotif saved as",path_out)
+
+#get dtm data from GA SRTM server and save as geotiff
+def get_dtm(path_out, minlong,maxlong,minlat,maxlat):
+
+
+    bbox=(minlong,minlat,maxlong,maxlat)
+
+    url="http://services.ga.gov.au/gis/services/DEM_SRTM_1Second_over_Bathymetry_Topography/MapServer/WCSServer?"
+    wcs = WebCoverageService(url,version='1.0.0')
+
+    cvg=wcs.getCoverage(identifier='1',  bbox=bbox, format='GeoTIFF', crs=4326, width=200, height=200)
+
+    f = open(path_out, 'wb')
+    bytes_written = f.write(cvg.read())
+    f.close()
     print("dtm geotif saved as",path_out)
     
 #reproject a dtm 
