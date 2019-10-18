@@ -52,15 +52,18 @@ def save_units(G,path_out,glabels):
         f = open(path_out+"/"+glabels[p].replace(" ","_").replace("-","_")+'.csv', 'w')
 
         print("choices:",len(nlist))
-        f.write(str(len(nlist))+" ")
-        f.write(str(len(GD))+"\n")
+        #f.write(str(len(nlist))+" ")
+        #f.write(str(len(GD))+"\n")
         for m in range(len(nlist)): #process all sorted graphs
+            f.write('Choice '+str(m))
             for n in range(0,len(GD)): #display nodes for one sorted graph
                 print(nlist[m][n],G.nodes[nlist[m][n]]['LabelGraphics']['text'].replace(" ","_").replace("-","_"))
-                f.write(G.nodes[nlist[m][n]]['LabelGraphics']['text'].replace(" ","_").replace("-","_")+"\n")
+                f.write(","+G.nodes[nlist[m][n]]['LabelGraphics']['text'].replace(" ","_").replace("-","_"))
             if(m<len(nlist)-1):
                 print("....")
+            f.write('\n')
         f.close()
+
 
 
 #save out a list of max/min/ave ages of all formations in a group
@@ -106,7 +109,6 @@ def abs_age_groups(geol,tmp_path,c_l):
     for j in range(0,len(slist)):
         f.write(str(j)+','+slist[j][0]+','+str(slist[j][1])+','+str(slist[j][2])+','+str(slist[j][3])+'\n')
     f.close()
-    
     
 def save_group(G,path_out,glabels,geol,c_l):
     Gp=nx.Graph().to_directed() #New Group graph
@@ -165,40 +167,52 @@ def save_group(G,path_out,glabels,geol,c_l):
     nx.draw_networkx_labels(Gp,pos=nx.kamada_kawai_layout(Gp), labels=glabels, font_size=12,font_family='sans-serif')
 
     glist=list(nx.all_topological_sorts(Gp)) #all possible sorted directional graphs    
-    #print("group choices:",len(glist))
-    #print(glist)
+    print("group choices:",len(glist))
+    #display(glist)
     nx.write_gml(Gp, path_out+'groups.gml')
-    plt.show()
-
+    #plt.show()
+   
     f = open(path_out+'groups.csv', 'w')
-    f.write(str(len(glist))+" ")
-    f.write(str(len(glist[0]))+"\n")
-
+    #f.write(str(len(glist))+" ")
+    #f.write(str(len(glist[0]))+"\n")
+    #print("xxxx",len(glist),len(glist[0]))
     for n in range(0,len(glist)):
+        f.write('Choice '+str(n))
         for m in range(0,len(glist[0])):    
-            f.write(str(glabels[glist[0][m]])+"\n") #check underscore
+            f.write(','+str(glabels[glist[n][m]])) #check underscore
+        f.write('\n')
     f.close()
 
 
-    g=open(path_out+'groups.csv',"r")
-    contents =g.readlines()
-    g.close
-    hdr=contents[0].split(" ")
-
+    #g=open(path_out+'groups.csv',"r")
+    #contents =g.readlines()
+    #g.close
+    #hdr=contents[0].split(" ")
+    contents=np.genfromtxt(path_out+'groups.csv',delimiter=',',dtype='U25')
+    
+    #display('lencon',len(contents[0]))
     k=0
     ag=open(path_out+'/all_sorts.csv',"w")
     ag.write("index,group number,index in group,number in group,code,group\n")
-    for i in range(1,int(hdr[1])+1):
-        f=open(path_out+"/"+contents[i].replace("\n","").replace(" ","_")+".csv","r")#check underscore
-        ucontents =f.readlines()
-        f.close
-        uhdr=ucontents[0].split(" ")
-        for j in range(1,int(uhdr[1])+1):
-            print(ucontents[j].replace("\n",""))
-            ag.write(str(k)+","+str(i)+","+str(j)+","+uhdr[1].replace("\n","")+","+ucontents[j].replace("\n","")+","+contents[i].replace("\n","").replace(" ","_").replace("-","_")+"\n")
-            k=k+1
+    for i in range(1,len(contents[0])):
+        ucontents=np.genfromtxt(path_out+"/"+contents[0][i].replace("\n","").replace(" ","_")+".csv",delimiter=',',dtype='U25')
+        #f=open(path_out+"/"+contents[i].replace("\n","").replace(" ","_")+".csv","r")#check underscore
+        #ucontents =f.readlines()
+        #f.close
+        #print(len(ucontents.shape),ucontents)
+        if(len(ucontents.shape)==1):
+            for j in range(1,len(ucontents)):
+                ag.write(str(k)+","+str(i)+","+str(j)+","+str(len(ucontents)-1)+","+ucontents[j].replace("\n","")+","+contents[0][i].replace("\n","").replace(" ","_").replace("-","_")+"\n")
+                k=k+1
+        else:
+            for j in range(1,len(ucontents[0])):
+                ag.write(str(k)+","+str(i)+","+str(j)+","+str(len(ucontents[0])-1)+","+ucontents[0][j].replace("\n","")+","+contents[0][i].replace("\n","").replace(" ","_").replace("-","_")+"\n")
+                k=k+1
+            
     ag.close()
+
     
+
 def parse_fault_relationships(graph_path,tmp_path,output_path):
     uf=open(graph_path+'unit-fault-intersection.txt','r')
     contents =uf.readlines()
@@ -237,11 +251,13 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
 
     uf_rel=pd.read_csv(output_path+'unit-fault-relationships.csv')
 
-    f=open(tmp_path+'groups.csv',"r")
-    groups =f.readlines()
-    f.close
-    ngroups=groups[0].split(" ")
-    ngroups=int(ngroups[1])
+    #f=open(tmp_path+'groups.csv',"r")
+    #groups =f.readlines()
+    #f.close
+    #ngroups=groups[0].split(" ")
+    #ngroups=int(ngroups[1])
+    groups=np.genfromtxt(tmp_path+'groups.csv',delimiter=',',dtype='U25')
+    ngroups=len(groups[0])-1
 
 
     uf_array=uf_rel.to_numpy()
@@ -258,7 +274,7 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
             if(uf_rel.iloc[j][0] in summary.index.values):
                 gsummary=summary.loc[uf_rel.iloc[j][0]]
                 #print("sum gp",groups[i].replace("\n",""),gsummary['group'])
-                if(groups[i].replace("\n","")==gsummary['group']):
+                if(groups[0][i].replace("\n","")==gsummary['group']):
                     #print("yes group", groups[i].replace("\n",""),gsummary['group'])
                     for k in range(1,len(uf_rel.iloc[j])):
                         if(uf_rel.iloc[j][k]==1):
@@ -283,7 +299,7 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
         ug.write(','+uf_rel.columns[k])
     ug.write("\n")
     for i in range(1,ngroups+1):
-        ug.write(groups[i].replace("\n",""))
+        ug.write(groups[0][i].replace("\n",""))
         for k in range(1,len(uf_rel.iloc[0])):
             if(gf_array[i-1,k]=='1'):
                 ug.write(',1')
@@ -355,7 +371,8 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
     print('fault-fault, fault-group and fault-unit relationship tables saved as:')
     print(output_path+'fault-fault-relationships.csv')
     print(output_path+'group-fault-relationships.csv')
-    print(output_path+'unit-fault-relationships.csv')
+    print(output_path+'unit-fault-relationships.csv')    
+
 
 def save_geol_wkt(sub_geol,geology_file_csv,c_l):
     #print(sub_geol,geology_file_csv,ocode,gcode,mincode,maxcode,ccode,r1code,r2code,dscode,ucode)

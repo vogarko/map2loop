@@ -32,21 +32,23 @@ def save_orientations(structures,path_out,c_l,orientation_decimate,dtm):
 
 #Find those series that don't have any orientation or contact point data and add some random data
 def create_orientations( path_in, path_out,dtm,geology,structures,c_l):
-    f=open(path_in+'/groups.csv',"r")
-    contents =f.readlines()
-    f.close
+    #f=open(path_in+'/groups.csv',"r")
+    #contents =f.readlines()
+    #f.close
 
-    ngroups=contents[0].split(" ")
-    ngroups=int(ngroups[1])
-
+    #ngroups=contents[0].split(" ")
+    #ngroups=int(ngroups[1])
+    contents=np.genfromtxt(path_in+'groups.csv',delimiter=',',dtype='U25')
+    ngroups=len(contents[0])-1
+    print(len(contents[0]))
     groups=[]
     for i in range (1,int(ngroups)+1):
-        #print(contents[i].replace("\n",""))
-        groups.append((contents[i].replace("\n",""),0))
+        print(contents[0][i].replace("\n",""))
+        groups.append((contents[0][i].replace("\n",""),0))
 
-    #print(ngroups,groups)
+    print(ngroups,groups)
 
-    for i in range (0,ngroups):
+    for i in range (1,ngroups):
         for apoint in structures.iterrows():
             if(str(apoint[1][c_l['g']])=='None'):
                 agroup=apoint[1][c_l['c']].replace(" ","_").replace("-","_")
@@ -94,10 +96,10 @@ def create_orientations( path_in, path_out,dtm,geology,structures,c_l):
                         height=0   # needs a better solution!
                     ostr=str(apoint.x)+","+str(apoint.y)+","+height+",0,45,1"+","+str(ageol[1][c_l['c']].replace(" ","_").replace("-","_"))+"\n"
                     f.write(ostr)
-                    plt.title(str(ageol[1][c_l['c']].replace(" ","_").replace("-","_")))
-                    plt.scatter(apoint.x,apoint.y,color="red")
-                    plt.plot(*apoly.exterior.xy)
-                    plt.show()
+                    #plt.title(str(ageol[1][c_l['c']].replace(" ","_").replace("-","_")))
+                    #plt.scatter(apoint.x,apoint.y,color="red")
+                    #plt.plot(*apoly.exterior.xy)
+                    #plt.show()
                     break
 
     f.close()
@@ -507,13 +509,11 @@ def create_basal_contact_orientations(contacts,structures,output_path,dtm,dist_b
     f.close()
     print("basal contact orientations saved as",output_path+'projected_dip_contacts2.csv')
 
-def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,pluton_dip,contact_decimate,c_l):
-    f=open(tmp_path+'groups.csv',"r")
-    groups =f.readlines()
-    f.close
 
-    ngroups=groups[0].split(" ")
-    ngroups=int(ngroups[1])
+def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,pluton_dip,contact_decimate,c_l):
+    
+    groups=np.genfromtxt(tmp_path+'groups.csv',delimiter=',',dtype='U25')
+    ngroups=len(groups[0])-1
 
     orig_ngroups=ngroups
 
@@ -524,7 +524,7 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
         gp_ages[i,0]=-1e6 # group max_age
         gp_ages[i,1]=1e6 # group min_age
         gp_ages[i,2]=i # group index
-        gp_names[i]=groups[i+1].replace("\n","")
+        gp_names[i]=groups[0][i+1].replace("\n","")
         print(i,gp_names[i])
 
     print(local_paths)  
@@ -702,7 +702,7 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
         print(i,gp_names[i].replace(" ","_").replace("-","_"))
         an.write(gp_names[i].replace(" ","_").replace("-","_")+'\n')
         gp=open(tmp_path+''+gp_names[i].replace(" ","_").replace("\n","").replace("-","_")+'.csv',"w")
-        gp.write('1 1\n'+gp_names[i].replace(" ","_").replace("-","_")+'\n')
+        gp.write('Choice 0,'+gp_names[i].replace(" ","_").replace("-","_")+'\n')
         gp.close()
     for i in range (0,orig_ngroups):
         print(i,gp_names[i].replace(" ","_").replace("-","_"))
@@ -733,6 +733,8 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
     print('pluton contacts and orientations saved as:')
     print(output_path+'ign_contacts.csv')
     print(output_path+'ign_orientations_'+pluton_form+'.csv')
+    
+
 
 def tidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
     contacts=pd.read_csv(output_path+'contacts4.csv',",")
@@ -809,7 +811,7 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
     # Make new list of groups
 
     fgp=open(tmp_path+'groups_clean.csv',"w")
-    fgp.write('1 '+str(len(groups))+'\n')
+    #fgp.write('1 '+str(len(groups))+'\n')
     for i in range(0,len(groups)):
         fgp.write(contents[i+1].replace("\n","")+'\n')
     fgp.close()        
@@ -869,5 +871,3 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
             fac.write(ostr)
 
     fac.close()
-
-    

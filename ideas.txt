@@ -1,23 +1,16 @@
 M2L thoughts
 
 General to do
-1. XxxAdd fault dimensions to read me, classify
-2. XxxFunctionise plugs, wkt, parfile, tidy
-3. XxxAdd parse fault relationships
+
 4. Thickness no faults
 5. Thickness no intervening layers and bigger search radius
-6. XxxTidy up all in one to reduce duplications
-7. XxxReproject lat long from dst_srs
 8. Priors all in one place
-9. XxxAdd formation thickness to all in one? No
 10. Sills. Can be inter or intra. 
-11. Xxx Plutons: are they working?!
 12. Add polarity code to orientations 
 13. Filter faults by size?
 14. Calculate offsets?
 15. Calculate fold wavelengths, amplitudes?
 16. Expose all file names in functions
-17. XxxLabelled list of codes and labels or function?
 18. Labelled list of filenames and paths? or￼ function?
 19. Code/group = formation/series
 20. Cope with warox naming conventions and add to geoserver
@@ -25,12 +18,9 @@ General to do
 22. Get all warox layers
 23. Extended topology to reduce uncertainty (group, intragroup)
 24. If gempy else geomodeller else loopstructural else surfe just after tidy
-25. Xxxfeature/FEATURE vs [‘fcode’] ?
-26. XxxLocal store dtm for example in dtm 
 27. Analysis folder (interpolations, thickness etc)?
 28. Clip/shp folder? Clipped and basal strat files
 29. Rename combo_full
-30. XxxStandardise filenames (hams or probs not)
 31. Contacts4 etc clean up filenames
 32. Use roi file as input?
 33. Redo groups as clean tables cols = one possible topological sort after transpose
@@ -39,22 +29,32 @@ General to do
 36. Save row of csv wrapper or just make lists? Ostr 
 37. Interpolate using contacts and points outside box?
 38. Documentation!!
-39. XxxGeopandas Hawaii
 40. Topology as falsifier. Pluton vs fault example
 41. Clever: topology. Contact interpolation. Basal contacts. Thickness maps. Tidy. 
 42. Analyse interpolation orientations for structure (saddles, domes, etc))
 43. Erode vs onlap via go vs gp topology
-44. XxxMake test data, data and graph paths if needed
 45. Use stratigraphic offsets across faults to filter big throw combined with estimated thickness!!
+48. Templates for specific databases or map sets 
+52. Extra interpolation helps GemPy, geomodeller not so much
+1. XxxAdd fault dimensions to read me, classify
+2. XxxFunctionise plugs, wkt, parfile, tidy
+3. XxxAdd parse fault relationships
+6. XxxTidy up all in one to reduce duplications
+7. XxxReproject lat long from dst_srs
+9. XxxAdd formation thickness to all in one? No
+11. Xxx Plutons: are they working?!
+17. XxxLabelled list of codes and labels or function?
+25. Xxxfeature/FEATURE vs [‘fcode’] ?
+26. XxxLocal store dtm for example in dtm 
+30. XxxStandardise filenames (hams or probs not)
+39. XxxGeopandas Hawaii
+44. XxxMake test data, data and graph paths if needed
 46. XxxRemanence tomofastx
 47. XxxNeed unique codes for geol,structure,faults
-48. Templates for specific databases or map sets 
 49. Xxx3D potential fields with grav/mag Mahtab
 50. XxxPreprocessor notebook with widgets for codes and labels
 51. XxxSave out fm level summary thickness stats
-52. Extra interpolation helps GemPy, geomodeller not so much
-53. Redo groups as simple arrays
-
+53. XxxRedo groups as simple arrays
 
 Mahtab
 1. 3D potential field extrapolation
