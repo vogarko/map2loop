@@ -17,7 +17,7 @@ General to do
 14. Calculate offsets?
 15. Calculate fold wavelengths, amplitudes?
 16. Expose all file names in functions
-17. Labelled list of codes and labels or function?
+17. XxxLabelled list of codes and labels or function?
 18. Labelled list of filenames and paths? or￼ function?
 19. Code/group = formation/series
 20. Cope with warox naming conventions and add to geoserver
@@ -47,12 +47,24 @@ General to do
 44. XxxMake test data, data and graph paths if needed
 45. Use stratigraphic offsets across faults to filter big throw combined with estimated thickness!!
 46. XxxRemanence tomofastx
-47. Need unique codes for geol,structure,faults
+47. XxxNeed unique codes for geol,structure,faults
 48. Templates for specific databases or map sets 
-49. 3D potential fields with grav/mag Mahtab
-50. Preprocessor notebook with widgets for codes and labels
+49. Xxx3D potential fields with grav/mag Mahtab
+50. XxxPreprocessor notebook with widgets for codes and labels
 51. XxxSave out fm level summary thickness stats
+52. Extra interpolation helps GemPy, geomodeller not so much
+53. Redo groups as simple arrays
 
+
+Mahtab
+1. 3D potential field extrapolation
+2. Graph cut training from seismic applied to regional grav/mag
+3. Topology as constraint 
+
+Nuwan
+1:Test GPT
+2: SimPEG/ loop?
+3: uncertainty in 1D from Loop/cure applied as constraint on full 3D
 
 Better models
 1. Supergroup similar groups
