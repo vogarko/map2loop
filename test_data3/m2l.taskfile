@@ -46,209 +46,209 @@ description: "Automate_batch_Model"
 GeomodellerTask {
 CreateFormation {
     name: "P__WYm_sp"
-    red: 116
-    green: 129
-    blue: 199
+    red: 129
+    green: 211
+    blue: 155
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__WYa_st"
-    red: 87
-    green: 245
-    blue: 100
+    red: 54
+    green: 156
+    blue: 79
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__WYd_kd"
-    red: 76
-    green: 231
-    blue: 6
+    red: 114
+    green: 100
+    blue: 32
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__SKq_stq"
-    red: 229
-    green: 140
-    blue: 63
+    red: 140
+    green: 97
+    blue: 31
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__SKb_bb"
-    red: 251
-    green: 224
-    blue: 3
+    red: 25
+    green: 59
+    blue: 157
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__TKa_xs_k"
-    red: 93
-    green: 224
-    blue: 147
+    red: 74
+    green: 80
+    blue: 101
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__TKo_stq"
-    red: 108
-    green: 19
-    blue: 21
+    red: 244
+    green: 163
+    blue: 128
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__TKk_sf"
-    red: 82
-    green: 144
-    blue: 182
+    red: 174
+    green: 140
+    blue: 32
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__TK_s"
-    red: 7
-    green: 228
-    blue: 112
+    red: 239
+    green: 112
+    blue: 212
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAo_ci"
-    red: 183
-    green: 70
-    blue: 78
+    red: 32
+    green: 39
+    blue: 23
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAw_fr"
-    red: 95
-    green: 202
-    blue: 225
+    red: 106
+    green: 170
+    blue: 172
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAj_xci_od"
-    red: 77
-    green: 4
-    blue: 113
+    red: 215
+    green: 44
+    blue: 118
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAb_cib"
-    red: 100
-    green: 40
-    blue: 210
+    red: 192
+    green: 249
+    blue: 32
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_HAS_xsl_ci"
-    red: 152
-    green: 89
-    blue: 133
+    red: 19
+    green: 175
+    blue: 199
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_HAd_kd"
-    red: 176
-    green: 59
-    blue: 251
+    red: 251
+    green: 115
+    blue: 219
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_HAm_cib"
-    red: 125
-    green: 53
-    blue: 250
+    red: 7
+    green: 88
+    blue: 6
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOj_xs_b"
-    red: 202
-    green: 113
-    blue: 224
+    red: 111
+    green: 227
+    blue: 35
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FO_xo_a"
-    red: 105
-    green: 96
-    blue: 62
+    red: 153
+    green: 20
+    blue: 127
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FO_od"
-    red: 17
-    green: 41
-    blue: 194
+    red: 29
+    green: 224
+    blue: 120
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOu_bbo"
-    red: 3
-    green: 184
-    blue: 105
+    red: 105
+    green: 118
+    blue: 191
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOp_bs"
-    red: 75
-    green: 101
-    blue: 241
+    red: 15
+    green: 43
+    blue: 55
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOo_bbo"
-    red: 241
-    green: 11
-    blue: 100
+    red: 126
+    green: 122
+    blue: 40
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOh_xs_f"
-    red: 227
-    green: 35
-    blue: 131
+    red: 128
+    green: 8
+    blue: 64
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOr_b"
-    red: 136
-    green: 105
-    blue: 47
+    red: 27
+    green: 150
+    blue: 208
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_mgn_PMI"
-    red: 237
-    green: 158
-    blue: 97
+    red: 54
+    green: 150
+    blue: 12
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_mgn_PRK"
-    red: 104
-    green: 51
-    blue: 215
+    red: 79
+    green: 252
+    blue: 209
     }
 }
 #---------------------------------------------------------------
@@ -459,7 +459,126 @@ AddFormationToSeries {
     formation: "A_mgn_PRK"
     }
 }
-
+GeomodellerTask {
+CreateFault {
+    name: "Fault_12644"
+    red: 105
+    green: 229
+    blue: 57
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2235"
+    red: 72
+    green: 136
+    blue: 81
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_3496"
+    red: 137
+    green: 167
+    blue: 96
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2843"
+    red: 43
+    green: 99
+    blue: 24
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_14378"
+    red: 97
+    green: 104
+    blue: 207
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16502"
+    red: 85
+    green: 179
+    blue: 208
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16825"
+    red: 186
+    green: 99
+    blue: 164
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16744"
+    red: 158
+    green: 165
+    blue: 56
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7966"
+    red: 58
+    green: 118
+    blue: 150
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7344"
+    red: 27
+    green: 45
+    blue: 55
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_6825"
+    red: 136
+    green: 28
+    blue: 130
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7436"
+    red: 180
+    green: 96
+    blue: 90
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2996"
+    red: 242
+    green: 199
+    blue: 0
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7439"
+    red: 185
+    green: 177
+    blue: 135
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_6205"
+    red: 166
+    green: 99
+    blue: 147
+    }
+}
 #---------------------------------------------------------------
 #-----------------------Import 3D data ---Base Model------------
 #---------------------------------------------------------------
@@ -476,7 +595,54 @@ GeomodellerTask {
 #        Treat_Tag_As_Text_Only: true;
     }
 }
-
+GeomodellerTask {
+    ReadAndImport3dData {
+        operation: CreateFault;
+        contact_csv_file: "./output/faults.csv"
+        foliation_csv_file: "./output/faults_orientations.csv"
+        limits_csv_file: "./output/fault_dimensions.csv"
+#        operation: CreateFault; # make the most intelligent decision in the context.. if a named formation, add to it etc.
+        contact_header_linestoSkip: 1;
+        foliation_header_linestoSkip: 1;
+        fault_limit_header_linestoSkip: 1;
+        spatial_location_error: 1;
+        vertical_location_error: 1;
+    }
+}
+#---------------------------------------------------------------
+#-----------------------Link faults with faults ----------------
+#---------------------------------------------------------------
+GeomodellerTask {
+    LinkFaultsWithFaults {
+        FaultStopsOnFaults{ fault: "Fault_Fault_2843"; stopson: "Fault_Fault_2235"}
+        FaultStopsOnFaults{ fault: "Fault_Fault_7439"; stopson: "Fault_Fault_3496"}
+        FaultStopsOnFaults{ fault: "Fault_Fault_7966"; stopson: "Fault_Fault_16825"}
+        FaultStopsOnFaults{ fault: "Fault_Fault_6205"; stopson: "Fault_Fault_7344"}
+        FaultStopsOnFaults{ fault: "Fault_Fault_2996"; stopson: "Fault_Fault_6825"}
+    }
+}
+#---------------------------------------------------------------
+#-----------------------Link series with faults ----------------
+#---------------------------------------------------------------
+GeomodellerTask {
+    LinkFaultsWithSeries {
+    FaultSeriesLinks{ fault: "Fault_12644"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2235"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_3496"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2843"; series: ["Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_14378"; series: ["Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16502"; series: ["Shingle_Creek_Group", "Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16825"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16744"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7966"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7344"; series: ["Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6825"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7436"; series: ["Fortescue_Group", "A_mgn_PRK"]}
+    FaultSeriesLinks{ fault: "Fault_2996"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7439"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6205"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    }
+}
 #---------------------------------------------------------------
 #----------------------------Compute Model----------------------
 #---------------------------------------------------------------

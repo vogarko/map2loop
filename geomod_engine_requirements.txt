@@ -1,0 +1,36 @@
+Leapfrog
+0 No API
+1 dtm as x,y,z
+2 contacts as polylines (not points) by gp/fm
+3 orientations by gp/fm
+4 faults as polylines one for each fault, fault-fault and fault-gp/fm relationships
+
+Geomodeller
+0 API Full model load (work in progress)
+1 dtm as ers
+2 contacts as points all one file
+3 orientations as points all one file
+4 fault-fault table
+5 fault-series table
+6 orientations in each contiguous block
+7 full stratigraphy
+
+gempy
+0 API Full model load (work in progress)
+1 dtm as geotiff
+2 contacts as points all one file
+3 orientations as points all one file
+4 fault-fault table?
+5 fault-series table?
+6 group level stratigraphy
+
+LoopStructural
+0 API Full model load (work in progress)
+1 dtm as geotiff
+2 contacts as points all one file
+3 orientations as points all one file
+4 full stratigraphy
+5 unit thickness
+6 fault offset
+7 fold geometry
+ 
