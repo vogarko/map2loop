@@ -23,7 +23,6 @@ General to do
 29. Rename combo_full
 31. Contacts4 etc clean up filenames
 32. Use roi file as input?
-33. Redo groups as clean tables cols = one possible topological sort after transpose
 34. Why is combo saved?
 35. Read_raster and read_vector wrappers
 36. Save row of csv wrapper or just make lists? Ostr 
@@ -34,8 +33,16 @@ General to do
 42. Analyse interpolation orientations for structure (saddles, domes, etc))
 43. Erode vs onlap via go vs gp topology
 45. Use stratigraphic offsets across faults to filter big throw combined with estimated thickness!!
-48. Templates for specific databases or map sets 
+48. Templates for specific databases or map sets: URI; field names; field values; dictionaries
 52. Extra interpolation helps GemPy, geomodeller not so much
+54. Fix geomodeller notebook (doesn't load properly, plus dead groups from igneous shouldn't be loaded)
+55. Fix Proper gempy notebook (crashes)
+56. Is there a way to feed empty domains? Maybe just add orientation points either side of every fault mid-point, contact points should be OK? 
+57. Get Lachie's notebook for map2LoopStructural
+58. Filter faults, fault relationships on dimensions/throw prior to saving to csv. Add Fault_ to fault names everywhere 
+59. Supergroup lists for structural coherence
+
+
 1. XxxAdd fault dimensions to read me, classify
 2. XxxFunctionise plugs, wkt, parfile, tidy
 3. XxxAdd parse fault relationships
@@ -55,6 +62,7 @@ General to do
 50. XxxPreprocessor notebook with widgets for codes and labels
 51. XxxSave out fm level summary thickness stats
 53. XxxRedo groups as simple arrays
+33. XxxRedo groups as clean tables cols = one possible topological sort after transpose
 
 Mahtab
 1. 3D potential field extrapolation

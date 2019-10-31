@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?driver version="2.0.1"?>
+<!--Composed by Intrepid GeoModeller 4.0.7 v4.0.7 geomodeller_4_0 for Windows (x64) by PELAGIAN optimised build 27eee3dc31ba, Apr 17 2019-->
+<geo:Project3DEdit xmlns:geo="http://www.geomodeller.com/geo" xmlns:gml="http://www.opengis.net/gml" author="Des/Mark" CoordSystem="GDA94 / MGA50" date="23/10/2019  0: 0: 0" deflection2d="0.001" deflection3d="0.001" description="" discretisation="10.0" precision="1.0" projectName="Hamersley" unit="meters" version="2.0">
+  <geo:Extent3DOfProject>
+    <geo:ExtentBox3D>
+      <geo:Extent3D>
+        <geo:ExtentXY Xmax="603000.0" Xmin="500000.0" Ymax="7568000.0" Ymin="7455500.0"/>
+        <geo:ExtentZ Zmax="1000.0" Zmin="-3000.0"/>
+      </geo:Extent3D>
+      <geo:GraphicTitle Title="">
+        <geo:Graphic/>
+        <geo:Location>
+          <gml:coordinates cs="," decimal="." ts=" ">0.0,0.0,0.0</gml:coordinates>
+        </geo:Location>
+      </geo:GraphicTitle>
+      <geo:GraphicBox3d>
+        <geo:Graphic/>
+      </geo:GraphicBox3d>
+      <geo:GraphicTick DensityAlongX="0" DensityAlongY="0" DensityAlongZ="0" OnOff="false" TickLength="0.0">
+        <geo:Graphic/>
+      </geo:GraphicTick>
+      <geo:GraphicLabel LabelFormat="" OnOff="false">
+        <geo:Graphic/>
+      </geo:GraphicLabel>
+    </geo:ExtentBox3D>
+  </geo:Extent3DOfProject>
+  <geo:Formations>
+    <geo:Formation Name="A_FO_od">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="191" Green="0" Red="0"/>
+        <geo:ColorWireFrame Blue="191" Green="0" Red="0"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_FO_xo_a">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="47" Green="107" Red="84"/>
+        <geo:ColorWireFrame Blue="47" Green="107" Red="84"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_FOh_xs_f">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="137" Green="17" Red="237"/>
+        <geo:ColorWireFrame Blue="137" Green="17" Red="237"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_FOj_xs_b">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="214" Green="112" Red="218"/>
+        <geo:ColorWireFrame Blue="214" Green="112" Red="218"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_FOo_bbo">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="137" Green="17" Red="237"/>
+        <geo:ColorWireFrame Blue="137" Green="17" Red="237"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_FOp_bs">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="237" Green="110" Red="66"/>
+        <geo:ColorWireFrame Blue="237" Green="110" Red="66"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_FOr_b">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="42" Green="89" Red="138"/>
+        <geo:ColorWireFrame Blue="42" Green="89" Red="138"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_FOu_bbo">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="102" Green="205" Red="0"/>
+        <geo:ColorWireFrame Blue="102" Green="205" Red="0"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_HAS_xsl_ci">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="138" Green="102" Red="138"/>
+        <geo:ColorWireFrame Blue="138" Green="102" Red="138"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_HAd_kd">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="237" Green="58" Red="177"/>
+        <geo:ColorWireFrame Blue="237" Green="58" Red="177"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_HAm_cib">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="237" Green="43" Red="144"/>
+        <geo:ColorWireFrame Blue="237" Green="43" Red="144"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_mgn_PMI">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="96" Green="163" Red="244"/>
+        <geo:ColorWireFrame Blue="96" Green="163" Red="244"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="A_mgn_PRK">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="205" Green="38" Red="124"/>
+        <geo:ColorWireFrame Blue="205" Green="38" Red="124"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__HAb_cib">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="205" Green="38" Red="124"/>
+        <geo:ColorWireFrame Blue="205" Green="38" Red="124"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__HAj_xci_od">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="138" Green="26" Red="84"/>
+        <geo:ColorWireFrame Blue="138" Green="26" Red="84"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__HAo_ci">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="84" Green="84" Red="205"/>
+        <geo:ColorWireFrame Blue="84" Green="84" Red="205"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__HAw_fr">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="204" Green="209" Red="72"/>
+        <geo:ColorWireFrame Blue="204" Green="209" Red="72"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__SKb_bb">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="0" Green="214" Red="255"/>
+        <geo:ColorWireFrame Blue="0" Green="214" Red="255"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__SKq_stq">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="73" Green="154" Red="237"/>
+        <geo:ColorWireFrame Blue="73" Green="154" Red="237"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__TK_s">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="117" Green="237" Red="0"/>
+        <geo:ColorWireFrame Blue="117" Green="237" Red="0"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__TKa_xs_k">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="147" Green="237" Red="77"/>
+        <geo:ColorWireFrame Blue="147" Green="237" Red="77"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__TKk_sf">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="179" Green="130" Red="70"/>
+        <geo:ColorWireFrame Blue="179" Green="130" Red="70"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__TKo_stq">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="26" Green="26" Red="138"/>
+        <geo:ColorWireFrame Blue="26" Green="26" Red="138"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__WYa_st">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="147" Green="237" Red="77"/>
+        <geo:ColorWireFrame Blue="147" Green="237" Red="77"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__WYd_kd">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="0" Green="205" Red="102"/>
+        <geo:ColorWireFrame Blue="0" Green="205" Red="102"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:Formation Name="P__WYm_sp">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="205" Green="103" Red="137"/>
+        <geo:ColorWireFrame Blue="205" Green="103" Red="137"/>
+      </geo:Graphic>
+    </geo:Formation>
+    <geo:DummyFormation Name="DefaultBasement">
+      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
+      <geo:Geophysics/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="179" Green="179" Red="179"/>
+        <geo:ColorWireFrame Blue="179" Green="179" Red="179"/>
+      </geo:Graphic>
+    </geo:DummyFormation>
+  </geo:Formations>
+  <geo:Sections>
+    <geo:Section Name="Topography" Description="DTM from file" Grid2DName="./dtm/hammersley_sheet_dtm.ers" IsAxialSurface="false" IsTopography="true">
+      <geo:Shape3DOfSection FileName="Topography.sec"/>
+      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="0" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+        <geo:ColorShading Blue="0" Green="140" Red="255"/>
+        <geo:ColorWireFrame Blue="0" Green="255" Red="255"/>
+      </geo:Graphic>
+    </geo:Section>
+  </geo:Sections>
+  <geo:GeologicalModel Inequalities="false" MinimumDykeThickness="2.0" SimplificationRadius="10.0">
+    <geo:Extent3D>
+      <geo:ExtentXY Xmax="603000.0" Xmin="500000.0" Ymax="7568000.0" Ymin="7455500.0"/>
+      <geo:ExtentZ Zmax="1000.0" Zmin="-3000.0"/>
+    </geo:Extent3D>
+    <geo:ModelSections>
+      <geo:Data Name="Topography"/>
+    </geo:ModelSections>
+    <geo:ProjectStratigraphicColumn IsBase="true">
+      <geo:Series isUptodate="true" name="A_mgn_PRK" relation="2">
+        <geo:Data Name="A_mgn_PRK"/>
+      </geo:Series>
+      <geo:Series isUptodate="true" name="A_mgn_PMI" relation="2">
+        <geo:Data Name="A_mgn_PMI"/>
+      </geo:Series>
+      <geo:Series isUptodate="true" name="Fortescue_Group" relation="2">
+        <geo:Data Name="A_FOj_xs_b"/>
+        <geo:Data Name="A_FO_xo_a"/>
+        <geo:Data Name="A_FO_od"/>
+        <geo:Data Name="A_FOu_bbo"/>
+        <geo:Data Name="A_FOp_bs"/>
+        <geo:Data Name="A_FOo_bbo"/>
+        <geo:Data Name="A_FOh_xs_f"/>
+        <geo:Data Name="A_FOr_b"/>
+      </geo:Series>
+      <geo:Series isUptodate="true" name="Hamersley_Group" relation="2">
+        <geo:Data Name="P__HAo_ci"/>
+        <geo:Data Name="P__HAw_fr"/>
+        <geo:Data Name="P__HAj_xci_od"/>
+        <geo:Data Name="P__HAb_cib"/>
+        <geo:Data Name="A_HAS_xsl_ci"/>
+        <geo:Data Name="A_HAd_kd"/>
+        <geo:Data Name="A_HAm_cib"/>
+      </geo:Series>
+      <geo:Series isUptodate="true" name="Turee_Creek_Group" relation="2">
+        <geo:Data Name="P__TKa_xs_k"/>
+        <geo:Data Name="P__TKo_stq"/>
+        <geo:Data Name="P__TKk_sf"/>
+        <geo:Data Name="P__TK_s"/>
+      </geo:Series>
+      <geo:Series isUptodate="true" name="Shingle_Creek_Group" relation="2">
+        <geo:Data Name="P__SKq_stq"/>
+        <geo:Data Name="P__SKb_bb"/>
+      </geo:Series>
+      <geo:Series isUptodate="true" name="Wyloo_Group" relation="2">
+        <geo:Data Name="P__WYm_sp"/>
+        <geo:Data Name="P__WYa_st"/>
+        <geo:Data Name="P__WYd_kd"/>
+      </geo:Series>
+    </geo:ProjectStratigraphicColumn>
+    <geo:ModelStratigraphicColumn/>
+  </geo:GeologicalModel>
+  <geo:GridsMeshs persistenceFormat="Intrepid">
+    <geo:GridMesh Name="DTM" ComeFrom="Project" CoordSystem="" DataSource="/MeshGrids/DTM.igmesh/" Description="" Purpose="Model">
+      <geo:Grid>
+        <geo:RegularGrid/>
+      </geo:Grid>
+      <geo:Fields>
+        <geo:Field Datatype="Real" Description="" Geometry="Quadrangle" Name="hammersley_sheet_dtm" NoValue="" Unit="">
+          <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
+            <geo:ColorShading Blue="211" Green="0" Red="147"/>
+            <geo:ColorWireFrame Blue="0" Green="255" Red="255"/>
+          </geo:Graphic>
+          <geo:FieldFile FileName="/MeshGrids/DTM.igmesh/" Type="BINARY"/>
+        </geo:Field>
+      </geo:Fields>
+    </geo:GridMesh>
+  </geo:GridsMeshs>
+  <geo:ProvenanceGroup>
+    <geo:Provenance id="Unspecified" rank="0"/>
+    <geo:Provenance id="Observed" rank="1"/>
+    <geo:Provenance id="Inferred" rank="2"/>
+    <geo:Provenance id="Interpreted" rank="3"/>
+    <geo:Provenance id="ModelConstructor" rank="4"/>
+  </geo:ProvenanceGroup>
+  <geo:GeophysicalReferenceType AmbientMagneticDeclination="0.0" AmbientMagneticInclination="90.0" AmbientMagneticMagnitude="50000.0" DensityRef="2.67"/>
+</geo:Project3DEdit>

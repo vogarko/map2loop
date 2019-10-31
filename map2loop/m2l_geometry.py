@@ -9,6 +9,7 @@ import geopandas as gpd
 import pandas as pd
 from math import acos, sqrt, cos, sin, degrees, radians, fabs, atan2
 from map2loop import m2l_utils
+from map2loop import m2l_interpolation
 import numpy as np
 
 #Export orientation data in csv format with heights and strat code added
@@ -80,7 +81,8 @@ def create_orientations( path_in, path_out,dtm,geology,structures,c_l):
     print("Contacts----------\n",len(set(all_codes)),set(all_codes))
 
     f=open(path_out+'/empty_series_orientations.csv',"w")
-    f.write("X,Y,Z,azimuth,dip,polarity,formation\n")
+    #f.write("X,Y,Z,azimuth,dip,polarity,formation\n")
+    f.write("X,Y,Z,DipDirection,dip,dippolarity,formation\n")
 
     for i in range (0,ngroups):
         if(groups[i][1]==0):
@@ -128,7 +130,6 @@ def extract_poly_coords(geom,i):
     return {'exterior_coords': exterior_coords,
             'interior_coords': interior_coords}
 
-#Export contact information subset of each polygon to csv format
 def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,c_l,intrusion_mode):
     print("decimation: 1 /",contact_decimate)
     plist=[]
@@ -238,9 +239,11 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,c_l,intrusion_mod
                                                     ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(plist[a_poly+2].replace(" ","_").replace("-","_"))+"\n"
                                                     ac.write(ostr)
                                                     allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
-                                                    if(str(plist[neighbours[i]+4])=='None'):
+                                                    if(str(plist[a_poly+4])=='None'):
                                                         ls_dict_decimate[deci_points] = {"id": allpts,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                     else:
+                                                        #display(allpts,c_l['c'],plist[a_poly+2])
+                                                        #display(allpts,c_l['g'],plist[a_poly+4])
                                                         ls_dict_decimate[deci_points] = {"id": allpts,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                     #ls_dict_decimate[allpts] = {"id": allpts,"CODE":ageol[1][c_l['c']].replace(" ","_").replace("-","_"),"GROUP_":ageol[1][c_l['g']].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                                     allpts+=1 
@@ -382,55 +385,44 @@ def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls
     print(i,"decimated contact points saved as",path_out+'/contacts4.csv')
     
 #Save faults as contact info and make vertical (for the moment)
-def save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decimate):
+def save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decimate,fault_min_len):
     faults_clip=gpd.read_file(path_faults)
     f=open(path_fault_orientations+'/faults.csv',"w")
     f.write("X,Y,Z,formation\n")
     fo=open(path_fault_orientations+'/fault_orientations.csv',"w")
-    fo.write("X,Y,Z,azimuth,dip,polarity,formation\n")
+    fo.write("X,Y,Z,DipDirection,dip,DipPolarity,formation\n")
+    #fo.write("X,Y,Z,azimuth,dip,polarity,formation\n")
     fd=open(path_fault_orientations+'/fault_dimensions.csv',"w")
-    fd.write("Fault_ID,strike,dip_direction,down_dip\n")
+    fd.write("Fault,HorizontalRadius,VerticalRadius,InfluenceDistance\n")
+    #fd.write("Fault_ID,strike,dip_direction,down_dip\n")
 
     for flt in faults_clip.iterrows():
-        #if(flt[1][c_l['n']]=='Karra Well Fault'): #<<<<<<<<<<<< When too many faults gets ugly!
         if(c_l['fault'] in flt[1][c_l['f']]):
-            #if(str(flt[1][c_l['n']])=='None'):
             fault_name='Fault_'+str(flt[1][c_l['o']])
-            #else:
-            #fault_name=str(flt[1][c_l['n']])   
-            #print(flt)
             flt_ls=LineString(flt[1].geometry)
-            #print(flt_ls)
-
-            i=0
-            #print(len(flt_ls.coords))
-            for afs in flt_ls.coords:
-                #print(afs[1])
-                if(m2l_utils.mod_safe(i,fault_decimate)==0 or i==int((len(flt_ls.coords)-1)/2) or i==len(flt_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
-                    locations=[(afs[0],afs[1])]     
-                    height=m2l_utils.value_from_raster(dataset,locations)
-                    ostr=str(afs[0])+","+str(afs[1])+","+str(height)+","+fault_name+"\n"
-                    f.write(ostr)                
-                i=i+1  
-            #print(flt_ls.coords[0][0],flt_ls.coords[0][1],flt_ls.coords[len(flt_ls.coords)-1][0],flt_ls.coords[len(flt_ls.coords)-1][1])
-            #print()
             dlsx=flt_ls.coords[0][0]-flt_ls.coords[len(flt_ls.coords)-1][0]
             dlsy=flt_ls.coords[0][1]-flt_ls.coords[len(flt_ls.coords)-1][1]
-            if(dlsx==0.0 or dlsy == 0.0):
-                continue
-            lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
-            lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))        
-            #angle = acos(lsx)
-            azimuth=degrees(atan2(lsy,-lsx)) % 180 #normal to line segment           
-            #azimuth = (degrees(angle) + 360) % 180 
-            #print(azimuth)
-            locations=[(flt_ls.coords[int((len(afs)-1)/2)][0],flt_ls.coords[int((len(afs)-1)/2)][1])]     
-            height=m2l_utils.value_from_raster(dataset,locations)
-            ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+",90,1,"+fault_name+"\n"
-            fo.write(ostr)
             strike=sqrt((dlsx*dlsx)+(dlsy*dlsy))
-            ostr=fault_name+","+str(strike)+","+str(strike/2.0)+","+str(strike)+"\n"
-            fd.write(ostr)
+            if(strike>fault_min_len):
+                i=0
+                for afs in flt_ls.coords:
+                    if(m2l_utils.mod_safe(i,fault_decimate)==0 or i==int((len(flt_ls.coords)-1)/2) or i==len(flt_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
+                        locations=[(afs[0],afs[1])]     
+                        height=m2l_utils.value_from_raster(dataset,locations)
+                        ostr=str(afs[0])+","+str(afs[1])+","+str(height)+","+fault_name+"\n"
+                        f.write(ostr)                
+                    i=i+1  
+                if(dlsx==0.0 or dlsy == 0.0):
+                    continue
+                lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
+                lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))        
+                azimuth=degrees(atan2(lsy,-lsx)) % 180 #normal to line segment           
+                locations=[(flt_ls.coords[int((len(afs)-1)/2)][0],flt_ls.coords[int((len(afs)-1)/2)][1])]     
+                height=m2l_utils.value_from_raster(dataset,locations)
+                ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+",90,1,"+fault_name+"\n"
+                fo.write(ostr)
+                ostr=fault_name+","+str(strike)+","+str(strike)+","+str(strike/2.0)+"\n"
+                fd.write(ostr)
 
     f.close()
     fo.close()
@@ -558,7 +550,8 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
                     gp_ages[i][1] = ageol[1][c_l['min']]
                     #print("min",agroup,gp_ages[i][1])
         if(c_l['intrusive'] in arck and c_l['sill'] not in ades):
-            newgp=str(ageol[1][c_l['c']])+'_'+str(ageol[1][c_l['o']])
+            #newgp=str(ageol[1][c_l['c']])+'_'+str(ageol[1][c_l['o']])
+            newgp=str(ageol[1][c_l['c']])
             #agp=str(ageol[1][c_l['g']])
             print(newgp)
             if(str(ageol[1][c_l['g']])=='None'):
@@ -684,26 +677,15 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
     ao.close()
     allc.close()
 
-    #print(ngroups)
-    #for i in range (0,ngroups):
-    #    print(i,gp_names[i])
-
-    #display(gp_ages[:ngroups])
-    #display(gp_names[:ngroups])
-
-    #ga=gp_ages[:ngroups]
-    #print("XXXXXXXXXXXXX",ga)
-    #f=ga[:,0].argsort()
-    #display(f)
       
     an=open(tmp_path+'groups2.csv',"w")
-    an.write('1 '+str(ngroups)+'\n')
-    for i in range (orig_ngroups,ngroups):
-        print(i,gp_names[i].replace(" ","_").replace("-","_"))
-        an.write(gp_names[i].replace(" ","_").replace("-","_")+'\n')
-        gp=open(tmp_path+''+gp_names[i].replace(" ","_").replace("\n","").replace("-","_")+'.csv',"w")
-        gp.write('Choice 0,'+gp_names[i].replace(" ","_").replace("-","_")+'\n')
-        gp.close()
+    #an.write('1 '+str(ngroups)+'\n')
+    #for i in range (orig_ngroups,ngroups):
+    #    print(i,gp_names[i].replace(" ","_").replace("-","_"))
+    #    an.write(gp_names[i].replace(" ","_").replace("-","_")+'\n')
+    #    gp=open(tmp_path+''+gp_names[i].replace(" ","_").replace("\n","").replace("-","_")+'.csv',"w")
+    #    gp.write('Choice 0,'+gp_names[i].replace(" ","_").replace("-","_")+'\n')
+    #    gp.close()
     for i in range (0,orig_ngroups):
         print(i,gp_names[i].replace(" ","_").replace("-","_"))
         an.write(gp_names[i].replace(" ","_").replace("-","_")+'\n')
@@ -718,25 +700,158 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
     all_sorts_file=open(tmp_path+'all_sorts2.csv',"w")
     all_sorts_file.write('index,group number,index in group,number in group,code,group\n')
     j=1
-    for i in range (orig_ngroups,ngroups):
-        index=str(int(all_sorts.iloc[len(all_sorts)-1]['index'])+j)
-        group_number=str(int(all_sorts.iloc[len(all_sorts)-1]['group number'])+j)
-        print(i,gp_names[i].replace(" ","_").replace("-","_"))
-        ostr=index+","+group_number+",1,1,"+gp_names[i].replace(" ","_").replace("-","_")+","+gp_names[i].replace(" ","_").replace("-","_")+"\n"
-        all_sorts_file.write(ostr)
-        j=j+1
+    #for i in range (orig_ngroups,ngroups):
+    #    index=str(int(all_sorts.iloc[len(all_sorts)-1]['index'])+j)
+    #    group_number=str(int(all_sorts.iloc[len(all_sorts)-1]['group number'])+j)
+    #    print(i,gp_names[i].replace(" ","_").replace("-","_"))
+    #    ostr=index+","+group_number+",1,1,"+gp_names[i].replace(" ","_").replace("-","_")+","+gp_names[i].replace(" ","_").replace("-","_")+"\n"
+    #    all_sorts_file.write(ostr)
+    #    j=j+1
 
     for i in range(1,len(all_sorts)+1):    
-        all_sorts_file.write(contents[i])
+        #found=False
+        #for j in range (orig_ngroups,ngroups):
+            #if(contents[i] == gp_names[j].replace(" ","_").replace("-","_") ):
+                #found=True
+        #if(not found):
+        all_sorts_file.write(contents[i]) #don't write out if already there in new groups list#
         
     all_sorts_file.close()
     print('pluton contacts and orientations saved as:')
     print(output_path+'ign_contacts.csv')
     print(output_path+'ign_orientations_'+pluton_form+'.csv')
     
-
-
 def tidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
+    contacts=pd.read_csv(output_path+'contacts4.csv',",")
+    orientations=pd.read_csv(output_path+'orientations.csv',",")
+    invented_orientations=pd.read_csv(output_path+'empty_series_orientations.csv',",")
+    interpolated_orientations=pd.read_csv(tmp_path+'combo_full.csv',",")
+    intrusive_orientations=pd.read_csv(output_path+'ign_orientations_'+pluton_form+'.csv',",")
+    intrusive_contacts=pd.read_csv(output_path+'ign_contacts.csv',",")
+    fault_contact=pd.read_csv(output_path+'faults.csv',",")
+    fault_orientations=pd.read_csv(output_path+'fault_orientations.csv',",")
+    all_sorts=pd.read_csv(tmp_path+'all_sorts2.csv',",")
+    combo_full_orientations=pd.read_csv(tmp_path+'combo_full.csv',",")
+
+    if(use_interpolations):
+        all_orientations=pd.concat([orientations,invented_orientations,intrusive_orientations,combo_full_orientations.iloc[::2, :]])
+    else:
+        all_orientations=pd.concat([orientations,invented_orientations,intrusive_orientations])
+        
+    all_orientations.reset_index(inplace=True)
+
+    all_sorts.set_index('code',  inplace = True)
+
+    all_contacts=pd.concat([intrusive_contacts,contacts])
+    all_contacts.reset_index(inplace=True)
+    display(all_sorts)
+    all_groups=set(all_sorts['group'])
+
+    unique_contacts=set(all_contacts['formation'])
+
+    # Remove groups that don't have any contact info
+    no_contacts=[]
+    groups=[]
+    for agroup in all_groups:
+        found=False
+        for acontact in all_contacts.iterrows():
+            if(all_sorts.loc[acontact[1]['formation']]['group'] in agroup ):
+                found=True
+                break
+        if(not found):
+            no_contacts.append(agroup)
+            print('no contacts for the group:',agroup)
+        else:
+            groups.append(agroup)
+
+    # Update list of all groups that have formations info
+
+    f=open(tmp_path+'groups2.csv',"r")
+    contents =f.readlines()
+    f.close
+
+    #ngroups=contents[0].split(" ")
+    #ngroups=int(ngroups[1])  
+    ngroups=len(contents)
+    no_contacts=[]
+    groups=[]
+    
+    for i in range(0,ngroups):
+        print(i,ngroups,contents[i])
+        found=False
+        #print('GROUP',agroup)
+        for acontact in all_contacts.iterrows():
+            #print(all_sorts.loc[acontact[1]['formation']]['group'])
+            if(all_sorts.loc[acontact[1]['formation']]['group'] in contents[i] and all_sorts.loc[acontact[1]['formation']]['group'] in use_group):
+                found=True
+                break
+        if(not found):
+            no_contacts.append(contents[i].replace("\n",""))
+            print('no contacts for the group:',contents[i].replace("\n",""))
+        else:
+            groups.append(contents[i].replace("\n",""))
+
+    # Make new list of groups
+
+    fgp=open(tmp_path+'groups_clean.csv',"w")
+    for i in range(0,len(groups)):
+        fgp.write(contents[i+1].replace("\n","")+'\n')
+    fgp.close()        
+
+    # Remove orientations with no equivalent formations info
+
+    for agroup in all_groups:
+        found=False
+        for ano in all_orientations.iterrows():
+            if(all_sorts.loc[ano[1]['formation']]['group'] in agroup and all_sorts.loc[ano[1]['formation']]['group'] in use_group):
+                found=True
+                break
+        if(not found):
+            no_contacts.append(agroup)
+            print('no orientations for the group:',agroup)
+
+    print(no_contacts)
+
+    # Update master list of  groups and formations info
+
+    fas=open(tmp_path+'all_sorts_clean.csv',"w")
+    fas.write('index,group number,index in group,number in group,code,group,uctype\n')
+    for a_sort in all_sorts.iterrows():
+        if(a_sort[1]['group'] not in no_contacts):
+            ostr=str(a_sort[1]['index'])+","+str(a_sort[1]['group number'])+","+str(a_sort[1]['index in group'])+","+str(a_sort[1]['number in group'])+","+a_sort[0]+","+a_sort[1]['group']+",erode\n"
+            fas.write(ostr)
+    fas.close()
+
+    # Update orientation info
+
+    fao=open(output_path+'orientations_clean.csv',"w")
+    fao.write('X,Y,Z,azimuth,dip,polarity,formation\n')
+
+    for ano in all_orientations.iterrows():
+        if(all_sorts.loc[ano[1]['formation']]['group'] in no_contacts or not ano[1]['formation'] in unique_contacts or not all_sorts.loc[ano[1]['formation']]['group'] in use_group):  #fix here################################
+            print('dud orientation:',ano[1]['formation'])
+        else:
+            ostr=str(ano[1]['X'])+","+str(ano[1]['Y'])+","+str(ano[1]['Z'])+","+\
+                 str(ano[1]['azimuth'])+","+str(ano[1]['dip'])+","+str(ano[1]['polarity'])+","+ano[1]['formation']+"\n"
+            fao.write(ostr)
+
+    fao.close()
+
+    # Update formation info
+
+    fac=open(output_path+'contacts_clean.csv',"w")
+    fac.write('X,Y,Z,formation\n')
+
+    for acontact in all_contacts.iterrows():
+        if(all_sorts.loc[acontact[1]['formation']]['group'] in no_contacts or not all_sorts.loc[acontact[1]['formation']]['group'] in use_group):
+            print('dud contact:',acontact[1]['formation'])
+        else:
+            ostr=str(acontact[1]['X'])+","+str(acontact[1]['Y'])+","+str(acontact[1]['Z'])+","+acontact[1]['formation']+"\n"
+            fac.write(ostr)
+
+    fac.close()
+
+def xxxtidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
     contacts=pd.read_csv(output_path+'contacts4.csv',",")
     orientations=pd.read_csv(output_path+'orientations.csv',",")
     invented_orientations=pd.read_csv(output_path+'empty_series_orientations.csv',",")
@@ -774,6 +889,7 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
         #print('GROUP',agroup)
         for acontact in all_contacts.iterrows():
             #if(all_sorts.loc[acontact[1]['formation']]['group'] in agroup and all_sorts.loc[acontact[1]['formation']]['group'] in use_group):
+            #display(all_sorts.loc[acontact[1]['formation']]['group'])
             if(all_sorts.loc[acontact[1]['formation']]['group'] in agroup ):
                 found=True
                 #print(all_sorts.loc[acontact[1]['formation']]['group'])
@@ -790,12 +906,13 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
     contents =f.readlines()
     f.close
 
-    ngroups=contents[0].split(" ")
-    ngroups=int(ngroups[1])       
+    #ngroups=contents[0].split(" ")
+    #ngroups=int(ngroups[1])
+    ngroups=len(contents)
     no_contacts=[]
     groups=[]
 
-    for i in range(1,ngroups+1):
+    for i in range(0,ngroups):
         found=False
         #print('GROUP',agroup)
         for acontact in all_contacts.iterrows():
@@ -871,3 +988,178 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
             fac.write(ostr)
 
     fac.close()
+
+
+def pt_dist(x1,y1,x2,y2):
+    dist=sqrt(pow(x1-x2,2)+pow(y1-y2,2))
+    return(dist)
+
+
+def bboxes_intersect(bbox1,bbox2):
+        if(bbox1[0]<=bbox2[2] and bbox1[0]>=bbox2[0] and bbox1[1]<=bbox2[3] and bbox1[1]<=bbox2[1]):
+            return(True)
+        elif(bbox1[0]<=bbox2[2] and bbox1[0]>=bbox2[0] and bbox1[3]<=bbox2[3] and bbox1[3]<=bbox2[1]):
+            return(True)
+        elif(bbox1[2]<=bbox2[2] and bbox1[2]>=bbox2[0] and bbox1[1]<=bbox2[3] and bbox1[1]<=bbox2[1]):
+            return(True)
+        elif(bbox1[2]<=bbox2[2] and bbox1[2]>=bbox2[0] and bbox1[3]<=bbox2[3] and bbox1[3]<=bbox2[1]):
+            return(True)
+        elif(bbox2[0]<=bbox1[2] and bbox2[0]>=bbox1[0] and bbox2[3]<=bbox1[3] and bbox2[3]<=bbox1[1]):
+            return(True)
+        else:
+            return(False)
+        
+def calc_thickness(tmp_path,contact_points_file,interpolated_combo_file,contact_lines,output_path,buffer,max_thickness_allowed):
+    contact_points_file=tmp_path+'raw_contacts.csv'
+    interpolated_combo_file=tmp_path+'combo_full.csv'
+    contact_lines = gpd.read_file(tmp_path+'/basal_contacts.shp') #load orientation data as geopandas dataframe 
+    all_sorts=pd.read_csv(tmp_path+'all_sorts.csv')
+    contacts=pd.read_csv(contact_points_file)
+    orientations=pd.read_csv(interpolated_combo_file)
+    olength=len(orientations)
+    clength=len(contacts)
+    cx=contacts['X'].to_numpy()
+
+    cy=contacts['Y'].to_numpy()
+    cl=contacts['lsx'].to_numpy(dtype=float)
+    cm=contacts['lsy'].to_numpy(dtype=float)
+    ctextcode=contacts['formation'].to_numpy()
+    ox=orientations['X'].to_numpy()
+    oy=orientations['Y'].to_numpy()
+    dip=orientations['dip'].to_numpy().reshape(olength,1)
+    azimuth=orientations['azimuth'].to_numpy().reshape(olength,1)
+
+    l = np.zeros(len(ox))
+    m = np.zeros(len(ox))
+    n = np.zeros(len(ox))    
+    file=open(output_path+'formation_thicknesses.csv','w')
+    file.write('X,Y,formation,thickness,cl,cm,meanl,meanm,meann,p1x,p1y,p2x,p2y,dip\n')
+    dist=m2l_interpolation.distance_matrix(ox,oy,cx,cy)
+    
+    #np.savetxt(tmp_path+'dist.csv',dist,delimiter=',')
+    #display("ppp",cx.shape,cy.shape,ox.shape,oy.shape,dip.shape,azimuth.shape,dist.shape)
+    n_est=0
+    for k in range(0,clength): #loop through all contact segments
+        a_dist=dist[:,k:k+1]
+        is_close=a_dist<buffer 
+        #display("ic",a_dist.shape,is_close.shape,dip.shape)
+        close_dip=dip[is_close]
+        #print("cd",close_dip.shape)
+        #print(close_dip)
+        close_azimuth=azimuth[is_close]
+        n_good=0
+        for j in range(0,len(close_dip)): #find averaged dips within buffer
+            l[n_good],m[n_good],n[n_good]=m2l_utils.ddd2dircos(float(close_dip[j]),float(close_azimuth[j])+90.0)
+            #print(k,len(close_dip),n_good,l[n_good],m[n_good],n[n_good])
+            n_good=n_good+1
+        if(n_good>0): #if we found any candidates
+            lm=np.mean(l[:n_good]) #average direction cosine of points within buffer range
+            mm=np.mean(m[:n_good])
+            nm=np.mean(n[:n_good])
+            dip_mean,dipdirection_mean=m2l_utils.dircos2ddd(lm,mm,nm)
+            #print(k,type(cm[k]),type(buffer))
+
+            dx1=-cm[k]*buffer
+            dy1=cl[k]*buffer
+            dx2=-dx1
+            dy2=-dy1
+            p1=Point((dx1+cx[k],dy1+cy[k]))
+            p2=Point((dx2+cx[k],dy2+cy[k]))
+            ddline=LineString((p1,p2))
+            orig = Point((cx[k],cy[k]))
+            
+            crossings=np.zeros((1000,5))
+            
+            g=0
+            for apair in all_sorts.iterrows(): #loop through all basal contacts
+
+                if(ctextcode[k]==apair[1]['code']):
+                    #if(all_sorts.iloc[g]['group']==all_sorts.iloc[g-1]['group']):
+                    is_contacta=contact_lines['CODE'] == all_sorts.iloc[g-1]['code'] # subset contacts to just those with 'a' code
+                    acontacts = contact_lines[is_contacta]
+                    i=0 
+                    for acontact in acontacts.iterrows():   #loop through distinct linestrings for upper contact
+                        #if(bboxes_intersect(ddline.bounds,acontact[1].geometry.bounds)):
+
+                        if(ddline.intersects(acontact[1].geometry)): 
+                            isects=ddline.intersection(acontact[1].geometry)
+                            if(isects.geom_type=="MultiPoint"):
+                                for pt in isects: 
+                                    if(pt.distance(orig)<buffer*2):
+                                        #print(i,",", pt.x, ",",pt.y,",",apair[1]['code'],",",apair[1]['group'])
+                                        crossings[i,0]=i
+                                        crossings[i,1]=int(apair[1]['index'])
+                                        crossings[i,2]=0
+                                        crossings[i,3]=pt.x
+                                        crossings[i,4]=pt.y
+                                        i=i+1
+                            else:
+                                if(isects.distance(orig)<buffer*2):
+                                    #print(i,",", isects.x,",", isects.y,",",apair[1]['code'],",",apair[1]['group'])
+                                    crossings[i,0]=i
+                                    crossings[i,1]=int(apair[1]['index'])
+                                    crossings[i,2]=0
+                                    crossings[i,3]=isects.x
+                                    crossings[i,4]=isects.y
+                                    i=i+1
+                    if(i>0): #if we found any intersections with base of next higher unit
+                        min_dist=1e8
+                        min_pt=0
+                        for f in range(0,i): #find closest hit
+                            this_dist=pt_dist(crossings[f,3],crossings[f,4],cx[k],cy[k])
+                            if(this_dist<min_dist):
+                                min_dist=this_dist
+                                min_pt=f
+                        if(min_dist<max_thickness_allowed): #if not too far, add to output
+                            true_thick=sin(radians(dip_mean))*min_dist
+                            ostr=str(cx[k])+','+str(cy[k])+','+ctextcode[k]+','+str(int(true_thick))+\
+                                ','+str(cl[k])+','+str(cm[k])+','+str(lm)+','+str(mm)+','+str(nm)+','+\
+                                str(p1.x)+','+str(p1.y)+','+str(p2.x)+','+str(p2.y)+','+str(dip_mean)+'\n'
+                            file.write(ostr)
+                            n_est=n_est+1
+                                
+                g=g+1
+    print(n_est,'thickness estimates saved as',output_path+'formation_thicknesses.csv')
+
+def normalise_thickness(output_path):
+    thickness=pd.read_csv(output_path+'formation_thicknesses.csv', sep=',')
+    
+    codes=thickness.formation.unique()
+
+    f=open(output_path+'formation_thicknesses_norm.csv','w')
+    f.write('x,y,formation,thickness,norm_th\n')
+    fs=open(output_path+'formation_summary_thicknesses.csv','w')
+    fs.write('formation,thickness median,thickness std\n')
+    for code in codes:
+        is_code=thickness.formation.str.contains(code, regex=False)
+        all_thick = thickness[is_code]
+        print(code,all_thick.loc[:,"thickness"].median(),all_thick.loc[:,"thickness"].std())
+        ostr=str(code)+","+str(all_thick.loc[:,"thickness"].median())+","+str(all_thick.loc[:,"thickness"].std())+"\n"    
+        fs.write(ostr)
+        
+        med=all_thick.loc[:,"thickness"].median()
+        std=all_thick.loc[:,"thickness"].std()
+        
+        thick=all_thick.to_numpy()
+    
+        for i in range(len(thick)):
+            if(med>0):
+                ostr=str(thick[i,0])+","+str(thick[i,1])+","+str(thick[i,2])+","+str(thick[i,3])+","+str(thick[i,3]/med)+"\n"    
+                f.write(ostr)
+    f.close()
+    fs.close()
+    
+def bboxes_intersect(bbox1,bbox2):
+        if(bbox1[0]<=bbox2[2] and bbox1[0]>=bbox2[0] and bbox1[1]<=bbox2[3] and bbox1[1]>=bbox2[1]):
+            return(True)
+        elif(bbox1[0]<=bbox2[2] and bbox1[0]>=bbox2[0] and bbox1[3]<=bbox2[3] and bbox1[3]>=bbox2[1]):
+            return(True)
+        elif(bbox1[2]<=bbox2[2] and bbox1[2]>=bbox2[0] and bbox1[1]<=bbox2[3] and bbox1[1]>=bbox2[1]):
+            return(True)
+        elif(bbox1[2]<=bbox2[2] and bbox1[2]>=bbox2[0] and bbox1[3]<=bbox2[3] and bbox1[3]>=bbox2[1]):
+            return(True)
+        elif(bbox2[0]<=bbox1[2] and bbox2[0]>=bbox1[0] and bbox2[3]<=bbox1[3] and bbox2[3]>=bbox1[1]):
+            return(True)
+        else:
+            return(False)
+        

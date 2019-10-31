@@ -1,0 +1,528 @@
+#---------------------------------------------------------------
+#-----------------------Project Header-----------------------
+#---------------------------------------------------------------
+name: "UWA_Intrepid"
+description: "Automate_batch_Model"
+    GeomodellerTask {
+    CreateProject {
+        name: "Hamersley"
+        author: "Des/Mark"
+        date: "23/10/2019  0: 0: 0"
+        projection { map_projection: "GDA94 / MGA50"}
+        version: "2.0"
+        units: meters
+        precision: 1.0
+        Extents {
+            xmin: 500000
+            ymin: 7455500
+            zmin: -3000
+            xmax: 603000
+            ymax: 7568000
+            zmax: 1000
+        }
+        deflection2d: 0.001
+        deflection3d: 0.001
+        discretisation: 10.0
+        referenceTop: false
+        CustomDTM {
+            Extents {
+                xmin: 500000
+                ymin: 7455500
+                xmax: 603000
+                ymax: 7568000
+            }
+            name: "Topography"
+            filename {
+                Grid_Name: "./dtm/hammersley_sheet_dtm.ers"
+            }
+            nx: 10
+            ny: 10
+        }
+    }
+}
+#---------------------------------------------------------------
+#-----------------------Create Formations-----------------------
+#---------------------------------------------------------------
+GeomodellerTask {
+CreateFormation {
+    name: "P__WYm_sp"
+    red: 116
+    green: 129
+    blue: 199
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__WYa_st"
+    red: 87
+    green: 245
+    blue: 100
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__WYd_kd"
+    red: 76
+    green: 231
+    blue: 6
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__SKq_stq"
+    red: 229
+    green: 140
+    blue: 63
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__SKb_bb"
+    red: 251
+    green: 224
+    blue: 3
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__TKa_xs_k"
+    red: 93
+    green: 224
+    blue: 147
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__TKo_stq"
+    red: 108
+    green: 19
+    blue: 21
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__TKk_sf"
+    red: 82
+    green: 144
+    blue: 182
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__TK_s"
+    red: 7
+    green: 228
+    blue: 112
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__HAo_ci"
+    red: 183
+    green: 70
+    blue: 78
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__HAw_fr"
+    red: 95
+    green: 202
+    blue: 225
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__HAj_xci_od"
+    red: 77
+    green: 4
+    blue: 113
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__HAb_cib"
+    red: 100
+    green: 40
+    blue: 210
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_HAS_xsl_ci"
+    red: 152
+    green: 89
+    blue: 133
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_HAd_kd"
+    red: 176
+    green: 59
+    blue: 251
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_HAm_cib"
+    red: 125
+    green: 53
+    blue: 250
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FOj_xs_b"
+    red: 202
+    green: 113
+    blue: 224
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FO_xo_a"
+    red: 105
+    green: 96
+    blue: 62
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FO_od"
+    red: 17
+    green: 41
+    blue: 194
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FOu_bbo"
+    red: 3
+    green: 184
+    blue: 105
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FOp_bs"
+    red: 75
+    green: 101
+    blue: 241
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FOo_bbo"
+    red: 241
+    green: 11
+    blue: 100
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FOh_xs_f"
+    red: 227
+    green: 35
+    blue: 131
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FOr_b"
+    red: 136
+    green: 105
+    blue: 47
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_mgn_PMI"
+    red: 237
+    green: 158
+    blue: 97
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_mgn_PRK"
+    red: 104
+    green: 51
+    blue: 215
+    }
+}
+#---------------------------------------------------------------
+#-----------------------Set Stratigraphic Pile------------------
+#---------------------------------------------------------------
+GeomodellerTask {
+SetSeries {
+    name: "Wyloo_Group"
+    position: 1
+    relation: "erode"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Wyloo_Group"
+    formation: "P__WYm_sp"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Wyloo_Group"
+    formation: "P__WYa_st"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Wyloo_Group"
+    formation: "P__WYd_kd"
+    }
+}
+GeomodellerTask {
+SetSeries {
+    name: "Shingle_Creek_Group"
+    position: 1
+    relation: "erode"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Shingle_Creek_Group"
+    formation: "P__SKq_stq"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Shingle_Creek_Group"
+    formation: "P__SKb_bb"
+    }
+}
+GeomodellerTask {
+SetSeries {
+    name: "Turee_Creek_Group"
+    position: 1
+    relation: "erode"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Turee_Creek_Group"
+    formation: "P__TKa_xs_k"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Turee_Creek_Group"
+    formation: "P__TKo_stq"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Turee_Creek_Group"
+    formation: "P__TKk_sf"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Turee_Creek_Group"
+    formation: "P__TK_s"
+    }
+}
+GeomodellerTask {
+SetSeries {
+    name: "Hamersley_Group"
+    position: 1
+    relation: "erode"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "P__HAo_ci"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "P__HAw_fr"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "P__HAj_xci_od"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "P__HAb_cib"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "A_HAS_xsl_ci"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "A_HAd_kd"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "A_HAm_cib"
+    }
+}
+GeomodellerTask {
+SetSeries {
+    name: "Fortescue_Group"
+    position: 1
+    relation: "erode"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Fortescue_Group"
+    formation: "A_FOj_xs_b"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Fortescue_Group"
+    formation: "A_FO_xo_a"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Fortescue_Group"
+    formation: "A_FO_od"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Fortescue_Group"
+    formation: "A_FOu_bbo"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Fortescue_Group"
+    formation: "A_FOp_bs"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Fortescue_Group"
+    formation: "A_FOo_bbo"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Fortescue_Group"
+    formation: "A_FOh_xs_f"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Fortescue_Group"
+    formation: "A_FOr_b"
+    }
+}
+GeomodellerTask {
+SetSeries {
+    name: "A_mgn_PMI"
+    position: 1
+    relation: "erode"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "A_mgn_PMI"
+    formation: "A_mgn_PMI"
+    }
+}
+GeomodellerTask {
+SetSeries {
+    name: "A_mgn_PRK"
+    position: 1
+    relation: "erode"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "A_mgn_PRK"
+    formation: "A_mgn_PRK"
+    }
+}
+
+#---------------------------------------------------------------
+#-----------------------Import 3D data ---Base Model------------
+#---------------------------------------------------------------
+GeomodellerTask {
+    ReadAndImport3dData {
+        contact_csv_file: "./output/contacts_clean.csv"
+        foliation_csv_file: "./output/orientations_clean.csv"
+        operation: Import_default; # make the most intelligent decision in the context.. if a named formation, add to it etc.
+        contact_header_linestoSkip: 1;
+        foliation_header_linestoSkip: 1;
+        fault_limit_header_linestoSkip: 1;
+        spatial_location_error: 1;
+        vertical_location_error: 1;
+#        Treat_Tag_As_Text_Only: true;
+    }
+}
+
+#---------------------------------------------------------------
+#----------------------------Compute Model----------------------
+#---------------------------------------------------------------
+
+GeomodellerTask {
+    ComputeModel {
+        SeriesList {
+            node: "All"
+        }
+        SectionList {
+            node: "All"
+        }
+        Extents {
+            xmin: 500000
+            ymin: 7455500
+            zmin: -3000
+            xmax: 603000
+            ymax: 7568000
+            zmax: 1000
+        }
+        radius: 10.0
+    }
+}
+#---------------------------------------------------------------
+#-----------------------Add geophysical Properties--------------
+#---------------------------------------------------------------
+
+
+
+#---------------------------------------------------------------
+#--------------------------Export Lithology Voxet---------------
+#---------------------------------------------------------------
+GeomodellerTask {
+    SaveLithologyVoxet {
+        nx: 100
+        ny: 100
+        nz: 400
+        LithologyVoxetFileStub: "./Litho_Voxet/LithoVoxet.vo"
+    }
+}
+#---------------------------------------------------------------
+#--------------------------Save As Model------------------------
+#---------------------------------------------------------------
+
+GeomodellerTask {
+    SaveProjectAs {
+        filename: "./Models_Final/Models_UWA.xml"
+    }
+}

@@ -1,0 +1,1652 @@
+
+[25/10/2019 00: 9: 0.222000] Processing job file: "m2l.taskfile"
+
+CreateProject_GMT {
+CustomDTM {
+  name: "Topography"
+  filename {
+    Grid_Name: "./dtm/dtm_rp.tif"
+  }
+  Extents {
+    xmin: 500000
+    ymin: 7455500
+    xmax: 603000
+    ymax: 7568000
+  }
+  nx: 10
+  ny: 10
+}
+name: "Uthmaniyah_1"
+author: "Des/Mark"
+date: "23/10/2019  0: 0: 0"
+projection {
+  map_projection: "GDA94 / MGA50"
+}
+version: "2.0"
+units: meters
+precision: 1
+Extents {
+  xmin: 500000
+  ymin: 7455500
+  zmin: -3000
+  xmax: 603000
+  ymax: 7568000
+  zmax: 1000
+}
+deflection2d: 0.001
+deflection3d: 0.001
+discretisation: 10
+referenceTop: false
+}
+CreateFormation_GMT {
+name: "A_mgn_PMI_520"
+red: 119
+green: 98
+blue: 187
+}
+CreateFormation_GMT {
+name: "A_mgn_PRK_32"
+red: 117
+green: 108
+blue: 112
+}
+CreateFormation_GMT {
+name: "P__WYm_sp"
+red: 208
+green: 203
+blue: 235
+}
+CreateFormation_GMT {
+name: "P__WYa_st"
+red: 187
+green: 7
+blue: 179
+}
+CreateFormation_GMT {
+name: "P__WYd_kd"
+red: 100
+green: 137
+blue: 19
+}
+CreateFormation_GMT {
+name: "P__SKq_stq"
+red: 104
+green: 22
+blue: 117
+}
+CreateFormation_GMT {
+name: "P__SKb_bb"
+red: 14
+green: 136
+blue: 147
+}
+CreateFormation_GMT {
+name: "P__TKa_xs_k"
+red: 205
+green: 212
+blue: 153
+}
+CreateFormation_GMT {
+name: "P__TKo_stq"
+red: 154
+green: 114
+blue: 83
+}
+CreateFormation_GMT {
+name: "P__TKk_sf"
+red: 175
+green: 109
+blue: 48
+}
+CreateFormation_GMT {
+name: "P__TK_s"
+red: 159
+green: 241
+blue: 51
+}
+CreateFormation_GMT {
+name: "P__HAo_ci"
+red: 27
+green: 102
+blue: 191
+}
+CreateFormation_GMT {
+name: "P__HAw_fr"
+red: 6
+green: 60
+blue: 178
+}
+CreateFormation_GMT {
+name: "P__HAj_xci_od"
+red: 74
+green: 107
+blue: 146
+}
+CreateFormation_GMT {
+name: "P__HAb_cib"
+red: 92
+green: 7
+blue: 187
+}
+CreateFormation_GMT {
+name: "A_HAS_xsl_ci"
+red: 133
+green: 40
+blue: 71
+}
+CreateFormation_GMT {
+name: "A_HAd_kd"
+red: 166
+green: 5
+blue: 16
+}
+CreateFormation_GMT {
+name: "A_HAm_cib"
+red: 130
+green: 54
+blue: 37
+}
+CreateFormation_GMT {
+name: "A_FOj_xs_b"
+red: 195
+green: 58
+blue: 197
+}
+CreateFormation_GMT {
+name: "A_FO_xo_a"
+red: 222
+green: 231
+blue: 123
+}
+CreateFormation_GMT {
+name: "A_FO_od"
+red: 45
+green: 216
+blue: 57
+}
+CreateFormation_GMT {
+name: "A_FOu_bbo"
+red: 67
+green: 218
+blue: 173
+}
+CreateFormation_GMT {
+name: "A_FOp_bs"
+red: 181
+green: 109
+blue: 84
+}
+CreateFormation_GMT {
+name: "A_FOo_bbo"
+red: 33
+green: 71
+blue: 176
+}
+CreateFormation_GMT {
+name: "A_FOh_xs_f"
+red: 190
+green: 176
+blue: 76
+}
+CreateFormation_GMT {
+name: "A_FOr_b"
+red: 151
+green: 203
+blue: 84
+}
+SetSeries_GMT {
+name: "A_mgn_PMI_520"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PMI_520"
+formation: "A_mgn_PMI_520"
+}
+SetSeries_GMT {
+name: "A_mgn_PRK_32"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PRK_32"
+formation: "A_mgn_PRK_32"
+}
+SetSeries_GMT {
+name: "Wyloo_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYm_sp"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYa_st"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYd_kd"
+}
+SetSeries_GMT {
+name: "Shingle_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKq_stq"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKb_bb"
+}
+SetSeries_GMT {
+name: "Turee_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKa_xs_k"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKo_stq"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKk_sf"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TK_s"
+}
+SetSeries_GMT {
+name: "Hamersley_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAo_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAw_fr"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAj_xci_od"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAb_cib"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAS_xsl_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAd_kd"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAm_cib"
+}
+SetSeries_GMT {
+name: "Fortescue_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOj_xs_b"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_xo_a"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_od"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOu_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOp_bs"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOo_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOh_xs_f"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOr_b"
+}
+CreateFault_GMT {
+name: "313"
+red: 188
+green: 220
+blue: 19
+}
+CreateFault_GMT {
+name: "2837"
+red: 8
+green: 180
+blue: 166
+}
+CreateFault_GMT {
+name: "813"
+red: 71
+green: 114
+blue: 220
+}
+CreateFault_GMT {
+name: "958"
+red: 221
+green: 118
+blue: 70
+}
+CreateFault_GMT {
+name: "815"
+red: 247
+green: 226
+blue: 170
+}
+CreateFault_GMT {
+name: "12641"
+red: 103
+green: 242
+blue: 202
+}
+CreateFault_GMT {
+name: "16503"
+red: 181
+green: 44
+blue: 245
+}
+CreateFault_GMT {
+name: "2225"
+red: 21
+green: 237
+blue: 66
+}
+CreateFault_GMT {
+name: "16740"
+red: 99
+green: 2
+blue: 47
+}
+CreateFault_GMT {
+name: "2235"
+red: 27
+green: 71
+blue: 218
+}
+CreateFault_GMT {
+name: "2843"
+red: 115
+green: 122
+blue: 102
+}
+CreateFault_GMT {
+name: "5252"
+red: 111
+green: 168
+blue: 174
+}
+CreateFault_GMT {
+name: "5471"
+red: 47
+green: 61
+blue: 247
+}
+CreateFault_GMT {
+name: "2248"
+red: 26
+green: 78
+blue: 154
+}
+CreateFault_GMT {
+name: "16769"
+red: 121
+green: 109
+blue: 72
+}
+CreateFault_GMT {
+name: "4721"
+red: 250
+green: 8
+blue: 17
+}
+CreateFault_GMT {
+name: "16397"
+red: 216
+green: 28
+blue: 120
+}
+CreateFault_GMT {
+name: "16825"
+red: 149
+green: 44
+blue: 106
+}
+CreateFault_GMT {
+name: "2840"
+red: 77
+green: 178
+blue: 238
+}
+CreateFault_GMT {
+name: "3495"
+red: 200
+green: 237
+blue: 212
+}
+CreateFault_GMT {
+name: "962"
+red: 133
+green: 76
+blue: 126
+}
+CreateFault_GMT {
+name: "2996"
+red: 47
+green: 212
+blue: 181
+}
+CreateFault_GMT {
+name: "961"
+red: 73
+green: 41
+blue: 193
+}
+CreateFault_GMT {
+name: "8551"
+red: 149
+green: 237
+blue: 143
+}
+CreateFault_GMT {
+name: "12630"
+red: 124
+green: 238
+blue: 13
+}
+CreateFault_GMT {
+name: "2997"
+red: 208
+green: 83
+blue: 12
+}
+CreateFault_GMT {
+name: "5993"
+red: 233
+green: 62
+blue: 73
+}
+CreateFault_GMT {
+name: "3496"
+red: 239
+green: 155
+blue: 65
+}
+CreateFault_GMT {
+name: "7439"
+red: 135
+green: 103
+blue: 177
+}
+CreateFault_GMT {
+name: "11445"
+red: 53
+green: 74
+blue: 106
+}
+CreateFault_GMT {
+name: "15546"
+red: 223
+green: 106
+blue: 121
+}
+CreateFault_GMT {
+name: "3498"
+red: 69
+green: 18
+blue: 161
+}
+CreateFault_GMT {
+name: "12646"
+red: 161
+green: 159
+blue: 134
+}
+CreateFault_GMT {
+name: "5991"
+red: 57
+green: 28
+blue: 151
+}
+CreateFault_GMT {
+name: "6000"
+red: 181
+green: 19
+blue: 127
+}
+CreateFault_GMT {
+name: "6205"
+red: 160
+green: 245
+blue: 138
+}
+CreateFault_GMT {
+name: "7967"
+red: 174
+green: 178
+blue: 94
+}
+CreateFault_GMT {
+name: "6825"
+red: 190
+green: 210
+blue: 102
+}
+CreateFault_GMT {
+name: "15540"
+red: 193
+green: 214
+blue: 151
+}
+CreateFault_GMT {
+name: "7344"
+red: 22
+green: 135
+blue: 145
+}
+CreateFault_GMT {
+name: "2229"
+red: 129
+green: 58
+blue: 140
+}
+CreateFault_GMT {
+name: "5001"
+red: 40
+green: 108
+blue: 94
+}
+CreateFault_GMT {
+name: "6522"
+red: 154
+green: 230
+blue: 95
+}
+CreateFault_GMT {
+name: "16245"
+red: 91
+green: 219
+blue: 111
+}
+CreateFault_GMT {
+name: "5475"
+red: 119
+green: 255
+blue: 84
+}
+CreateFault_GMT {
+name: "7966"
+red: 245
+green: 61
+blue: 106
+}
+CreateFault_GMT {
+name: "5463"
+red: 3
+green: 82
+blue: 159
+}
+CreateFault_GMT {
+name: "5997"
+red: 20
+green: 89
+blue: 162
+}
+CreateFault_GMT {
+name: "11442"
+red: 183
+green: 128
+blue: 100
+}
+CreateFault_GMT {
+name: "2238"
+red: 63
+green: 215
+blue: 219
+}
+CreateFault_GMT {
+name: "12618"
+red: 111
+green: 122
+blue: 224
+}
+CreateFault_GMT {
+name: "15527"
+red: 30
+green: 229
+blue: 190
+}
+CreateFault_GMT {
+name: "12642"
+red: 133
+green: 254
+blue: 137
+}
+CreateFault_GMT {
+name: "12644"
+red: 47
+green: 58
+blue: 186
+}
+CreateFault_GMT {
+name: "12647"
+red: 200
+green: 46
+blue: 45
+}
+CreateFault_GMT {
+name: "12658"
+red: 103
+green: 152
+blue: 34
+}
+CreateFault_GMT {
+name: "5484"
+red: 86
+green: 196
+blue: 200
+}
+CreateFault_GMT {
+name: "12660"
+red: 173
+green: 192
+blue: 2
+}
+CreateFault_GMT {
+name: "15552"
+red: 179
+green: 255
+blue: 144
+}
+CreateFault_GMT {
+name: "14251"
+red: 205
+green: 187
+blue: 182
+}
+CreateFault_GMT {
+name: "14303"
+red: 144
+green: 191
+blue: 196
+}
+CreateFault_GMT {
+name: "16878"
+red: 45
+green: 26
+blue: 148
+}
+CreateFault_GMT {
+name: "16399"
+red: 60
+green: 203
+blue: 123
+}
+CreateFault_GMT {
+name: "3370"
+red: 144
+green: 186
+blue: 88
+}
+CreateFault_GMT {
+name: "16455"
+red: 48
+green: 100
+blue: 20
+}
+CreateFault_GMT {
+name: "16502"
+red: 240
+green: 157
+blue: 127
+}
+CreateFault_GMT {
+name: "11429"
+red: 83
+green: 245
+blue: 71
+}
+CreateFault_GMT {
+name: "2227"
+red: 73
+green: 219
+blue: 29
+}
+CreateFault_GMT {
+name: "16742"
+red: 233
+green: 83
+blue: 123
+}
+CreateFault_GMT {
+name: "16744"
+red: 199
+green: 162
+blue: 176
+}
+CreateFault_GMT {
+name: "12627"
+red: 126
+green: 136
+blue: 109
+}
+CreateFault_GMT {
+name: "16767"
+red: 165
+green: 55
+blue: 42
+}
+CreateFault_GMT {
+name: "2246"
+red: 15
+green: 236
+blue: 240
+}
+CreateFault_GMT {
+name: "16816"
+red: 252
+green: 165
+blue: 2
+}
+CreateFault_GMT {
+name: "5986"
+red: 26
+green: 202
+blue: 134
+}
+CreateFault_GMT {
+name: "17182"
+red: 181
+green: 223
+blue: 67
+}
+CreateFault_GMT {
+name: "16896"
+red: 66
+green: 254
+blue: 205
+}
+CreateFault_GMT {
+name: "17031"
+red: 143
+green: 47
+blue: 12
+}
+CreateFault_GMT {
+name: "17127"
+red: 207
+green: 84
+blue: 158
+}
+ReadAndImport3dData_GMT {
+contact_csv_file: "./output/contacts_clean.csv"
+foliation_csv_file: "./output/orientations_clean.csv"
+contact_header_linestoSkip: 1
+foliation_header_linestoSkip: 1
+fault_limit_header_linestoSkip: 1
+operation: Import_default
+spatial_location_error: 1
+vertical_location_error: 1
+}
+
+[25/10/2019 00:19:56.534000] Processing job file: "m2l.taskfile"
+
+
+[25/10/2019 00:22:55.076000] Processing job file: "Creating_Model_djf.task"
+
+
+[29/10/2019 08:34:31.614000] Processing job file: "m2l.taskfile"
+
+
+[29/10/2019 08:37:58.088000] Processing job file: "m2l.taskfile"
+
+
+[29/10/2019 08:38:56.953000] Processing job file: "m2l.taskfile"
+
+
+[29/10/2019 08:41:10.014000] Processing job file: "m2l.taskfile"
+
+
+[29/10/2019 08:46:20.258000] Processing job file: "m2l.taskfile"
+
+
+[30/10/2019 17: 1:32.641000] Processing job file: "m2l.taskfile"
+
+
+[30/10/2019 17: 2: 9.424000] Processing job file: "m2l.taskfile"
+
+
+[30/10/2019 17: 3:15.231000] Processing job file: "m2l.taskfile"
+
+CreateProject_GMT {
+CustomDTM {
+  name: "Topography"
+  filename {
+    Grid_Name: "./dtm/hammersley_sheet_dtm.ers"
+  }
+  Extents {
+    xmin: 500000
+    ymin: 7455500
+    xmax: 603000
+    ymax: 7568000
+  }
+  nx: 10
+  ny: 10
+}
+name: "Hamersley"
+author: "Des/Mark"
+date: "23/10/2019  0: 0: 0"
+projection {
+  map_projection: "GDA94 / MGA50"
+}
+version: "2.0"
+units: meters
+precision: 1
+Extents {
+  xmin: 500000
+  ymin: 7455500
+  zmin: -3000
+  xmax: 603000
+  ymax: 7568000
+  zmax: 1000
+}
+deflection2d: 0.001
+deflection3d: 0.001
+discretisation: 10
+referenceTop: false
+}
+CreateFormation_GMT {
+name: "P__WYm_sp"
+red: 116
+green: 129
+blue: 199
+}
+CreateFormation_GMT {
+name: "P__WYa_st"
+red: 87
+green: 245
+blue: 100
+}
+CreateFormation_GMT {
+name: "P__WYd_kd"
+red: 76
+green: 231
+blue: 6
+}
+CreateFormation_GMT {
+name: "P__SKq_stq"
+red: 229
+green: 140
+blue: 63
+}
+CreateFormation_GMT {
+name: "P__SKb_bb"
+red: 251
+green: 224
+blue: 3
+}
+CreateFormation_GMT {
+name: "P__TKa_xs_k"
+red: 93
+green: 224
+blue: 147
+}
+CreateFormation_GMT {
+name: "P__TKo_stq"
+red: 108
+green: 19
+blue: 21
+}
+CreateFormation_GMT {
+name: "P__TKk_sf"
+red: 82
+green: 144
+blue: 182
+}
+CreateFormation_GMT {
+name: "P__TK_s"
+red: 7
+green: 228
+blue: 112
+}
+CreateFormation_GMT {
+name: "P__HAo_ci"
+red: 183
+green: 70
+blue: 78
+}
+CreateFormation_GMT {
+name: "P__HAw_fr"
+red: 95
+green: 202
+blue: 225
+}
+CreateFormation_GMT {
+name: "P__HAj_xci_od"
+red: 77
+green: 4
+blue: 113
+}
+CreateFormation_GMT {
+name: "P__HAb_cib"
+red: 100
+green: 40
+blue: 210
+}
+CreateFormation_GMT {
+name: "A_HAS_xsl_ci"
+red: 152
+green: 89
+blue: 133
+}
+CreateFormation_GMT {
+name: "A_HAd_kd"
+red: 176
+green: 59
+blue: 251
+}
+CreateFormation_GMT {
+name: "A_HAm_cib"
+red: 125
+green: 53
+blue: 250
+}
+CreateFormation_GMT {
+name: "A_FOj_xs_b"
+red: 202
+green: 113
+blue: 224
+}
+CreateFormation_GMT {
+name: "A_FO_xo_a"
+red: 105
+green: 96
+blue: 62
+}
+CreateFormation_GMT {
+name: "A_FO_od"
+red: 17
+green: 41
+blue: 194
+}
+CreateFormation_GMT {
+name: "A_FOu_bbo"
+red: 3
+green: 184
+blue: 105
+}
+CreateFormation_GMT {
+name: "A_FOp_bs"
+red: 75
+green: 101
+blue: 241
+}
+CreateFormation_GMT {
+name: "A_FOo_bbo"
+red: 241
+green: 11
+blue: 100
+}
+CreateFormation_GMT {
+name: "A_FOh_xs_f"
+red: 227
+green: 35
+blue: 131
+}
+CreateFormation_GMT {
+name: "A_FOr_b"
+red: 136
+green: 105
+blue: 47
+}
+CreateFormation_GMT {
+name: "A_mgn_PMI"
+red: 237
+green: 158
+blue: 97
+}
+CreateFormation_GMT {
+name: "A_mgn_PRK"
+red: 104
+green: 51
+blue: 215
+}
+SetSeries_GMT {
+name: "Wyloo_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYm_sp"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYa_st"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYd_kd"
+}
+SetSeries_GMT {
+name: "Shingle_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKq_stq"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKb_bb"
+}
+SetSeries_GMT {
+name: "Turee_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKa_xs_k"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKo_stq"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKk_sf"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TK_s"
+}
+SetSeries_GMT {
+name: "Hamersley_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAo_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAw_fr"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAj_xci_od"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAb_cib"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAS_xsl_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAd_kd"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAm_cib"
+}
+SetSeries_GMT {
+name: "Fortescue_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOj_xs_b"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_xo_a"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_od"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOu_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOp_bs"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOo_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOh_xs_f"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOr_b"
+}
+SetSeries_GMT {
+name: "A_mgn_PMI"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PMI"
+formation: "A_mgn_PMI"
+}
+SetSeries_GMT {
+name: "A_mgn_PRK"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PRK"
+formation: "A_mgn_PRK"
+}
+CreateFault_GMT {
+name: "Fault_12644"
+red: 199
+green: 1
+blue: 20
+}
+CreateFault_GMT {
+name: "Fault_2235"
+red: 52
+green: 11
+blue: 122
+}
+CreateFault_GMT {
+name: "Fault_3496"
+red: 197
+green: 28
+blue: 69
+}
+CreateFault_GMT {
+name: "Fault_2843"
+red: 178
+green: 136
+blue: 186
+}
+CreateFault_GMT {
+name: "Fault_14378"
+red: 69
+green: 95
+blue: 44
+}
+CreateFault_GMT {
+name: "Fault_16502"
+red: 140
+green: 100
+blue: 223
+}
+CreateFault_GMT {
+name: "Fault_16825"
+red: 38
+green: 1
+blue: 135
+}
+CreateFault_GMT {
+name: "Fault_16744"
+red: 249
+green: 208
+blue: 103
+}
+CreateFault_GMT {
+name: "Fault_7966"
+red: 83
+green: 170
+blue: 210
+}
+CreateFault_GMT {
+name: "Fault_7344"
+red: 243
+green: 171
+blue: 165
+}
+CreateFault_GMT {
+name: "Fault_6825"
+red: 152
+green: 201
+blue: 83
+}
+CreateFault_GMT {
+name: "Fault_7436"
+red: 194
+green: 186
+blue: 59
+}
+CreateFault_GMT {
+name: "Fault_2996"
+red: 5
+green: 117
+blue: 13
+}
+CreateFault_GMT {
+name: "Fault_7439"
+red: 17
+green: 99
+blue: 244
+}
+CreateFault_GMT {
+name: "Fault_6205"
+red: 149
+green: 115
+blue: 21
+}
+ReadAndImport3dData_GMT {
+contact_csv_file: "./output/contacts_clean.csv"
+foliation_csv_file: "./output/orientations_clean.csv"
+contact_header_linestoSkip: 1
+foliation_header_linestoSkip: 1
+fault_limit_header_linestoSkip: 1
+operation: Import_default
+spatial_location_error: 1
+vertical_location_error: 1
+}
+
+[30/10/2019 17: 5:25.405000] Processing job file: "m2l.taskfile"
+
+CreateProject_GMT {
+CustomDTM {
+  name: "Topography"
+  filename {
+    Grid_Name: "./dtm/hammersley_sheet_dtm.ers"
+  }
+  Extents {
+    xmin: 500000
+    ymin: 7455500
+    xmax: 603000
+    ymax: 7568000
+  }
+  nx: 10
+  ny: 10
+}
+name: "Hamersley"
+author: "Des/Mark"
+date: "23/10/2019  0: 0: 0"
+projection {
+  map_projection: "GDA94 / MGA50"
+}
+version: "2.0"
+units: meters
+precision: 1
+Extents {
+  xmin: 500000
+  ymin: 7455500
+  zmin: -3000
+  xmax: 603000
+  ymax: 7568000
+  zmax: 1000
+}
+deflection2d: 0.001
+deflection3d: 0.001
+discretisation: 10
+referenceTop: false
+}
+CreateFormation_GMT {
+name: "P__WYm_sp"
+red: 116
+green: 129
+blue: 199
+}
+CreateFormation_GMT {
+name: "P__WYa_st"
+red: 87
+green: 245
+blue: 100
+}
+CreateFormation_GMT {
+name: "P__WYd_kd"
+red: 76
+green: 231
+blue: 6
+}
+CreateFormation_GMT {
+name: "P__SKq_stq"
+red: 229
+green: 140
+blue: 63
+}
+CreateFormation_GMT {
+name: "P__SKb_bb"
+red: 251
+green: 224
+blue: 3
+}
+CreateFormation_GMT {
+name: "P__TKa_xs_k"
+red: 93
+green: 224
+blue: 147
+}
+CreateFormation_GMT {
+name: "P__TKo_stq"
+red: 108
+green: 19
+blue: 21
+}
+CreateFormation_GMT {
+name: "P__TKk_sf"
+red: 82
+green: 144
+blue: 182
+}
+CreateFormation_GMT {
+name: "P__TK_s"
+red: 7
+green: 228
+blue: 112
+}
+CreateFormation_GMT {
+name: "P__HAo_ci"
+red: 183
+green: 70
+blue: 78
+}
+CreateFormation_GMT {
+name: "P__HAw_fr"
+red: 95
+green: 202
+blue: 225
+}
+CreateFormation_GMT {
+name: "P__HAj_xci_od"
+red: 77
+green: 4
+blue: 113
+}
+CreateFormation_GMT {
+name: "P__HAb_cib"
+red: 100
+green: 40
+blue: 210
+}
+CreateFormation_GMT {
+name: "A_HAS_xsl_ci"
+red: 152
+green: 89
+blue: 133
+}
+CreateFormation_GMT {
+name: "A_HAd_kd"
+red: 176
+green: 59
+blue: 251
+}
+CreateFormation_GMT {
+name: "A_HAm_cib"
+red: 125
+green: 53
+blue: 250
+}
+CreateFormation_GMT {
+name: "A_FOj_xs_b"
+red: 202
+green: 113
+blue: 224
+}
+CreateFormation_GMT {
+name: "A_FO_xo_a"
+red: 105
+green: 96
+blue: 62
+}
+CreateFormation_GMT {
+name: "A_FO_od"
+red: 17
+green: 41
+blue: 194
+}
+CreateFormation_GMT {
+name: "A_FOu_bbo"
+red: 3
+green: 184
+blue: 105
+}
+CreateFormation_GMT {
+name: "A_FOp_bs"
+red: 75
+green: 101
+blue: 241
+}
+CreateFormation_GMT {
+name: "A_FOo_bbo"
+red: 241
+green: 11
+blue: 100
+}
+CreateFormation_GMT {
+name: "A_FOh_xs_f"
+red: 227
+green: 35
+blue: 131
+}
+CreateFormation_GMT {
+name: "A_FOr_b"
+red: 136
+green: 105
+blue: 47
+}
+CreateFormation_GMT {
+name: "A_mgn_PMI"
+red: 237
+green: 158
+blue: 97
+}
+CreateFormation_GMT {
+name: "A_mgn_PRK"
+red: 104
+green: 51
+blue: 215
+}
+SetSeries_GMT {
+name: "Wyloo_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYm_sp"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYa_st"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYd_kd"
+}
+SetSeries_GMT {
+name: "Shingle_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKq_stq"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKb_bb"
+}
+SetSeries_GMT {
+name: "Turee_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKa_xs_k"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKo_stq"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKk_sf"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TK_s"
+}
+SetSeries_GMT {
+name: "Hamersley_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAo_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAw_fr"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAj_xci_od"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAb_cib"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAS_xsl_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAd_kd"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAm_cib"
+}
+SetSeries_GMT {
+name: "Fortescue_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOj_xs_b"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_xo_a"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_od"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOu_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOp_bs"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOo_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOh_xs_f"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOr_b"
+}
+SetSeries_GMT {
+name: "A_mgn_PMI"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PMI"
+formation: "A_mgn_PMI"
+}
+SetSeries_GMT {
+name: "A_mgn_PRK"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PRK"
+formation: "A_mgn_PRK"
+}
+ReadAndImport3dData_GMT {
+contact_csv_file: "./output/contacts_clean.csv"
+foliation_csv_file: "./output/orientations_clean.csv"
+contact_header_linestoSkip: 1
+foliation_header_linestoSkip: 1
+fault_limit_header_linestoSkip: 1
+operation: Import_default
+spatial_location_error: 1
+vertical_location_error: 1
+}
+ComputeModel_GMT {
+SeriesList {
+  node: "All"
+}
+SectionList {
+  node: "All"
+}
+radius: 10
+Extents {
+  xmin: 500000
+  ymin: 7455500
+  zmin: -3000
+  xmax: 603000
+  ymax: 7568000
+  zmax: 1000
+}
+}
+SaveLithologyVoxet_GMT {
+nx: 100
+ny: 100
+nz: 400
+LithologyVoxetFileStub: "./Litho_Voxet/LithoVoxet.vo"
+}
+SaveProjectAs_GMT {
+filename: "./Models_Final/Models_UWA.xml"
+}

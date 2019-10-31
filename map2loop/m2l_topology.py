@@ -212,12 +212,143 @@ def save_group(G,path_out,glabels,geol,c_l):
     ag.close()
 
     
-
 def parse_fault_relationships(graph_path,tmp_path,output_path):
     uf=open(graph_path+'unit-fault-intersection.txt','r')
     contents =uf.readlines()
     uf.close()
+    
+    all_long_faults=np.genfromtxt(output_path+'fault_dimensions.csv',delimiter=',',dtype='U25')
+    n_faults=len(all_long_faults)
+    #print(n_faults)
+    all_faults={}
+    unique_list = [] 
+    #display(unique_list)
+    for i in range(1,n_faults):
+        f=all_long_faults[i][0]
+        #print(all_long_faults[i][0])
+        if f not in unique_list: 
+            unique_list.append(f.replace("Fault_","")) 
+    
+    display('Long Faults',unique_list)
+    
+    uf=open(output_path+'unit-fault-relationships.csv','w')
+    uf.write('code,'+str(unique_list).replace("[","Fault_").replace(",",",Fault_").replace("'","").replace("]","").replace(" ","")+'\n')
+    for row in contents:
+        row=row.replace("\n","").split("{")
+        unit=row[0].split(',')
+        faults=row[1].replace("}","").replace(" ","").split(",")
+        ostr=str(unit[1]).strip().replace(" ","_").replace("-","_")
+        for ul in unique_list:
+            out=[item for item in faults if ul in item]
+            if(len(out)>0 ):
+                ostr=ostr+",1"
+            else:
+                ostr=ostr+",0" 
+        uf.write(ostr+"\n")
+    uf.close()
 
+    summary=pd.read_csv(tmp_path+'all_sorts.csv')
+    summary.set_index("code", inplace=True)
+
+    uf_rel=pd.read_csv(output_path+'unit-fault-relationships.csv')
+
+    groups=np.genfromtxt(tmp_path+'groups.csv',delimiter=',',dtype='U25')
+    ngroups=len(groups[0])-1
+
+
+    uf_array=uf_rel.to_numpy()
+    gf_array=np.zeros((ngroups,uf_array.shape[1]),dtype='U25')
+
+    for i in range(1,ngroups+1):
+        for j in range(0,len(uf_rel)):
+            if(uf_rel.iloc[j][0] in summary.index.values):
+                gsummary=summary.loc[uf_rel.iloc[j][0]]
+                if(groups[0][i].replace("\n","")==gsummary['group']):
+                    for k in range(1,len(uf_rel.iloc[j])):
+                        if(uf_rel.iloc[j][k]==1):
+                            gf_array[i-1,k]='1'
+                        else:
+                            continue
+                else:
+                    continue
+            else:
+                continue
+
+    ug=open(output_path+'group-fault-relationships.csv','w')
+    ug.write('group')
+    for k in range(1,len(uf_rel.iloc[0])):
+        ug.write(','+uf_rel.columns[k])
+    ug.write("\n")
+    for i in range(1,ngroups+1):
+        ug.write(groups[0][i].replace("\n",""))
+        for k in range(1,len(uf_rel.iloc[0])):
+            if(gf_array[i-1,k]=='1'):
+                ug.write(',1')
+            else:
+                ug.write(',0')
+        ug.write("\n")
+
+    ug.close()
+
+    uf=open(graph_path+'fault-fault-intersection.txt','r')
+    contents =uf.readlines()
+    uf.close()
+
+    ff=open(output_path+'fault-fault-relationships.csv','w')
+    ff.write('fault_id')
+    for i in range (0,len(unique_list)):
+        ff.write(',Fault_'+unique_list[i])
+    ff.write('\n')
+
+    for i in range(0,len(unique_list)): #loop thorugh rows
+        ff.write('Fault_'+unique_list[i]) 
+        found=False
+        #for j in range(0,len(unique_list)):
+        for row in contents: #loop thorugh known intersections
+            row=row.replace("\n","").split("{")
+            fault_1o=row[0].split(',')
+            fault_1o=fault_1o[1]
+            faults_2o=row[1].replace("(","").replace(")","").replace("}","").split(",")
+
+            if(unique_list[i].replace(" ","")==fault_1o.replace(" ","")): #correct first order fault for this row
+                found=True
+                for k in range(0,len(unique_list)): #loop through columns
+                    found2=False
+                    if(k==i): # no self intersections
+                        ff.write(',0')
+                    else:
+                        for f2o in range (0,len(faults_2o),3): #loop through second order faults for this row
+                            if (faults_2o[f2o].replace(" ","")==unique_list[k].replace(" ","")):
+                                ff.write(',1')
+                                found2=True
+                                break
+
+                    if(not found2 and k!=i):
+                        ff.write(',0') #this is not a second order fault for this row
+            if(found):
+                break
+        if(not found): #this fault is not a first order fault relative to another fault
+            for i in range (0,len(unique_list)):
+                ff.write(',0')
+
+        ff.write('\n')
+
+    ff.close()
+    print('fault-fault, fault-group and fault-unit relationship tables saved as:')
+    print(output_path+'fault-fault-relationships.csv')
+    print(output_path+'group-fault-relationships.csv')
+    print(output_path+'unit-fault-relationships.csv')  
+    
+    
+def old_parse_fault_relationships(graph_path,tmp_path,output_path):
+    uf=open(graph_path+'unit-fault-intersection.txt','r')
+    contents =uf.readlines()
+    uf.close()
+    
+    all_long_faults=np.genfromtxt(output_path+'fault_dimensions.csv',delimiter=',',dtype='U25')
+    n_faults=len(all_long_faults)
+
+    
     all_faults={}
     unique_list = [] 
 

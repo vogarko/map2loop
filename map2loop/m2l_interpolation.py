@@ -103,16 +103,23 @@ def interpolate_orientations(structure_file,output_path,bbox,c_l,this_gcode,calc
     if(len(this_gcode)==1):       
         is_gp=structure[c_l['g']] == thisgcode # subset orientations to just those with this group
         gp_structure = structure[is_gp]
+        print('single group')
+        display(gp_structure)
     else:
+        print('first code',this_gcode[0])
         is_gp=structure[c_l['g']] == this_gcode[0] # subset orientations to just those with this group
         gp_structure = structure[is_gp]
         gp_structure_all = gp_structure.copy()
-        
+        print('first group')
+        display(gp_structure)
+
         for i in range (1,len(this_gcode)):
+            print('next code',this_gcode[i])
             is_gp=structure[c_l['g']] == this_gcode[i] # subset orientations to just those with this group
             temp_gp_structure = structure[is_gp]
             gp_structure_all = pd.concat([gp_structure_all, temp_gp_structure], ignore_index=True)
-    
+            print('next group')
+            display(gp_structure)
 
     npts = len(gp_structure_all)
     
