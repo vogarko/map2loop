@@ -46,209 +46,209 @@ description: "Automate_batch_Model"
 GeomodellerTask {
 CreateFormation {
     name: "P__WYm_sp"
-    red: 129
-    green: 211
-    blue: 155
+    red: 111
+    green: 190
+    blue: 76
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__WYa_st"
-    red: 54
-    green: 156
-    blue: 79
+    red: 81
+    green: 205
+    blue: 58
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__WYd_kd"
-    red: 114
-    green: 100
-    blue: 32
+    red: 135
+    green: 240
+    blue: 255
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__SKq_stq"
-    red: 140
-    green: 97
-    blue: 31
+    red: 55
+    green: 12
+    blue: 18
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__SKb_bb"
-    red: 25
-    green: 59
-    blue: 157
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "P__TKa_xs_k"
-    red: 74
-    green: 80
-    blue: 101
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "P__TKo_stq"
-    red: 244
-    green: 163
-    blue: 128
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "P__TKk_sf"
-    red: 174
-    green: 140
-    blue: 32
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "P__TK_s"
-    red: 239
-    green: 112
-    blue: 212
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "P__HAo_ci"
-    red: 32
-    green: 39
-    blue: 23
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "P__HAw_fr"
-    red: 106
-    green: 170
-    blue: 172
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "P__HAj_xci_od"
-    red: 215
-    green: 44
-    blue: 118
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "P__HAb_cib"
-    red: 192
-    green: 249
-    blue: 32
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_HAS_xsl_ci"
-    red: 19
-    green: 175
-    blue: 199
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_HAd_kd"
-    red: 251
-    green: 115
-    blue: 219
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_HAm_cib"
-    red: 7
-    green: 88
-    blue: 6
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_FOj_xs_b"
-    red: 111
-    green: 227
-    blue: 35
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_FO_xo_a"
-    red: 153
-    green: 20
-    blue: 127
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_FO_od"
-    red: 29
-    green: 224
-    blue: 120
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_FOu_bbo"
-    red: 105
-    green: 118
+    red: 120
+    green: 121
     blue: 191
     }
 }
 GeomodellerTask {
 CreateFormation {
+    name: "P__TKa_xs_k"
+    red: 177
+    green: 208
+    blue: 56
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__TKo_stq"
+    red: 36
+    green: 221
+    blue: 221
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__TKk_sf"
+    red: 58
+    green: 246
+    blue: 108
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__TK_s"
+    red: 58
+    green: 13
+    blue: 99
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__HAo_ci"
+    red: 99
+    green: 26
+    blue: 162
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__HAw_fr"
+    red: 90
+    green: 50
+    blue: 247
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__HAj_xci_od"
+    red: 211
+    green: 99
+    blue: 78
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "P__HAb_cib"
+    red: 247
+    green: 18
+    blue: 238
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_HAS_xsl_ci"
+    red: 37
+    green: 87
+    blue: 27
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_HAd_kd"
+    red: 46
+    green: 205
+    blue: 171
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_HAm_cib"
+    red: 230
+    green: 55
+    blue: 68
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FOj_xs_b"
+    red: 73
+    green: 147
+    blue: 91
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FO_xo_a"
+    red: 246
+    green: 103
+    blue: 50
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FO_od"
+    red: 34
+    green: 104
+    blue: 165
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FOu_bbo"
+    red: 156
+    green: 220
+    blue: 70
+    }
+}
+GeomodellerTask {
+CreateFormation {
     name: "A_FOp_bs"
-    red: 15
-    green: 43
-    blue: 55
+    red: 201
+    green: 173
+    blue: 62
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOo_bbo"
-    red: 126
-    green: 122
-    blue: 40
+    red: 44
+    green: 179
+    blue: 45
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOh_xs_f"
-    red: 128
-    green: 8
-    blue: 64
+    red: 91
+    green: 162
+    blue: 225
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOr_b"
-    red: 27
-    green: 150
-    blue: 208
+    red: 15
+    green: 170
+    blue: 7
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_mgn_PMI"
-    red: 54
-    green: 150
-    blue: 12
+    red: 83
+    green: 84
+    blue: 168
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_mgn_PRK"
-    red: 79
-    green: 252
-    blue: 209
+    red: 84
+    green: 92
+    blue: 197
     }
 }
 #---------------------------------------------------------------
@@ -461,122 +461,826 @@ AddFormationToSeries {
 }
 GeomodellerTask {
 CreateFault {
+    name: "Fault_5475"
+    red: 144
+    green: 74
+    blue: 152
+    }
+}
+GeomodellerTask {
+CreateFault {
     name: "Fault_12644"
-    red: 105
-    green: 229
-    blue: 57
+    red: 140
+    green: 127
+    blue: 240
     }
 }
 GeomodellerTask {
 CreateFault {
     name: "Fault_2235"
-    red: 72
-    green: 136
-    blue: 81
+    red: 127
+    green: 67
+    blue: 1
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_11442"
+    red: 110
+    green: 115
+    blue: 11
     }
 }
 GeomodellerTask {
 CreateFault {
     name: "Fault_3496"
-    red: 137
-    green: 167
-    blue: 96
+    red: 49
+    green: 60
+    blue: 19
     }
 }
 GeomodellerTask {
 CreateFault {
-    name: "Fault_2843"
-    red: 43
-    green: 99
-    blue: 24
+    name: "Fault_5298"
+    red: 102
+    green: 38
+    blue: 53
     }
 }
 GeomodellerTask {
 CreateFault {
-    name: "Fault_14378"
-    red: 97
-    green: 104
-    blue: 207
+    name: "Fault_12647"
+    red: 151
+    green: 8
+    blue: 151
     }
 }
 GeomodellerTask {
 CreateFault {
-    name: "Fault_16502"
-    red: 85
-    green: 179
-    blue: 208
+    name: "Fault_2997"
+    red: 178
+    green: 134
+    blue: 187
     }
 }
 GeomodellerTask {
 CreateFault {
-    name: "Fault_16825"
-    red: 186
-    green: 99
-    blue: 164
+    name: "Fault_1236"
+    red: 200
+    green: 30
+    blue: 104
     }
 }
 GeomodellerTask {
 CreateFault {
-    name: "Fault_16744"
-    red: 158
-    green: 165
-    blue: 56
+    name: "Fault_962"
+    red: 98
+    green: 229
+    blue: 152
     }
 }
 GeomodellerTask {
 CreateFault {
-    name: "Fault_7966"
-    red: 58
-    green: 118
-    blue: 150
-    }
-}
-GeomodellerTask {
-CreateFault {
-    name: "Fault_7344"
-    red: 27
-    green: 45
-    blue: 55
-    }
-}
-GeomodellerTask {
-CreateFault {
-    name: "Fault_6825"
-    red: 136
-    green: 28
+    name: "Fault_16399"
+    red: 192
+    green: 87
     blue: 130
     }
 }
 GeomodellerTask {
 CreateFault {
-    name: "Fault_7436"
-    red: 180
-    green: 96
-    blue: 90
+    name: "Fault_3370"
+    red: 154
+    green: 16
+    blue: 63
     }
 }
 GeomodellerTask {
 CreateFault {
-    name: "Fault_2996"
-    red: 242
+    name: "Fault_2689"
+    red: 185
+    green: 147
+    blue: 182
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_3498"
+    red: 29
+    green: 116
+    blue: 12
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2246"
+    red: 34
+    green: 47
+    blue: 63
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2688"
+    red: 212
+    green: 3
+    blue: 237
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_15546"
+    red: 241
+    green: 54
+    blue: 74
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2843"
+    red: 60
+    green: 207
+    blue: 25
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16767"
+    red: 52
+    green: 149
+    blue: 251
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_11445"
+    red: 112
+    green: 207
+    blue: 95
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_6000"
+    red: 1
+    green: 234
+    blue: 159
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_12646"
+    red: 32
+    green: 118
+    blue: 148
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_14378"
+    red: 44
+    green: 69
+    blue: 50
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_12658"
+    red: 15
+    green: 103
+    blue: 169
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_8910"
+    red: 14
+    green: 136
+    blue: 144
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_5484"
+    red: 59
+    green: 173
+    blue: 15
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_12660"
+    red: 6
+    green: 86
+    blue: 144
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_15552"
+    red: 95
+    green: 164
+    blue: 229
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16769"
+    red: 193
+    green: 175
+    blue: 212
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2248"
+    red: 55
+    green: 231
+    blue: 98
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_8400"
+    red: 145
+    green: 114
+    blue: 160
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_8973"
+    red: 65
+    green: 20
+    blue: 129
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_10659"
+    red: 22
+    green: 171
+    blue: 126
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16896"
+    red: 131
+    green: 204
+    blue: 5
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_9401"
+    red: 113
+    green: 51
+    blue: 211
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_8752"
+    red: 208
+    green: 2
+    blue: 39
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_12611"
+    red: 103
+    green: 89
+    blue: 71
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_17031"
+    red: 158
+    green: 114
+    blue: 129
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_4226"
+    red: 195
+    green: 244
+    blue: 194
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7097"
+    red: 35
+    green: 84
+    blue: 226
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_6374"
+    red: 121
+    green: 193
+    blue: 57
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16245"
+    red: 153
+    green: 42
+    blue: 95
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_12618"
+    red: 36
+    green: 252
+    blue: 10
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16397"
+    red: 243
+    green: 131
+    blue: 222
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2837"
+    red: 240
+    green: 20
+    blue: 186
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_4721"
+    red: 234
+    green: 194
+    blue: 230
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_11429"
+    red: 73
+    green: 23
+    blue: 16
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16878"
+    red: 187
+    green: 167
+    blue: 58
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_15527"
+    red: 211
+    green: 119
+    blue: 212
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_313"
+    red: 159
+    green: 188
+    blue: 53
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_5001"
+    red: 243
+    green: 5
+    blue: 211
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16502"
+    red: 196
+    green: 4
+    blue: 91
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7805"
+    red: 48
+    green: 195
+    blue: 43
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_14303"
+    red: 200
+    green: 196
+    blue: 181
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2225"
+    red: 6
+    green: 222
+    blue: 169
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16740"
+    red: 186
+    green: 49
+    blue: 247
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16739"
+    red: 247
+    green: 224
+    blue: 4
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_14251"
+    red: 28
+    green: 218
+    blue: 43
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2227"
+    red: 225
+    green: 147
+    blue: 230
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16742"
+    red: 68
+    green: 191
+    blue: 10
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16825"
+    red: 191
+    green: 66
+    blue: 142
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16744"
+    red: 60
     green: 199
+    blue: 101
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_5463"
+    red: 179
+    green: 206
+    blue: 68
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_15531"
+    red: 243
+    green: 80
+    blue: 141
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7966"
+    red: 79
+    green: 157
+    blue: 139
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16816"
+    red: 9
+    green: 159
+    blue: 168
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_17182"
+    red: 17
+    green: 166
+    blue: 222
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_15530"
+    red: 165
+    green: 49
+    blue: 112
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_12627"
+    red: 122
+    green: 180
+    blue: 72
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_5986"
+    red: 122
+    green: 80
+    blue: 157
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_813"
+    red: 158
+    green: 10
+    blue: 25
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16503"
+    red: 27
+    green: 73
+    blue: 74
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2229"
+    red: 58
+    green: 172
+    blue: 190
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_815"
+    red: 127
+    green: 234
+    blue: 33
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7344"
+    red: 186
+    green: 184
+    blue: 7
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_6519"
+    red: 248
+    green: 93
+    blue: 109
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_958"
+    red: 81
+    green: 255
     blue: 0
     }
 }
 GeomodellerTask {
 CreateFault {
+    name: "Fault_6825"
+    red: 20
+    green: 102
+    blue: 165
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7436"
+    red: 224
+    green: 164
+    blue: 103
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2996"
+    red: 105
+    green: 206
+    blue: 82
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_16754"
+    red: 173
+    green: 128
+    blue: 187
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_12630"
+    red: 184
+    green: 23
+    blue: 224
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_3495"
+    red: 73
+    green: 0
+    blue: 52
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_961"
+    red: 225
+    green: 151
+    blue: 89
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2840"
+    red: 239
+    green: 245
+    blue: 171
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7967"
+    red: 183
+    green: 216
+    blue: 98
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_17127"
+    red: 216
+    green: 20
+    blue: 145
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_15540"
+    red: 106
+    green: 228
+    blue: 254
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_6522"
+    red: 87
+    green: 17
+    blue: 26
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_10762"
+    red: 158
+    green: 189
+    blue: 86
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_8551"
+    red: 28
+    green: 192
+    blue: 147
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7099"
+    red: 168
+    green: 196
+    blue: 181
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_12641"
+    red: 154
+    green: 96
+    blue: 29
+    }
+}
+GeomodellerTask {
+CreateFault {
     name: "Fault_7439"
-    red: 185
-    green: 177
-    blue: 135
+    red: 106
+    green: 191
+    blue: 172
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_5997"
+    red: 111
+    green: 119
+    blue: 179
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_7222"
+    red: 136
+    green: 45
+    blue: 45
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_2238"
+    red: 184
+    green: 104
+    blue: 164
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_5991"
+    red: 100
+    green: 110
+    blue: 252
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_5252"
+    red: 218
+    green: 166
+    blue: 231
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_5471"
+    red: 3
+    green: 41
+    blue: 228
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_5993"
+    red: 66
+    green: 18
+    blue: 102
+    }
+}
+GeomodellerTask {
+CreateFault {
+    name: "Fault_12642"
+    red: 152
+    green: 64
+    blue: 182
     }
 }
 GeomodellerTask {
 CreateFault {
     name: "Fault_6205"
-    red: 166
-    green: 99
-    blue: 147
+    red: 46
+    green: 134
+    blue: 111
     }
 }
 #---------------------------------------------------------------
@@ -592,7 +1296,6 @@ GeomodellerTask {
         fault_limit_header_linestoSkip: 1;
         spatial_location_error: 1;
         vertical_location_error: 1;
-#        Treat_Tag_As_Text_Only: true;
     }
 }
 GeomodellerTask {
@@ -601,7 +1304,6 @@ GeomodellerTask {
         contact_csv_file: "./output/faults.csv"
         foliation_csv_file: "./output/faults_orientations.csv"
         limits_csv_file: "./output/fault_dimensions.csv"
-#        operation: CreateFault; # make the most intelligent decision in the context.. if a named formation, add to it etc.
         contact_header_linestoSkip: 1;
         foliation_header_linestoSkip: 1;
         fault_limit_header_linestoSkip: 1;
@@ -614,11 +1316,88 @@ GeomodellerTask {
 #---------------------------------------------------------------
 GeomodellerTask {
     LinkFaultsWithFaults {
-        FaultStopsOnFaults{ fault: "Fault_Fault_2843"; stopson: "Fault_Fault_2235"}
-        FaultStopsOnFaults{ fault: "Fault_Fault_7439"; stopson: "Fault_Fault_3496"}
-        FaultStopsOnFaults{ fault: "Fault_Fault_7966"; stopson: "Fault_Fault_16825"}
-        FaultStopsOnFaults{ fault: "Fault_Fault_6205"; stopson: "Fault_Fault_7344"}
-        FaultStopsOnFaults{ fault: "Fault_Fault_2996"; stopson: "Fault_Fault_6825"}
+        FaultStopsOnFaults{ fault: "Fault_2837"; stopson: "Fault_4721"}
+        FaultStopsOnFaults{ fault: "Fault_2837"; stopson: "Fault_16397"}
+        FaultStopsOnFaults{ fault: "Fault_2837"; stopson: "Fault_16825"}
+        FaultStopsOnFaults{ fault: "Fault_813"; stopson: "Fault_958"}
+        FaultStopsOnFaults{ fault: "Fault_958"; stopson: "Fault_815"}
+        FaultStopsOnFaults{ fault: "Fault_958"; stopson: "Fault_12641"}
+        FaultStopsOnFaults{ fault: "Fault_958"; stopson: "Fault_16503"}
+        FaultStopsOnFaults{ fault: "Fault_2225"; stopson: "Fault_16740"}
+        FaultStopsOnFaults{ fault: "Fault_16740"; stopson: "Fault_2227"}
+        FaultStopsOnFaults{ fault: "Fault_2235"; stopson: "Fault_2843"}
+        FaultStopsOnFaults{ fault: "Fault_2235"; stopson: "Fault_5252"}
+        FaultStopsOnFaults{ fault: "Fault_2235"; stopson: "Fault_5471"}
+        FaultStopsOnFaults{ fault: "Fault_2843"; stopson: "Fault_962"}
+        FaultStopsOnFaults{ fault: "Fault_5471"; stopson: "Fault_5252"}
+        FaultStopsOnFaults{ fault: "Fault_2248"; stopson: "Fault_16769"}
+        FaultStopsOnFaults{ fault: "Fault_16397"; stopson: "Fault_4721"}
+        FaultStopsOnFaults{ fault: "Fault_16397"; stopson: "Fault_16878"}
+        FaultStopsOnFaults{ fault: "Fault_16825"; stopson: "Fault_16503"}
+        FaultStopsOnFaults{ fault: "Fault_16825"; stopson: "Fault_7966"}
+        FaultStopsOnFaults{ fault: "Fault_16825"; stopson: "Fault_5463"}
+        FaultStopsOnFaults{ fault: "Fault_16825"; stopson: "Fault_16878"}
+        FaultStopsOnFaults{ fault: "Fault_16825"; stopson: "Fault_16816"}
+        FaultStopsOnFaults{ fault: "Fault_2840"; stopson: "Fault_3495"}
+        FaultStopsOnFaults{ fault: "Fault_2996"; stopson: "Fault_2840"}
+        FaultStopsOnFaults{ fault: "Fault_2996"; stopson: "Fault_3495"}
+        FaultStopsOnFaults{ fault: "Fault_2996"; stopson: "Fault_961"}
+        FaultStopsOnFaults{ fault: "Fault_2996"; stopson: "Fault_8551"}
+        FaultStopsOnFaults{ fault: "Fault_2996"; stopson: "Fault_12630"}
+        FaultStopsOnFaults{ fault: "Fault_8551"; stopson: "Fault_11442"}
+        FaultStopsOnFaults{ fault: "Fault_12630"; stopson: "Fault_961"}
+        FaultStopsOnFaults{ fault: "Fault_2997"; stopson: "Fault_5993"}
+        FaultStopsOnFaults{ fault: "Fault_3496"; stopson: "Fault_7439"}
+        FaultStopsOnFaults{ fault: "Fault_3496"; stopson: "Fault_11445"}
+        FaultStopsOnFaults{ fault: "Fault_3496"; stopson: "Fault_15546"}
+        FaultStopsOnFaults{ fault: "Fault_7439"; stopson: "Fault_5993"}
+        FaultStopsOnFaults{ fault: "Fault_7439"; stopson: "Fault_5991"}
+        FaultStopsOnFaults{ fault: "Fault_7439"; stopson: "Fault_5475"}
+        FaultStopsOnFaults{ fault: "Fault_3498"; stopson: "Fault_2997"}
+        FaultStopsOnFaults{ fault: "Fault_3498"; stopson: "Fault_12646"}
+        FaultStopsOnFaults{ fault: "Fault_5991"; stopson: "Fault_2997"}
+        FaultStopsOnFaults{ fault: "Fault_6000"; stopson: "Fault_11445"}
+        FaultStopsOnFaults{ fault: "Fault_6000"; stopson: "Fault_12646"}
+        FaultStopsOnFaults{ fault: "Fault_6205"; stopson: "Fault_7967"}
+        FaultStopsOnFaults{ fault: "Fault_7967"; stopson: "Fault_7966"}
+        FaultStopsOnFaults{ fault: "Fault_7967"; stopson: "Fault_5997"}
+        FaultStopsOnFaults{ fault: "Fault_6825"; stopson: "Fault_2996"}
+        FaultStopsOnFaults{ fault: "Fault_6825"; stopson: "Fault_961"}
+        FaultStopsOnFaults{ fault: "Fault_6825"; stopson: "Fault_12630"}
+        FaultStopsOnFaults{ fault: "Fault_6825"; stopson: "Fault_15540"}
+        FaultStopsOnFaults{ fault: "Fault_7344"; stopson: "Fault_313"}
+        FaultStopsOnFaults{ fault: "Fault_7344"; stopson: "Fault_6205"}
+        FaultStopsOnFaults{ fault: "Fault_7344"; stopson: "Fault_2229"}
+        FaultStopsOnFaults{ fault: "Fault_7344"; stopson: "Fault_5001"}
+        FaultStopsOnFaults{ fault: "Fault_7344"; stopson: "Fault_6522"}
+        FaultStopsOnFaults{ fault: "Fault_7344"; stopson: "Fault_16245"}
+        FaultStopsOnFaults{ fault: "Fault_7966"; stopson: "Fault_313"}
+        FaultStopsOnFaults{ fault: "Fault_7966"; stopson: "Fault_5463"}
+        FaultStopsOnFaults{ fault: "Fault_11442"; stopson: "Fault_2238"}
+        FaultStopsOnFaults{ fault: "Fault_12618"; stopson: "Fault_15527"}
+        FaultStopsOnFaults{ fault: "Fault_12642"; stopson: "Fault_2840"}
+        FaultStopsOnFaults{ fault: "Fault_12644"; stopson: "Fault_15540"}
+        FaultStopsOnFaults{ fault: "Fault_12647"; stopson: "Fault_15546"}
+        FaultStopsOnFaults{ fault: "Fault_12658"; stopson: "Fault_5484"}
+        FaultStopsOnFaults{ fault: "Fault_15552"; stopson: "Fault_12660"}
+        FaultStopsOnFaults{ fault: "Fault_14251"; stopson: "Fault_14303"}
+        FaultStopsOnFaults{ fault: "Fault_16878"; stopson: "Fault_4721"}
+        FaultStopsOnFaults{ fault: "Fault_16399"; stopson: "Fault_12658"}
+        FaultStopsOnFaults{ fault: "Fault_16399"; stopson: "Fault_3370"}
+        FaultStopsOnFaults{ fault: "Fault_16502"; stopson: "Fault_15527"}
+        FaultStopsOnFaults{ fault: "Fault_16502"; stopson: "Fault_11429"}
+        FaultStopsOnFaults{ fault: "Fault_16742"; stopson: "Fault_2225"}
+        FaultStopsOnFaults{ fault: "Fault_16744"; stopson: "Fault_12627"}
+        FaultStopsOnFaults{ fault: "Fault_16767"; stopson: "Fault_2246"}
+        FaultStopsOnFaults{ fault: "Fault_16816"; stopson: "Fault_813"}
+        FaultStopsOnFaults{ fault: "Fault_16816"; stopson: "Fault_5986"}
+        FaultStopsOnFaults{ fault: "Fault_16816"; stopson: "Fault_17182"}
+        FaultStopsOnFaults{ fault: "Fault_17182"; stopson: "Fault_5986"}
+        FaultStopsOnFaults{ fault: "Fault_16896"; stopson: "Fault_16397"}
+        FaultStopsOnFaults{ fault: "Fault_16896"; stopson: "Fault_11429"}
+        FaultStopsOnFaults{ fault: "Fault_17031"; stopson: "Fault_17127"}
+        FaultStopsOnFaults{ fault: "Fault_17127"; stopson: "Fault_12618"}
+        FaultStopsOnFaults{ fault: "Fault_17127"; stopson: "Fault_16502"}
     }
 }
 #---------------------------------------------------------------
@@ -626,20 +1405,108 @@ GeomodellerTask {
 #---------------------------------------------------------------
 GeomodellerTask {
     LinkFaultsWithSeries {
+    FaultSeriesLinks{ fault: "Fault_5475"; series: ["Hamersley_Group", "Fortescue_Group"]}
     FaultSeriesLinks{ fault: "Fault_12644"; series: ["Fortescue_Group"]}
     FaultSeriesLinks{ fault: "Fault_2235"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_11442"; series: ["Hamersley_Group"]}
     FaultSeriesLinks{ fault: "Fault_3496"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5298"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12647"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2997"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_1236"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_962"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16399"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_3370"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2689"; series: ["Turee_Creek_Group", "Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_3498"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2246"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2688"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_15546"; series: ["Hamersley_Group"]}
     FaultSeriesLinks{ fault: "Fault_2843"; series: ["Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16767"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_11445"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6000"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12646"; series: ["Hamersley_Group"]}
     FaultSeriesLinks{ fault: "Fault_14378"; series: ["Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12658"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_8910"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5484"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12660"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_15552"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16769"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2248"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_8400"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_8973"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_10659"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16896"; series: ["Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_9401"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_8752"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12611"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_17031"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_4226"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7097"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6374"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16245"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12618"; series: ["Wyloo_Group", "Shingle_Creek_Group", "Turee_Creek_Group", "Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16397"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2837"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_4721"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_11429"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16878"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_15527"; series: ["Turee_Creek_Group", "Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_313"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5001"; series: ["Fortescue_Group"]}
     FaultSeriesLinks{ fault: "Fault_16502"; series: ["Shingle_Creek_Group", "Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7805"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_14303"; series: ["Shingle_Creek_Group", "Turee_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2225"; series: ["Shingle_Creek_Group", "Turee_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16740"; series: ["Shingle_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16739"; series: ["Shingle_Creek_Group", "Turee_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_14251"; series: ["Turee_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2227"; series: ["Shingle_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16742"; series: ["Shingle_Creek_Group", "Turee_Creek_Group"]}
     FaultSeriesLinks{ fault: "Fault_16825"; series: ["Hamersley_Group", "Fortescue_Group"]}
     FaultSeriesLinks{ fault: "Fault_16744"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5463"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_15531"; series: ["Fortescue_Group", "A_mgn_PMI"]}
     FaultSeriesLinks{ fault: "Fault_7966"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16816"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_17182"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_15530"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12627"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5986"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_813"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16503"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2229"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_815"; series: ["Hamersley_Group"]}
     FaultSeriesLinks{ fault: "Fault_7344"; series: ["Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6519"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_958"; series: ["Hamersley_Group", "Fortescue_Group"]}
     FaultSeriesLinks{ fault: "Fault_6825"; series: ["Hamersley_Group", "Fortescue_Group"]}
     FaultSeriesLinks{ fault: "Fault_7436"; series: ["Fortescue_Group", "A_mgn_PRK"]}
     FaultSeriesLinks{ fault: "Fault_2996"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16754"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12630"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_3495"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_961"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2840"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7967"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_17127"; series: ["Wyloo_Group", "Shingle_Creek_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_15540"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6522"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_10762"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_8551"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7099"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12641"; series: ["Hamersley_Group", "Fortescue_Group"]}
     FaultSeriesLinks{ fault: "Fault_7439"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5997"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7222"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2238"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5991"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5252"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5471"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5993"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12642"; series: ["Hamersley_Group"]}
     FaultSeriesLinks{ fault: "Fault_6205"; series: ["Hamersley_Group", "Fortescue_Group"]}
     }
 }

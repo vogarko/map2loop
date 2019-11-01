@@ -291,7 +291,7 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
     uf=open(graph_path+'fault-fault-intersection.txt','r')
     contents =uf.readlines()
     uf.close()
-    display(unique_list)
+    #display(unique_list)
     unique_list_ff = [] 
 
     for row in contents:
@@ -308,10 +308,12 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
                     unique_list_ff.append(faults_2o[i].replace(" ","")) 
     #display(unique_list) 
 
+    G = nx.DiGraph()
     ff=open(output_path+'fault-fault-relationships.csv','w')
     ff.write('fault_id')
     for i in range (0,len(unique_list_ff)):
         ff.write(','+'Fault_'+unique_list_ff[i])
+        G.add_node('Fault_'+unique_list_ff[i])
     ff.write('\n')
 
     for i in range(0,len(unique_list_ff)): #loop thorugh rows
@@ -334,6 +336,7 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
                         for f2o in range (0,len(faults_2o),3): #loop through second order faults for this row
                             if (faults_2o[f2o].replace(" ","")==unique_list_ff[k].replace(" ","")):
                                 ff.write(',1')
+                                G.add_edge('Fault_'+unique_list_ff[i], 'Fault_'+faults_2o[f2o].replace(" ",""))
                                 found2=True
                                 break
 
@@ -348,6 +351,15 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
         ff.write('\n')
 
     ff.close()
+    
+    nx.draw(G, with_labels=True, font_weight='bold')
+    nx.write_gml(G, tmp_path+"fault_network.gml")  
+    
+    try:
+        print(list(nx.simple_cycles(G)))
+    except:
+        print('no cycles')
+
 def yyyparse_fault_relationships(graph_path,tmp_path,output_path):
     uf=open(graph_path+'unit-fault-intersection.txt','r')
     contents =uf.readlines()

@@ -2094,3 +2094,966 @@ operation: Import_default
 spatial_location_error: 1
 vertical_location_error: 1
 }
+
+[01/11/2019 13:14:52.546000] Processing job file: "m2l.taskfile"
+
+CreateProject_GMT {
+CustomDTM {
+  name: "Topography"
+  filename {
+    Grid_Name: "./dtm/hammersley_sheet_dtm.ers"
+  }
+  Extents {
+    xmin: 500000
+    ymin: 7455500
+    xmax: 603000
+    ymax: 7568000
+  }
+  nx: 10
+  ny: 10
+}
+name: "Hamersley"
+author: "Des/Mark"
+date: "23/10/2019  0: 0: 0"
+projection {
+  map_projection: "GDA94 / MGA50"
+}
+version: "2.0"
+units: meters
+precision: 1
+Extents {
+  xmin: 500000
+  ymin: 7455500
+  zmin: -3000
+  xmax: 603000
+  ymax: 7568000
+  zmax: 1000
+}
+deflection2d: 0.001
+deflection3d: 0.001
+discretisation: 10
+referenceTop: false
+}
+CreateFormation_GMT {
+name: "P__WYm_sp"
+red: 207
+green: 80
+blue: 172
+}
+CreateFormation_GMT {
+name: "P__WYa_st"
+red: 142
+green: 112
+blue: 87
+}
+CreateFormation_GMT {
+name: "P__WYd_kd"
+red: 187
+green: 37
+blue: 222
+}
+CreateFormation_GMT {
+name: "P__SKq_stq"
+red: 197
+green: 35
+blue: 131
+}
+CreateFormation_GMT {
+name: "P__SKb_bb"
+red: 142
+green: 72
+blue: 241
+}
+CreateFormation_GMT {
+name: "P__TKa_xs_k"
+red: 185
+green: 150
+blue: 173
+}
+CreateFormation_GMT {
+name: "P__TKo_stq"
+red: 180
+green: 186
+blue: 24
+}
+CreateFormation_GMT {
+name: "P__TKk_sf"
+red: 81
+green: 18
+blue: 31
+}
+CreateFormation_GMT {
+name: "P__TK_s"
+red: 48
+green: 27
+blue: 89
+}
+CreateFormation_GMT {
+name: "P__HAo_ci"
+red: 110
+green: 222
+blue: 191
+}
+CreateFormation_GMT {
+name: "P__HAw_fr"
+red: 148
+green: 107
+blue: 160
+}
+CreateFormation_GMT {
+name: "P__HAj_xci_od"
+red: 250
+green: 181
+blue: 48
+}
+CreateFormation_GMT {
+name: "P__HAb_cib"
+red: 85
+green: 13
+blue: 134
+}
+CreateFormation_GMT {
+name: "A_HAS_xsl_ci"
+red: 150
+green: 164
+blue: 75
+}
+CreateFormation_GMT {
+name: "A_HAd_kd"
+red: 138
+green: 242
+blue: 203
+}
+CreateFormation_GMT {
+name: "A_HAm_cib"
+red: 49
+green: 237
+blue: 135
+}
+CreateFormation_GMT {
+name: "A_FOj_xs_b"
+red: 231
+green: 125
+blue: 145
+}
+CreateFormation_GMT {
+name: "A_FO_xo_a"
+red: 203
+green: 12
+blue: 99
+}
+CreateFormation_GMT {
+name: "A_FO_od"
+red: 5
+green: 78
+blue: 150
+}
+CreateFormation_GMT {
+name: "A_FOu_bbo"
+red: 149
+green: 242
+blue: 42
+}
+CreateFormation_GMT {
+name: "A_FOp_bs"
+red: 151
+green: 69
+blue: 112
+}
+CreateFormation_GMT {
+name: "A_FOo_bbo"
+red: 22
+green: 194
+blue: 182
+}
+CreateFormation_GMT {
+name: "A_FOh_xs_f"
+red: 48
+green: 184
+blue: 95
+}
+CreateFormation_GMT {
+name: "A_FOr_b"
+red: 208
+green: 229
+blue: 207
+}
+CreateFormation_GMT {
+name: "A_mgn_PMI"
+red: 222
+green: 1
+blue: 196
+}
+CreateFormation_GMT {
+name: "A_mgn_PRK"
+red: 83
+green: 244
+blue: 229
+}
+SetSeries_GMT {
+name: "Wyloo_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYm_sp"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYa_st"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYd_kd"
+}
+SetSeries_GMT {
+name: "Shingle_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKq_stq"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKb_bb"
+}
+SetSeries_GMT {
+name: "Turee_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKa_xs_k"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKo_stq"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKk_sf"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TK_s"
+}
+SetSeries_GMT {
+name: "Hamersley_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAo_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAw_fr"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAj_xci_od"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAb_cib"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAS_xsl_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAd_kd"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAm_cib"
+}
+SetSeries_GMT {
+name: "Fortescue_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOj_xs_b"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_xo_a"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_od"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOu_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOp_bs"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOo_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOh_xs_f"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOr_b"
+}
+SetSeries_GMT {
+name: "A_mgn_PMI"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PMI"
+formation: "A_mgn_PMI"
+}
+SetSeries_GMT {
+name: "A_mgn_PRK"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PRK"
+formation: "A_mgn_PRK"
+}
+CreateFault_GMT {
+name: "Fault_5475"
+red: 68
+green: 34
+blue: 10
+}
+CreateFault_GMT {
+name: "Fault_12644"
+red: 185
+green: 233
+blue: 80
+}
+CreateFault_GMT {
+name: "Fault_2235"
+red: 173
+green: 86
+blue: 187
+}
+CreateFault_GMT {
+name: "Fault_11442"
+red: 21
+green: 217
+blue: 182
+}
+CreateFault_GMT {
+name: "Fault_3496"
+red: 193
+green: 109
+blue: 199
+}
+CreateFault_GMT {
+name: "Fault_5298"
+red: 206
+green: 179
+blue: 21
+}
+CreateFault_GMT {
+name: "Fault_12647"
+red: 5
+green: 95
+blue: 43
+}
+CreateFault_GMT {
+name: "Fault_2997"
+red: 229
+green: 175
+blue: 107
+}
+CreateFault_GMT {
+name: "Fault_1236"
+red: 154
+green: 206
+blue: 100
+}
+CreateFault_GMT {
+name: "Fault_962"
+red: 224
+green: 190
+blue: 63
+}
+CreateFault_GMT {
+name: "Fault_16399"
+red: 249
+green: 232
+blue: 86
+}
+CreateFault_GMT {
+name: "Fault_3370"
+red: 34
+green: 229
+blue: 147
+}
+CreateFault_GMT {
+name: "Fault_2689"
+red: 245
+green: 45
+blue: 17
+}
+CreateFault_GMT {
+name: "Fault_3498"
+red: 56
+green: 215
+blue: 119
+}
+CreateFault_GMT {
+name: "Fault_2246"
+red: 169
+green: 96
+blue: 178
+}
+CreateFault_GMT {
+name: "Fault_2688"
+red: 149
+green: 216
+blue: 141
+}
+CreateFault_GMT {
+name: "Fault_15546"
+red: 30
+green: 0
+blue: 225
+}
+CreateFault_GMT {
+name: "Fault_2843"
+red: 112
+green: 175
+blue: 205
+}
+CreateFault_GMT {
+name: "Fault_16767"
+red: 103
+green: 62
+blue: 208
+}
+CreateFault_GMT {
+name: "Fault_11445"
+red: 137
+green: 156
+blue: 97
+}
+CreateFault_GMT {
+name: "Fault_6000"
+red: 102
+green: 239
+blue: 236
+}
+CreateFault_GMT {
+name: "Fault_12646"
+red: 33
+green: 186
+blue: 98
+}
+CreateFault_GMT {
+name: "Fault_14378"
+red: 47
+green: 189
+blue: 178
+}
+CreateFault_GMT {
+name: "Fault_12658"
+red: 93
+green: 62
+blue: 59
+}
+CreateFault_GMT {
+name: "Fault_8910"
+red: 154
+green: 226
+blue: 194
+}
+CreateFault_GMT {
+name: "Fault_5484"
+red: 135
+green: 137
+blue: 91
+}
+CreateFault_GMT {
+name: "Fault_12660"
+red: 254
+green: 165
+blue: 107
+}
+CreateFault_GMT {
+name: "Fault_15552"
+red: 34
+green: 220
+blue: 108
+}
+CreateFault_GMT {
+name: "Fault_16769"
+red: 128
+green: 163
+blue: 197
+}
+CreateFault_GMT {
+name: "Fault_2248"
+red: 179
+green: 40
+blue: 236
+}
+CreateFault_GMT {
+name: "Fault_8400"
+red: 125
+green: 125
+blue: 51
+}
+CreateFault_GMT {
+name: "Fault_8973"
+red: 179
+green: 157
+blue: 117
+}
+CreateFault_GMT {
+name: "Fault_10659"
+red: 151
+green: 13
+blue: 38
+}
+CreateFault_GMT {
+name: "Fault_16896"
+red: 87
+green: 176
+blue: 86
+}
+CreateFault_GMT {
+name: "Fault_9401"
+red: 79
+green: 220
+blue: 6
+}
+CreateFault_GMT {
+name: "Fault_8752"
+red: 43
+green: 143
+blue: 196
+}
+CreateFault_GMT {
+name: "Fault_12611"
+red: 131
+green: 90
+blue: 89
+}
+CreateFault_GMT {
+name: "Fault_17031"
+red: 207
+green: 191
+blue: 169
+}
+CreateFault_GMT {
+name: "Fault_4226"
+red: 171
+green: 37
+blue: 233
+}
+CreateFault_GMT {
+name: "Fault_7097"
+red: 4
+green: 89
+blue: 110
+}
+CreateFault_GMT {
+name: "Fault_6374"
+red: 98
+green: 36
+blue: 216
+}
+CreateFault_GMT {
+name: "Fault_16245"
+red: 8
+green: 214
+blue: 4
+}
+CreateFault_GMT {
+name: "Fault_12618"
+red: 76
+green: 195
+blue: 133
+}
+CreateFault_GMT {
+name: "Fault_16397"
+red: 147
+green: 233
+blue: 231
+}
+CreateFault_GMT {
+name: "Fault_2837"
+red: 35
+green: 173
+blue: 97
+}
+CreateFault_GMT {
+name: "Fault_4721"
+red: 218
+green: 245
+blue: 185
+}
+CreateFault_GMT {
+name: "Fault_11429"
+red: 106
+green: 23
+blue: 140
+}
+CreateFault_GMT {
+name: "Fault_16878"
+red: 87
+green: 130
+blue: 150
+}
+CreateFault_GMT {
+name: "Fault_15527"
+red: 184
+green: 253
+blue: 163
+}
+CreateFault_GMT {
+name: "Fault_313"
+red: 255
+green: 154
+blue: 126
+}
+CreateFault_GMT {
+name: "Fault_5001"
+red: 167
+green: 248
+blue: 33
+}
+CreateFault_GMT {
+name: "Fault_16502"
+red: 114
+green: 69
+blue: 162
+}
+CreateFault_GMT {
+name: "Fault_7805"
+red: 6
+green: 200
+blue: 146
+}
+CreateFault_GMT {
+name: "Fault_14303"
+red: 95
+green: 195
+blue: 61
+}
+CreateFault_GMT {
+name: "Fault_2225"
+red: 44
+green: 102
+blue: 175
+}
+CreateFault_GMT {
+name: "Fault_16740"
+red: 100
+green: 150
+blue: 88
+}
+CreateFault_GMT {
+name: "Fault_16739"
+red: 10
+green: 135
+blue: 193
+}
+CreateFault_GMT {
+name: "Fault_14251"
+red: 37
+green: 35
+blue: 27
+}
+CreateFault_GMT {
+name: "Fault_2227"
+red: 94
+green: 59
+blue: 193
+}
+CreateFault_GMT {
+name: "Fault_16742"
+red: 18
+green: 145
+blue: 176
+}
+CreateFault_GMT {
+name: "Fault_16825"
+red: 158
+green: 8
+blue: 231
+}
+CreateFault_GMT {
+name: "Fault_16744"
+red: 213
+green: 226
+blue: 137
+}
+CreateFault_GMT {
+name: "Fault_5463"
+red: 82
+green: 38
+blue: 83
+}
+CreateFault_GMT {
+name: "Fault_15531"
+red: 27
+green: 244
+blue: 151
+}
+CreateFault_GMT {
+name: "Fault_7966"
+red: 53
+green: 171
+blue: 42
+}
+CreateFault_GMT {
+name: "Fault_16816"
+red: 147
+green: 56
+blue: 84
+}
+CreateFault_GMT {
+name: "Fault_17182"
+red: 29
+green: 82
+blue: 239
+}
+CreateFault_GMT {
+name: "Fault_15530"
+red: 244
+green: 205
+blue: 204
+}
+CreateFault_GMT {
+name: "Fault_12627"
+red: 116
+green: 233
+blue: 198
+}
+CreateFault_GMT {
+name: "Fault_5986"
+red: 244
+green: 146
+blue: 11
+}
+CreateFault_GMT {
+name: "Fault_813"
+red: 88
+green: 181
+blue: 21
+}
+CreateFault_GMT {
+name: "Fault_16503"
+red: 139
+green: 219
+blue: 119
+}
+CreateFault_GMT {
+name: "Fault_2229"
+red: 61
+green: 76
+blue: 208
+}
+CreateFault_GMT {
+name: "Fault_815"
+red: 243
+green: 86
+blue: 169
+}
+CreateFault_GMT {
+name: "Fault_7344"
+red: 204
+green: 204
+blue: 208
+}
+CreateFault_GMT {
+name: "Fault_6519"
+red: 120
+green: 114
+blue: 67
+}
+CreateFault_GMT {
+name: "Fault_958"
+red: 73
+green: 152
+blue: 193
+}
+CreateFault_GMT {
+name: "Fault_6825"
+red: 132
+green: 123
+blue: 60
+}
+CreateFault_GMT {
+name: "Fault_7436"
+red: 248
+green: 209
+blue: 170
+}
+CreateFault_GMT {
+name: "Fault_2996"
+red: 128
+green: 156
+blue: 244
+}
+CreateFault_GMT {
+name: "Fault_16754"
+red: 49
+green: 210
+blue: 195
+}
+CreateFault_GMT {
+name: "Fault_12630"
+red: 99
+green: 216
+blue: 198
+}
+CreateFault_GMT {
+name: "Fault_3495"
+red: 30
+green: 180
+blue: 189
+}
+CreateFault_GMT {
+name: "Fault_961"
+red: 239
+green: 40
+blue: 222
+}
+CreateFault_GMT {
+name: "Fault_2840"
+red: 113
+green: 53
+blue: 54
+}
+CreateFault_GMT {
+name: "Fault_7967"
+red: 43
+green: 129
+blue: 40
+}
+CreateFault_GMT {
+name: "Fault_17127"
+red: 200
+green: 139
+blue: 95
+}
+CreateFault_GMT {
+name: "Fault_15540"
+red: 115
+green: 59
+blue: 94
+}
+CreateFault_GMT {
+name: "Fault_6522"
+red: 239
+green: 180
+blue: 56
+}
+CreateFault_GMT {
+name: "Fault_10762"
+red: 243
+green: 70
+blue: 8
+}
+CreateFault_GMT {
+name: "Fault_8551"
+red: 37
+green: 32
+blue: 242
+}
+CreateFault_GMT {
+name: "Fault_7099"
+red: 72
+green: 254
+blue: 201
+}
+CreateFault_GMT {
+name: "Fault_12641"
+red: 12
+green: 99
+blue: 100
+}
+CreateFault_GMT {
+name: "Fault_7439"
+red: 190
+green: 192
+blue: 13
+}
+CreateFault_GMT {
+name: "Fault_5997"
+red: 139
+green: 200
+blue: 119
+}
+CreateFault_GMT {
+name: "Fault_7222"
+red: 250
+green: 13
+blue: 69
+}
+CreateFault_GMT {
+name: "Fault_2238"
+red: 173
+green: 82
+blue: 250
+}
+CreateFault_GMT {
+name: "Fault_5991"
+red: 127
+green: 24
+blue: 76
+}
+CreateFault_GMT {
+name: "Fault_5252"
+red: 17
+green: 249
+blue: 110
+}
+CreateFault_GMT {
+name: "Fault_5471"
+red: 11
+green: 56
+blue: 183
+}
+CreateFault_GMT {
+name: "Fault_5993"
+red: 148
+green: 120
+blue: 91
+}
+CreateFault_GMT {
+name: "Fault_12642"
+red: 232
+green: 245
+blue: 151
+}
+CreateFault_GMT {
+name: "Fault_6205"
+red: 126
+green: 46
+blue: 189
+}
+ReadAndImport3dData_GMT {
+contact_csv_file: "./output/contacts_clean.csv"
+foliation_csv_file: "./output/orientations_clean.csv"
+contact_header_linestoSkip: 1
+foliation_header_linestoSkip: 1
+fault_limit_header_linestoSkip: 1
+operation: Import_default
+spatial_location_error: 1
+vertical_location_error: 1
+}
