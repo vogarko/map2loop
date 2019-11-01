@@ -6491,3 +6491,1125 @@ LithologyVoxetFileStub: "./Litho_Voxet/LithoVoxet.vo"
 SaveProjectAs_GMT {
 filename: "./Models_Final/Models_UWA.xml"
 }
+
+[01/11/2019 15:37:12.576000] Processing job file: "m2l.taskfile"
+
+CreateProject_GMT {
+CustomDTM {
+  name: "Topography"
+  filename {
+    Grid_Name: "./dtm/hammersley_sheet_dtm.ers"
+  }
+  Extents {
+    xmin: 500000
+    ymin: 7455500
+    xmax: 603000
+    ymax: 7568000
+  }
+  nx: 10
+  ny: 10
+}
+name: "Hamersley"
+author: "Des/Mark"
+date: "23/10/2019  0: 0: 0"
+projection {
+  map_projection: "GDA94 / MGA50"
+}
+version: "2.0"
+units: meters
+precision: 1
+Extents {
+  xmin: 500000
+  ymin: 7455500
+  zmin: -3000
+  xmax: 603000
+  ymax: 7568000
+  zmax: 1000
+}
+deflection2d: 0.001
+deflection3d: 0.001
+discretisation: 10
+referenceTop: false
+}
+CreateFormation_GMT {
+name: "P__WYm_sp"
+red: 72
+green: 28
+blue: 241
+}
+CreateFormation_GMT {
+name: "P__WYa_st"
+red: 104
+green: 75
+blue: 210
+}
+CreateFormation_GMT {
+name: "P__WYd_kd"
+red: 165
+green: 72
+blue: 33
+}
+CreateFormation_GMT {
+name: "P__SKq_stq"
+red: 219
+green: 78
+blue: 185
+}
+CreateFormation_GMT {
+name: "P__SKb_bb"
+red: 210
+green: 212
+blue: 233
+}
+CreateFormation_GMT {
+name: "P__TKa_xs_k"
+red: 240
+green: 65
+blue: 177
+}
+CreateFormation_GMT {
+name: "P__TKo_stq"
+red: 88
+green: 124
+blue: 49
+}
+CreateFormation_GMT {
+name: "P__TKk_sf"
+red: 123
+green: 135
+blue: 226
+}
+CreateFormation_GMT {
+name: "P__TK_s"
+red: 116
+green: 83
+blue: 23
+}
+CreateFormation_GMT {
+name: "P__HAo_ci"
+red: 6
+green: 31
+blue: 179
+}
+CreateFormation_GMT {
+name: "P__HAw_fr"
+red: 78
+green: 133
+blue: 5
+}
+CreateFormation_GMT {
+name: "P__HAj_xci_od"
+red: 213
+green: 170
+blue: 231
+}
+CreateFormation_GMT {
+name: "P__HAb_cib"
+red: 224
+green: 119
+blue: 141
+}
+CreateFormation_GMT {
+name: "A_HAS_xsl_ci"
+red: 23
+green: 33
+blue: 69
+}
+CreateFormation_GMT {
+name: "A_HAd_kd"
+red: 44
+green: 101
+blue: 205
+}
+CreateFormation_GMT {
+name: "A_HAm_cib"
+red: 90
+green: 59
+blue: 206
+}
+CreateFormation_GMT {
+name: "A_FOj_xs_b"
+red: 245
+green: 77
+blue: 5
+}
+CreateFormation_GMT {
+name: "A_FO_xo_a"
+red: 131
+green: 175
+blue: 124
+}
+CreateFormation_GMT {
+name: "A_FO_od"
+red: 31
+green: 173
+blue: 128
+}
+CreateFormation_GMT {
+name: "A_FOu_bbo"
+red: 107
+green: 205
+blue: 193
+}
+CreateFormation_GMT {
+name: "A_FOp_bs"
+red: 103
+green: 124
+blue: 162
+}
+CreateFormation_GMT {
+name: "A_FOo_bbo"
+red: 137
+green: 231
+blue: 22
+}
+CreateFormation_GMT {
+name: "A_FOh_xs_f"
+red: 230
+green: 5
+blue: 227
+}
+CreateFormation_GMT {
+name: "A_FOr_b"
+red: 58
+green: 162
+blue: 209
+}
+CreateFormation_GMT {
+name: "A_mgn_PMI"
+red: 15
+green: 52
+blue: 107
+}
+CreateFormation_GMT {
+name: "A_mgn_PRK"
+red: 40
+green: 195
+blue: 247
+}
+SetSeries_GMT {
+name: "A_mgn_PRK"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PRK"
+formation: "A_mgn_PRK"
+}
+SetSeries_GMT {
+name: "A_mgn_PMI"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PMI"
+formation: "A_mgn_PMI"
+}
+SetSeries_GMT {
+name: "Fortescue_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOr_b"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOh_xs_f"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOo_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOp_bs"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOu_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_od"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_xo_a"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOj_xs_b"
+}
+SetSeries_GMT {
+name: "Hamersley_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAm_cib"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAd_kd"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAS_xsl_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAb_cib"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAj_xci_od"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAw_fr"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAo_ci"
+}
+SetSeries_GMT {
+name: "Turee_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TK_s"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKk_sf"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKo_stq"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKa_xs_k"
+}
+SetSeries_GMT {
+name: "Shingle_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKb_bb"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKq_stq"
+}
+SetSeries_GMT {
+name: "Wyloo_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYd_kd"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYa_st"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYm_sp"
+}
+ReadAndImport3dData_GMT {
+contact_csv_file: "./output/contacts_clean.csv"
+foliation_csv_file: "./output/orientations_clean.csv"
+contact_header_linestoSkip: 1
+foliation_header_linestoSkip: 1
+fault_limit_header_linestoSkip: 1
+operation: Import_default
+spatial_location_error: 1
+vertical_location_error: 1
+}
+SaveProjectAs_GMT {
+filename: "./Models_Prelim/Models_UWA.xml"
+}
+ComputeModel_GMT {
+SeriesList {
+  node: "All"
+}
+SectionList {
+  node: "All"
+}
+radius: 10
+Extents {
+  xmin: 500000
+  ymin: 7455500
+  zmin: -3000
+  xmax: 603000
+  ymax: 7568000
+  zmax: 1000
+}
+}
+SaveLithologyVoxet_GMT {
+nx: 100
+ny: 100
+nz: 400
+LithologyVoxetFileStub: "./Litho_Voxet/LithoVoxet.vo"
+}
+SaveProjectAs_GMT {
+filename: "./Models_Final/Models_UWA.xml"
+}
+
+[01/11/2019 15:43:25.884000] Processing job file: "m2l.taskfile"
+
+CreateProject_GMT {
+CustomDTM {
+  name: "Topography"
+  filename {
+    Grid_Name: "./dtm/hammersley_sheet_dtm.ers"
+  }
+  Extents {
+    xmin: 500000
+    ymin: 7455500
+    xmax: 603000
+    ymax: 7568000
+  }
+  nx: 10
+  ny: 10
+}
+name: "Hamersley"
+author: "Des/Mark"
+date: "23/10/2019  0: 0: 0"
+projection {
+  map_projection: "GDA94 / MGA50"
+}
+version: "2.0"
+units: meters
+precision: 1
+Extents {
+  xmin: 500000
+  ymin: 7455500
+  zmin: -3000
+  xmax: 603000
+  ymax: 7568000
+  zmax: 1000
+}
+deflection2d: 0.001
+deflection3d: 0.001
+discretisation: 10
+referenceTop: false
+}
+CreateFormation_GMT {
+name: "P__WYm_sp"
+red: 213
+green: 73
+blue: 123
+}
+CreateFormation_GMT {
+name: "P__WYa_st"
+red: 143
+green: 178
+blue: 154
+}
+CreateFormation_GMT {
+name: "P__WYd_kd"
+red: 135
+green: 46
+blue: 137
+}
+CreateFormation_GMT {
+name: "P__SKq_stq"
+red: 68
+green: 72
+blue: 176
+}
+CreateFormation_GMT {
+name: "P__SKb_bb"
+red: 50
+green: 205
+blue: 130
+}
+CreateFormation_GMT {
+name: "P__TKa_xs_k"
+red: 254
+green: 74
+blue: 58
+}
+CreateFormation_GMT {
+name: "P__TKo_stq"
+red: 92
+green: 141
+blue: 227
+}
+CreateFormation_GMT {
+name: "P__TKk_sf"
+red: 16
+green: 24
+blue: 207
+}
+CreateFormation_GMT {
+name: "P__TK_s"
+red: 216
+green: 221
+blue: 72
+}
+CreateFormation_GMT {
+name: "P__HAo_ci"
+red: 155
+green: 138
+blue: 167
+}
+CreateFormation_GMT {
+name: "P__HAw_fr"
+red: 198
+green: 79
+blue: 123
+}
+CreateFormation_GMT {
+name: "P__HAj_xci_od"
+red: 28
+green: 190
+blue: 247
+}
+CreateFormation_GMT {
+name: "P__HAb_cib"
+red: 147
+green: 178
+blue: 35
+}
+CreateFormation_GMT {
+name: "A_HAS_xsl_ci"
+red: 40
+green: 98
+blue: 230
+}
+CreateFormation_GMT {
+name: "A_HAd_kd"
+red: 113
+green: 15
+blue: 31
+}
+CreateFormation_GMT {
+name: "A_HAm_cib"
+red: 204
+green: 78
+blue: 202
+}
+CreateFormation_GMT {
+name: "A_FOj_xs_b"
+red: 173
+green: 204
+blue: 252
+}
+CreateFormation_GMT {
+name: "A_FO_xo_a"
+red: 61
+green: 128
+blue: 134
+}
+CreateFormation_GMT {
+name: "A_FO_od"
+red: 185
+green: 149
+blue: 54
+}
+CreateFormation_GMT {
+name: "A_FOu_bbo"
+red: 223
+green: 72
+blue: 12
+}
+CreateFormation_GMT {
+name: "A_FOp_bs"
+red: 29
+green: 241
+blue: 157
+}
+CreateFormation_GMT {
+name: "A_FOo_bbo"
+red: 244
+green: 189
+blue: 168
+}
+CreateFormation_GMT {
+name: "A_FOh_xs_f"
+red: 77
+green: 72
+blue: 76
+}
+CreateFormation_GMT {
+name: "A_FOr_b"
+red: 1
+green: 33
+blue: 128
+}
+CreateFormation_GMT {
+name: "A_mgn_PMI"
+red: 214
+green: 217
+blue: 54
+}
+CreateFormation_GMT {
+name: "A_mgn_PRK"
+red: 246
+green: 234
+blue: 31
+}
+SetSeries_GMT {
+name: "Wyloo_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYm_sp"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYa_st"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYd_kd"
+}
+SetSeries_GMT {
+name: "Shingle_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKq_stq"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKb_bb"
+}
+SetSeries_GMT {
+name: "Turee_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKa_xs_k"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKo_stq"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKk_sf"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TK_s"
+}
+SetSeries_GMT {
+name: "Hamersley_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAo_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAw_fr"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAj_xci_od"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAb_cib"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAS_xsl_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAd_kd"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAm_cib"
+}
+SetSeries_GMT {
+name: "Fortescue_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOj_xs_b"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_xo_a"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_od"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOu_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOp_bs"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOo_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOh_xs_f"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOr_b"
+}
+SetSeries_GMT {
+name: "A_mgn_PMI"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PMI"
+formation: "A_mgn_PMI"
+}
+SetSeries_GMT {
+name: "A_mgn_PRK"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PRK"
+formation: "A_mgn_PRK"
+}
+ReadAndImport3dData_GMT {
+contact_csv_file: "./output/contacts_clean.csv"
+foliation_csv_file: "./output/orientations_clean.csv"
+contact_header_linestoSkip: 1
+foliation_header_linestoSkip: 1
+fault_limit_header_linestoSkip: 1
+operation: Import_default
+spatial_location_error: 1
+vertical_location_error: 1
+}
+SaveProjectAs_GMT {
+filename: "./Models_Prelim/Models_UWA.xml"
+}
+ComputeModel_GMT {
+SeriesList {
+  node: "All"
+}
+SectionList {
+  node: "All"
+}
+radius: 10
+Extents {
+  xmin: 500000
+  ymin: 7455500
+  zmin: -3000
+  xmax: 603000
+  ymax: 7568000
+  zmax: 1000
+}
+}
+SaveLithologyVoxet_GMT {
+nx: 100
+ny: 100
+nz: 400
+LithologyVoxetFileStub: "./Litho_Voxet/LithoVoxet.vo"
+}
+SaveProjectAs_GMT {
+filename: "./Models_Final/Models_UWA.xml"
+}
+
+[01/11/2019 15:50:24.460000] Processing job file: "m2l.taskfile"
+
+CreateProject_GMT {
+CustomDTM {
+  name: "Topography"
+  filename {
+    Grid_Name: "./dtm/hammersley_sheet_dtm.ers"
+  }
+  Extents {
+    xmin: 500000
+    ymin: 7455500
+    xmax: 603000
+    ymax: 7568000
+  }
+  nx: 10
+  ny: 10
+}
+name: "Hamersley"
+author: "Des/Mark"
+date: "23/10/2019  0: 0: 0"
+projection {
+  map_projection: "GDA94 / MGA50"
+}
+version: "2.0"
+units: meters
+precision: 1
+Extents {
+  xmin: 500000
+  ymin: 7455500
+  zmin: -3000
+  xmax: 603000
+  ymax: 7568000
+  zmax: 1000
+}
+deflection2d: 0.001
+deflection3d: 0.001
+discretisation: 10
+referenceTop: false
+}
+CreateFormation_GMT {
+name: "P__WYm_sp"
+red: 86
+green: 169
+blue: 164
+}
+CreateFormation_GMT {
+name: "P__WYa_st"
+red: 5
+green: 48
+blue: 161
+}
+CreateFormation_GMT {
+name: "P__WYd_kd"
+red: 77
+green: 139
+blue: 60
+}
+CreateFormation_GMT {
+name: "P__SKq_stq"
+red: 71
+green: 189
+blue: 226
+}
+CreateFormation_GMT {
+name: "P__SKb_bb"
+red: 248
+green: 179
+blue: 72
+}
+CreateFormation_GMT {
+name: "P__TKa_xs_k"
+red: 188
+green: 36
+blue: 185
+}
+CreateFormation_GMT {
+name: "P__TKo_stq"
+red: 221
+green: 100
+blue: 50
+}
+CreateFormation_GMT {
+name: "P__TKk_sf"
+red: 4
+green: 28
+blue: 252
+}
+CreateFormation_GMT {
+name: "P__TK_s"
+red: 222
+green: 174
+blue: 11
+}
+CreateFormation_GMT {
+name: "P__HAo_ci"
+red: 86
+green: 168
+blue: 244
+}
+CreateFormation_GMT {
+name: "P__HAw_fr"
+red: 43
+green: 48
+blue: 42
+}
+CreateFormation_GMT {
+name: "P__HAj_xci_od"
+red: 221
+green: 60
+blue: 171
+}
+CreateFormation_GMT {
+name: "P__HAb_cib"
+red: 68
+green: 208
+blue: 41
+}
+CreateFormation_GMT {
+name: "A_HAS_xsl_ci"
+red: 142
+green: 53
+blue: 69
+}
+CreateFormation_GMT {
+name: "A_HAd_kd"
+red: 222
+green: 133
+blue: 73
+}
+CreateFormation_GMT {
+name: "A_HAm_cib"
+red: 221
+green: 208
+blue: 92
+}
+CreateFormation_GMT {
+name: "A_FOj_xs_b"
+red: 88
+green: 210
+blue: 101
+}
+CreateFormation_GMT {
+name: "A_FO_xo_a"
+red: 110
+green: 169
+blue: 23
+}
+CreateFormation_GMT {
+name: "A_FO_od"
+red: 95
+green: 189
+blue: 176
+}
+CreateFormation_GMT {
+name: "A_FOu_bbo"
+red: 35
+green: 106
+blue: 124
+}
+CreateFormation_GMT {
+name: "A_FOp_bs"
+red: 255
+green: 29
+blue: 21
+}
+CreateFormation_GMT {
+name: "A_FOo_bbo"
+red: 63
+green: 241
+blue: 156
+}
+CreateFormation_GMT {
+name: "A_FOh_xs_f"
+red: 23
+green: 230
+blue: 7
+}
+CreateFormation_GMT {
+name: "A_FOr_b"
+red: 237
+green: 28
+blue: 192
+}
+CreateFormation_GMT {
+name: "A_mgn_PMI"
+red: 247
+green: 53
+blue: 80
+}
+CreateFormation_GMT {
+name: "A_mgn_PRK"
+red: 117
+green: 195
+blue: 0
+}
+SetSeries_GMT {
+name: "Wyloo_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYd_kd"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYa_st"
+}
+AddFormationToSeries_GMT {
+series: "Wyloo_Group"
+formation: "P__WYm_sp"
+}
+SetSeries_GMT {
+name: "Shingle_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKb_bb"
+}
+AddFormationToSeries_GMT {
+series: "Shingle_Creek_Group"
+formation: "P__SKq_stq"
+}
+SetSeries_GMT {
+name: "Turee_Creek_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TK_s"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKk_sf"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKo_stq"
+}
+AddFormationToSeries_GMT {
+series: "Turee_Creek_Group"
+formation: "P__TKa_xs_k"
+}
+SetSeries_GMT {
+name: "Hamersley_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAm_cib"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAd_kd"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "A_HAS_xsl_ci"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAb_cib"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAj_xci_od"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAw_fr"
+}
+AddFormationToSeries_GMT {
+series: "Hamersley_Group"
+formation: "P__HAo_ci"
+}
+SetSeries_GMT {
+name: "Fortescue_Group"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOr_b"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOh_xs_f"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOo_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOp_bs"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOu_bbo"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_od"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FO_xo_a"
+}
+AddFormationToSeries_GMT {
+series: "Fortescue_Group"
+formation: "A_FOj_xs_b"
+}
+SetSeries_GMT {
+name: "A_mgn_PMI"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PMI"
+formation: "A_mgn_PMI"
+}
+SetSeries_GMT {
+name: "A_mgn_PRK"
+position: 1
+relation: "erode"
+}
+AddFormationToSeries_GMT {
+series: "A_mgn_PRK"
+formation: "A_mgn_PRK"
+}
+ReadAndImport3dData_GMT {
+contact_csv_file: "./output/contacts_clean.csv"
+foliation_csv_file: "./output/orientations_clean.csv"
+contact_header_linestoSkip: 1
+foliation_header_linestoSkip: 1
+fault_limit_header_linestoSkip: 1
+operation: Import_default
+spatial_location_error: 1
+vertical_location_error: 1
+}
+SaveProjectAs_GMT {
+filename: "./Models_Prelim/Models_UWA.xml"
+}
+ComputeModel_GMT {
+SeriesList {
+  node: "All"
+}
+SectionList {
+  node: "All"
+}
+radius: 10
+Extents {
+  xmin: 500000
+  ymin: 7455500
+  zmin: -3000
+  xmax: 603000
+  ymax: 7568000
+  zmax: 1000
+}
+}
+SaveLithologyVoxet_GMT {
+nx: 100
+ny: 100
+nz: 400
+LithologyVoxetFileStub: "./Litho_Voxet/LithoVoxet.vo"
+}
+SaveProjectAs_GMT {
+filename: "./Models_Final/Models_UWA.xml"
+}

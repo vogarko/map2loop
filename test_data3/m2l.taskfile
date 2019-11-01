@@ -46,209 +46,209 @@ description: "Automate_batch_Model"
 GeomodellerTask {
 CreateFormation {
     name: "P__WYm_sp"
-    red: 240
-    green: 56
-    blue: 61
+    red: 86
+    green: 169
+    blue: 164
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__WYa_st"
-    red: 101
-    green: 89
-    blue: 57
+    red: 5
+    green: 48
+    blue: 161
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__WYd_kd"
-    red: 48
-    green: 96
-    blue: 179
+    red: 77
+    green: 139
+    blue: 60
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__SKq_stq"
-    red: 97
-    green: 207
-    blue: 99
+    red: 71
+    green: 189
+    blue: 226
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__SKb_bb"
-    red: 205
-    green: 245
-    blue: 80
+    red: 248
+    green: 179
+    blue: 72
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__TKa_xs_k"
-    red: 16
-    green: 155
-    blue: 128
+    red: 188
+    green: 36
+    blue: 185
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__TKo_stq"
-    red: 120
-    green: 127
-    blue: 183
+    red: 221
+    green: 100
+    blue: 50
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__TKk_sf"
-    red: 7
-    green: 66
-    blue: 75
+    red: 4
+    green: 28
+    blue: 252
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__TK_s"
-    red: 117
-    green: 52
-    blue: 89
+    red: 222
+    green: 174
+    blue: 11
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAo_ci"
-    red: 32
-    green: 218
-    blue: 112
+    red: 86
+    green: 168
+    blue: 244
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAw_fr"
-    red: 180
-    green: 244
-    blue: 18
+    red: 43
+    green: 48
+    blue: 42
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAj_xci_od"
-    red: 144
-    green: 37
-    blue: 113
+    red: 221
+    green: 60
+    blue: 171
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAb_cib"
-    red: 218
-    green: 86
-    blue: 58
+    red: 68
+    green: 208
+    blue: 41
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_HAS_xsl_ci"
-    red: 94
-    green: 123
+    red: 142
+    green: 53
     blue: 69
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_HAd_kd"
-    red: 186
-    green: 96
-    blue: 242
+    red: 222
+    green: 133
+    blue: 73
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_HAm_cib"
-    red: 204
-    green: 145
-    blue: 220
+    red: 221
+    green: 208
+    blue: 92
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOj_xs_b"
-    red: 213
-    green: 105
-    blue: 121
+    red: 88
+    green: 210
+    blue: 101
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FO_xo_a"
-    red: 253
-    green: 219
-    blue: 222
+    red: 110
+    green: 169
+    blue: 23
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FO_od"
-    red: 93
-    green: 248
-    blue: 210
+    red: 95
+    green: 189
+    blue: 176
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOu_bbo"
-    red: 148
-    green: 161
-    blue: 197
+    red: 35
+    green: 106
+    blue: 124
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOp_bs"
-    red: 10
-    green: 139
-    blue: 186
+    red: 255
+    green: 29
+    blue: 21
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOo_bbo"
-    red: 142
-    green: 177
-    blue: 71
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_FOh_xs_f"
-    red: 178
-    green: 218
-    blue: 194
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_FOr_b"
-    red: 71
-    green: 189
-    blue: 54
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_mgn_PMI"
-    red: 112
-    green: 204
+    red: 63
+    green: 241
     blue: 156
     }
 }
 GeomodellerTask {
 CreateFormation {
+    name: "A_FOh_xs_f"
+    red: 23
+    green: 230
+    blue: 7
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_FOr_b"
+    red: 237
+    green: 28
+    blue: 192
+    }
+}
+GeomodellerTask {
+CreateFormation {
+    name: "A_mgn_PMI"
+    red: 247
+    green: 53
+    blue: 80
+    }
+}
+GeomodellerTask {
+CreateFormation {
     name: "A_mgn_PRK"
-    red: 193
-    green: 98
-    blue: 100
+    red: 117
+    green: 195
+    blue: 0
     }
 }
 #---------------------------------------------------------------
@@ -256,28 +256,126 @@ CreateFormation {
 #---------------------------------------------------------------
 GeomodellerTask {
 SetSeries {
-    name: "A_mgn_PRK"
+    name: "Wyloo_Group"
     position: 1
     relation: "erode"
     }
 }
 GeomodellerTask {
 AddFormationToSeries {
-    series: "A_mgn_PRK"
-    formation: "A_mgn_PRK"
+    series: "Wyloo_Group"
+    formation: "P__WYd_kd"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Wyloo_Group"
+    formation: "P__WYa_st"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Wyloo_Group"
+    formation: "P__WYm_sp"
     }
 }
 GeomodellerTask {
 SetSeries {
-    name: "A_mgn_PMI"
+    name: "Shingle_Creek_Group"
     position: 1
     relation: "erode"
     }
 }
 GeomodellerTask {
 AddFormationToSeries {
-    series: "A_mgn_PMI"
-    formation: "A_mgn_PMI"
+    series: "Shingle_Creek_Group"
+    formation: "P__SKb_bb"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Shingle_Creek_Group"
+    formation: "P__SKq_stq"
+    }
+}
+GeomodellerTask {
+SetSeries {
+    name: "Turee_Creek_Group"
+    position: 1
+    relation: "erode"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Turee_Creek_Group"
+    formation: "P__TK_s"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Turee_Creek_Group"
+    formation: "P__TKk_sf"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Turee_Creek_Group"
+    formation: "P__TKo_stq"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Turee_Creek_Group"
+    formation: "P__TKa_xs_k"
+    }
+}
+GeomodellerTask {
+SetSeries {
+    name: "Hamersley_Group"
+    position: 1
+    relation: "erode"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "A_HAm_cib"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "A_HAd_kd"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "A_HAS_xsl_ci"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "P__HAb_cib"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "P__HAj_xci_od"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "P__HAw_fr"
+    }
+}
+GeomodellerTask {
+AddFormationToSeries {
+    series: "Hamersley_Group"
+    formation: "P__HAo_ci"
     }
 }
 GeomodellerTask {
@@ -337,129 +435,30 @@ AddFormationToSeries {
 }
 GeomodellerTask {
 SetSeries {
-    name: "Hamersley_Group"
+    name: "A_mgn_PMI"
     position: 1
     relation: "erode"
     }
 }
 GeomodellerTask {
 AddFormationToSeries {
-    series: "Hamersley_Group"
-    formation: "A_HAm_cib"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Hamersley_Group"
-    formation: "A_HAd_kd"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Hamersley_Group"
-    formation: "A_HAS_xsl_ci"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Hamersley_Group"
-    formation: "P__HAb_cib"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Hamersley_Group"
-    formation: "P__HAj_xci_od"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Hamersley_Group"
-    formation: "P__HAw_fr"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Hamersley_Group"
-    formation: "P__HAo_ci"
+    series: "A_mgn_PMI"
+    formation: "A_mgn_PMI"
     }
 }
 GeomodellerTask {
 SetSeries {
-    name: "Turee_Creek_Group"
+    name: "A_mgn_PRK"
     position: 1
     relation: "erode"
     }
 }
 GeomodellerTask {
 AddFormationToSeries {
-    series: "Turee_Creek_Group"
-    formation: "P__TK_s"
+    series: "A_mgn_PRK"
+    formation: "A_mgn_PRK"
     }
 }
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Turee_Creek_Group"
-    formation: "P__TKk_sf"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Turee_Creek_Group"
-    formation: "P__TKo_stq"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Turee_Creek_Group"
-    formation: "P__TKa_xs_k"
-    }
-}
-GeomodellerTask {
-SetSeries {
-    name: "Shingle_Creek_Group"
-    position: 1
-    relation: "erode"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Shingle_Creek_Group"
-    formation: "P__SKb_bb"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Shingle_Creek_Group"
-    formation: "P__SKq_stq"
-    }
-}
-GeomodellerTask {
-SetSeries {
-    name: "Wyloo_Group"
-    position: 1
-    relation: "erode"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Wyloo_Group"
-    formation: "P__WYd_kd"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Wyloo_Group"
-    formation: "P__WYa_st"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "Wyloo_Group"
-    formation: "P__WYm_sp"
-    }
-}
-
 #---------------------------------------------------------------
 #-----------------------Import 3D data ---Base Model------------
 #---------------------------------------------------------------
@@ -475,16 +474,11 @@ GeomodellerTask {
         vertical_location_error: 1;
     }
 }
-#---------------------------------------------------------------
-#--------------------------Save As Model------------------------
-#---------------------------------------------------------------
-
 GeomodellerTask {
     SaveProjectAs {
         filename: "./Models_Prelim/Models_UWA.xml"
     }
 }
-
 #---------------------------------------------------------------
 #----------------------------Compute Model----------------------
 #---------------------------------------------------------------
