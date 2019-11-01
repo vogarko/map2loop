@@ -105,15 +105,15 @@
       <max>7568000.0</max>
       <__undefined>false</__undefined>
     </__Vrange>
-    <__doLines>true</__doLines>
-    <__doFill>false</__doFill>
+    <__doLines>false</__doLines>
+    <__doFill>true</__doFill>
     <__doTrend>false</__doTrend>
     <__doLimitToTopo>false</__doLimitToTopo>
     <__doTriangles>false</__doTriangles>
     <__doUncert>false</__doUncert>
     <__doTrendWithinSeries>true</__doTrendWithinSeries>
     <__nTrajectories>10</__nTrajectories>
-    <__deselectedFills class="empty-list"/>
+    <__deselectedFills class="linked-hash-set" id="15"/>
     <__deselectedFormationLines class="empty-list"/>
     <__deselectedFaultLines class="empty-list"/>
     <__deselectedTrendSeries class="empty-list"/>
