@@ -21974,6 +21974,34 @@
       <geo:Data Name="Fortescue_Group"/>
       <geo:Data Name="Hamersley_Group"/>
     </geo:ModelStratigraphicColumn>
+    <geo:OutputShape3DOfFormations>
+      <geo:Data Name="_dfa_Surface_A_FOh_xs_f"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_A_FOh_xs_f.s3d"/>
+      <geo:Data Name="_dfa_Surface_A_FOj_xs_b"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_A_FOj_xs_b.s3d"/>
+      <geo:Data Name="_dfa_Surface_A_FOo_bbo"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_A_FOo_bbo.s3d"/>
+      <geo:Data Name="_dfa_Surface_A_FOp_bs"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_A_FOp_bs.s3d"/>
+      <geo:Data Name="_dfa_Surface_A_FOr_b"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_A_FOr_b.s3d"/>
+      <geo:Data Name="_dfa_Surface_A_FOu_bbo"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_A_FOu_bbo.s3d"/>
+      <geo:Data Name="_dfa_Surface_A_HAS_xsl_ci"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_A_HAS_xsl_ci.s3d"/>
+      <geo:Data Name="_dfa_Surface_A_HAd_kd"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_A_HAd_kd.s3d"/>
+      <geo:Data Name="_dfa_Surface_A_HAm_cib"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_A_HAm_cib.s3d"/>
+      <geo:Data Name="_dfa_Surface_P__HAb_cib"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_P__HAb_cib.s3d"/>
+      <geo:Data Name="_dfa_Surface_P__HAj_xci_od"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_P__HAj_xci_od.s3d"/>
+      <geo:Data Name="_dfa_Surface_P__HAo_ci"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_P__HAo_ci.s3d"/>
+      <geo:Data Name="_dfa_Surface_P__HAw_fr"/>
+      <geo:Shape3DOfFormation FileName="_dfa_Surface_P__HAw_fr.s3d"/>
+    </geo:OutputShape3DOfFormations>
   </geo:GeologicalModel>
   <geo:GridsMeshs persistenceFormat="Intrepid">
     <geo:GridMesh Name="DTM" ComeFrom="Project" CoordSystem="no description" DataSource="/MeshGrids/DTM.igmesh/" Description="no description" Purpose="Model">
