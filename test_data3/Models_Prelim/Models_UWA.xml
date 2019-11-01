@@ -234,14 +234,6 @@
         <geo:ColorWireFrame Blue="59" Green="59" Red="237"/>
       </geo:Graphic>
     </geo:Formation>
-    <geo:DummyFormation Name="DefaultBasement">
-      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
-      <geo:Geophysics/>
-      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
-        <geo:ColorShading Blue="179" Green="179" Red="179"/>
-        <geo:ColorWireFrame Blue="179" Green="179" Red="179"/>
-      </geo:Graphic>
-    </geo:DummyFormation>
   </geo:Formations>
   <geo:Sections>
     <geo:Section Name="Topography" Description="DTM from file" Grid2DName="./dtm/hammersley_sheet_dtm.ers" IsAxialSurface="false" IsTopography="true">
@@ -257,26 +249,23 @@
       <geo:ExtentXY Xmax="603000.0" Xmin="500000.0" Ymax="7568000.0" Ymin="7455500.0"/>
       <geo:ExtentZ Zmax="1000.0" Zmin="-3000.0"/>
     </geo:Extent3D>
-    <geo:ModelSections>
-      <geo:Data Name="Topography"/>
-    </geo:ModelSections>
     <geo:ProjectStratigraphicColumn IsBase="true">
-      <geo:Series isUptodate="true" name="Wyloo_Group" relation="2">
+      <geo:Series isUptodate="false" name="Wyloo_Group" relation="2">
         <geo:Data Name="P__WYd_kd"/>
         <geo:Data Name="P__WYa_st"/>
         <geo:Data Name="P__WYm_sp"/>
       </geo:Series>
-      <geo:Series isUptodate="true" name="Shingle_Creek_Group" relation="2">
+      <geo:Series isUptodate="false" name="Shingle_Creek_Group" relation="2">
         <geo:Data Name="P__SKb_bb"/>
         <geo:Data Name="P__SKq_stq"/>
       </geo:Series>
-      <geo:Series isUptodate="true" name="Turee_Creek_Group" relation="2">
+      <geo:Series isUptodate="false" name="Turee_Creek_Group" relation="2">
         <geo:Data Name="P__TK_s"/>
         <geo:Data Name="P__TKk_sf"/>
         <geo:Data Name="P__TKo_stq"/>
         <geo:Data Name="P__TKa_xs_k"/>
       </geo:Series>
-      <geo:Series isUptodate="true" name="Hamersley_Group" relation="2">
+      <geo:Series isUptodate="false" name="Hamersley_Group" relation="2">
         <geo:Data Name="A_HAm_cib"/>
         <geo:Data Name="A_HAd_kd"/>
         <geo:Data Name="A_HAS_xsl_ci"/>
@@ -285,7 +274,7 @@
         <geo:Data Name="P__HAw_fr"/>
         <geo:Data Name="P__HAo_ci"/>
       </geo:Series>
-      <geo:Series isUptodate="true" name="Fortescue_Group" relation="2">
+      <geo:Series isUptodate="false" name="Fortescue_Group" relation="2">
         <geo:Data Name="A_FOr_b"/>
         <geo:Data Name="A_FOh_xs_f"/>
         <geo:Data Name="A_FOo_bbo"/>
@@ -295,10 +284,10 @@
         <geo:Data Name="A_FO_xo_a"/>
         <geo:Data Name="A_FOj_xs_b"/>
       </geo:Series>
-      <geo:Series isUptodate="true" name="A_mgn_PMI" relation="2">
+      <geo:Series isUptodate="false" name="A_mgn_PMI" relation="2">
         <geo:Data Name="A_mgn_PMI"/>
       </geo:Series>
-      <geo:Series isUptodate="true" name="A_mgn_PRK" relation="2">
+      <geo:Series isUptodate="false" name="A_mgn_PRK" relation="2">
         <geo:Data Name="A_mgn_PRK"/>
       </geo:Series>
     </geo:ProjectStratigraphicColumn>

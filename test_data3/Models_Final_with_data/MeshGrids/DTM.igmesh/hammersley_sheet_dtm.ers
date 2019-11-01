@@ -1,5 +1,5 @@
 DatasetHeader Begin
-	LastUpdated	= Fri Nov 01 06:59:14 GMT 2019
+	LastUpdated	= Fri Nov 01 07:07:39 GMT 2019
 	Version	= "5.0"
 	DataSetType	= ERStorage
 	DataType	= Raster
@@ -28,5 +28,8 @@ DatasetHeader Begin
 			Eastings	=          499589
 			Northings	=         7568601
 		RegistrationCoord End
+		BandId Begin
+			Units	= "none"
+		BandId End
 	RasterInfo End
 DatasetHeader End

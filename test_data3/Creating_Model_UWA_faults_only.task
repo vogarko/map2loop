@@ -1,0 +1,752 @@
+# Have geomodeller batch create map2loop geology model, first  attempt
+#  This is a mock up, no way it will work without a bit of effort
+#  faults names are numeric, in this example
+# formations are mostly standard text names, with Major Geology "_"  TIme
+#  then unit, and a possible numeric
+# with the other / prior use of this style of API, geology from Geophysics
+# based upon gravity and TMI, results in primative body units with
+#  style of Contact99 etc   see the geology from geophysics task files
+#-----------------Set Project Boundaries------------------------ 
+# this example will not run without extra data that is specified to be imported
+# use this example as a template for your own case study
+#  execute  geomodellerbatch -batch Creating_Models.task
+# or        jfmanager -batch Creating_Models.task
+
+name: "UWA_Intrepid"
+description: "Automate_batch_Model"
+    GeomodellerTask {
+    CreateProject {
+        name: "Hamersley"
+        author: "Des/Mark"
+        date: "23/10/2019  0: 0: 0"
+        projection { map_projection: "GDA94 / MGA50"}
+        version: "2.0"
+        units: meters
+        precision: 1.0
+        #######################  nothing in the dtm, if it is not a geotif!
+        Extents {
+            xmin: 500000
+            ymin: 7455500
+            zmin: -3000
+            xmax: 603000
+            ymax: 7568000
+            zmax: 1000
+        }
+        deflection2d: 0.001
+        deflection3d: 0.001
+        discretisation: 10.0
+        referenceTop: false
+        CustomDTM {
+            Extents {
+                xmin: 500000
+                ymin: 7455500
+                xmax: 603000
+                ymax: 7568000
+            }
+            name: "Topography"
+            filename {
+                Grid_Name: "./dtm/hammersley_sheet_dtm.ers"
+            }
+            nx: 10
+            ny: 10
+        }
+    }
+}
+#---------------------------------------------------------------
+#-----------------------Create Formations-----------------------
+#  extracted from your Group-fault relations
+#---------------------------------------------------------------
+GeomodellerTask {
+    CreateFormation {
+        name: "P__WYm_sp"
+        red: 255
+        green: 230
+        blue: 153
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__WYa_st"
+        red: 255
+        green: 192
+        blue: 0.0
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__WYd_kd"
+        red: 237
+        green: 125
+        blue: 49
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__SKq_stq"
+        red: 128
+        green: 0.0
+        blue: 0.0
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__SKb_bb"
+        red: 8
+        green: 78
+        blue: 147
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__TKa_xs_k"
+        red: 83
+        green: 130
+        blue: 52
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__TKo_stq"
+        red: 127
+        green: 128
+        blue: 0.0
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__TKk_sf"
+        red: 206
+        green: 0.0
+        blue: 205
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__TK_s"
+        red: 158
+        green: 33
+        blue: 238
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__HAo_ci"
+        red: 0.0
+        green: 178
+        blue: 238
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__HAw_fr"
+        red: 255
+        green: 230
+        blue: 153
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__HAj_xci_od"
+        red: 255
+        green: 192
+        blue: 0.0
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "P__HAb_cib"
+        red: 237
+        green: 125
+        blue: 49
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "A_HAS_xsl_ci"
+        red: 128
+        green: 0.0
+        blue: 0.0
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "A_HAd_kd"
+        red: 8
+        green: 78
+        blue: 147
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "A_HAm_cib"
+        red: 83
+        green: 130
+        blue: 52
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "A_FOj_xs_b"
+        red: 127
+        green: 128
+        blue: 0.0
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "A_FO_xo_a"
+        red: 206
+        green: 0.0
+        blue: 205
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "A_FO_od"
+        red: 158
+        green: 33
+        blue: 238
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "A_FOu_bbo"
+        red: 0.0
+        green: 178
+        blue: 238
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "A_FOh_xs_f"
+        red: 158
+        green: 33
+        blue: 238
+    }
+}
+GeomodellerTask {
+    CreateFormation {
+        name: "A_FOr_b"
+        red: 0.0
+        green: 178
+        blue: 238
+    }
+}
+#---------------------------------------------------------------
+#------------------Set Stratigraphic Pile-
+#---------------------------------------------------------------
+GeomodellerTask {
+    SetSeries {
+        name: "Wyloo_Group"
+        position: 1
+        relation: "erode"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Wyloo_Group"
+        formation: "P__WYm_sp"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Wyloo_Group"
+        formation: "P__WYa_st"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Wyloo_Group"
+        formation: "P__WYd_kd"
+    }
+}
+GeomodellerTask {
+    SetSeries {
+        name: "Shingle_Creek_Group"
+        position: 2
+        relation: "erode"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Shingle_Creek_Group"
+        formation: "P__SKq_stq"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Shingle_Creek_Group"
+        formation: "P__SKb_bb"
+    }
+}
+GeomodellerTask {
+    SetSeries {
+        name: "Turee_Creek_Group"
+        position: 3
+        relation: "erode"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Turee_Creek_Group"
+        formation: "P__TKa_xs_k"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Turee_Creek_Group"
+        formation: "P__TKa_xs_k"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Turee_Creek_Group"
+        formation: "P__TKk_sf"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Turee_Creek_Group"
+        formation: "P__TK_s"
+    }
+}
+GeomodellerTask {
+    SetSeries {
+        name: "Hamersley_Group"
+        position: 4
+        relation: "erode"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Hamersley_Group"
+        formation: "P__HAo_ci"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Hamersley_Group"
+        formation: "P__HAw_fr"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Hamersley_Group"
+        formation: "P__HAj_xci_od"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Hamersley_Group"
+        formation: "P__HAb_cib"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Hamersley_Group"
+        formation: "A_HAS_xsl_ci"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Hamersley_Group"
+        formation: "A_HAd_kd"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Hamersley_Group"
+        formation: "A_HAm_cib"
+    }
+}
+GeomodellerTask {
+    SetSeries {
+        name: "Fortescue_Group"
+        position: 5
+        relation: "erode"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Fortescue_Group"
+        formation: "A_FOj_xs_b"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Fortescue_Group"
+        formation: "A_FO_xo_a"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Fortescue_Group"
+        formation: "A_FOj_xs_b"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Fortescue_Group"
+        formation: "A_FO_od"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Fortescue_Group"
+        formation: "A_FOu_bbo"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Fortescue_Group"
+        formation: "A_FOp_bs"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Fortescue_Group"
+        formation: "A_FOo_bbo"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Fortescue_Group"
+        formation: "A_FOh_xs_f"
+    }
+}
+GeomodellerTask {
+    AddFormationToSeries {
+        series: "Fortescue_Group"
+        formation: "A_FOr_b"
+    }
+}
+
+#---------------------------------------------------------------
+#----------------Import 3D data ---Base Model--
+#  these methods are very compavt and high functioning
+# can create formations and faults, even if not created previously
+# first developed for geology from geophysics tools, Naudy and WormE
+# so dyke networks, and gravity contact/fault networks.
+#---------------------------------------------------------------
+
+GeomodellerTask {
+    ReadAndImport3dData {
+        contact_csv_file: "./output/contacts_clean.csv"
+        foliation_csv_file: "./output/orientations_clean.csv"
+        operation: Import_default; # make the most intelligent decision in the context.. if a named formation, add to it etc.
+        contact_header_linestoSkip: 1;
+        foliation_header_linestoSkip: 1;
+        fault_limit_header_linestoSkip: 1;
+        spatial_location_error: 1;
+        vertical_location_error: 1;
+        #Treat_Tag_As_Text_Only: true;
+    }
+}
+GeomodellerTask {
+    ReadAndImport3dData {
+        contact_csv_file: "./output/faults_geomod.csv"
+        foliation_csv_file: "./output/fault_orientations.csv"
+        limits_csv_file: "./output/fault_dimensions.csv"
+        operation: CreateFault; 
+        contact_header_linestoSkip: 1;
+        foliation_header_linestoSkip: 1;
+        fault_limit_header_linestoSkip: 1;
+        spatial_location_error: 1;
+        vertical_location_error: 1;
+        #Treat_Tag_As_Text_Only: true;
+    }
+}
+
+#---------------------------------------------------------------
+#-----------------------Link faults with faults ----------------
+#---------------------------------------------------------------
+GeomodellerTask {
+    LinkFaultsWithFaults {
+ #       FaultStopsOnFaults{ fault: "Fault_2837"; stopson: "Fault_313"}
+        FaultStopsOnFaults{ fault: "Fault_4721"; stopson: "Fault_2837"}
+        FaultStopsOnFaults{ fault: "Fault_16397"; stopson: "Fault_2837"}
+        FaultStopsOnFaults{ fault: "Fault_16825"; stopson: "Fault_2837"}
+   #     FaultStopsOnFaults{ fault: "Fault_958"; stopson: "Fault_813"}
+        FaultStopsOnFaults{ fault: "Fault_815"; stopson: "Fault_958"}
+        FaultStopsOnFaults{ fault: "Fault_12641"; stopson: "Fault_958"}
+        FaultStopsOnFaults{ fault: "Fault_16503"; stopson: "Fault_958"}
+        FaultStopsOnFaults{ fault: "Fault_813"; stopson: "Fault_16503"}
+        FaultStopsOnFaults{ fault: "Fault_16740"; stopson: "Fault_2225"}
+        FaultStopsOnFaults{ fault: "Fault_2227"; stopson: "Fault_16740"}
+        FaultStopsOnFaults{ fault: "Fault_2843"; stopson: "Fault_2235"}
+        FaultStopsOnFaults{ fault: "Fault_5252"; stopson: "Fault_2235"}
+        FaultStopsOnFaults{ fault: "Fault_5471"; stopson: "Fault_2235"}
+        FaultStopsOnFaults{ fault: "Fault_962"; stopson: "Fault_2843"}
+        FaultStopsOnFaults{ fault: "Fault_5252"; stopson: "Fault_5471"}
+        FaultStopsOnFaults{ fault: "Fault_16769"; stopson: "Fault_2248"}
+        FaultStopsOnFaults{ fault: "Fault_4721"; stopson: "Fault_16397"}
+        FaultStopsOnFaults{ fault: "Fault_16878"; stopson: "Fault_16397"}
+        FaultStopsOnFaults{ fault: "Fault_16503"; stopson: "Fault_16825"}
+        FaultStopsOnFaults{ fault: "Fault_7966"; stopson: "Fault_16825"}
+        FaultStopsOnFaults{ fault: "Fault_5463"; stopson: "Fault_16825"}
+        FaultStopsOnFaults{ fault: "Fault_16878"; stopson: "Fault_16825"}
+        FaultStopsOnFaults{ fault: "Fault_16816"; stopson: "Fault_16825"}
+        FaultStopsOnFaults{ fault: "Fault_3495"; stopson: "Fault_2840"}
+        FaultStopsOnFaults{ fault: "Fault_2840"; stopson: "Fault_2996"}
+        FaultStopsOnFaults{ fault: "Fault_3495"; stopson: "Fault_2996"}
+        FaultStopsOnFaults{ fault: "Fault_961"; stopson: "Fault_2996"}
+        FaultStopsOnFaults{ fault: "Fault_8551"; stopson: "Fault_2996"}
+        FaultStopsOnFaults{ fault: "Fault_12630"; stopson: "Fault_2996"}
+        FaultStopsOnFaults{ fault: "Fault_11442"; stopson: "Fault_8551"}
+        FaultStopsOnFaults{ fault: "Fault_961"; stopson: "Fault_12630"}
+        FaultStopsOnFaults{ fault: "Fault_5993"; stopson: "Fault_2997"}
+        FaultStopsOnFaults{ fault: "Fault_7439"; stopson: "Fault_3496"}
+        FaultStopsOnFaults{ fault: "Fault_11445"; stopson: "Fault_3496"}
+        FaultStopsOnFaults{ fault: "Fault_15546"; stopson: "Fault_3496"}
+        FaultStopsOnFaults{ fault: "Fault_5993"; stopson: "Fault_7439"}
+        FaultStopsOnFaults{ fault: "Fault_5991"; stopson: "Fault_7439"}
+        FaultStopsOnFaults{ fault: "Fault_5475"; stopson: "Fault_7439"}
+        FaultStopsOnFaults{ fault: "Fault_2997"; stopson: "Fault_3498"}
+        FaultStopsOnFaults{ fault: "Fault_12646"; stopson: "Fault_3498"}
+        FaultStopsOnFaults{ fault: "Fault_2997"; stopson: "Fault_5991"}
+        FaultStopsOnFaults{ fault: "Fault_11445"; stopson: "Fault_6000"}
+        FaultStopsOnFaults{ fault: "Fault_12646"; stopson: "Fault_6000"}
+        FaultStopsOnFaults{ fault: "Fault_7967"; stopson: "Fault_6205"}
+        FaultStopsOnFaults{ fault: "Fault_7966"; stopson: "Fault_7967"}
+        FaultStopsOnFaults{ fault: "Fault_5997"; stopson: "Fault_7967"}
+        FaultStopsOnFaults{ fault: "Fault_2996"; stopson: "Fault_6825"}
+        FaultStopsOnFaults{ fault: "Fault_961"; stopson: "Fault_6825"}
+        FaultStopsOnFaults{ fault: "Fault_12630"; stopson: "Fault_6825"}
+        FaultStopsOnFaults{ fault: "Fault_15540"; stopson: "Fault_6825"}
+        FaultStopsOnFaults{ fault: "Fault_313"; stopson: "Fault_7344"}
+        FaultStopsOnFaults{ fault: "Fault_6205"; stopson: "Fault_7344"}
+        FaultStopsOnFaults{ fault: "Fault_2229"; stopson: "Fault_7344"}
+        FaultStopsOnFaults{ fault: "Fault_5001"; stopson: "Fault_7344"}
+        FaultStopsOnFaults{ fault: "Fault_6522"; stopson: "Fault_7344"}
+        FaultStopsOnFaults{ fault: "Fault_16245"; stopson: "Fault_7344"}
+        FaultStopsOnFaults{ fault: "Fault_313"; stopson: "Fault_7966"}
+        FaultStopsOnFaults{ fault: "Fault_5463"; stopson: "Fault_7966"}
+        FaultStopsOnFaults{ fault: "Fault_2238"; stopson: "Fault_11442"}
+        FaultStopsOnFaults{ fault: "Fault_15527"; stopson: "Fault_12618"}
+        FaultStopsOnFaults{ fault: "Fault_2840"; stopson: "Fault_12642"}
+        FaultStopsOnFaults{ fault: "Fault_15540"; stopson: "Fault_12644"}
+        FaultStopsOnFaults{ fault: "Fault_15546"; stopson: "Fault_12647"}
+        FaultStopsOnFaults{ fault: "Fault_5484"; stopson: "Fault_12658"}
+   #     FaultStopsOnFaults{ fault: "Fault_15552"; stopson: "Fault_12660"}
+        FaultStopsOnFaults{ fault: "Fault_12660"; stopson: "Fault_15552"}
+        FaultStopsOnFaults{ fault: "Fault_14303"; stopson: "Fault_14251"}
+        FaultStopsOnFaults{ fault: "Fault_4721"; stopson: "Fault_16878"}
+        FaultStopsOnFaults{ fault: "Fault_12658"; stopson: "Fault_16399"}
+        FaultStopsOnFaults{ fault: "Fault_3370"; stopson: "Fault_16399"}
+        FaultStopsOnFaults{ fault: "Fault_12642"; stopson: "Fault_16455"}
+        FaultStopsOnFaults{ fault: "Fault_16399"; stopson: "Fault_16455"}
+        FaultStopsOnFaults{ fault: "Fault_15527"; stopson: "Fault_16502"}
+        FaultStopsOnFaults{ fault: "Fault_11429"; stopson: "Fault_16502"}
+        FaultStopsOnFaults{ fault: "Fault_2225"; stopson: "Fault_16742"}
+        FaultStopsOnFaults{ fault: "Fault_12627"; stopson: "Fault_16744"}
+        FaultStopsOnFaults{ fault: "Fault_2246"; stopson: "Fault_16767"}
+        FaultStopsOnFaults{ fault: "Fault_813"; stopson: "Fault_16816"}
+        FaultStopsOnFaults{ fault: "Fault_5986"; stopson: "Fault_16816"}
+        FaultStopsOnFaults{ fault: "Fault_17182"; stopson: "Fault_16816"}
+        FaultStopsOnFaults{ fault: "Fault_5986"; stopson: "Fault_17182"}
+        FaultStopsOnFaults{ fault: "Fault_16397"; stopson: "Fault_16896"}
+        FaultStopsOnFaults{ fault: "Fault_11429"; stopson: "Fault_16896"}
+        FaultStopsOnFaults{ fault: "Fault_17127"; stopson: "Fault_17031"}
+        FaultStopsOnFaults{ fault: "Fault_12618"; stopson: "Fault_17127"}
+        FaultStopsOnFaults{ fault: "Fault_16502"; stopson: "Fault_17127"}
+    }
+}
+#---------------------------------------------------------------
+#-----------------------Link series with faults ----------------
+#---------------------------------------------------------------
+GeomodellerTask {
+    LinkFaultsWithSeries {
+    FaultSeriesLinks{ fault: "Fault_958"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_961"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2248"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2996"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2997"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_3370"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_4226"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5298"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5484"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5997"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6205"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6374"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6522"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6825"; series: ["Hamersley_Group", "Fortescue_Group", "A_mgn_PMI_520"]}
+    FaultSeriesLinks{ fault: "Fault_7344"; series: ["Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7805"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7967"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_8973"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_9401"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_10659"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12644"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12658"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12660"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_14378"; series: ["Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_15540"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_15552"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16399"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16455"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16503"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16744"; series: ["Hamersley_Group", "Fortescue_Group", "A_mgn_PMI_520"]}
+    FaultSeriesLinks{ fault: "Fault_16769"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16896"; series: ["Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2235"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7097"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7099"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_3496"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7436"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_10762"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12647"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_15530"; series: ["Fortescue_Group", "A_mgn_PMI_520"]}
+    FaultSeriesLinks{ fault: "Fault_15531"; series: ["Fortescue_Group", "A_mgn_PMI_520"]}
+    FaultSeriesLinks{ fault: "Fault_813"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_962"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2837"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2843"; series: ["Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_3498"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_4721"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5475"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5993"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6000"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_6519"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7439"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7966"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_8400"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12630"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12641"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16397"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16502"; series: ["Shingle_Creek_Group", "Turee_Creek_Group", "Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16816"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16825"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16878"; series: ["Hamersley_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5001"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12611"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16245"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2229"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5252"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5471"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_7222"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_313"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5463"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_8752"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_17031"; series: ["Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_17127"; series: ["Wyloo_Group", "Shingle_Creek_Group", "Fortescue_Group"]}
+    FaultSeriesLinks{ fault: "Fault_1236"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2238"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2840"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_3495"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_8551"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_11442"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12627"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12642"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12646"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_15546"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16754"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_11445"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_815"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2246"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2688"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5986"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_5991"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_11429"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2689"; series: ["Turee_Creek_Group", "Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_8910"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16767"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_17182"; series: ["Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_12618"; series: ["Wyloo_Group", "Shingle_Creek_Group", "Turee_Creek_Group", "Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_15527"; series: ["Turee_Creek_Group", "Hamersley_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2225"; series: ["Shingle_Creek_Group", "Turee_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_2227"; series: ["Shingle_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_14303"; series: ["Shingle_Creek_Group", "Turee_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16739"; series: ["Shingle_Creek_Group", "Turee_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16740"; series: ["Shingle_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_16742"; series: ["Shingle_Creek_Group", "Turee_Creek_Group"]}
+    FaultSeriesLinks{ fault: "Fault_14251"; series: ["Turee_Creek_Group"]}
+    }
+}
+#---------------------------------------------------------------
+#--------------------------Save As Model------------------------
+#---------------------------------------------------------------
+
+GeomodellerTask {
+    SaveProjectAs {
+        filename: "./Models_Prelim/Models_UWA.xml"
+    }
+}
+#---------------------------------------------------------------
+#----------------------------Compute Model----------------------
+#---------------------------------------------------------------
+GeomodellerTask {
+    ComputeModel {
+        FaultList {
+            node: "ALL"
+        }
+        SectionList {
+            node: "Topography"
+        }
+        radius: 10.0
+    }
+}
+GeomodellerTask {
+    GetModelSummary {
+        level: 2;
+        filename: "summary.rpt";
+    }
+}
+GeomodellerTask {
+    RenderModel {
+        nx:12;
+        ny:12;
+        nz:12;
+        generateSurfaces: true;
+        generateVolumes: false;
+        topoLimited: true;
+        adaptToTopo: true;
+        buildFormations: false;
+        buildFaults: true;
+        buildDykes: false;
+    }
+}
+#---------------------------------------------------------------
+#-----------------------Add geophysical Properties--------------
+#---------------------------------------------------------------
+
+
+
+#---------------------------------------------------------------
+#--------------------------Export Lithology Voxet---------------
+#---------------------------------------------------------------
+#GeomodellerTask {
+#    SaveLithologyVoxet {
+#        nx: 100
+#        ny: 100
+#        nz: 400
+#        LithologyVoxetFileStub: "./Litho_Voxet/LithoVoxet.vo"
+#    }
+#}
+# Export the 3D shapes (meshes) to a set of files in a directory. No ZIP file in BATCH yet.
+GeomodellerTask {
+    Export3DShapes {
+        output_directory: "./ALL_TSURF";
+        file_type: TSURF;
+        mesh_type: SURFACE;
+        log: "export_3d_shapes.rpt";
+    }
+}
+
+GeomodellerTask {
+    Export3DShapes {
+        output_directory: "./Shingle_Creek_TSURF";
+        model_name:  "Shingle_Creek_Group"; # Allow a selection of the formation shapes to write. If none given write them all.
+        file_type: TSURF;
+        mesh_type: SHELL;
+        log: "export_3d_shapes.rpt";
+    }
+}
+#---------------------------------------------------------------
+#--------------------------Save As Model------------------------
+#---------------------------------------------------------------
+
+GeomodellerTask {
+    SaveProjectAs {
+        filename: "./Models_Final/Models_UWA.xml"
+    }
+}

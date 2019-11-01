@@ -1,6 +1,17 @@
-#---------------------------------------------------------------
-#-----------------------Project Header-----------------------
-#---------------------------------------------------------------
+# Have geomodeller batch create map2loop geology model, first  attempt
+#  This is a mock up, no way it will work without a bit of effort
+#  faults names are numeric, in this example
+# formations are mostly standard text names, with Major Geology "_"  TIme
+#  then unit, and a possible numeric
+# with the other / prior use of this style of API, geology from Geophysics
+# based upon gravity and TMI, results in primative body units with
+#  style of Contact99 etc   see the geology from geophysics task files
+#-----------------Set Project Boundaries------------------------ 
+# this example will not run without extra data that is specified to be imported
+# use this example as a template for your own case study
+#  execute  geomodellerbatch -batch Creating_Models.task
+# or        jfmanager -batch Creating_Models.task
+
 name: "UWA_Intrepid"
 description: "Automate_batch_Model"
     GeomodellerTask {
@@ -12,6 +23,7 @@ description: "Automate_batch_Model"
         version: "2.0"
         units: meters
         precision: 1.0
+        #######################  nothing in the dtm, if it is not a geotif!
         Extents {
             xmin: 500000
             ymin: 7455500
@@ -42,244 +54,187 @@ description: "Automate_batch_Model"
 }
 #---------------------------------------------------------------
 #-----------------------Create Formations-----------------------
+#  extracted from your Group-fault relations
 #---------------------------------------------------------------
 GeomodellerTask {
-CreateFormation {
-    name: "P__WYm_sp"
-    red: 240
-    green: 56
-    blue: 61
+    CreateFormation {
+        name: "P__WYm_sp"
+        red: 255
+        green: 230
+        blue: 153
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__WYa_st"
-    red: 101
-    green: 89
-    blue: 57
+    CreateFormation {
+        name: "P__WYa_st"
+        red: 255
+        green: 192
+        blue: 0.0
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__WYd_kd"
-    red: 48
-    green: 96
-    blue: 179
+    CreateFormation {
+        name: "P__WYd_kd"
+        red: 237
+        green: 125
+        blue: 49
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__SKq_stq"
-    red: 97
-    green: 207
-    blue: 99
+    CreateFormation {
+        name: "P__SKq_stq"
+        red: 128
+        green: 0.0
+        blue: 0.0
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__SKb_bb"
-    red: 205
-    green: 245
-    blue: 80
+    CreateFormation {
+        name: "P__SKb_bb"
+        red: 8
+        green: 78
+        blue: 147
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__TKa_xs_k"
-    red: 16
-    green: 155
-    blue: 128
+    CreateFormation {
+        name: "P__TKa_xs_k"
+        red: 83
+        green: 130
+        blue: 52
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__TKo_stq"
-    red: 120
-    green: 127
-    blue: 183
+    CreateFormation {
+        name: "P__TKo_stq"
+        red: 127
+        green: 128
+        blue: 0.0
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__TKk_sf"
-    red: 7
-    green: 66
-    blue: 75
+    CreateFormation {
+        name: "P__TKk_sf"
+        red: 206
+        green: 0.0
+        blue: 205
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__TK_s"
-    red: 117
-    green: 52
-    blue: 89
+    CreateFormation {
+        name: "P__TK_s"
+        red: 158
+        green: 33
+        blue: 238
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__HAo_ci"
-    red: 32
-    green: 218
-    blue: 112
+    CreateFormation {
+        name: "P__HAo_ci"
+        red: 0.0
+        green: 178
+        blue: 238
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__HAw_fr"
-    red: 180
-    green: 244
-    blue: 18
+    CreateFormation {
+        name: "P__HAw_fr"
+        red: 255
+        green: 230
+        blue: 153
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__HAj_xci_od"
-    red: 144
-    green: 37
-    blue: 113
+    CreateFormation {
+        name: "P__HAj_xci_od"
+        red: 255
+        green: 192
+        blue: 0.0
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "P__HAb_cib"
-    red: 218
-    green: 86
-    blue: 58
+    CreateFormation {
+        name: "P__HAb_cib"
+        red: 237
+        green: 125
+        blue: 49
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "A_HAS_xsl_ci"
-    red: 94
-    green: 123
-    blue: 69
+    CreateFormation {
+        name: "A_HAS_xsl_ci"
+        red: 128
+        green: 0.0
+        blue: 0.0
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "A_HAd_kd"
-    red: 186
-    green: 96
-    blue: 242
+    CreateFormation {
+        name: "A_HAd_kd"
+        red: 8
+        green: 78
+        blue: 147
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "A_HAm_cib"
-    red: 204
-    green: 145
-    blue: 220
+    CreateFormation {
+        name: "A_HAm_cib"
+        red: 83
+        green: 130
+        blue: 52
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "A_FOj_xs_b"
-    red: 213
-    green: 105
-    blue: 121
+    CreateFormation {
+        name: "A_FOj_xs_b"
+        red: 127
+        green: 128
+        blue: 0.0
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "A_FO_xo_a"
-    red: 253
-    green: 219
-    blue: 222
+    CreateFormation {
+        name: "A_FO_xo_a"
+        red: 206
+        green: 0.0
+        blue: 205
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "A_FO_od"
-    red: 93
-    green: 248
-    blue: 210
+    CreateFormation {
+        name: "A_FO_od"
+        red: 158
+        green: 33
+        blue: 238
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "A_FOu_bbo"
-    red: 148
-    green: 161
-    blue: 197
+    CreateFormation {
+        name: "A_FOu_bbo"
+        red: 0.0
+        green: 178
+        blue: 238
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "A_FOp_bs"
-    red: 10
-    green: 139
-    blue: 186
+    CreateFormation {
+        name: "A_FOh_xs_f"
+        red: 158
+        green: 33
+        blue: 238
     }
 }
 GeomodellerTask {
-CreateFormation {
-    name: "A_FOo_bbo"
-    red: 142
-    green: 177
-    blue: 71
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_FOh_xs_f"
-    red: 178
-    green: 218
-    blue: 194
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_FOr_b"
-    red: 71
-    green: 189
-    blue: 54
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_mgn_PMI"
-    red: 112
-    green: 204
-    blue: 156
-    }
-}
-GeomodellerTask {
-CreateFormation {
-    name: "A_mgn_PRK"
-    red: 193
-    green: 98
-    blue: 100
+    CreateFormation {
+        name: "A_FOr_b"
+        red: 0.0
+        green: 178
+        blue: 238
     }
 }
 #---------------------------------------------------------------
-#-----------------------Set Stratigraphic Pile------------------
+#------------------Set Stratigraphic Pile-
 #---------------------------------------------------------------
-GeomodellerTask {
-SetSeries {
-    name: "A_mgn_PRK"
-    position: 1
-    relation: "erode"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "A_mgn_PRK"
-    formation: "A_mgn_PRK"
-    }
-}
-GeomodellerTask {
-SetSeries {
-    name: "A_mgn_PMI"
-    position: 1
-    relation: "erode"
-    }
-}
-GeomodellerTask {
-AddFormationToSeries {
-    series: "A_mgn_PMI"
-    formation: "A_mgn_PMI"
-    }
-}
 GeomodellerTask {
 SetSeries {
     name: "Fortescue_Group"
@@ -461,8 +416,13 @@ AddFormationToSeries {
 }
 
 #---------------------------------------------------------------
-#-----------------------Import 3D data ---Base Model------------
+#----------------Import 3D data ---Base Model--
+#  these methods are very compavt and high functioning
+# can create formations and faults, even if not created previously
+# first developed for geology from geophysics tools, Naudy and WormE
+# so dyke networks, and gravity contact/fault networks.
 #---------------------------------------------------------------
+
 GeomodellerTask {
     ReadAndImport3dData {
         contact_csv_file: "./output/contacts_clean.csv"
@@ -473,8 +433,10 @@ GeomodellerTask {
         fault_limit_header_linestoSkip: 1;
         spatial_location_error: 1;
         vertical_location_error: 1;
+        #Treat_Tag_As_Text_Only: true;
     }
 }
+
 #---------------------------------------------------------------
 #--------------------------Save As Model------------------------
 #---------------------------------------------------------------
@@ -484,28 +446,38 @@ GeomodellerTask {
         filename: "./Models_Prelim/Models_UWA.xml"
     }
 }
-
 #---------------------------------------------------------------
 #----------------------------Compute Model----------------------
 #---------------------------------------------------------------
-
 GeomodellerTask {
     ComputeModel {
-        SeriesList {
-            node: "All"
+        FaultList {
+            node: "ALL"
         }
         SectionList {
-            node: "All"
-        }
-        Extents {
-            xmin: 500000
-            ymin: 7455500
-            zmin: -3000
-            xmax: 603000
-            ymax: 7568000
-            zmax: 1000
+            node: "Topography"
         }
         radius: 10.0
+    }
+}
+GeomodellerTask {
+    GetModelSummary {
+        level: 2;
+        filename: "summary.rpt";
+    }
+}
+GeomodellerTask {
+    RenderModel {
+        nx:12;
+        ny:12;
+        nz:12;
+        generateSurfaces: true;
+        generateVolumes: false;
+        topoLimited: true;
+        adaptToTopo: true;
+        buildFormations: false;
+        buildFaults: true;
+        buildDykes: false;
     }
 }
 #---------------------------------------------------------------
@@ -517,12 +489,31 @@ GeomodellerTask {
 #---------------------------------------------------------------
 #--------------------------Export Lithology Voxet---------------
 #---------------------------------------------------------------
+#GeomodellerTask {
+#    SaveLithologyVoxet {
+#        nx: 100
+#        ny: 100
+#        nz: 400
+#        LithologyVoxetFileStub: "./Litho_Voxet/LithoVoxet.vo"
+#    }
+#}
+# Export the 3D shapes (meshes) to a set of files in a directory. No ZIP file in BATCH yet.
 GeomodellerTask {
-    SaveLithologyVoxet {
-        nx: 100
-        ny: 100
-        nz: 400
-        LithologyVoxetFileStub: "./Litho_Voxet/LithoVoxet.vo"
+    Export3DShapes {
+        output_directory: "./ALL_TSURF";
+        file_type: TSURF;
+        mesh_type: SURFACE;
+        log: "export_3d_shapes.rpt";
+    }
+}
+
+GeomodellerTask {
+    Export3DShapes {
+        output_directory: "./Shingle_Creek_TSURF";
+        model_name:  "Shingle_Creek_Group"; # Allow a selection of the formation shapes to write. If none given write them all.
+        file_type: TSURF;
+        mesh_type: SHELL;
+        log: "export_3d_shapes.rpt";
     }
 }
 #---------------------------------------------------------------

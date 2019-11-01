@@ -35,11 +35,15 @@
       <string>A_FO_xo_a</string>
       <string>A_FOh_xs_f</string>
       <string>A_FOj_xs_b</string>
+      <string>A_FOo_bbo</string>
+      <string>A_FOp_bs</string>
       <string>A_FOr_b</string>
       <string>A_FOu_bbo</string>
       <string>A_HAS_xsl_ci</string>
       <string>A_HAd_kd</string>
       <string>A_HAm_cib</string>
+      <string>A_mgn_PMI</string>
+      <string>A_mgn_PRK</string>
       <string>P__HAb_cib</string>
       <string>P__HAj_xci_od</string>
       <string>P__HAo_ci</string>
@@ -101,17 +105,17 @@
       <max>7568000.0</max>
       <__undefined>false</__undefined>
     </__Vrange>
-    <__doLines>false</__doLines>
-    <__doFill>true</__doFill>
+    <__doLines>true</__doLines>
+    <__doFill>false</__doFill>
     <__doTrend>false</__doTrend>
     <__doLimitToTopo>false</__doLimitToTopo>
     <__doTriangles>false</__doTriangles>
     <__doUncert>false</__doUncert>
     <__doTrendWithinSeries>true</__doTrendWithinSeries>
     <__nTrajectories>10</__nTrajectories>
-    <__deselectedFills class="linked-hash-set" id="15"/>
-    <__deselectedFormationLines class="linked-hash-set" id="16"/>
-    <__deselectedFaultLines class="linked-hash-set" id="17"/>
-    <__deselectedTrendSeries class="linked-hash-set" id="18"/>
+    <__deselectedFills class="empty-list"/>
+    <__deselectedFormationLines class="empty-list"/>
+    <__deselectedFaultLines class="empty-list"/>
+    <__deselectedTrendSeries class="empty-list"/>
   </__plotModel>
 </viewers.v2d.Viewer2dState>
