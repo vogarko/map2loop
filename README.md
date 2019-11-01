@@ -23,6 +23,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Formation-level stratigraphic relationships | \*/tmp/\*_groups.csv | m2l_topology. save_units |  1 |
 | Summary strat relationships | \*/tmp/all_sorts.csv or all_sorts_clean.csv| m2l_topology. save_units |  1 |
 | Fault-fault relationship table | \*/output/fault-fault-relationships.csv | Notebook 1 |  1 |
+| Fault-fault relationship graph | \*/output/fault_network.gml | Notebook 1 |  1 |
 | Fault-unit relationship table | \*/output/unit-fault-relationships.csv | Notebook 1 |  1 |
 | Fault-group relationship table | \*/output/group-fault-relationships.csv | Notebook 1 |  1 |
 
@@ -59,10 +60,16 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Interpolated contact vector grid | \*/tmp/interpolation_contacts_scipy_rbf.csv | m2l_interpolation. interpolate_contacts |  1 |
 | Combined interpolation grid | \*/tmp/combo_full.csv | m2l_interpolation. join_contacts_and_orientations |  1 |
 | Pluton contact orientations | \*/output/ign_orientations_\*.csv | Notebook 1 |  1 |
+| Near-Fault strat orientations | \*/output/fault_orientations\*.csv | Notebook 6 |  6 |
 
-  
+##### loop2model:
+| content | filename | created by | example notebook |
+| ----- | ----- | ----- | ----- |
+| LoopStructural | Notebook creates 3D model itself | Notebook 4 |  4 |
+| Geomodeller | m2l.taskfile | Notebook 3 |  3 |
+| Gempy | Notebook creates 3D model itself | Notebook 1 |  1 |
+
 Does not deal with sills yet.  
-Sample code to feed to gempy.  
 <br>
 Standalone map2model cpp code from Vitaliy provides fault/fault and fault/strat relationships   
 
