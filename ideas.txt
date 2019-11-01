@@ -37,10 +37,9 @@ General to do
 52. Extra interpolation helps GemPy, geomodeller not so much
 54. Fix geomodeller notebook (doesn't load properly, plus dead groups from igneous shouldn't be loaded)
 55. Fix Proper gempy notebook (crashes)
-56. Is there a way to feed empty domains? Maybe just add orientation points either side of every fault mid-point, contact points should be OK? 
-57. Get Lachie's notebook for map2LoopStructural
-58. Filter faults, fault relationships on dimensions/throw prior to saving to csv. Add Fault_ to fault names everywhere 
 59. Supergroup lists for structural coherence
+60. Make fault-fault graph to hunt for cycles in DAG and remove shortest one or just remove truncation?
+61. How to ensure contacts are present in all fault domains
 
 
 1. XxxAdd fault dimensions to read me, classify
@@ -63,6 +62,9 @@ General to do
 51. XxxSave out fm level summary thickness stats
 53. XxxRedo groups as simple arrays
 33. XxxRedo groups as clean tables cols = one possible topological sort after transpose
+56. Xxx Is there a way to feed empty domains? Maybe just add orientation points either side of every fault mid-point, contact points should be OK? 
+57. Xxx Get Lachie's notebook for map2LoopStructural
+58. Xxx Filter faults, fault relationships on dimensions/throw prior to saving to csv. Add Fault_ to fault names everywhere 
 
 Mahtab
 1. 3D potential field extrapolation
