@@ -70,22 +70,6 @@
     </geo:TriAxis>
   </geo:Extent3DOfProject>
   <geo:Formations>
-    <geo:Formation Name="A_FO_od">
-      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
-      <geo:Geophysics/>
-      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
-        <geo:ColorShading Blue="198" Green="237" Red="117"/>
-        <geo:ColorWireFrame Blue="198" Green="237" Red="117"/>
-      </geo:Graphic>
-    </geo:Formation>
-    <geo:Formation Name="A_FO_xo_a">
-      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
-      <geo:Geophysics/>
-      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
-        <geo:ColorShading Blue="225" Green="228" Red="255"/>
-        <geo:ColorWireFrame Blue="225" Green="228" Red="255"/>
-      </geo:Graphic>
-    </geo:Formation>
     <geo:Formation Name="A_FOh_xs_f">
       <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
       <geo:Geophysics/>
@@ -260,14 +244,6 @@
       <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
         <geo:ColorShading Blue="47" Green="107" Red="84"/>
         <geo:ColorWireFrame Blue="47" Green="107" Red="84"/>
-      </geo:Graphic>
-    </geo:Formation>
-    <geo:Formation Name="P__WYd_kd">
-      <geo:FormationGeology AbsoluteAge="0" DatingTechnique="0" Description="0" ExtraComment="" Genesis="0" Lithology="" MineralComposition="" StratigraphicAge="" Texture=""/>
-      <geo:Geophysics/>
-      <geo:Graphic LINE_TYPE="0" LINE_WIDTH="1.0" MARKER_SYMBOL="3" MARKER_SYMBOL_SIZE="1" MARKER_SYMBOL_SIZE_DEC="1" ORIENTATION_SCALE="5.0" SURFACE_CONTOUR_DENSITY_U="0" SURFACE_CONTOUR_DENSITY_V="0" SURFACE_RENDERING_MODE="1" SURFACE_TEXTURE_EFFECT="6" SURFACE_TRANSPARENCY="0.0">
-        <geo:ColorShading Blue="205" Green="94" Red="58"/>
-        <geo:ColorWireFrame Blue="205" Green="94" Red="58"/>
       </geo:Graphic>
     </geo:Formation>
     <geo:Formation Name="P__WYm_sp">
@@ -11135,8 +11111,6 @@
         <geo:Data Name="A_FOo_bbo"/>
         <geo:Data Name="A_FOp_bs"/>
         <geo:Data Name="A_FOu_bbo"/>
-        <geo:Data Name="A_FO_od"/>
-        <geo:Data Name="A_FO_xo_a"/>
         <geo:Data Name="A_FOj_xs_b"/>
       </geo:Series>
       <geo:Series isUptodate="false" name="Hamersley_Group" relation="2">
@@ -11159,7 +11133,6 @@
         <geo:Data Name="P__SKq_stq"/>
       </geo:Series>
       <geo:Series isUptodate="false" name="Wyloo_Group" relation="2">
-        <geo:Data Name="P__WYd_kd"/>
         <geo:Data Name="P__WYa_st"/>
         <geo:Data Name="P__WYm_sp"/>
       </geo:Series>
