@@ -1,0 +1,6 @@
+to get geomodeller model to work:
+
+1) load XML
+2) load orientations
+3) Load conatcts
+4) add basement and reverse strat order
