@@ -11117,35 +11117,8 @@
       <geo:ExtentXY Xmax="603000.0" Xmin="500000.0" Ymax="7568000.0" Ymin="7455500.0"/>
       <geo:ExtentZ Zmax="1000.0" Zmin="-3000.0"/>
     </geo:Extent3D>
-    <geo:ModelSections>
-      <geo:Data Name="Topography"/>
-    </geo:ModelSections>
     <geo:ProjectStratigraphicColumn IsBase="true">
-      <geo:Series isUptodate="true" name="Wyloo_Group" relation="2">
-        <geo:Data Name="P__WYd_kd"/>
-        <geo:Data Name="P__WYa_st"/>
-        <geo:Data Name="P__WYm_sp"/>
-      </geo:Series>
-      <geo:Series isUptodate="true" name="Shingle_Creek_Group" relation="2">
-        <geo:Data Name="P__SKb_bb"/>
-        <geo:Data Name="P__SKq_stq"/>
-      </geo:Series>
-      <geo:Series isUptodate="true" name="Turee_Creek_Group" relation="2">
-        <geo:Data Name="P__TK_s"/>
-        <geo:Data Name="P__TKk_sf"/>
-        <geo:Data Name="P__TKo_stq"/>
-        <geo:Data Name="P__TKa_xs_k"/>
-      </geo:Series>
-      <geo:Series isUptodate="true" name="Hamersley_Group" relation="2">
-        <geo:Data Name="A_HAm_cib"/>
-        <geo:Data Name="A_HAd_kd"/>
-        <geo:Data Name="A_HAS_xsl_ci"/>
-        <geo:Data Name="P__HAb_cib"/>
-        <geo:Data Name="P__HAj_xci_od"/>
-        <geo:Data Name="P__HAw_fr"/>
-        <geo:Data Name="P__HAo_ci"/>
-      </geo:Series>
-      <geo:Series isUptodate="true" name="Fortescue_Group" relation="2">
+      <geo:Series isUptodate="false" name="Fortescue_Group" relation="2">
         <geo:Data Name="A_FOr_b"/>
         <geo:Data Name="A_FOh_xs_f"/>
         <geo:Data Name="A_FOo_bbo"/>
@@ -11155,10 +11128,34 @@
         <geo:Data Name="A_FO_xo_a"/>
         <geo:Data Name="A_FOj_xs_b"/>
       </geo:Series>
-      <geo:Series isUptodate="true" name="A_mgn_PMI" relation="2">
+      <geo:Series isUptodate="false" name="Hamersley_Group" relation="2">
+        <geo:Data Name="A_HAm_cib"/>
+        <geo:Data Name="A_HAd_kd"/>
+        <geo:Data Name="A_HAS_xsl_ci"/>
+        <geo:Data Name="P__HAb_cib"/>
+        <geo:Data Name="P__HAj_xci_od"/>
+        <geo:Data Name="P__HAw_fr"/>
+        <geo:Data Name="P__HAo_ci"/>
+      </geo:Series>
+      <geo:Series isUptodate="false" name="Turee_Creek_Group" relation="2">
+        <geo:Data Name="P__TK_s"/>
+        <geo:Data Name="P__TKk_sf"/>
+        <geo:Data Name="P__TKo_stq"/>
+        <geo:Data Name="P__TKa_xs_k"/>
+      </geo:Series>
+      <geo:Series isUptodate="false" name="Shingle_Creek_Group" relation="2">
+        <geo:Data Name="P__SKb_bb"/>
+        <geo:Data Name="P__SKq_stq"/>
+      </geo:Series>
+      <geo:Series isUptodate="false" name="Wyloo_Group" relation="2">
+        <geo:Data Name="P__WYd_kd"/>
+        <geo:Data Name="P__WYa_st"/>
+        <geo:Data Name="P__WYm_sp"/>
+      </geo:Series>
+      <geo:Series isUptodate="false" name="A_mgn_PMI" relation="2">
         <geo:Data Name="A_mgn_PMI"/>
       </geo:Series>
-      <geo:Series isUptodate="true" name="A_mgn_PRK" relation="2">
+      <geo:Series isUptodate="false" name="A_mgn_PRK" relation="2">
         <geo:Data Name="A_mgn_PRK"/>
       </geo:Series>
     </geo:ProjectStratigraphicColumn>
