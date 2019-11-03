@@ -348,7 +348,50 @@ def save_basal_no_faults(path_out,path_fault,ls_dict,dist_buffer,c_l,dst_crs):
     #contacts_nofaults = gpd.read_file('./data/faults_clip.shp')
     print("basal contacts without faults saved as",path_out)
 
-#Remove faults from decimated basal contacts as save as csv file   
+#Save basal contacts from shapefile with decimation
+def save_basal_contacts_csv(contacts,output_path,dtm,contact_decimate):
+    f=open(output_path+'contacts4.csv','w')
+    f.write('X,Y,Z,formation\n')
+    for index,contact in contacts.iterrows():
+        i=0
+        lastx,lasty=-1e7,-1e7
+        first=True
+        if contact.geometry.type == 'MultiLineString':
+            for line in contact.geometry: 
+                if(line.coords[0][0]==lastx and line.coords[0][1]==lasty): #continuation of line
+                    if(m2l_utils.mod_safe(i,contact_decimate)==0 or i==int((len(contact.geometry)-1)/2) or i==len(contact.geometry)-1):
+                        locations=[(line.coords[0][0],line.coords[0][1])]
+                        height=m2l_utils.value_from_raster(dtm,locations)
+                        ostr=str(line.coords[0][0])+','+str(line.coords[0][1])+','+str(height)+','+str(contact.CODE)+'\n'
+                        f.write(ostr)
+                else: #new line
+                    if(not first):
+                        locations=[(lastx,lasty)]
+                        height=m2l_utils.value_from_raster(dtm,locations)                        
+                        ostr=str(lastx)+','+str(lasty)+','+str(height)+','+str(contact.CODE)+'\n'
+                        f.write(ostr)
+                    locations=[(line.coords[0][0],line.coords[0][1])]
+                    height=m2l_utils.value_from_raster(dtm,locations)                        
+                    ostr=str(line.coords[0][0])+','+str(line.coords[0][1])+','+str(height)+','+str(contact.CODE)+'\n'
+                    f.write(ostr)
+                    first=False
+                i=i+1
+                lastx=line.coords[1][0]
+                lasty=line.coords[1][1]
+
+        elif contact.geometry.type == 'LineString':
+            locations=[(contact.geometry.coords[0][0],contact.geometry.coords[0][1])]
+            height=m2l_utils.value_from_raster(dtm,locations)                        
+            ostr=str(contact.geometry.coords[0][0])+','+str(contact.geometry.coords[0][1])+','+str(height)+','+str(contact.CODE)+'\n'
+            f.write(ostr)
+            locations=[(contact.geometry.coords[1][0],contact.geometry.coords[1][1])]
+            height=m2l_utils.value_from_raster(dtm,locations)                        
+            ostr=str(contact.geometry.coords[1][0])+','+str(contact.geometry.coords[1][1])+','+str(height)+','+str(contact.CODE)+'\n'
+            f.write(ostr)
+    f.close()
+    print('decimated contacts saved as',output_path+'contacts4.csv')
+    
+#Remove faults from decimated basal contacts as save as csv file   (superceded by save_basal_contacts_csv)
 def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls_dict_decimate,c_l,dst_crs,dataset):
     faults_clip = gpd.read_file(path_fault)
 
