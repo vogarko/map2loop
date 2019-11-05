@@ -46,8 +46,9 @@ def pairs(lst):
         yield lst[i-1], lst[i]
 
 #get dtm data from Hawaiian SRTM server and save as geotiff
-def get_dtm_hawaii(path_out, minlong,maxlong,minlat,maxlat,step_out):
-
+def get_dtm_hawaii(path_out, minlong,maxlong,minlat,maxlat):
+    
+    step_out=0
     minxll=int(((minlong+180)*120)-step_out)
     maxxll=int(((maxlong+180)*120)+step_out)
     minyll=int(((minlat+90)*120)-step_out)

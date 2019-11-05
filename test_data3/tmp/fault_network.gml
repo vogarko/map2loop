@@ -577,10 +577,6 @@ graph [
     target 58
   ]
   edge [
-    source 58
-    target 57
-  ]
-  edge [
     source 59
     target 60
   ]

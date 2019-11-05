@@ -4,14 +4,14 @@ A package to extract information from geological maps to feed 3D modelling packa
 
 #### What it does:
   
--  Combines information extracted from geology map in various forms to supoprt 3D geological modelling. Outputs are simple csv files that should be readble by any 3D mdoelling system (I think).
+-  Combines information extracted from vector geology maps in various forms to supoprt 3D geological modelling. Outputs are simple csv files that should be readble by any 3D modelling system (I think).
 
 #### Inputs: (example data supplied) 
    
 - Geology Polygons  
 - Fault and fold axial trace PolyLines  
 - Structure measurements (bed dips)
-- Graph from Vitaliy's map2model cpp code 
+- Graphs are created in-code from Vitaliy's map2model cpp code 
   
 #### map2loop outputs:
 ##### Topology:
@@ -47,6 +47,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Pluton contacts with z and formation | \*/output/ign_contacts.csv | Notebook 1 |  1 |
 | Local formation thickness estimates | \*/output/formation_thicknesses_norm.csv and formation_summary_thickness.csv| Notebook 2 |  2 |
 | Fault dimensions | \*/output/fault_dimensions.csv | Notebook 1 |  1 |
+| Fault displacements | \*/output/fault_displacement3.csv | Notebook 6 |  6 |
 
 ##### Orientations:
 
@@ -60,7 +61,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Interpolated contact vector grid | \*/tmp/interpolation_contacts_scipy_rbf.csv | m2l_interpolation. interpolate_contacts |  1 |
 | Combined interpolation grid | \*/tmp/combo_full.csv | m2l_interpolation. join_contacts_and_orientations |  1 |
 | Pluton contact orientations | \*/output/ign_orientations_\*.csv | Notebook 1 |  1 |
-| Near-Fault strat orientations | \*/output/fault_orientations\*.csv | Notebook 6 |  6 |
+| Near-Fault strat orientations | \*/tmp/ex_f_combo_full\*.csv | Notebook 6 |  6 |
 
 ##### loop2model:
 | content | filename | created by | example notebook |
@@ -70,12 +71,12 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Gempy | Notebook creates 3D model itself | Notebook 1 |  1 |
 
 Does not deal with sills yet.  
-<br>
+  
 Standalone map2model cpp code from Vitaliy provides fault/fault and fault/strat relationships   
 
 #### Installation
-For the moment installation uses:<br>
-
+For the moment installation uses:  
+  
 pip install --index-url https://test.pypi.org/simple/ --no-deps map2loop  
 or   
 setup.py install
