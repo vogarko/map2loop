@@ -62,7 +62,7 @@ def get_dtm_hawaii(path_out, minlong,maxlong,minlat,maxlat,step_out):
     maxyll=str(maxyll)
     bbox="["+minyll+":1:"+maxyll+"]["+minxll+":1:"+maxxll+"]"
 
-    link = "http://oos.soest.hawaii.edu/thredds/dodsC/srtm30plus_v11_land.ascii?elev"+bbox
+    link = "https://https://pae-paha.pacioos.hawaii.edu/thredds/dodsC/srtm30plus_v11_land.ascii?elev"+bbox
     print(link)
     f = urlopen(link)
     myfile = f.read()
