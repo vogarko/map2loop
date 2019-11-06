@@ -30,7 +30,7 @@ c_l= {
   "d": "DIP",                  #field that contains dip information
   "dd": "DIP_DIR",             #field that contains dip direction information
   "sf": 'FEATURE',             #field that contains information on type of structure
-  "bedding": 'Bed',            #text to search for in field defined by sfcode to show that this is a bedding measurement
+  "bedding": 'Bed',            #text to search for in field defined by sf code to show that this is a bedding measurement
 #Stratigraphy
   "g": 'GROUP_',               #field that contains coarser stratigraphic coding
   "c": 'CODE',                 #field that contains finer stratigraphic coding
@@ -38,18 +38,19 @@ c_l= {
   "u": 'UNITNAME',             #field that contains alternate stratigraphic coding (not used??)
   "r1": 'ROCKTYPE1',           #field that contains  extra lithology information
   "r2": 'ROCKTYPE2',           #field that contains even more lithology information
-  "sill": 'sill',              #text to search for in field defined by dscode to show that this is a sill
-  "intrusive": 'intrusive',    #text to search for in field defined by dscode to show that this is an intrusion
-  "volcanic": 'volcanic',      #text to search for in field defined by dscode to show that this is an intrusion
+  "sill": 'sill',              #text to search for in field defined by ds code to show that this is a sill
+  "intrusive": 'intrusive',    #text to search for in field defined by ds code to show that this is an intrusion
+  "volcanic": 'volcanic',      #text to search for in field defined by ds code to show that this is an intrusion
 #Timing
   "min": 'MIN_AGE_MA',         #field that contains minimum age of unit defined by ccode
   "max": 'MAX_AGE_MA',         #field that contains maximum age of unit defined by ccode
 #faults and folds
   "f": 'FEATURE',              #field that contains information on type of structure
-  "fault": 'Fault',            #text to search for in field defined by fcode to show that this is a fault
-  "fold": 'Fold axial trace',  #text to search for in field defined by fcode to show that this is a fold axial trace
+  "fault": 'Fault',            #text to search for in field defined by f code to show that this is a fault
+  "fold": 'Fold axial trace',  #text to search for in field defined by f code to show that this is a fold axial trace
   "n": 'NAME',                 #field that contains information on name of fault (not used??)
   "t": 'TYPE',                 #field that contains information on type of fold
+  "syn": 'syncline',           #text to search for in field defined by t to show that this is a syncline
 #ids
   "o": 'OBJECTID',             #field that contains unique id of geometry object
   "gi": 'GEOPNT_ID'            #field that contains unique id of structure point

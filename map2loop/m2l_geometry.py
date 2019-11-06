@@ -764,7 +764,7 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
     print(output_path+'ign_contacts.csv')
     print(output_path+'ign_orientations_'+pluton_form+'.csv')
     
-def tidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
+def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_form):
     contacts=pd.read_csv(output_path+'contacts4.csv',",")
     orientations=pd.read_csv(output_path+'orientations.csv',",")
     invented_orientations=pd.read_csv(output_path+'empty_series_orientations.csv',",")
@@ -773,6 +773,7 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
     intrusive_contacts=pd.read_csv(output_path+'ign_contacts.csv',",")
     fault_contact=pd.read_csv(output_path+'faults.csv',",")
     fault_orientations=pd.read_csv(output_path+'fault_orientations.csv',",")
+    fat_orientations=pd.read_csv(output_path+'fold_axial_trace_orientations2.csv',",")
     all_sorts=pd.read_csv(tmp_path+'all_sorts2.csv',",")
     combo_full_orientations=pd.read_csv(tmp_path+'combo_full.csv',",")
 
@@ -780,6 +781,9 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,pluton_form):
         all_orientations=pd.concat([orientations,invented_orientations,intrusive_orientations,combo_full_orientations.iloc[::2, :]])
     else:
         all_orientations=pd.concat([orientations,invented_orientations,intrusive_orientations])
+
+    if(use_fat):
+        all_orientations=pd.concat([all_orientations,fat_orientations])
         
     all_orientations.reset_index(inplace=True)
 

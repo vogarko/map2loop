@@ -8,10 +8,10 @@ A package to extract information from geological maps to feed 3D modelling packa
 
 #### Inputs: (example data supplied) 
    
-- Geology Polygons  
-- Fault and fold axial trace PolyLines  
+- Geology as Polygons  
+- Fault and fold axial trace as PolyLines  
 - Structure measurements (bed dips)
-- Graphs are created in-code from Vitaliy's map2model cpp code 
+- Graphs are created in-code from Vitaliy's map2model cpp code as Points
   
 #### map2loop outputs:
 ##### Topology:
@@ -62,6 +62,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Combined interpolation grid | \*/tmp/combo_full.csv | m2l_interpolation. join_contacts_and_orientations |  1 |
 | Pluton contact orientations | \*/output/ign_orientations_\*.csv | Notebook 1 |  1 |
 | Near-Fault strat orientations | \*/tmp/ex_f_combo_full\*.csv | Notebook 6 |  6 |
+| Near-Fold Axial Trace strat orientations | \*/tmp/fold_axial_trace_orientations2\*.csv | Notebook 5 |  5 |
 
 ##### loop2model:
 | content | filename | created by | example notebook |

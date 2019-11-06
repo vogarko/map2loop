@@ -7,8 +7,6 @@ General to do
 8. Priors all in one place
 10. Sills. Can be inter or intra. 
 12. Add polarity code to orientations 
-13. Filter faults by size?
-14. Calculate offsets?
 15. Calculate fold wavelengths, amplitudes?
 16. Expose all file names in functions
 18. Labelled list of filenames and paths? or function?
@@ -38,7 +36,8 @@ General to do
 55. Fix Proper gempy notebook (crashes)
 59. Supergroup lists for structural coherence
 63. Redo adjacency matrixes using networkx?
-64. When calculating offset also, for each group, also add orientation. If no change of formation, not sure what to do. 
+64. Spatial density of info a la Alan? MDL's job? Becki? Tom Cartwright
+65. How to use fold axial traces to constrain interpolations: combine azimuth normal of trace; sign of dip from trace plus low dip?
 
 Doneish
 
@@ -69,6 +68,9 @@ Doneish
 60. Xxx Make fault-fault graph to hunt for cycles in DAG and remove shortest one or just remove truncation?
 61. xxx How to ensure contacts are present in all fault domains: decimate poly lines from basal contacts shapefile but what if there are no contacts in a fault block!!
 62. xxx Reverse fault stops
+64. xxx When calculating offset also, for each group, also add orientation. If no change of formation, not sure what to do. 
+13. xxx Filter faults by size?
+14. xxx Calculate offsets?
 
 Mahtab
 1. 3D potential field extrapolation

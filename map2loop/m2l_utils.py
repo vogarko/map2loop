@@ -432,4 +432,8 @@ def pts2dircos(p1x,p1y,p2x,p2y):
     l=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
     m=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))        
     return(l,m)
+
+def ptsdist(p1x,p1y,p2x,p2y):
+    dist=sqrt(pow(p1x-p2x,2)+pow(p1y-p2y,2))
+    return(dist)
     
