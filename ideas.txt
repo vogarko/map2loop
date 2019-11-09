@@ -2,19 +2,28 @@ M2L thoughts
 
 General to do
 
-4. Thickness no faults
+Functionality
+4. Thickness no faults or fold hinges
 5. Thickness no intervening layers and bigger search radius
-8. Priors all in one place
-10. Sills. Can be inter or intra. 
+10. Sills. Can be inter or intra, can have holes!. 
 12. Add polarity code to orientations 
 15. Calculate fold wavelengths, amplitudes?
-16. Expose all file names in functions
+20. Cope with warox naming conventions and add to geoserver
+23. Extended topology to reduce uncertainty (group, intragroup)
+42. Analyse interpolation orientations for structure (saddles, domes, etc))
+43. Erode vs onlap via gp vs gp topology
+45. Use stratigraphic offsets across faults to filter big throw combined with estimated thickness!!
+54. Fix geomodeller notebook (doesn't load properly, plus dead groups from igneous shouldn't be loaded)
+55. Fix Proper gempy notebook (crashes)
+59. Supergroup lists for structural coherence
+64. Spatial density of info a la Alan? MDL's job? Becki? Tom Cartwright
+
+Style
+8. Priors all in one place
+16. Expose all file names in functions?
 18. Labelled list of filenames and paths? or function?
 19. Code/group = formation/series
-20. Cope with warox naming conventions and add to geoserver
 21. Search all warox layers for points and combine
-22. Get all warox layers
-23. Extended topology to reduce uncertainty (group, intragroup)
 27. Analysis folder (interpolations, thickness etc)?
 28. Clip/shp folder? Clipped and basal strat files
 29. Rename combo_full
@@ -23,21 +32,19 @@ General to do
 34. Why is combo saved?
 35. Read_raster and read_vector wrappers
 36. Save row of csv wrapper or just make lists? Ostr 
-37. Interpolate using contacts and points outside box?
 38. Documentation!!
+48. Templates for specific databases or map sets: URI; field names; field values; dictionaries
+63. Redo adjacency matrixes using networkx?
+
+Data
+22. Get all warox layers
+37. Interpolate using contacts and points outside box?
+
+Concepts
 40. Topology as falsifier. Pluton vs fault example
 41. Clever: topology. Contact interpolation. Basal contacts. Thickness maps. Tidy. 
-42. Analyse interpolation orientations for structure (saddles, domes, etc))
-43. Erode vs onlap via gp vs gp topology
-45. Use stratigraphic offsets across faults to filter big throw combined with estimated thickness!!
-48. Templates for specific databases or map sets: URI; field names; field values; dictionaries
 52. Extra interpolation helps GemPy, geomodeller not so much
-54. Fix geomodeller notebook (doesn't load properly, plus dead groups from igneous shouldn't be loaded)
-55. Fix Proper gempy notebook (crashes)
-59. Supergroup lists for structural coherence
-63. Redo adjacency matrixes using networkx?
-64. Spatial density of info a la Alan? MDL's job? Becki? Tom Cartwright
-65. How to use fold axial traces to constrain interpolations: combine azimuth normal of trace; sign of dip from trace plus low dip?
+
 
 Doneish
 
@@ -71,6 +78,7 @@ Doneish
 64. xxx When calculating offset also, for each group, also add orientation. If no change of formation, not sure what to do. 
 13. xxx Filter faults by size?
 14. xxx Calculate offsets?
+65. xxx How to use fold axial traces to constrain interpolations: combine azimuth normal of trace; sign of dip from trace plus low dip?
 
 Mahtab
 1. 3D potential field extrapolation
@@ -177,7 +185,7 @@ DECRA: what data for all this?
 
 Full MinEx:
 
-Life-of-Project Performance Target for Project 6: Reduce to one week the time taken from receiving data to constructing probabilistic models at the mine scale. 
+Life-of-Project Performance Target for Project 6: Reduce to one week the time taken from receiving data to constructing probabilistic models. 
 
 Status: We can make a first-pass model now in 10 minutes, without code optimisation. We have 6 days, 23 hours and 50 minutes worth of computation time and 8 years of development time to improve our models and still meet our time target. 
 
