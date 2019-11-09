@@ -8,21 +8,28 @@ import rasterio
 from rasterio.warp import calculate_default_transform, reproject, Resampling
 from rasterio.transform import from_origin
 from rasterio import features
-import re
+import re    #typo? check
 from urllib.request import urlopen
 from IPython.display import Image
 from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow
 from owslib.wcs import WebCoverageService
 from osgeo import gdal
 
+############################################
+# output version number
+############################################
 def v():
     print('0.0.46')
     
-#first test
+############################################
+# first test
+############################################
 def hw():
     print("Hello world")
 
-#calculate mod with 0 meaning no mod
+############################################
+# calculate mod with 0 meaning no mod
+############################################
 def mod_safe(a,b):
     
     if(b==0):
@@ -30,7 +37,9 @@ def mod_safe(a,b):
     else:
         return(a%b)
         
+############################################
 # get value froma rasterio raster at location x,y (real world coords)
+############################################
 def value_from_raster(dataset,locations):
     #print(locations[0][0],locations[0][1],dataset.bounds[0],dataset.bounds[1],dataset.bounds[2],dataset.bounds[3])
     if(locations[0][0] > dataset.bounds[0] and locations[0][0] < dataset.bounds[2] and  
@@ -41,11 +50,16 @@ def value_from_raster(dataset,locations):
     else:
         return(-999)
 
+############################################
+# turn a simple list into a list of paired data
+############################################
 def pairs(lst):
     for i in range(1, len(lst)):
         yield lst[i-1], lst[i]
 
+############################################
 #get dtm data from Hawaiian SRTM server and save as geotiff
+############################################
 def get_dtm_hawaii(path_out, minlong,maxlong,minlat,maxlat):
     
     step_out=0
@@ -100,7 +114,9 @@ def get_dtm_hawaii(path_out, minlong,maxlong,minlat,maxlat):
     new_dataset.close()
     print("dtm geotif saved as",path_out)
 
+############################################
 #get dtm data from GA SRTM server and save as geotiff
+############################################
 def get_dtm(path_out, minlong,maxlong,minlat,maxlat):
 
 
@@ -116,7 +132,9 @@ def get_dtm(path_out, minlong,maxlong,minlat,maxlat):
     f.close()
     print("dtm geotif saved as",path_out)
     
+############################################
 #reproject a dtm 
+############################################
 def reproject_dtm(path_in,path_out,src_crs,dst_crs):
     with rasterio.open(path_in) as src:
         transform, width, height = calculate_default_transform(
@@ -143,7 +161,9 @@ def reproject_dtm(path_in,path_out,src_crs,dst_crs):
                     
     print("reprojected dtm geotif saved as",path_out)
 
-#get bounds of a dtm
+############################################
+# get bounds of a dtm
+############################################
 def get_dtm_bounds(path_in,dst_crs):            
     with rasterio.open(path_in) as dataset:
 
@@ -160,10 +180,10 @@ def get_dtm_bounds(path_in,dst_crs):
                 # Print GeoJSON shapes to stdout.
                 #print(geom_rp)
                 return(geom_rp)
-
-#https://gist.github.com/mhweber/cf36bb4e09df9deee5eb54dc6be74d26
-#code to explode a MultiPolygon to Polygons    
-
+############################################
+# https://gist.github.com/mhweber/cf36bb4e09df9deee5eb54dc6be74d26
+# code to explode a MultiPolygon to Polygons    
+############################################
 def explode(indf):
 #    indf = gpd.GeoDataFrame.from_file(indata)
     outdf = gpd.GeoDataFrame(columns=indf.columns)
@@ -304,6 +324,9 @@ def _clip_multi_poly_line(shp, clip_obj):
         pd.concat([poly_diss, line_diss], ignore_index=True)
     )
 
+####################################################
+# master function to clip shapely geometry to a shapely polygon
+####################################################
 def clip_shp(shp, clip_obj):
     """Clip points, lines, or polygon geometries to the clip_obj extent.
     Both layers must be in the same Coordinate Reference System (CRS) and will
@@ -378,6 +401,9 @@ def clip_shp(shp, clip_obj):
     else:
         return _clip_line_poly(shp, clip_obj)
 
+####################################################
+# convert rectangle to shapefile
+####################################################
 def save_clip_to_bbox(path,geom,minx,maxx,miny,maxy,dst_crs):
     y_point_list = [miny, miny, maxy, maxy, miny]
     x_point_list = [minx, maxx, maxx, minx, minx]
@@ -394,6 +420,9 @@ try:
 except:
     import http.client as httplib
 
+####################################################
+# determine if http access is available for a URL
+####################################################
 def have_access(url):
     conn = httplib.HTTPConnection(url, timeout=5)
     try:
@@ -408,11 +437,18 @@ def have_access(url):
         print("NOT available: "+url)
         return(False)
 
+####################################################
+# calculate 3D direction cosines from dip, dipdirection
+####################################################
+
 def ddd2dircos(dip,dipdir):
     l = sin(radians(dipdir))*cos(radians(90-dip))
     m = cos(radians(dipdir))*cos(radians(90-dip))
     n = sin(radians(90-dip))
     return(l,m,n)
+####################################################
+# calculate dip, dipdirection from 3D direction cosines
+####################################################
 
 def dircos2ddd(l,m,n):
     if(m>0):
@@ -423,7 +459,11 @@ def dircos2ddd(l,m,n):
         dipdir=90
     dip =90-degrees(asin(n))
     return(dip,dipdir)
-
+    
+####################################################
+# Calulate 2D direction cosines from two points
+####################################################
+    
 def pts2dircos(p1x,p1y,p2x,p2y):
     dlsx=p1x-p2x
     dlsy=p1y-p2y
@@ -432,7 +472,10 @@ def pts2dircos(p1x,p1y,p2x,p2y):
     l=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
     m=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))        
     return(l,m)
-
+####################################################
+# calculate distance between two points
+# duplicated in m2l_geometry, don't know why!
+####################################################
 def ptsdist(p1x,p1y,p2x,p2y):
     dist=sqrt(pow(p1x-p2x,2)+pow(p1y-p2y,2))
     return(dist)

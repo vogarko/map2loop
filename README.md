@@ -18,14 +18,14 @@ A package to extract information from geological maps to feed 3D modelling packa
 
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
-| Various topology graphs  | \*/graph/\*.gml | map2model cpp code in Notebook 1 |  1 |
+| Various stratigraphic topology graphs  | \*/graph/\*.gml | map2model cpp code in Notebook 1 |  1 |
 | Group-level stratigraphic relationships | \*/tmp/groups.csv | m2l_topology. save_group |  1 |
 | Formation-level stratigraphic relationships | \*/tmp/\*_groups.csv | m2l_topology. save_units |  1 |
 | Summary strat relationships | \*/tmp/all_sorts.csv or all_sorts_clean.csv| m2l_topology. save_units |  1 |
-| Fault-fault relationship table | \*/output/fault-fault-relationships.csv | Notebook 1 |  1 |
-| Fault-fault relationship graph | \*/output/fault_network.gml | Notebook 1 |  1 |
-| Fault-unit relationship table | \*/output/unit-fault-relationships.csv | Notebook 1 |  1 |
-| Fault-group relationship table | \*/output/group-fault-relationships.csv | Notebook 1 |  1 |
+| Fault-fault relationship table | \*/output/fault-fault-relationships.csv | m2l_topology. parse_fault_relationships |  1 |
+| Fault-fault relationship graph | \*/output/fault_network.gml | m2l_topology. parse_fault_relationships |  1 |
+| Fault-unit relationship table | \*/output/unit-fault-relationships.csv | m2l_topology. parse_fault_relationships |  1 |
+| Fault-group relationship table | \*/output/group-fault-relationships.csv | m2l_topology. parse_fault_relationships |  1 |
 
 ##### Digital Terrain Model:
 
@@ -44,9 +44,9 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Clipped geology map shapefile | \*/tmp/geol_clip.shp | Notebook 1 |  1 |
 | Clipped fault & fold axial traces shapefile  | \*/tmp/faults_clip.shp | Notebook 1 |  1 |
 | Basic vtk model thanks to gempy  | \*/vtk/\*.vtp | gempy |  1 |
-| Pluton contacts with z and formation | \*/output/ign_contacts.csv | Notebook 1 |  1 |
-| Local formation thickness estimates | \*/output/formation_thicknesses_norm.csv and formation_summary_thickness.csv| Notebook 2 |  2 |
-| Fault dimensions | \*/output/fault_dimensions.csv | Notebook 1 |  1 |
+| Pluton contacts with z and formation | \*/output/ign_contacts.csv | m2l_geometry. process_plutons |  1 |
+| Local formation thickness estimates | \*/output/formation_thicknesses_norm.csv and formation_summary_thickness.csv| m2l_geometry. calc_thickness and normalise_thickness|  2 |
+| Fault dimensions | \*/output/fault_dimensions.csv | m2l_geometry. save_faults |  1 |
 | Fault displacements | \*/output/fault_displacement3.csv | Notebook 6 |  6 |
 
 ##### Orientations:
@@ -60,9 +60,9 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Interpolated dip dip direction grid | \*/tmp/interpolation_scipy_rbf.csv | m2l_interpolation. interpolate_orientations |  1 |
 | Interpolated contact vector grid | \*/tmp/interpolation_contacts_scipy_rbf.csv | m2l_interpolation. interpolate_contacts |  1 |
 | Combined interpolation grid | \*/tmp/combo_full.csv | m2l_interpolation. join_contacts_and_orientations |  1 |
-| Pluton contact orientations | \*/output/ign_orientations_\*.csv | Notebook 1 |  1 |
+| Pluton contact orientations | \*/output/ign_orientations_\*.csv | m2l_geometry. process_plutons |  1 |
 | Near-Fault strat orientations | \*/tmp/ex_f_combo_full\*.csv | Notebook 6 |  6 |
-| Near-Fold Axial Trace strat orientations | \*/output/fold_axial_trace_orientations2\*.csv | Notebook 5 |  5 |
+| Near-Fold Axial Trace strat orientations | \*/output/fold_axial_trace_orientations2\*.csv | m2l_geometry. save_fold_axial_traces_orientations |  5 |
 
 ##### loop2model:
 | content | filename | created by | example notebook |

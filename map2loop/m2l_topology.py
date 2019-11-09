@@ -6,7 +6,9 @@ import numpy as np
 import functools 
 import operator  
 
-#parse stratigraphy GML file to get number of series and series names
+####################################
+# parse stratigraphy GML file to get number of series and series names
+####################################
 def get_series(path_in,id_label):
     G=nx.read_gml(path_in,label=id_label) # load a stratigraphy with groups needs to feed via yed!!
 
@@ -19,7 +21,9 @@ def get_series(path_in,id_label):
             glabels[n]=G.nodes[n]['LabelGraphics']['text'].replace(" ","_").replace("-","_")
     return(groups,glabels,G)
 
-#parse stratigraphy GML file to save units for each series
+####################################
+# parse stratigraphy GML file to save units for each series
+####################################
 def save_units(G,path_out,glabels):
     for p in glabels: #process each group, removing nodes that are not part of that group, and other groups
         GD=G.copy() #temporary copy of full graph
@@ -66,7 +70,9 @@ def save_units(G,path_out,glabels):
 
 
 
-#save out a list of max/min/ave ages of all formations in a group
+####################################
+# save out a list of max/min/ave ages of all formations in a group
+####################################
 def abs_age_groups(geol,tmp_path,c_l):
     groups=[]
     info=[]
@@ -109,7 +115,10 @@ def abs_age_groups(geol,tmp_path,c_l):
     for j in range(0,len(slist)):
         f.write(str(j)+','+slist[j][0]+','+str(slist[j][1])+','+str(slist[j][2])+','+str(slist[j][3])+'\n')
     f.close()
-    
+
+####################################
+# save out tables of groups and sorted formation data
+#################################### 
 def save_group(G,path_out,glabels,geol,c_l):
     Gp=nx.Graph().to_directed() #New Group graph
     
@@ -211,6 +220,9 @@ def save_group(G,path_out,glabels,geol,c_l):
             
     ag.close()
 
+####################################
+# save out fault fault relationship information as array
+####################################
 def parse_fault_relationships(graph_path,tmp_path,output_path):
     uf=open(graph_path+'unit-fault-intersection.txt','r')
     contents =uf.readlines()
@@ -360,144 +372,9 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
     except:
         print('no cycles')
 
-def yyyparse_fault_relationships(graph_path,tmp_path,output_path):
-    uf=open(graph_path+'unit-fault-intersection.txt','r')
-    contents =uf.readlines()
-    uf.close()
-    
-    all_long_faults=np.genfromtxt(output_path+'fault_dimensions.csv',delimiter=',',dtype='U25')
-    n_faults=len(all_long_faults)
-    #print(n_faults)
-    all_faults={}
-    unique_list = [] 
-    #display(unique_list)
-    for i in range(1,n_faults):
-        f=all_long_faults[i][0]
-        #print(all_long_faults[i][0])
-        if f not in unique_list: 
-            unique_list.append(f.replace("Fault_","")) 
-    
-    #display('Long Faults',unique_list)
-    
-    uf=open(output_path+'unit-fault-relationships.csv','w')
-    uf.write('code,'+str(unique_list).replace("[","Fault_").replace(",",",Fault_").replace("'","").replace("]","").replace(" ","")+'\n')
-    for row in contents:
-        row=row.replace("\n","").split("{")
-        unit=row[0].split(',')
-        faults=row[1].replace("}","").replace(" ","").split(",")
-        ostr=str(unit[1]).strip().replace(" ","_").replace("-","_")
-        for ul in unique_list:
-            out=[item for item in faults if ul in item]
-            if(len(out)>0 ):
-                ostr=ostr+",1"
-            else:
-                ostr=ostr+",0" 
-        uf.write(ostr+"\n")
-    uf.close()
-
-    summary=pd.read_csv(tmp_path+'all_sorts_clean.csv')
-    summary.set_index("code", inplace=True)
-    #display('summary',summary)
-    uf_rel=pd.read_csv(output_path+'unit-fault-relationships.csv')
-
-    groups=summary.group.unique()
-    ngroups=len(summary.group.unique())
-    print(ngroups,'groups',groups,groups[0])
-    uf_array=uf_rel.to_numpy()
-    gf_array=np.zeros((ngroups,uf_array.shape[1]),dtype='U25')
-
-    for i in range(0,ngroups):
-        for j in range(0,len(uf_rel)):
-            if(uf_rel.iloc[j][0] in summary.index.values):
-                gsummary=summary.loc[uf_rel.iloc[j][0]]
-                if(groups[i].replace("\n","")==gsummary['group']):
-                    for k in range(1,len(uf_rel.iloc[j])):
-                        if(uf_rel.iloc[j][k]==1):
-                            gf_array[i-1,k]='1'
-                        else:
-                            continue
-                else:
-                    continue
-            else:
-                continue
-
-    ug=open(output_path+'group-fault-relationships.csv','w')
-    ug.write('group')
-    for k in range(1,len(uf_rel.iloc[0])):
-        ug.write(','+uf_rel.columns[k])
-    ug.write("\n")
-    for i in range(0,ngroups):
-        ug.write(groups[i].replace("\n",""))
-        for k in range(1,len(uf_rel.iloc[0])):
-            if(gf_array[i-1,k]=='1'):
-                ug.write(',1')
-            else:
-                ug.write(',0')
-        ug.write("\n")
-
-    ug.close()
-    
-    uf=open(graph_path+'fault-fault-intersection.txt','r')
-    contents =uf.readlines()
-    uf.close()
-
-    unique_list_ff = [] 
-
-    for row in contents:
-        row=row.replace("\n","").split("{")
-        fault_1o=row[0].split(',')
-        fault_1o='Fault_'+fault_1o[1]
-        
-        faults_2o=row[1].replace("(","").replace(")","").replace("}","").split(",")
-
-        if ((fault_1o.replace(" ","") not in unique_list_ff) and (fault_1o.replace(" ","") in unique_list)) : 
-                unique_list_ff.append('Fault_'+fault_1o.replace(" ","")) 
-        for i in range (0,len(faults_2o),3):
-            if ((faults_2o[i].replace(" ","") not in unique_list_ff) and ('Fault_'+faults_2o[i].replace(" ","") in unique_list)): 
-                    unique_list_ff.append('Fault_'+faults_2o[i].replace(" ","")) 
-    #display(unique_list) 
-
-    ff=open(output_path+'fault-fault-relationships.csv','w')
-    ff.write('fault_id')
-    for i in range (0,len(unique_list_ff)):
-        ff.write(','+unique_list_ff[i])
-    ff.write('\n')
-
-    for i in range(0,len(unique_list_ff)): #loop thorugh rows
-        ff.write(unique_list_ff[i]) 
-        found=False
-        #for j in range(0,len(unique_list)):
-        for row in contents: #loop thorugh known intersections
-            row=row.replace("\n","").split("{")
-            fault_1o=row[0].split(',')
-            fault_1o='Fault_'+fault_1o[1]
-            faults_2o=row[1].replace("(","").replace(")","").replace("}","").split(",")
-
-            if(unique_list_ff[i].replace(" ","")==fault_1o.replace(" ","")): #correct first order fault for this row
-                found=True
-                for k in range(0,len(unique_list_ff)): #loop through columns
-                    found2=False
-                    if(k==i): # no self intersections
-                        ff.write(',0')
-                    else:
-                        for f2o in range (0,len(faults_2o),3): #loop through second order faults for this row
-                            if ('Fault_'+faults_2o[f2o].replace(" ","")==unique_list_ff[k].replace(" ","")):
-                                ff.write(',1')
-                                found2=True
-                                break
-
-                    if(not found2 and k!=i):
-                        ff.write(',0') #this is not a second order fault for this row
-            if(found):
-                break
-        if(not found): #this fault is not a first order fault relative to another fault
-            for i in range (0,len(unique_list_ff)):
-                ff.write(',0')
-
-        ff.write('\n')
-
-    ff.close()
-
+####################################
+# save out geology polygons in WKT format
+####################################
 def save_geol_wkt(sub_geol,geology_file_csv,c_l):
     #print(sub_geol,geology_file_csv,ocode,gcode,mincode,maxcode,ccode,r1code,r2code,dscode,ucode)
     f= open(geology_file_csv,"w+")
@@ -519,6 +396,9 @@ def save_geol_wkt(sub_geol,geology_file_csv,c_l):
         f.write("\""+str(sub_geol.loc[i][c_l['ds']])+"\"\n")
     f.close()
         
+####################################
+# save out orientation points in WKT format
+####################################
 def save_structure_wkt(sub_pts,structure_file_csv,c_l):
     f= open(structure_file_csv,"w+")
     f.write('WKT\t'+c_l['gi']+'\t'+c_l['d']+'\t'+c_l['dd']+'\n')
@@ -538,6 +418,9 @@ def save_structure_wkt(sub_pts,structure_file_csv,c_l):
         
     f.close()
     
+####################################
+# save out fault polylines in WKT format
+####################################
 def save_faults_wkt(sub_lines,fault_file_csv,c_l):
     f= open(fault_file_csv,"w+")
     f.write('WKT\t'+c_l['o']+'\t'+c_l['f']+'\n')
@@ -552,6 +435,9 @@ def save_faults_wkt(sub_lines,fault_file_csv,c_l):
         
     f.close()
 
+####################################
+# create map2model c++ code input file
+####################################
 def save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,structure_file_csv,minx,maxx,miny,maxy):
     f=open(m2m_cpp_path+'Parfile','w')
     f.write('--- COLUMN NAMES IN CSV DATA FILES: -------------------------------------------------------------\n')

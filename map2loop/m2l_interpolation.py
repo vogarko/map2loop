@@ -13,8 +13,10 @@ from shapely.geometry import Point
 from map2loop import m2l_utils
 import rasterio
 
-#inspired by https://stackoverflow.com/questions/3104781/inverse-distance-weighted-idw-interpolation-with-python
-
+######################################
+# inspired by https://stackoverflow.com/questions/3104781/inverse-distance-weighted-idw-interpolation-with-python
+# simple Inverse Distance Weighting calculation
+######################################
 def simple_idw(x, y, z, xi, yi):
     dist = distance_matrix(x,y, xi,yi)
 
@@ -28,34 +30,49 @@ def simple_idw(x, y, z, xi, yi):
     zi = np.dot(weights.T, z)
     return zi
 
+######################################
+# call scipy inverse distance weighting
+######################################
+
 def scipy_idw(x, y, z, xi, yi):
     interp = Rbf(x, y, z, function='linear')
     return interp(xi, yi)
 
+######################################
+# call scipy Radial basis function interpolation
+######################################
 def scipy_rbf(x, y, z, xi, yi):
     interp = Rbf(x, y, z, epsilon=1)
     return interp(xi, yi)
 
+######################################
+# calculate all distances between to arrays of points
+    # Make a distance matrix between pairwise observations
+    # Note: from <http://stackoverflow.com/questions/1871536>
+    # (Yay for ufuncs!)
+######################################
 def distance_matrix(x0, y0, x1, y1):
     obs = np.vstack((x0, y0)).T
     interp = np.vstack((x1, y1)).T
 
-    # Make a distance matrix between pairwise observations
-    # Note: from <http://stackoverflow.com/questions/1871536>
-    # (Yay for ufuncs!)
     d0 = np.subtract.outer(obs[:,0], interp[:,0])
     d1 = np.subtract.outer(obs[:,1], interp[:,1])
 
     return np.hypot(d0, d1)
 
-
+######################################
+# plot an array of data
+######################################
 def plot(x,y,z,grid):
     plt.figure()
     plt.imshow(grid, extent=(0,100,0,100))
     #plt.hold(True)
     #plt.scatter(x,100-y,c=z)
     plt.colorbar()
-    
+
+######################################
+# interpolate three data arrays using various schemes
+######################################
 def call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny):
     # Calculate IDW or other interpolators
 
@@ -96,7 +113,10 @@ def call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny):
         ZIn=0
         
     return(ZIl,ZIm,ZIn)
-     
+    
+######################################
+# Interpolate dipd,dipdirection data from shapefile     
+######################################
 def interpolate_orientations(structure_file,output_path,bbox,c_l,this_gcode,calc,gridx,gridy):
     structure = gpd.read_file(structure_file,bbox=bbox)
     
@@ -209,6 +229,9 @@ def interpolate_orientations(structure_file,output_path,bbox,c_l,this_gcode,calc
     print("orientations interpolated as dip dip direction",output_path+'interpolation_'+calc+'.csv')
     print("orientations interpolated as l,m,n dir cos",output_path+'interpolation_l.csv etc.')
 
+######################################
+# Interpolate 2D contact data from shapefile     
+######################################
 def interpolate_contacts(geology_file,output_path,dtm,bbox,c_l,use_gcode,calc,gridx,gridy):
     geol_file = gpd.read_file(geology_file,bbox=bbox)
     print(len(geol_file))
@@ -332,6 +355,9 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,c_l,use_gcode,calc,gr
     print("contacts interpolated as strike",output_path+'interpolation_contacts_'+calc+'.csv')
     print("contacts interpolated as l,m dir cos",output_path+'interpolation_contacts_l.csv etc.')
 
+######################################
+# save all contacts as vectors
+######################################
 def save_contact_vectors(geology_file,tmp_path,dtm,bbox,c_l,calc,decimate):
     geol_file = gpd.read_file(geology_file,bbox=bbox)
     print(len(geol_file))
@@ -405,7 +431,9 @@ def save_contact_vectors(geology_file,tmp_path,dtm,bbox,c_l,calc,decimate):
     print(npts,'points saved to',tmp_path+'raw_contacts.csv')
 
 
-    
+####################################
+# combine interpolated contact information (to provide l,m with interpolated dip,dipdirection data (to provide n) 
+####################################    
 def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_reproj_file,c_l,lo,mo,no,lc,mc,xy,dst_crs,bbox):
     f=open(combo_file,'w')
     f.write('x,y,dip,dipdirection,misorientation,dotproduct\n')
