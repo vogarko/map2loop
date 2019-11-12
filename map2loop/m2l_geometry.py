@@ -442,7 +442,7 @@ def save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decimate,f
                 height=m2l_utils.value_from_raster(dataset,locations)
                 ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+",90,1,"+fault_name+"\n"
                 fo.write(ostr)
-                ostr=fault_name+","+str(strike)+","+str(strike)+","+str(strike/2.0)+"\n"
+                ostr=fault_name+","+str(strike/2)+","+str(strike/2)+","+str(strike/4.0)+"\n"
                 fd.write(ostr)
 
     f.close()
@@ -709,6 +709,132 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
     print('pluton contacts and orientations saved as:')
     print(output_path+'ign_contacts.csv')
     print(output_path+'ign_orientations_'+pluton_form+'.csv')
+
+######################################
+# Interpolate dipd,dipdirection data from shapefile usin fold axial traces as additional constraints     
+######################################
+def interpolate_orientations_with_fat(structure_file,output_path,bbox,c_l,this_gcode,calc,gridx,gridy):
+    structure = gpd.read_file(structure_file,bbox=bbox)
+    fat_orientations=pd.read_csv(output_path+'fold_axial_trace_orientations2.csv',",")
+    
+    
+    
+    if(len(this_gcode)==1):       
+        is_gp=structure[c_l['g']] == thisgcode # subset orientations to just those with this group
+        gp_structure = structure[is_gp]
+        print('single group')
+        display(gp_structure)
+    else:
+        print('first code',this_gcode[0])
+        is_gp=structure[c_l['g']] == this_gcode[0] # subset orientations to just those with this group
+        gp_structure = structure[is_gp]
+        gp_structure_all = gp_structure.copy()
+        print('first group')
+        display(gp_structure)
+
+        for i in range (1,len(this_gcode)):
+            print('next code',this_gcode[i])
+            is_gp=structure[c_l['g']] == this_gcode[i] # subset orientations to just those with this group
+            temp_gp_structure = structure[is_gp]
+            gp_structure_all = pd.concat([gp_structure_all, temp_gp_structure], ignore_index=True)
+            print('next group')
+            display(gp_structure)
+
+    npts = len(gp_structure_all)+len(fat_orientations)
+    
+    nx, ny = gridx,gridy
+
+    xi = np.linspace(bbox[0],bbox[2], nx)
+    yi = np.linspace(bbox[1],bbox[3], ny)
+    xi, yi = np.meshgrid(xi, yi)
+    xi, yi = xi.flatten(), yi.flatten()
+    x = np.zeros(npts)
+    y = np.zeros(npts)
+    dip = np.zeros(npts)
+    dipdir = np.zeros(npts)
+    
+    i=0
+    for a_pt in gp_structure_all.iterrows():
+        x[i]=a_pt[1]['geometry'].x
+        y[i]=a_pt[1]['geometry'].y
+        dip[i] = a_pt[1][c_l['d']]
+        dipdir[i] = a_pt[1][c_l['dd']]
+        i=i+1
+
+    for a_pt in fat_orientations.iterrows():
+        x[i]=a_pt[1]['X']
+        y[i]=a_pt[1]['Y']
+        dip[i] = a_pt[1]['dip']
+        dipdir[i] = a_pt[1]['azimuth']
+        i=i+1
+    
+    l=np.zeros(npts)
+    m=np.zeros(npts)
+    n=np.zeros(npts)
+    
+    for i in range(0,npts):
+        l[i],m[i],n[i]=m2l_utils.ddd2dircos(dip[i],dipdir[i])
+
+    ZIl,ZIm,ZIn=call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny)
+    
+    # Comparisons...
+    plot(x,-y,l,ZIl)
+    plt.title('l')
+    plot(x,-y,m,ZIm)
+    plt.title('m')
+    plot(x,-y,n,ZIn)
+    plt.title('n')
+    
+    plt.show()
+    
+    f=open(output_path+'input.csv','w')
+    fi=open(output_path+'interpolation_'+calc+'.csv','w')
+    fl=open(output_path+'interpolation_l.csv','w')
+    fm=open(output_path+'interpolation_m.csv','w')
+    fn=open(output_path+'interpolation_n.csv','w')
+    
+    f.write("x,y,dip,dipdirection\n")
+    fi.write("x,y,dip,dipdirection\n")
+    fl.write("x,y,l\n")
+    fm.write("x,y,m\n")
+    fn.write("x,y,n\n")
+    
+    for i in range (0,npts):
+        ostr=str(x[i])+","+str(y[i])+","+str(int(dip[i]))+","+str(int(dipdir[i]))+'\n'
+        f.write(ostr)
+    
+    for xx in range (0,gridx):
+        for yy in range (0,gridy):
+            yyy=xx
+            xxx=gridy-2-yy
+            L=ZIl[xxx,yyy]/(sqrt((pow(ZIl[xxx,yyy],2.0))+(pow(ZIm[xxx,yyy],2.0))+(pow(ZIn[xxx,yyy],2.0))))
+            M=ZIm[xxx,yyy]/(sqrt((pow(ZIl[xxx,yyy],2.0))+(pow(ZIm[xxx,yyy],2.0))+(pow(ZIn[xxx,yyy],2.0))))
+            N=ZIn[xxx,yyy]/(sqrt((pow(ZIl[xxx,yyy],2.0))+(pow(ZIm[xxx,yyy],2.0))+(pow(ZIn[xxx,yyy],2.0))))
+            
+            dip,dipdir=m2l_utils.dircos2ddd(L,M,N)
+
+            ostr=str(bbox[0]+(xx*((bbox[2]-bbox[0])/gridx)))+","+str(bbox[1]+((gridy-1-yy)*((bbox[3]-bbox[1])/gridy)))+","+str(int(dip))+","+str(int(dipdir))+'\n'
+            fi.write(ostr)
+            
+            ostr=str(xx)+","+str(yy)+","+str(L)+'\n'
+            fl.write(ostr)
+            ostr=str(xx)+","+str(yy)+","+str(M)+'\n'
+            fm.write(ostr)
+            ostr=str(xx)+","+str(yy)+","+str(N)+'\n'
+            fn.write(ostr)
+    
+    f.close()
+    fi.close()
+    fl.close()
+    fm.close()
+    fn.close()
+    
+    fig, ax = plt.subplots(figsize=(10, 10),)
+    q = ax.quiver(xi, yi, -ZIm, ZIl,headwidth=0)
+    plt.show()
+    print("orientations interpolated as dip dip direction",output_path+'interpolation_'+calc+'.csv')
+    print("orientations interpolated as l,m,n dir cos",output_path+'interpolation_l.csv etc.')
+
 
 ###################################
 # Remove orientations that don't belong to actual formations in mode
@@ -1054,7 +1180,7 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dataset,
     geology = gpd.read_file(tmp_path+'geol_clip.shp')
     contacts=np.genfromtxt(tmp_path+'interpolation_contacts_scipy_rbf.csv',delimiter=',',dtype='float')
     f=open(output_path+'fold_axial_trace_orientations2.csv','w')
-    f.write('X,Y,Z,azimuth,dip,polarity,formation\n')
+    f.write('X,Y,Z,azimuth,dip,polarity,formation,group\n')
     folds_clip=gpd.read_file(path_folds,)
     fo=open(output_path+'fold_axial_traces.csv',"w")
     fo.write("X,Y,Z,code,type\n")
@@ -1104,7 +1230,7 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dataset,
                             if(not str(structure_code.iloc[0]['CODE'])=='nan'):
                                 locations=[(midxr,midyr)]                  
                                 height=m2l_utils.value_from_raster(dataset,locations)
-                                ostr=str(midxr)+','+str(midyr)+','+str(height)+','+str(dipdir)+','+str(int(dip))+',1,'+str(structure_code.iloc[0]['CODE']).replace(" ","_").replace("-","_")+'\n'
+                                ostr=str(midxr)+','+str(midyr)+','+str(height)+','+str(dipdir)+','+str(int(dip))+',1,'+str(structure_code.iloc[0]['CODE']).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0]['GROUP_'])+'\n'
                                 f.write(ostr)
                             
                             geometry = [Point(midxl,midyl)]
@@ -1113,7 +1239,7 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dataset,
                             if(not str(structure_code.iloc[0]['CODE'])=='nan'):
                                 locations=[(midxl,midyl)]                  
                                 height=m2l_utils.value_from_raster(dataset,locations)
-                                ostr=str(midxl)+','+str(midyl)+','+str(height)+','+str(dipdir+180)+','+str(int(dip))+',1,'+str(structure_code.iloc[0]['CODE']).replace(" ","_").replace("-","_")+'\n'
+                                ostr=str(midxl)+','+str(midyl)+','+str(height)+','+str(dipdir+180)+','+str(int(dip))+',1,'+str(structure_code.iloc[0]['CODE']).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0]['GROUP_'])+'\n'
                                 f.write(ostr)
                     first=False
                     lastx=afs[0]

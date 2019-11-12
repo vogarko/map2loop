@@ -149,5 +149,8 @@ ethan_3D/*
 dfa_test_data3/*
 test_data3/xtmp/*
 test_data3/xoutput/*
-.dropbox
-desktop.ini
+test_data3/Models_Final/*
+test_model_finite/*
+notebooks/geomodeller-batch.audit
+notebooks/geomodeller-batch.rpt
+

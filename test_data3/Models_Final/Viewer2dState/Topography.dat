@@ -101,7 +101,7 @@
       <max>7568000.0</max>
       <__undefined>false</__undefined>
     </__Vrange>
-    <__doLines>false</__doLines>
+    <__doLines>true</__doLines>
     <__doFill>true</__doFill>
     <__doTrend>false</__doTrend>
     <__doLimitToTopo>false</__doLimitToTopo>
