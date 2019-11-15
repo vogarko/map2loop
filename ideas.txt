@@ -21,6 +21,9 @@ Functionality
 66. Filtering of near_fault orentation data (only need one orientation per series)
 67. List of data sources for export
 68. Filter faults by centrality? (networkx degree_centrality(G) or eigenvector_centrality())
+69. Merge colinear fault strings
+70. Cut poygons by faults if not edges
+71. networkx in/out connectivity for strat analysis
 
 Style
 8. Priors all in one place
