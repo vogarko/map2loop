@@ -27,8 +27,8 @@ def get_series(path_in,id_label):
 def save_units(G,path_out,glabels):
     for p in glabels: #process each group, removing nodes that are not part of that group, and other groups
         GD=G.copy() #temporary copy of full graph
-        print()
-        print(p,glabels[p].replace(" ","_").replace("-","_"),"----------------------")
+        #print()
+        #print(p,glabels[p].replace(" ","_").replace("-","_"),"----------------------")
         nlist=list(G.nodes)
         #display(nlist)
         for n in nlist: # Calculate total number of groups and their names groups
@@ -55,16 +55,16 @@ def save_units(G,path_out,glabels):
         nlist=list(nx.all_topological_sorts(GD)) #all possible sorted directional graphs
         f = open(path_out+"/"+glabels[p].replace(" ","_").replace("-","_")+'.csv', 'w')
 
-        print("choices:",len(nlist))
+        #print("choices:",len(nlist))
         #f.write(str(len(nlist))+" ")
         #f.write(str(len(GD))+"\n")
         for m in range(len(nlist)): #process all sorted graphs
             f.write('Choice '+str(m))
             for n in range(0,len(GD)): #display nodes for one sorted graph
-                print(nlist[m][n],G.nodes[nlist[m][n]]['LabelGraphics']['text'].replace(" ","_").replace("-","_"))
+                #print(nlist[m][n],G.nodes[nlist[m][n]]['LabelGraphics']['text'].replace(" ","_").replace("-","_"))
                 f.write(","+G.nodes[nlist[m][n]]['LabelGraphics']['text'].replace(" ","_").replace("-","_"))
-            if(m<len(nlist)-1):
-                print("....")
+            #if(m<len(nlist)-1):
+                #print("....")
             f.write('\n')
         f.close()
 
@@ -132,7 +132,7 @@ def save_group(G,path_out,glabels,geol,c_l):
     #display(geology_file)
     
     gp_ages = pd.read_csv(path_out+'age_sorted_groups.csv') 
-    display(gp_ages)
+    #display(gp_ages)
     gp_ages.set_index('group_',  inplace = True)
 
     display(gp_ages)
@@ -265,7 +265,7 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
 
     groups=summary.group.unique()
     ngroups=len(summary.group.unique())
-    print(ngroups,'groups',groups,groups[0])
+    #print(ngroups,'groups',groups,groups[0])
     uf_array=uf_rel.to_numpy()
     gf_array=np.zeros((ngroups,uf_array.shape[1]),dtype='U25')
 
@@ -368,7 +368,7 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
     nx.write_gml(G, tmp_path+"fault_network.gml")  
     
     try:
-        print(list(nx.simple_cycles(G)))
+        print('cycles',list(nx.simple_cycles(G)))
     except:
         print('no cycles')
 

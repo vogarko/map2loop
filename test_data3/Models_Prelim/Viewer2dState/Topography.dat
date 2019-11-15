@@ -693,7 +693,7 @@
       <__undefined>false</__undefined>
     </__Vrange>
     <__doLines>true</__doLines>
-    <__doFill>false</__doFill>
+    <__doFill>true</__doFill>
     <__doTrend>false</__doTrend>
     <__doLimitToTopo>false</__doLimitToTopo>
     <__doTriangles>false</__doTriangles>
@@ -701,8 +701,24 @@
     <__doTrendWithinSeries>true</__doTrendWithinSeries>
     <__nTrajectories>10</__nTrajectories>
     <__deselectedFills class="empty-list"/>
-    <__deselectedFormationLines class="empty-list"/>
-    <__deselectedFaultLines class="empty-list"/>
+    <__deselectedFormationLines class="linked-hash-set" id="15">
+      <string>P__HAo_ci</string>
+      <string>P__HAw_fr</string>
+      <string>P__HAj_xci_od</string>
+      <string>P__HAb_cib</string>
+      <string>A_HAS_xsl_ci</string>
+      <string>A_HAd_kd</string>
+      <string>A_HAm_cib</string>
+      <string>A_FOj_xs_b</string>
+      <string>A_FOu_bbo</string>
+      <string>A_FOp_bs</string>
+      <string>A_FOo_bbo</string>
+      <string>A_FOh_xs_f</string>
+      <string>A_FOr_b</string>
+      <string>A_mgn_PMI</string>
+      <string>A_mgn_PRK</string>
+    </__deselectedFormationLines>
+    <__deselectedFaultLines class="linked-hash-set" id="16"/>
     <__deselectedTrendSeries class="empty-list"/>
   </__plotModel>
 </viewers.v2d.Viewer2dState>

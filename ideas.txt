@@ -17,6 +17,10 @@ Functionality
 55. Fix Proper gempy notebook (crashes)
 59. Supergroup lists for structural coherence
 64. Spatial density of info a la Alan? MDL's job? Becki? Tom Cartwright
+65. https://epsg.io/28350.prettywkt
+66. Filtering of near_fault orentation data (only need one orientation per series)
+67. List of data sources for export
+68. Filter faults by centrality? (networkx degree_centrality(G) or eigenvector_centrality())
 
 Style
 8. Priors all in one place
