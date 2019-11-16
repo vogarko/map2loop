@@ -4,7 +4,19 @@ import random
 import numpy as np
 import pandas as pd
 import os
+from LoopStructural import GeologicalModel
+from LoopStructural.visualisation import LavaVuModelViewer
+from scipy.interpolate import Rbf
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+import lavavu
+from pyamg import solve
+import gempy as gp
+from gempy import plot
 
+##########################################################################
+# Save out and compile taskfile needed to generate geomodeller model using the geomodellerbatch engine
+##########################################################################
 def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faults,compute_etc):
     f=open(test_data_path+'m2l.taskfile','w')
     f.write('#---------------------------------------------------------------\n')
@@ -397,3 +409,192 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('}\n')
 
     f.close()
+
+
+
+def solve_pyamg(A,B):
+    return solve(A,B,verb=False,tol=1e-8)
+
+##########################################################################
+# Import outputs from map2loop to LoopStructural and view with Lavavu
+##########################################################################
+def loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox):
+    df = pd.read_csv(thickness_file)
+    thickness = {}
+    for f in df['formation'].unique():
+        thickness[f] = np.mean(df[df['formation']==f]['thickness'])
+
+    #display(thickness)
+    order = ['P__TKa_xs_k','P__TKo_stq','P__TKk_sf','P__TK_s',
+    'A_HAu_xsl_ci', 'A_HAd_kd', 'A_HAm_cib', 'A_FOj_xs_b',
+    'A_FO_xo_a', 'A_FO_od', 'A_FOu_bbo',
+    'A_FOp_bs', 'A_FOo_bbo', 'A_FOh_xs_f', 'A_FOr_b']
+    
+    strat_val = {}
+    val = 0
+    for o in order:
+        if o in thickness:
+            strat_val[o] = val
+            val+=thickness[o]
+
+    #display(strat_val)    
+    
+    orientations = pd.read_csv(orientation_file)
+    contacts = pd.read_csv(contacts_file) 
+    
+    contacts['val'] = np.nan 
+
+    for o in strat_val:
+        contacts.loc[contacts['formation']==o,'val'] = strat_val[o]
+    data = pd.concat([orientations,contacts],sort=False)
+    data['type'] = np.nan
+    for o in order:
+        data.loc[data['formation']==o,'type'] = 's0'
+    data     
+    
+    boundary_points = np.zeros((2,3))
+    boundary_points[0,0] = bbox[0] 
+    boundary_points[0,1] = bbox[1] 
+    boundary_points[0,2] = -20000 
+    boundary_points[1,0] = bbox[2] 
+    boundary_points[1,1] = bbox[3] 
+    boundary_points[1,2] = 1200
+    
+    model = GeologicalModel(boundary_points[0,:],boundary_points[1,:])
+    model.set_model_data(data)
+    strati = model.create_and_add_conformable_foliation('s0', #identifier in data frame
+                                                        interpolatortype="FDI", #which interpolator to use
+                                                        nelements=400000, # how many tetras/voxels
+                                                        buffer=0.1, # how much to extend nterpolation around box
+                                                        solver='external',
+                                                        external=solve_pyamg
+                                                       )   
+    viewer = LavaVuModelViewer()
+    viewer.add_data(strati)
+    viewer.add_isosurface(strati,
+    #                       nslices=10,
+                          slices= strat_val.values(),
+    #                     voxet={'bounding_box':boundary_points,'nsteps':(100,100,50)},
+                          paint_with=strati,
+                          cmap='tab20'
+
+                         )
+    viewer.add_scalar_field(model.bounding_box,(100,100,100),
+                              'scalar',
+    #                             norm=True,
+                             paint_with=strati,
+                             cmap='tab20')
+    viewer.set_viewer_rotation([-53.8190803527832, -17.1993350982666, -2.1576387882232666])
+    #viewer.save("fdi_surfaces.png")
+    viewer.interactive()
+    
+    
+##########################################################################
+# Import outputs from map2loop to gempy and view with pyvtk
+##########################################################################
+def loop2gempy(test_data_name,tmp_path,vtk_pth,orientations_file,contacts_file,groups_file,dtm_reproj_file,bbox,model_base, model_top,vtk):
+    geo_model = gp.create_model(test_data_name) 
+
+    gp.init_data(geo_model, extent=[bbox[0], bbox[2], bbox[1], bbox[3], model_base, model_top],
+        resolution = (50,50,50), 
+          path_o = orientations_file,
+          path_i = contacts_file, default_values=True); 
+    
+    # Show example lithological points    
+    #gp.get_data(geo_model, 'surface_points').head() 
+    
+    # Show example orientations
+    #gp.get_data(geo_model, 'orientations').head()
+    
+    # Plot some of this data
+    #gp.plot.plot_data(geo_model, direction='z')
+    
+    # Load reprojected topgraphy to model
+    
+    fp = dtm_reproj_file
+    #print(fp)
+    geo_model.set_topography(source='gdal',filepath=fp)
+
+
+
+    contents=np.genfromtxt(groups_file,delimiter=',',dtype='U25')
+    ngroups=len(contents)
+
+    faults = gp.Faults()
+    series = gp.Series(faults)
+    #series.df
+
+    #display(ngroups,contents)
+    groups=[]
+
+    for i in range (0,ngroups):
+        groups.append(contents[i].replace("\n",""))
+        series.add_series(contents[i].replace("\n",""))
+        print(contents[i].replace("\n",""))
+
+    series.delete_series('Default series')
+
+    #series
+ 
+    # Load surfaces and assign to series
+    surfaces = gp.Surfaces(series)
+
+    print(ngroups,groups)
+    for i in range(0,ngroups):
+        contents=np.genfromtxt(tmp_path+groups[i]+'.csv',delimiter=',',dtype='U25')
+        nformations=len(contents.shape)
+
+        if(nformations==1):
+            for j in range (1,len(contents)):
+                surfaces.add_surface(str(contents[j]).replace("\n",""))
+                d={groups[i]:str(contents[j]).replace("\n","")}
+                surfaces.map_series({groups[i]:(str(contents[j]).replace("\n",""))}) #working but no gps       
+        else:
+            #print('lc',len(contents[0]))
+            for j in range (1,len(contents[0])):
+                surfaces.add_surface(str(contents[0][j]).replace("\n",""))
+                d={groups[i]:str(contents[0][j]).replace("\n","")}
+                surfaces.map_series({groups[i]:(str(contents[0][j]).replace("\n",""))}) #working but no gps
+
+
+    #surfaces
+    
+    # Set Interpolation Data
+    id_only_one_bool = geo_model.surface_points.df['id'].value_counts() == 1
+    id_only_one = id_only_one_bool.index[id_only_one_bool]
+    single_vals = geo_model.surface_points.df[geo_model.surface_points.df['id'].isin(id_only_one)]
+    for idx, vals in single_vals.iterrows():
+        geo_model.add_surface_points(vals['X'], vals['Y'], vals['Z'], vals['surface'])
+
+    geo_model.update_structure() 
+    
+    gp.set_interpolation_data(geo_model,
+                              compile_theano=True,
+                              theano_optimizer='fast_compile',
+                              verbose=[])   
+    
+    # Provide summary data on model
+    
+    #geo_model.additional_data.structure_data   
+    
+    #Calculate Model
+    gp.compute_model(geo_model)
+    
+    # Extract surfaces to visualize in 3D renderers
+    #gp.plot.plot_section(geo_model, 49, direction='z', show_data=False)
+    
+    ver , sim = gp.get_surfaces(geo_model)    
+    
+    import winsound
+    duration = 700  # milliseconds
+    freq = 1100  # Hz
+    winsound.Beep(freq, duration)
+    winsound.Beep(freq, duration)
+    winsound.Beep(freq, duration)    
+    
+    #Visualise Model
+    gp.plot.plot_3D(geo_model, render_data=False)
+    
+    #Save model as vtk
+    if(vtk):
+        gp.plot.export_to_vtk(geo_model, path=vtk_path, name=test_data_name+'.vtk', voxels=False, block=None, surfaces=True)    
