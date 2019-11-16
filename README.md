@@ -67,9 +67,9 @@ A package to extract information from geological maps to feed 3D modelling packa
 ##### loop2model:
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
-| LoopStructural | Notebook creates 3D model itself | Notebook 4 |  4 |
-| Geomodeller | m2l.taskfile | Notebook 3 |  3 |
-| Gempy | Notebook creates 3D model itself | Notebook 1 |  1 |
+| Gempy | Notebook creates 3D model itself | m2l_export. loop2gempy |  1a |
+| Geomodeller | m2l.taskfile | m2l_export. loop2geomodeller |  1b  |
+| LoopStructural | Notebook creates 3D model itself | m2l_export. loop2LoopStructural |  1c  |
 
 Does not deal with sills yet.  
   
