@@ -406,7 +406,7 @@ def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls
 #########################################
 # Save faults as contact info and make vertical (for the moment)
 #########################################  
-def save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decimate,fault_min_len):
+def save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decimate,fault_min_len,fault_dip):
     faults_clip=gpd.read_file(path_faults)
     f=open(path_fault_orientations+'/faults.csv',"w")
     f.write("X,Y,Z,formation\n")
@@ -440,7 +440,7 @@ def save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decimate,f
                 azimuth=degrees(atan2(lsy,-lsx)) % 180 #normal to line segment           
                 locations=[(flt_ls.coords[int((len(afs)-1)/2)][0],flt_ls.coords[int((len(afs)-1)/2)][1])]     
                 height=m2l_utils.value_from_raster(dataset,locations)
-                ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+",90,1,"+fault_name+"\n"
+                ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+","+str(fault_dip)+",1,"+fault_name+"\n"
                 fo.write(ostr)
                 ostr=fault_name+","+str(strike/2)+","+str(strike/2)+","+str(strike/4.0)+"\n"
                 fd.write(ostr)

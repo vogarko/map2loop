@@ -1,0 +1,26 @@
+<com.geomodeller.ui.dialogs.LutConfigurator id="1">
+  <__data id="2">
+    <__data id="3">
+      <__lutName>pseudocolorOLD.lut</__lutName>
+      <__lutFile>C:\GeoModeller\GeoModeller4.0.7_x64_27eee3dc31ba\lut\pseudocolorOLD.lut</__lutFile>
+      <__builder class="com.dfa.apps.gravitas.plugin.visual3d.lut.builder.LinearLutBuilder" id="4"/>
+      <__allBuilders class="linked-hash-set" id="5">
+        <com.dfa.apps.gravitas.plugin.visual3d.lut.builder.LinearLutBuilder id="6"/>
+        <com.dfa.apps.gravitas.plugin.visual3d.lut.builder.HistoLutBuilder id="7"/>
+        <com.dfa.apps.gravitas.plugin.visual3d.lut.builder.StepLutBuilder id="8">
+          <__controlPts id="9"/>
+          <__currentIx>0</__currentIx>
+          <__nSteps>9</__nSteps>
+          <__useData>true</__useData>
+        </com.dfa.apps.gravitas.plugin.visual3d.lut.builder.StepLutBuilder>
+        <com.dfa.apps.gravitas.plugin.visual3d.lut.builder.LogLutBuilder id="10"/>
+      </__allBuilders>
+      <__userDataBounds id="11">
+        <min>273.9761962890625</min>
+        <max>1166.4783935546757</max>
+        <__undefined>false</__undefined>
+      </__userDataBounds>
+      <__visualBounds reference="11"/>
+    </__data>
+  </__data>
+</com.geomodeller.ui.dialogs.LutConfigurator>

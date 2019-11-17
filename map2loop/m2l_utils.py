@@ -11,7 +11,7 @@ from rasterio import features
 import re    #typo? check
 from urllib.request import urlopen
 from IPython.display import Image
-from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow
+from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow, acos
 from owslib.wcs import WebCoverageService
 from osgeo import gdal
 
@@ -480,3 +480,17 @@ def ptsdist(p1x,p1y,p2x,p2y):
     dist=sqrt(pow(p1x-p2x,2)+pow(p1y-p2y,2))
     return(dist)
     
+###########################################
+# Apical angle between three points, first point is at apex
+###########################################
+def tri_angle(p1x,p1y,p2x,p2y,p3x,p3y):
+    p12=sqrt(pow(p1x-p2x,2.0)+pow(p1y-p2y,2.0))
+    p13=sqrt(pow(p1x-p3x,2.0)+pow(p1y-p3y,2.0))
+    p23=sqrt(pow(p2x-p3x,2.0)+pow(p2y-p3y,2.0))
+    
+    numerator=pow(p12,2.0)+pow(p13,2.0)-pow(p23,2.0)
+    divisor=2*p12*p13
+    
+    angle=degrees(acos(numerator/divisor))
+    
+    return(angle)

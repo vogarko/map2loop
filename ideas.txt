@@ -24,6 +24,7 @@ Functionality
 69. Merge colinear fault strings
 70. Cut poygons by faults if not edges
 71. networkx in/out connectivity for strat analysis
+72. Filter out orientations far from contacts?
 
 Style
 8. Priors all in one place
