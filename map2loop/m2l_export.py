@@ -16,6 +16,16 @@ from gempy import plot
 
 ##########################################################################
 # Save out and compile taskfile needed to generate geomodeller model using the geomodellerbatch engine
+#
+# loop2geomodeller(test_data_path,tmp_path,output_path,save_faults,compute_etc)
+# Args:
+# test_data_path root directory of test data
+# tmp_path directory of temporary outputs
+# output_path directory of outputs
+# ave_faults flag for saving faults or not
+# compute_etc flag for actual calculations or just project output
+#
+# Creates geomodeller taskfile files from varous map2loop outputs
 ##########################################################################
 def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faults,compute_etc):
     f=open(test_data_path+'m2l.taskfile','w')
@@ -419,6 +429,15 @@ def solve_pyamg(A,B):
 
 ##########################################################################
 # Import outputs from map2loop to LoopStructural and view with Lavavu
+#
+# loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox)
+# Args:
+# thickness_file path of fornation thickness file
+# orientation_file path of orientations file
+# contacts_file path of contacts file
+# bbox model bounding box
+#
+# Calculates model and displays in LavaVu wthin notebook
 ##########################################################################
 def loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox):
     df = pd.read_csv(thickness_file)
@@ -493,6 +512,21 @@ def loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox):
     
 ##########################################################################
 # Import outputs from map2loop to gempy and view with pyvtk
+# loop2gempy(test_data_name,tmp_path,vtk_pth,orientations_file,contacts_file,groups_file,dtm_reproj_file,bbox,model_base, model_top,vtk)
+# Args:
+# test_data_name root name of project
+# tmp_path path of temp files directory
+# vtk_pth path of vtk output directory
+# orientations_file path of orientations file
+# contacts_file path of contacts file
+# groups_file path of groups file
+# dtm_reproj_file path of dtm file
+# bbox model bounding box
+# model_base z value ofbase of model 
+# model_top z value of top of model
+# vtk flag as to wether to save out model to vtk
+#
+# Calculates model and displays in external vtk viewer
 ##########################################################################
 def loop2gempy(test_data_name,tmp_path,vtk_pth,orientations_file,contacts_file,groups_file,dtm_reproj_file,bbox,model_base, model_top,vtk):
     geo_model = gp.create_model(test_data_name) 

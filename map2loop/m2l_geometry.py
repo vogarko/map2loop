@@ -14,6 +14,17 @@ import numpy as np
 
 ####################################################
 # Export orientation data in csv format with heights and strat code added
+#
+# save_orientations(structure_code,output_path,c_l,orientation_decimate,dtm)
+# Args:
+# structure_code geopandas point layer
+# output_path directory of outputs from m2lc
+# c_l dictionary of codes and labels specific to input geo information layers
+# decimate saves every nth orientation point (without reference to spatial density or structural complexity)
+# dtm rasterio format georeferenced dtm grid
+# 
+# Save dip,dip direction of bedding extracted from geology layer with additional height information from dtm and joined with polygon information from geology polygon layer. Stored as csv file.
+# Orientation data needs calculated height as file does not provide it, taken from SRTM data already downloaded. To calculate polarity (WHICH WE DON'T DO YET) we can calculate the dot product of the dip direction of a bedding plane and the vector to that points nearest basal contact node, if abs(acos(dot product))>90 then right way up:
 ####################################################
 def save_orientations(structures,path_out,c_l,orientation_decimate,dtm):
     i=0
@@ -35,6 +46,16 @@ def save_orientations(structures,path_out,c_l,orientation_decimate,dtm):
 
 ####################################################
 # Find those series that don't have any orientation or contact point data and add some random data
+# create_orientations(tmp_path, output_path, dtm,geol_clip,structure_clip,c_l)
+# Args:
+# tmp_path directory of temporary outputs
+# output_path directory of outputs
+# dtm rasterio format elevation grid
+# geology geopandas layer of geology polygons 
+# structures geopandas layer of orientation points c_l dictionary of codes and labels specific to input geo information layers
+# c_l dictionary of codes and labels specific to input geo information layers
+#
+# Save additional arbitrary dip/dip direction data for series/groups that don’t have structural information available. Ignores intrusive polygons. Somewhat superceded by interpolation codes. Could use dip direction normal to basal contact (if there is one) but don't do this yet.
 ####################################################
 def create_orientations( path_in, path_out,dtm,geology,structures,c_l):
     #f=open(path_in+'/groups.csv',"r")
@@ -114,6 +135,15 @@ def create_orientations( path_in, path_out,dtm,geology,structures,c_l):
 ####################################################
 # Convert polygons with holes into distinct poygons
 #modified from https://stackoverflow.com/questions/21824157/how-to-extract-interior-polygon-coordinates-using-shapely
+#
+# extract_poly_coords(part,i)
+# Args:
+# part shapely format polygon or multipolygon with or without interior holes
+# i counter for distict interior/exterior polylines
+# Returns:
+# exterior_coords exterior coordinates of ploygon interior_coords array of interior hole's interior coordinates
+# 
+# Shapely multgipolygons can contain interior holes which need to be extracted as distinct contact polylines for use in map2loop. This code achieves that.
 ####################################################
 def extract_poly_coords(geom,i):
 
@@ -139,6 +169,18 @@ def extract_poly_coords(geom,i):
 
 ####################################################
 # extract stratigraphically lower contacts from geology polygons and save as points
+#
+# save_basal_contacts(tmp_path,dtm,geol_clip,contact_decimate,c_l,intrusion_mode)
+# Args:
+# tmp_path directory of temporary outputs
+# dtm rasterio format elevation grid
+# geol_clip geopandas layer of clipped geology polygons
+# contact_decimate decimation factor for saving every nth input point on contact polylines
+# c_l dictionary of codes and labels specific to input geo information layers
+# intrusion_mode Boolean for saving intrusive contacts or not
+# 
+# Saves a shapefile of the basal contacts of each stratigraphic unit (but not intrusives). This analysis uses the relative age of each unit, and includes faulted contacts, that are filtered out by another function. Returns dictionaries of basal contacts with and without decimation.
+# Orientation data needs calculated height as file does not provide it, taken from SRTM data already downloaded. Need to reduce number of points whilst retaining useful info (Ranee's job!)' To calculate which are the basal units contact for a polygon find the polygons which are older than the selected polygon, in the example below the central polygon has relative age 23 so its basal contact is with the polygons whose ages are 26 & 28. If there are no older units for a polygon it has no basal content. We keep every nth node based on the decimate term (simple count along polyline). gempy seems to need at least two points per surface, so we always take the first two points.
 ####################################################
 def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,c_l,intrusion_mode):
     #print("decimation: 1 /",contact_decimate)
@@ -285,6 +327,17 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,c_l,intrusion_mod
 
 #########################################
 # Remove all basal contacts that are defined by faults and save to shapefile (no decimation)
+#
+# save_basal_no_faults(path_out,path_fault,ls_dict,dist_buffer,c_l,dst_crs)
+# Args:
+# path_out directory of output csv file
+# path_fault path to clipped fault layer
+# ls_dict dictionary of basal contact points
+# dist_buffer distance in projection units of buffer around faults to clip
+# c_l dictionary of codes and labels specific to input geo information layers
+# dst_crs Coordinate Reference System of destination geotif (any length-based projection)
+# 
+# Saves out a csv file of decimated basal contacts with height and formation information.
 #########################################
 def save_basal_no_faults(path_out,path_fault,ls_dict,dist_buffer,c_l,dst_crs):
     faults_clip = gpd.read_file(path_fault)
@@ -367,6 +420,19 @@ def save_basal_contacts_csv(contacts,output_path,dtm,contact_decimate):
     
 #########################################
 # Remove faults from decimated basal contacts as save as csv file   (superceded by save_basal_contacts_csv)
+#
+# save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls_dict_decimate,c_l,dst_crs,dataset)
+# Args:
+# path_fault path to clipped fault layer
+# path_out directory of output csv file
+# dist_buffer distance in projection units of buffer around faults to clip
+# ls_dict dictionary of basal contact points
+# ls_dict dictionary of decimated basal contact points
+# c_l dictionary of codes and labels specific to input geo information layers
+# dst_crs Coordinate Reference System of destination geotif (any length-based projection)
+# dataset rasterio format elevation grid
+# 
+# Saves out csv file of basal contacts after clipping out buffered fault locations.
 #########################################
 def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls_dict_decimate,c_l,dst_crs,dataset):
     faults_clip = gpd.read_file(path_fault)
@@ -405,6 +471,16 @@ def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls
 
 #########################################
 # Save faults as contact info and make vertical (for the moment)
+#
+# save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decimate)
+# Args:
+# path_faults path to clipped fault layer
+# path_fault_orientations directory for outputs
+# dataset rasterio format elevation grid
+# c_l dictionary of codes and labels specific to input geo information layers
+# fault_decimate decimation factor for saving every nth input point on fault polylines
+# 
+# Saves out csv file of fault locations after decimation. Also saves out nominal orientation data at mid point of each fault trace with strike parallel to start end point line and arbitrary vertical dip. Also saves out csv list of faults with their start-finish length that could be used for filtering which faults to include in model.
 #########################################  
 def save_faults(path_faults,output_path,dataset,c_l,fault_decimate,fault_min_len,fault_dip):
     faults_clip=gpd.read_file(path_faults)
@@ -606,6 +682,20 @@ def create_basal_contact_orientations(contacts,structures,output_path,dtm,dist_b
 
 #########################################
 # For each pluton polygon, create dip info based on ideal form with azimuth parallel to local contact
+#
+# process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,pluton_dip,contact_decimate,c_l)
+# Args:
+# tmp_path directory of temporary outputs from m2l
+# output_path directory of outputs from m2lc geol_clip path ot clipped geology layer local_paths Boolean to control if local on web data is used dtm rasterio format elevation grid
+# pluton_form fundamental pluton geometry (one of domes, saucers, pendant, batholith) pluton_dip fix dip for all pluton contacts contact_decimate decimation factor for saving every nth input point on contact polylines
+# c_l dictionary of codes and labels specific to input geo information layers
+# 
+# Saves out csv of locations of intrusive contacts and csv of contact orientations. Orientations can take one of four modes (inward/ outward dipping normal/reverse polarity) and have dip direction normal to local contact and fixed arbitrary dip
+# For each instruve but not sill polygon, find older neighbours and store decimated contact points. Also store dipping contact orientations (user defined, just because) with four possible sub-surface configurations:
+# saucers: +++/ batholiths: +++/_ __ _+++ domes: /‾+++‾
+# pendants: +++\ _/+++
+# 
+# Saves out orientations and contact points
 #########################################
 def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,pluton_dip,contact_decimate,c_l):
     
@@ -918,7 +1008,13 @@ def interpolate_orientations_with_fat(structure_file,output_path,bbox,c_l,this_g
 
 ###################################
 # Remove orientations that don't belong to actual formations in mode
-# Remove groups for which there are no formations
+#
+# tidy_data(output_path,tmp_path,use_gcode,use_interpolations,pluton_form)
+# Args:
+# output_path directory of outputs from m2lc
+# tmp_path directory of temporary outputs from m2l use_gcode list of groups that will be retained if possible use_interpolations include extra data from dip/contact interpolation pluton_form fundamental pluton geometry (one of domes, saucers, pendant, batholith)
+# 
+# Removes formations that don’t belong to a group, groups with no formations, orientations without formations, contacts without formations etc so gempy and other packages don’t have a fit.
 ###################################
 def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_form,inputs):
 

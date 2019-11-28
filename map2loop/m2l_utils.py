@@ -29,6 +29,13 @@ def hw():
 
 ############################################
 # calculate mod with 0 meaning no mod
+#
+# mod_safe(a,b)
+# Args:
+# a number
+# b modulus Returns: modulus of a,b or 0 if b==0
+# 
+# Calculate a modulo b (a%b) for decimation with special case of b=0 resulting in no decimation.
 ############################################
 def mod_safe(a,b):
     
@@ -39,6 +46,14 @@ def mod_safe(a,b):
         
 ############################################
 # get value froma rasterio raster at location x,y (real world coords)
+#
+# value_from_raster(dataset,locations)
+# Args:
+# dataset rasterio format georeferenced dataset
+# locations list of x,y locations in same coordinate system for which values will be calculated Returns:
+# list of values for specified lcoations
+# 
+# Given rasterio georeferenced grid of data, return value at list of locations stored in x1,y1 using same projection. From...
 ############################################
 def value_from_raster(dataset,locations):
     #print(locations[0][0],locations[0][1],dataset.bounds[0],dataset.bounds[1],dataset.bounds[2],dataset.bounds[3])
@@ -52,13 +67,24 @@ def value_from_raster(dataset,locations):
 
 ############################################
 # turn a simple list into a list of paired data
+#
+# pairs(lst)
+#Args:
+#lst simple list a,b,c,d becomes list (a,b), (c,d) etc.
 ############################################
 def pairs(lst):
     for i in range(1, len(lst)):
         yield lst[i-1], lst[i]
 
 ############################################
-#get dtm data from Hawaiian SRTM server and save as geotiff
+# get dtm data from Hawaiian SRTM server and save as geotiff
+#
+# get_dtm_hawaii(dtm_file, minlong,maxlong,minlat,maxlat)
+# Args:
+# dtm_file path to location where geotiff of elevation will be saved (in WGS84 lat/long) minlong,maxlong,minlat,maxlat min/max coordinates of region of interest
+# minlong,maxlong,minlat,maxlat bounding coordinates in at/long
+#
+# Extracts and saves to file digital terrain model from GA hosted data for Australia. Highest horizontal resolution is ? m. Min/max lat/long in WGS84 dtm_file is relative path filename.
 ############################################
 def get_dtm_hawaii(path_out, minlong,maxlong,minlat,maxlat):
     
@@ -115,7 +141,14 @@ def get_dtm_hawaii(path_out, minlong,maxlong,minlat,maxlat):
     print("dtm geotif saved as",path_out)
 
 ############################################
-#get dtm data from GA SRTM server and save as geotiff
+# get dtm data from GA SRTM server and save as geotiff
+#
+# get_dtm(dtm_file, minlong,maxlong,minlat,maxlat)
+# Args:
+# dtm_file path to location where geotiff of elevation will be saved (in WGS84 lat/long) minlong,maxlong,minlat,maxlat min/max coordinates of region of interest
+# minlong,maxlong,minlat,maxlat bounding coordinates in at/long
+#
+# Extracts and saves to file digital terrain model from GA hosted data for Australia. Highest horizontal resolution is ? m. Min/max lat/long in WGS84 dtm_file is relative path filename.
 ############################################
 def get_dtm(path_out, minlong,maxlong,minlat,maxlat):
 
@@ -134,6 +167,15 @@ def get_dtm(path_out, minlong,maxlong,minlat,maxlat):
     
 ############################################
 #reproject a dtm 
+#
+# reproject_dtm(dtm_file,dtm_reproj_file,src_crs,dst_crs)
+# Args:
+# dtm_file path to location of geotiff of elevation (in WGS84 lat/long)
+# dtm_reproj_file path to location of geotiff of elevation (in projection defined by dst_crs)
+# src_crs Coordinate Reference System of source geotif (normally WGS 84 lat/long (EPSG:4326))
+# dst_crs Coordinate Reference System of destination geotif (any length-based projection)
+# 
+# Returns rasterio format reprojected of filename dtm_reproj_file of grid of geotif file defined by dtm_file assuming source coordinate reference system (CRS) of src_crs and destination CRS of dsr_crs
 ############################################
 def reproject_dtm(path_in,path_out,src_crs,dst_crs):
     with rasterio.open(path_in) as src:
@@ -163,6 +205,12 @@ def reproject_dtm(path_in,path_out,src_crs,dst_crs):
 
 ############################################
 # get bounds of a dtm
+#
+# Args:
+# path_in path to file rasterio can read
+# dst_crs coordinate reference system of raster
+# returns:
+# bounding box of raster
 ############################################
 def get_dtm_bounds(path_in,dst_crs):            
     with rasterio.open(path_in) as dataset:
@@ -180,6 +228,7 @@ def get_dtm_bounds(path_in,dst_crs):
                 # Print GeoJSON shapes to stdout.
                 #print(geom_rp)
                 return(geom_rp)
+                
 ############################################
 # https://gist.github.com/mhweber/cf36bb4e09df9deee5eb54dc6be74d26
 # code to explode a MultiPolygon to Polygons    
@@ -403,6 +452,7 @@ def clip_shp(shp, clip_obj):
 
 ####################################################
 # convert rectangle to shapefile
+
 ####################################################
 def save_clip_to_bbox(path,geom,minx,maxx,miny,maxy,dst_crs):
     y_point_list = [miny, miny, maxy, maxy, miny]
@@ -422,6 +472,10 @@ except:
 
 ####################################################
 # determine if http access is available for a URL
+# have_access(URL)
+# Args:
+# url URL of site to test
+# Determines if network access to URL is available, returns Boolean
 ####################################################
 def have_access(url):
     conn = httplib.HTTPConnection(url, timeout=5)
@@ -439,17 +493,32 @@ def have_access(url):
 
 ####################################################
 # calculate 3D direction cosines from dip, dipdirection
+#
+# ddd2dircos(dip,dipdir)
+# Args:
+# dip dip of bedding from horizontal
+# dipdir clockwise degrees from North of dip direction
+# Returns:
+# l,m,n direction cosines of pole to plane
+# 
+# Converts dip, dip direction to three direction cosine arrays(l,m,n)
 ####################################################
-
 def ddd2dircos(dip,dipdir):
     l = sin(radians(dipdir))*cos(radians(90-dip))
     m = cos(radians(dipdir))*cos(radians(90-dip))
     n = sin(radians(90-dip))
     return(l,m,n)
+    
 ####################################################
 # calculate dip, dipdirection from 3D direction cosines
+#
+# dircos2ddd(l,m,n)
+# Args:
+# l,m,n direction cosines of pole to plane Returns: dip dip of bedding from horizontal
+# dipdir clockwise degrees from North of dip direction
+# 
+# Converts (l,m,n) direction cosine arrays to dip, dip direction 
 ####################################################
-
 def dircos2ddd(l,m,n):
     if(m>0):
         dipdir=(360+degrees(atan(l/m)))%360
@@ -462,6 +531,15 @@ def dircos2ddd(l,m,n):
     
 ####################################################
 # Calulate 2D direction cosines from two points
+#
+# pts2dircos(p1x,p1y,p2x,p2y)
+# Args:
+# p1x,p1y a point
+# p2x,p2y another point
+# Returns:
+# l,m 2D direction cosines of line segment
+# 
+# Returns l,m direction cosines of line segment defined by points
 ####################################################
     
 def pts2dircos(p1x,p1y,p2x,p2y):
@@ -472,9 +550,15 @@ def pts2dircos(p1x,p1y,p2x,p2y):
     l=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
     m=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))        
     return(l,m)
+    
 ####################################################
 # calculate distance between two points
 # duplicated in m2l_geometry, don't know why!
+#
+# Args:
+# p1x,p1y a point
+# p2x,p2y another point
+#Calculates distance between two points 
 ####################################################
 def ptsdist(p1x,p1y,p2x,p2y):
     dist=sqrt(pow(p1x-p2x,2)+pow(p1y-p2y,2))
@@ -482,6 +566,13 @@ def ptsdist(p1x,p1y,p2x,p2y):
     
 ###########################################
 # Apical angle between three points, first point is at apex
+#
+# Args:
+# p1x,p1y apical point
+# p2x,p2y another point
+# p3x,p3y a third point
+#
+# Caluclates anlge of three points
 ###########################################
 def tri_angle(p1x,p1y,p2x,p2y,p3x,p3y):
     p12=ptsdist(p1x,p1y,p2x,p2y)

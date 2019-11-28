@@ -23,6 +23,14 @@ def get_series(path_in,id_label):
 
 ####################################
 # parse stratigraphy GML file to save units for each series
+# 
+# Save out csv of maximum and minimum ages of formations within each group so that groups can be better sorted.
+# save_units(G,tmp_path,glabels)
+# Args:
+# G networkx format stratigraphy graph
+# tmp_path directory of temporary outputs glabels list of group names
+# 
+# The choice of what constitutes basic unit and what a group of units is defined in the c_l codes. Not even sure we need two levels but it seemed like a good idea at the time. Text outputs list alternate topologies for series and surfaces, which if confirmed by comapring max-min ages will be a nice source of uncertainty.
 ####################################
 def save_units(G,path_out,glabels):
     for p in glabels: #process each group, removing nodes that are not part of that group, and other groups
@@ -72,6 +80,13 @@ def save_units(G,path_out,glabels):
 
 ####################################
 # save out a list of max/min/ave ages of all formations in a group
+# 
+# abs_age_groups(geol,tmp_path,c_l)
+# Args:
+# geol path to geology layer tmp_path directory of temporary outputs from m2l
+# c_l dictionary of codes and labels specific to input geo information layers
+# 
+# Save out csv of maximum and minimum ages of formations within each group so that groups can be better sorted.
 ####################################
 def abs_age_groups(geol,tmp_path,c_l):
     groups=[]
@@ -118,6 +133,14 @@ def abs_age_groups(geol,tmp_path,c_l):
 
 ####################################
 # save out tables of groups and sorted formation data
+#
+# save_group(G,tmp_path,glabels,geol_clip,c_l)
+# G networkx format stratigraphy graph
+# tmp_path directory of temporary outputs glabels list of group names
+# geol_clip path to clipped geology layer c_l dictionary of codes and labels specific to input geo information layers
+# 
+# Takes stratigraphy graph created by map2model c++ code to generate list of groups found in the region of interest
+# Uses first of each possible set of toplogies per unit and per group, which is arbitrary. On the other hand we are not checking relative ages again to see if this helps reduce ambiguity, which I think it would.
 #################################### 
 def save_group(G,path_out,glabels,geol,c_l):
     Gp=nx.Graph().to_directed() #New Group graph
@@ -222,6 +245,13 @@ def save_group(G,path_out,glabels,geol,c_l):
 
 ####################################
 # save out fault fault relationship information as array
+#
+# parse_fault_relationships(graph_path,tmp_path,output_path)
+# graph_path path to graphs
+# tmp_path path to tmp directory
+# output_path path to output directory
+# 
+# Saves fault vs unit, group and fault relationship tables using outputs from map2model c++ code
 ####################################
 def parse_fault_relationships(graph_path,tmp_path,output_path):
     uf=open(graph_path+'unit-fault-intersection.txt','r')
@@ -374,6 +404,12 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
 
 ####################################
 # save out geology polygons in WKT format
+#
+# save_geol_wkt(sub_geol,geology_file_csv, c_l)
+# sub_geol geopandas format geology layer geology_file_csv path to output WKT format file
+# c_l dictionary of codes and labels specific to input geo information layers
+# 
+# Saves geology layer as WKT format for use by map2model c++ code
 ####################################
 def save_geol_wkt(sub_geol,geology_file_csv,c_l):
     #print(sub_geol,geology_file_csv,ocode,gcode,mincode,maxcode,ccode,r1code,r2code,dscode,ucode)
@@ -398,6 +434,12 @@ def save_geol_wkt(sub_geol,geology_file_csv,c_l):
         
 ####################################
 # save out orientation points in WKT format
+#
+# save_structure_wkt(sub_pts,structure_file_csv,c_l)
+# sub_geol geopandas format orientation layer geology_file_csv path to output WKT format file
+# c_l dictionary of codes and labels specific to input geo information layers
+# 
+# Saves orientation layer as WKT format for use by map2model c++ code
 ####################################
 def save_structure_wkt(sub_pts,structure_file_csv,c_l):
     f= open(structure_file_csv,"w+")
@@ -420,6 +462,12 @@ def save_structure_wkt(sub_pts,structure_file_csv,c_l):
     
 ####################################
 # save out fault polylines in WKT format
+#
+# save_faults_wkt(sub_lines,fault_file_csv,c_l)
+# sub_geol geopandas format fault and fold axial trace layer geology_file_csv path to output WKT format file
+# c_l dictionary of codes and labels specific to input geo information layers
+# 
+# Saves fault/fold axial trace layer as WKT format for use by map2model c++ code
 ####################################
 def save_faults_wkt(sub_lines,fault_file_csv,c_l):
     f= open(fault_file_csv,"w+")
@@ -437,6 +485,14 @@ def save_faults_wkt(sub_lines,fault_file_csv,c_l):
 
 ####################################
 # create map2model c++ code input file
+#
+# save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,structure_file_csv,minx,maxx,miny,maxy)
+# Args:
+# m2m_cpp_path path to map2model executable
+# c_l dictionary of codes and labels specific to input geo information layers
+# graph_path path ot output graphs geology_file_csv,fault_file_csv,structure_file_csv names of input geology layers in WKT format minx,maxx,miny,maxy min/max coordinates in target coordinate reference system
+# 
+# Creates input parameter file for map2model c++ code and saves it to the same directory as the map2model binary (../m2m_cpp)
 ####################################
 def save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,structure_file_csv,minx,maxx,miny,maxy):
     f=open(m2m_cpp_path+'Parfile','w')

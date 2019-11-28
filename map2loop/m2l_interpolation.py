@@ -15,6 +15,14 @@ import rasterio
 
 ######################################
 # inspired by https://stackoverflow.com/questions/3104781/inverse-distance-weighted-idw-interpolation-with-python
+# 
+# Simple Inverse Distance Weighting interpolation of observations z at x,y locations returned at locations defined by xi,yi arrays. From...
+# scipy_idw(x, y, z, xi, yi)
+# Args:
+# x,y coordinates of points to be interpolated
+# z value to be interpolated
+# xi,yi grid of points where interpolation of z will be calculated - sci_py version of Simple Inverse Distance Weighting interpolation of observations z at x,y locations returned at locations defined by xi,yi arrays
+# 
 # simple Inverse Distance Weighting calculation
 ######################################
 def simple_idw(x, y, z, xi, yi):
@@ -32,14 +40,29 @@ def simple_idw(x, y, z, xi, yi):
 
 ######################################
 # call scipy inverse distance weighting
+# 
+# Simple Inverse Distance Weighting interpolation of observations z at x,y locations returned at locations defined by xi,yi arrays. From...
+# scipy_idw(x, y, z, xi, yi)
+# Args:
+# x,y coordinates of points to be interpolated
+# z value to be interpolated
+# xi,yi grid of points where interpolation of z will be calculated - sci_py version of Simple Inverse Distance Weighting interpolation of observations z at x,y locations returned at locations defined by xi,yi arrays
+# 
 ######################################
-
 def scipy_idw(x, y, z, xi, yi):
     interp = Rbf(x, y, z, function='linear')
     return interp(xi, yi)
 
 ######################################
 # call scipy Radial basis function interpolation
+# 
+# scipy_rbf(x, y, z, xi, yi)
+# Args:
+# x,y coordinates of points to be interpolated
+# z value to be interpolated
+# xi,yi grid of points where interpolation of z will be calculated
+# 
+# sci_py version of Radial Basis Function interpolation of observations z at x,y locations returned at locations defined by xi,yi arraysplot(x,y,z,grid)
 ######################################
 def scipy_rbf(x, y, z, xi, yi):
     interp = Rbf(x, y, z, epsilon=1)
@@ -47,9 +70,15 @@ def scipy_rbf(x, y, z, xi, yi):
 
 ######################################
 # calculate all distances between to arrays of points
-    # Make a distance matrix between pairwise observations
-    # Note: from <http://stackoverflow.com/questions/1871536>
-    # (Yay for ufuncs!)
+# Make a distance matrix between pairwise observations
+# Note: from <http://stackoverflow.com/questions/1871536>
+# (Yay for ufuncs!)
+# distance_matrix(x0, y0, x1, y1)
+# Args:
+# x0,y0 array of point locations
+# x1,y1 second array of point locations
+# 
+# Returns array of distances between all points defined by arrays by x0,y0 and all points defined by arrays x1,y1 from http://stackoverflow.com/questions/1871536
 ######################################
 def distance_matrix(x0, y0, x1, y1):
     obs = np.vstack((x0, y0)).T
@@ -72,6 +101,15 @@ def plot(x,y,z,grid):
 
 ######################################
 # interpolate three data arrays using various schemes
+#
+# call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny)
+# Args:
+# calc calculation mode, one of 'simple_idw', 'scipy_idw', 'scipy_rbf'
+# l,m,n arrays of direction cosines of pole to plane
+# xi,yi arrays of locations of interpolated locations (assumes a grid for plotting, otherwise doesn't matter)
+# nx,ny number of x,y elemnts in grid
+# 
+# Call interpolator defined by calc for arrays of arbitrary location x,y located observations as triple or double arrays of 3D or 2D direction cosine arrays (l,m,n) and returns grid of nx ,ny interpolated values for points defined by xi,yi locations. Inspired by https://stackoverflow.com/questions/3104781/inverse-distance-weighted-idw-interpolation-with-python
 ######################################
 def call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny):
     # Calculate IDW or other interpolators
@@ -116,6 +154,21 @@ def call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny):
     
 ######################################
 # Interpolate dipd,dipdirection data from shapefile     
+#
+# interpolate_orientations(structure_file,tmp_path,bbox,c_l,use_gcode,scheme,gridx,gridy)
+# structure_file path to orientation layer
+# tmp_path directory of temporary outputs from m2l
+# bbox bounding box of region of interest
+# c_l dictionary of codes and labels specific to input geo information layers
+# use_gcode list of groups whose orientation data will be interpolated scheme interpolation scheme one of 'simple_idw', 'scipy_idw', 'scipy_rbf'
+# gridx,gridy number of cols & rows in interpolation grid
+# 
+# Interpolate orientation layer to produce regular grid of l,m,n direction cosines
+# Can choose between various RBF and IDW options
+# The purpose of these interpolations and associated code is to help in three cases:
+# -- Providing estimated dips and contacts in fault-bounded domains where no structural data are available
+# -- Needed to estimate true thickness of formations
+# -- Useful for poulating parts of maps where little structural data is available
 ######################################
 def interpolate_orientations(structure_file,output_path,bbox,c_l,this_gcode,calc,gridx,gridy):
     structure = gpd.read_file(structure_file,bbox=bbox)
@@ -230,7 +283,18 @@ def interpolate_orientations(structure_file,output_path,bbox,c_l,this_gcode,calc
     print("orientations interpolated as l,m,n dir cos",output_path+'interpolation_l.csv etc.')
 
 ######################################
-# Interpolate 2D contact data from shapefile     
+# Interpolate 2D contact data from shapefile
+# 
+# interpolate_contacts(geology_file,tmp_path,dtm,bbox,c_l,use_gcode,scheme,gridx,gridy)
+# geology_file path to basal contacts layer
+# tmp_path directory of temporary outputs from m2l
+# dtm rasterio format elevation grid
+# bbox bounding box of region of interest
+# c_l dictionary of codes and labels specific to input geo information layers
+# use_gcode list of groups whose contact data will be interpolated scheme interpolation scheme one of 'simple_idw', 'scipy_idw', 'scipy_rbf'
+# gridx,gridy number of cols & rows in interpolation grid
+# 
+# Interpolate basal contacts layer to produce regular grid of l,m direction cosines
 ######################################
 def interpolate_contacts(geology_file,output_path,dtm,bbox,c_l,use_gcode,calc,gridx,gridy):
     geol_file = gpd.read_file(geology_file,bbox=bbox)
@@ -433,6 +497,22 @@ def save_contact_vectors(geology_file,tmp_path,dtm,bbox,c_l,calc,decimate):
 
 ####################################
 # combine interpolated contact information (to provide l,m with interpolated dip,dipdirection data (to provide n) 
+#
+# join_contacts_and_orientations(combo_file,geology_file,tmp_path,dtm_reproj_file,c_l,lo,mo,no,lc,mc,xy,dst_crs,bbox)
+# combo_file path to temporary combined information geology_file path to basal contacts layer
+# tmp_path directory of temporary outputs from m2l
+# dtm_reproj_file path to reprojected dtm file
+# c_l dictionary of codes and labels specific to input geo information layers
+# lo,mo,no 3D direction cosines of interpolated orientations
+# lc,mc 2D direction cosines of interpolated contacts
+# xy interpolated orientations (used to get x,y locations only) dst_crs Coordinate Reference System of destination geotif (any length-based projection)
+# bbox bounding box of region of interest
+# 
+# Combine interpolation orientations with interpolated basal contacts layers to produce regular grid of interpolated dip, dip direction estimates
+# Uses normalised direction cosines (l,m,n):
+# -- l,m from RBF of basal contact orientations -- signs of l & m from misorientation with RBF of orientation data and -- n from RBF of orientation data
+# 
+# Useful for adding data where no orientations are available (e.g. in fault bounded domains) and for calculating true thickness of layers. Assumes a 2D plane of data, but if 3D RBF was calulated and projected contact info was used it should apply with topography too.
 ####################################    
 def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_reproj_file,c_l,lo,mo,no,lc,mc,xy,dst_crs,bbox):
     f=open(combo_file,'w')
