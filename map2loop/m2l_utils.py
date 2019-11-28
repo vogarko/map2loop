@@ -484,10 +484,10 @@ def ptsdist(p1x,p1y,p2x,p2y):
 # Apical angle between three points, first point is at apex
 ###########################################
 def tri_angle(p1x,p1y,p2x,p2y,p3x,p3y):
-    p12=sqrt(pow(p1x-p2x,2.0)+pow(p1y-p2y,2.0))
-    p13=sqrt(pow(p1x-p3x,2.0)+pow(p1y-p3y,2.0))
-    p23=sqrt(pow(p2x-p3x,2.0)+pow(p2y-p3y,2.0))
-    
+    p12=ptsdist(p1x,p1y,p2x,p2y)
+    p13=ptsdist(p1x,p1y,p3x,p3y)
+    p23=ptsdist(p2x,p2y,p3x,p3y)
+      
     numerator=pow(p12,2.0)+pow(p13,2.0)-pow(p23,2.0)
     divisor=2*p12*p13
     

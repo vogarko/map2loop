@@ -280,7 +280,10 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
                 f.write(ostr)
                 ostr='                  direction: '+str(ano['DipDirection'])+'\n'
                 f.write(ostr)
-                ostr='                  dip: '+str(ano['dip'])+'\n'
+                if(ano['dip'] == -999):
+                    ostr='                  dip: '+str(random.randint(60,90))+'\n'
+                else:    
+                    ostr='                  dip: '+str(ano['dip'])+'\n'
                 f.write(ostr)
                 if(ano['DipPolarity']==1):
                     ostr='                  polarity: Normal_Polarity\n'
@@ -358,6 +361,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
     f.write('}\n')
     
     if(compute_etc):
+    
         f.write('#---------------------------------------------------------------\n')
         f.write('#----------------------------Compute Model----------------------\n')
         f.write('#---------------------------------------------------------------\n')
@@ -370,17 +374,19 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('        SectionList {\n')
         f.write('            node: "All"\n')
         f.write('        }\n')
-        f.write('        Extents {\n')
-        f.write('            xmin: 500000\n')
-        f.write('            ymin: 7455500\n')
-        f.write('            zmin: -3000\n')
-        f.write('            xmax: 603000\n')
-        f.write('            ymax: 7568000\n')
-        f.write('            zmax: 1000\n')
+        f.write('        FaultList {\n')
+        f.write('            node: "All"\n')
         f.write('        }\n')
         f.write('        radius: 10.0\n')
         f.write('    }\n')
         f.write('}\n')
+        
+        f.write('GeomodellerTask {\n')
+        f.write('    SaveProjectAs {\n')
+        f.write('        filename: "./Models_Final/Models_UWA.xml"\n')
+        f.write('    }\n')
+        f.write('}\n')   
+     
         f.write('#---------------------------------------------------------------\n')
         f.write('#-----------------------Add geophysical Properties--------------\n')
         f.write('#---------------------------------------------------------------\n')
@@ -402,11 +408,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('#--------------------------Save As Model------------------------\n')
         f.write('#---------------------------------------------------------------\n')
         f.write('\n')
-        f.write('GeomodellerTask {\n')
-        f.write('    SaveProjectAs {\n')
-        f.write('        filename: "./Models_Final/Models_UWA.xml"\n')
-        f.write('    }\n')
-        f.write('}\n')
+
 
     f.close()
 
@@ -462,7 +464,7 @@ def loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox):
     
     model = GeologicalModel(boundary_points[0,:],boundary_points[1,:])
     model.set_model_data(data)
-    strati = model.create_and_add_conformable_foliation('s0', #identifier in data frame
+    strati = model.create_and_add_foliation('s0', #identifier in data frame
                                                         interpolatortype="FDI", #which interpolator to use
                                                         nelements=400000, # how many tetras/voxels
                                                         buffer=0.1, # how much to extend nterpolation around box
@@ -470,19 +472,19 @@ def loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox):
                                                         external=solve_pyamg
                                                        )   
     viewer = LavaVuModelViewer()
-    viewer.add_data(strati)
-    viewer.add_isosurface(strati,
+    viewer.add_data(strati['feature'])
+    viewer.add_isosurface(strati['feature'],
     #                       nslices=10,
                           slices= strat_val.values(),
     #                     voxet={'bounding_box':boundary_points,'nsteps':(100,100,50)},
-                          paint_with=strati,
+                          paint_with=strati['feature'],
                           cmap='tab20'
 
                          )
     viewer.add_scalar_field(model.bounding_box,(100,100,100),
                               'scalar',
     #                             norm=True,
-                             paint_with=strati,
+                             paint_with=strati['feature'],
                              cmap='tab20')
     viewer.set_viewer_rotation([-53.8190803527832, -17.1993350982666, -2.1576387882232666])
     #viewer.save("fdi_surfaces.png")

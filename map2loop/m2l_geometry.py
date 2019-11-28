@@ -402,11 +402,91 @@ def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls
         i=i+1
     ac.close()
     print(i,"decimated contact points saved as",path_out+'/contacts4.csv')
+
+#########################################
+# Save faults as contact info and make vertical (for the moment)
+#########################################  
+def save_faults(path_faults,output_path,dataset,c_l,fault_decimate,fault_min_len,fault_dip):
+    faults_clip=gpd.read_file(path_faults)
+    f=open(output_path+'/faults.csv',"w")
+    f.write("X,Y,Z,formation\n")
+    fo=open(output_path+'/fault_orientations.csv',"w")
+    fo.write("X,Y,Z,DipDirection,dip,DipPolarity,formation\n")
+    #fo.write("X,Y,Z,azimuth,dip,polarity,formation\n")
+    fd=open(output_path+'/fault_dimensions.csv',"w")
+    fd.write("Fault,HorizontalRadius,VerticalRadius,InfluenceDistance\n")
+    #fd.write("Fault_ID,strike,dip_direction,down_dip\n")
+
+    for flt in faults_clip.iterrows():
+        if(c_l['fault'] in flt[1][c_l['f']]):
+            fault_name='Fault_'+str(flt[1][c_l['o']])
+            flt_ls=LineString(flt[1].geometry)
+            dlsx=flt_ls.coords[0][0]-flt_ls.coords[len(flt_ls.coords)-1][0]
+            dlsy=flt_ls.coords[0][1]-flt_ls.coords[len(flt_ls.coords)-1][1]
+            strike=sqrt((dlsx*dlsx)+(dlsy*dlsy))
+            if(strike>fault_min_len):
+                i=0
+                saved=0
+                for afs in flt_ls.coords:
+                    if(m2l_utils.mod_safe(i,fault_decimate)==0 or i==int((len(flt_ls.coords)-1)/2) or i==len(flt_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape                         
+                        if(saved==0):
+                            p1x=afs[0]
+                            p1y=afs[1]
+                        elif(saved==1):
+                            p2x=afs[0]
+                            p2y=afs[1]
+                        elif(saved==2):
+                            p3x=afs[0]
+                            p3y=afs[1]
+                            # avoids narrow angles in fault traces which geomodeller refuses to solve
+                            # should really split fault in two at apex, but life is too short
+                            if(m2l_utils.tri_angle(p2x,p2y,p1x,p1y,p3x,p3y)<45.0): 
+                                break
+                        elif(saved>2):
+                            p1x=p2x
+                            p1y=p2y
+                            p2x=p3x
+                            p2y=p3y
+                            p3x=afs[0]
+                            p3y=afs[1]
+                            # avoids narrow angles in fault traces which geomodeller refuses to solve
+                            # should really split fault in two at apex, but life is too short
+                            if(m2l_utils.tri_angle(p2x,p2y,p1x,p1y,p3x,p3y)<45.0):
+                                break 
+                        saved=saved+1
+                        locations=[(afs[0],afs[1])]     
+                        height=m2l_utils.value_from_raster(dataset,locations)
+                        # slightly randomise first and last points to avoid awkward quadruple junctions etc.
+                        #if(i==0 or i==len(flt_ls.coords)-1):
+                        #    ostr=str(afs[0]+np.random.ranf())+","+str(afs[1]+np.random.ranf())+","+str(height)+","+fault_name+"\n"
+                        #else:
+                        ostr=str(afs[0])+","+str(afs[1])+","+str(height)+","+fault_name+"\n"                            
+                        f.write(ostr)                
+                    i=i+1  
+                if(dlsx==0.0 or dlsy == 0.0):
+                    continue
+                lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
+                lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))        
+                azimuth=degrees(atan2(lsy,-lsx)) % 180 #normal to line segment           
+                locations=[(flt_ls.coords[int((len(afs)-1)/2)][0],flt_ls.coords[int((len(afs)-1)/2)][1])]     
+                height=m2l_utils.value_from_raster(dataset,locations)
+                ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+","+str(fault_dip)+",1,"+fault_name+"\n"
+                fo.write(ostr)
+                ostr=fault_name+","+str(strike/2)+","+str(strike/2)+","+str(strike/4.0)+"\n"
+                fd.write(ostr)
+
+    f.close()
+    fo.close()
+    fd.close()
+    print("fault orientations saved as",output_path+'fault_orientations.csv')
+    print("fault positions saved as",output_path+'faults.csv')
+    print("fault dimensions saved as",output_path+'fault_dimensions.csv')
+
     
 #########################################
 # Save faults as contact info and make vertical (for the moment)
 #########################################  
-def save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decimate,fault_min_len,fault_dip):
+def old_save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decimate,fault_min_len,fault_dip):
     faults_clip=gpd.read_file(path_faults)
     f=open(path_fault_orientations+'/faults.csv',"w")
     f.write("X,Y,Z,formation\n")
@@ -853,7 +933,7 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_f
         
     if('interpolated_orientations' in inputs):
         interpolated_orientations=pd.read_csv(tmp_path+'combo_full.csv',",")
-        all_orientations=pd.concat([all_orientations,interpolated_orientations],sort=False)
+        all_orientations=pd.concat([all_orientations,interpolated_orientations.iloc[::2, :]],sort=False)
         
     if('intrusive_orientations' in inputs):
         intrusive_orientations=pd.read_csv(output_path+'ign_orientations_'+pluton_form+'.csv',",")
