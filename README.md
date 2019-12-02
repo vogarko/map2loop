@@ -14,6 +14,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 - Graphs are created in-code from Vitaliy's map2model cpp code as Points
   
 #### map2loop outputs:
+<img src="./graphics/pretties_sm.png">
 ##### Topology:
 
 | content | filename | created by | example notebook |
