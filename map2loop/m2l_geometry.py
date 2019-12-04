@@ -23,8 +23,11 @@ import numpy as np
 # decimate saves every nth orientation point (without reference to spatial density or structural complexity)
 # dtm rasterio format georeferenced dtm grid
 # 
-# Save dip,dip direction of bedding extracted from geology layer with additional height information from dtm and joined with polygon information from geology polygon layer. Stored as csv file.
-# Orientation data needs calculated height as file does not provide it, taken from SRTM data already downloaded. To calculate polarity (WHICH WE DON'T DO YET) we can calculate the dot product of the dip direction of a bedding plane and the vector to that points nearest basal contact node, if abs(acos(dot product))>90 then right way up:
+# Save dip,dip direction of bedding extracted from geology layer with additional height information from dtm and joined with 
+# polygon information from geology polygon layer. Stored as csv file.
+# Orientation data needs calculated height as file does not provide it, taken from SRTM data already downloaded. 
+# To calculate polarity (WHICH WE DON'T DO YET) we can calculate the dot product of the dip direction of a bedding plane 
+# and the vector to that points nearest basal contact node, if abs(acos(dot product))>90 then right way up.
 ####################################################
 def save_orientations(structures,path_out,c_l,orientation_decimate,dtm):
     i=0
@@ -55,7 +58,9 @@ def save_orientations(structures,path_out,c_l,orientation_decimate,dtm):
 # structures geopandas layer of orientation points c_l dictionary of codes and labels specific to input geo information layers
 # c_l dictionary of codes and labels specific to input geo information layers
 #
-# Save additional arbitrary dip/dip direction data for series/groups that don’t have structural information available. Ignores intrusive polygons. Somewhat superceded by interpolation codes. Could use dip direction normal to basal contact (if there is one) but don't do this yet.
+# Save additional arbitrary dip/dip direction data for series/groups that don’t have structural information available. 
+# Ignores intrusive polygons. Somewhat superceded by interpolation codes. Could use dip direction normal to basal contact 
+# (if there is one) but don't do this yet.
 ####################################################
 def create_orientations( path_in, path_out,dtm,geology,structures,c_l):
     #f=open(path_in+'/groups.csv',"r")
@@ -143,7 +148,8 @@ def create_orientations( path_in, path_out,dtm,geology,structures,c_l):
 # Returns:
 # exterior_coords exterior coordinates of ploygon interior_coords array of interior hole's interior coordinates
 # 
-# Shapely multgipolygons can contain interior holes which need to be extracted as distinct contact polylines for use in map2loop. This code achieves that.
+# Shapely multgipolygons can contain interior holes which need to be extracted as distinct contact polylines 
+# for use in map2loop. This code achieves that.
 ####################################################
 def extract_poly_coords(geom,i):
 
@@ -178,9 +184,16 @@ def extract_poly_coords(geom,i):
 # contact_decimate decimation factor for saving every nth input point on contact polylines
 # c_l dictionary of codes and labels specific to input geo information layers
 # intrusion_mode Boolean for saving intrusive contacts or not
-# 
-# Saves a shapefile of the basal contacts of each stratigraphic unit (but not intrusives). This analysis uses the relative age of each unit, and includes faulted contacts, that are filtered out by another function. Returns dictionaries of basal contacts with and without decimation.
-# Orientation data needs calculated height as file does not provide it, taken from SRTM data already downloaded. Need to reduce number of points whilst retaining useful info (Ranee's job!)' To calculate which are the basal units contact for a polygon find the polygons which are older than the selected polygon, in the example below the central polygon has relative age 23 so its basal contact is with the polygons whose ages are 26 & 28. If there are no older units for a polygon it has no basal content. We keep every nth node based on the decimate term (simple count along polyline). gempy seems to need at least two points per surface, so we always take the first two points.
+# Returns:
+# dictionaries of basal contacts with and without decimation.
+#
+# Saves a shapefile of the basal contacts of each stratigraphic unit (but not intrusives). This analysis uses 
+# the relative age of each unit, and includes faulted contacts, that are filtered out by another function. 
+# Orientation data needs calculated height as file does not provide it, taken from SRTM data already downloaded. 
+# Need to reduce number of points whilst retaining useful info (Ranee's job!)' To calculate which are the basal units 
+# contact for a polygon find the polygons which are older than the selected polygon
+# If there are no older units for a polygon it has no basal contact. We keep every nth node based on the decimate term 
+# (simple count along polyline). gempy seems to need at least two points per surface, so we always take the first two points.
 ####################################################
 def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,c_l,intrusion_mode):
     #print("decimation: 1 /",contact_decimate)
@@ -375,8 +388,15 @@ def save_basal_no_faults(path_out,path_fault,ls_dict,dist_buffer,c_l,dst_crs):
 
 #########################################
 # Save basal contacts from shapefile with decimation
+#
+# Args: 
+# contacts geopandas object containing basal contact polylines
+# output_path directory of output csv file
+# dtm rasterio format elevation grid
+# contact_decimate decimation factor for saving every nth input point on contact polylines
+#
 #########################################
-def save_basal_contacts_csv(contacts,output_path,dtm,contact_decimate):
+def save_basal_contacts_csv(contacts,output_path,dtm,contact_decimate,c_l):
     f=open(output_path+'contacts4.csv','w')
     f.write('X,Y,Z,formation\n')
     for index,contact in contacts.iterrows():
@@ -389,17 +409,17 @@ def save_basal_contacts_csv(contacts,output_path,dtm,contact_decimate):
                     if(m2l_utils.mod_safe(i,contact_decimate)==0 or i==int((len(contact.geometry)-1)/2) or i==len(contact.geometry)-1):
                         locations=[(line.coords[0][0],line.coords[0][1])]
                         height=m2l_utils.value_from_raster(dtm,locations)
-                        ostr=str(line.coords[0][0])+','+str(line.coords[0][1])+','+str(height)+','+str(contact.CODE)+'\n'
+                        ostr=str(line.coords[0][0])+','+str(line.coords[0][1])+','+str(height)+','+str(contact[c_l['c']])+'\n'
                         f.write(ostr)
                 else: #new line
                     if(not first):
                         locations=[(lastx,lasty)]
                         height=m2l_utils.value_from_raster(dtm,locations)                        
-                        ostr=str(lastx)+','+str(lasty)+','+str(height)+','+str(contact.CODE)+'\n'
+                        ostr=str(lastx)+','+str(lasty)+','+str(height)+','+str(contact[c_l['c']])+'\n'
                         f.write(ostr)
                     locations=[(line.coords[0][0],line.coords[0][1])]
                     height=m2l_utils.value_from_raster(dtm,locations)                        
-                    ostr=str(line.coords[0][0])+','+str(line.coords[0][1])+','+str(height)+','+str(contact.CODE)+'\n'
+                    ostr=str(line.coords[0][0])+','+str(line.coords[0][1])+','+str(height)+','+str(contact[c_l['c']])+'\n'
                     f.write(ostr)
                     first=False
                 i=i+1
@@ -409,11 +429,11 @@ def save_basal_contacts_csv(contacts,output_path,dtm,contact_decimate):
         elif contact.geometry.type == 'LineString':
             locations=[(contact.geometry.coords[0][0],contact.geometry.coords[0][1])]
             height=m2l_utils.value_from_raster(dtm,locations)                        
-            ostr=str(contact.geometry.coords[0][0])+','+str(contact.geometry.coords[0][1])+','+str(height)+','+str(contact.CODE)+'\n'
+            ostr=str(contact.geometry.coords[0][0])+','+str(contact.geometry.coords[0][1])+','+str(height)+','+str(contact[c_l['c']])+'\n'
             f.write(ostr)
             locations=[(contact.geometry.coords[1][0],contact.geometry.coords[1][1])]
             height=m2l_utils.value_from_raster(dtm,locations)                        
-            ostr=str(contact.geometry.coords[1][0])+','+str(contact.geometry.coords[1][1])+','+str(height)+','+str(contact.CODE)+'\n'
+            ostr=str(contact.geometry.coords[1][0])+','+str(contact.geometry.coords[1][1])+','+str(height)+','+str(contact[c_l['c']])+'\n'
             f.write(ostr)
     f.close()
     print('decimated contacts saved as',output_path+'contacts4.csv')
@@ -480,7 +500,9 @@ def save_contacts_with_faults_removed(path_fault,path_out,dist_buffer,ls_dict,ls
 # c_l dictionary of codes and labels specific to input geo information layers
 # fault_decimate decimation factor for saving every nth input point on fault polylines
 # 
-# Saves out csv file of fault locations after decimation. Also saves out nominal orientation data at mid point of each fault trace with strike parallel to start end point line and arbitrary vertical dip. Also saves out csv list of faults with their start-finish length that could be used for filtering which faults to include in model.
+# Saves out csv file of fault locations after decimation. Also saves out nominal orientation data at mid point 
+# of each fault trace with strike parallel to start end point line and arbitrary vertical dip. Also saves out csv list 
+# of faults with their start-finish length that could be used for filtering which faults to include in model.
 #########################################  
 def save_faults(path_faults,output_path,dataset,c_l,fault_decimate,fault_min_len,fault_dip):
     faults_clip=gpd.read_file(path_faults)
@@ -561,6 +583,7 @@ def save_faults(path_faults,output_path,dataset,c_l,fault_decimate,fault_min_len
     
 #########################################
 # Save faults as contact info and make vertical (for the moment)
+# old code, to be deleted?
 #########################################  
 def old_save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decimate,fault_min_len,fault_dip):
     faults_clip=gpd.read_file(path_faults)
@@ -608,7 +631,19 @@ def old_save_faults(path_faults,path_fault_orientations,dataset,c_l,fault_decima
     print("fault positions saved as",path_fault_orientations+'faults.csv')
     print("fault dimensions saved as",path_fault_orientations+'fault_dimensions.csv')
     
+########################################
 #Save fold axial traces 
+#
+# save_fold_axial_traces(path_faults,path_fault_orientations,dataset,c_l,fault_decimate)
+# Args:
+# path_folds path to clipped fault layer
+# path_fold_orientations directory for outputs
+# dataset rasterio format elevation grid
+# c_l dictionary of codes and labels specific to input geo information layers
+# fold_decimate decimation factor for saving every nth input point on fold axial trace polylines
+# 
+# Saves out csv file of fold axial trace locations after decimation. 
+#########################################  
 def save_fold_axial_traces(path_folds,path_fold_orientations,dataset,c_l,fold_decimate):
     folds_clip=gpd.read_file(path_folds)
     fo=open(path_fold_orientations+'/fold_axial_traces.csv',"w")
@@ -633,6 +668,14 @@ def save_fold_axial_traces(path_folds,path_fold_orientations,dataset,c_l,fold_de
 
 #########################################
 # Create basal contact points with orientation from orientations and basal points
+#
+# Args:
+# contacts geopandas object containing basal contacts
+# structures geopandas object containing bedding orientations
+# output_path directory for outputs
+# dtm rasterio format elevation grid
+# dist_buffer
+# c_l dictionary of codes and labels specific to input geo information layers
 #########################################
 def create_basal_contact_orientations(contacts,structures,output_path,dtm,dist_buffer,c_l):
     f=open(output_path+'projected_dip_contacts2.csv',"w")
@@ -686,14 +729,17 @@ def create_basal_contact_orientations(contacts,structures,output_path,dtm,dist_b
 # process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,pluton_dip,contact_decimate,c_l)
 # Args:
 # tmp_path directory of temporary outputs from m2l
-# output_path directory of outputs from m2lc geol_clip path ot clipped geology layer local_paths Boolean to control if local on web data is used dtm rasterio format elevation grid
-# pluton_form fundamental pluton geometry (one of domes, saucers, pendant, batholith) pluton_dip fix dip for all pluton contacts contact_decimate decimation factor for saving every nth input point on contact polylines
+# output_path directory of outputs from m2lc geol_clip path ot clipped geology layer local_paths Boolean to control if 
+# local on web data is used dtm rasterio format elevation grid
+# pluton_form fundamental pluton geometry (one of domes, saucers, pendant, batholith) pluton_dip fix dip for all pluton 
+# contacts contact_decimate decimation factor for saving every nth input point on contact polylines
 # c_l dictionary of codes and labels specific to input geo information layers
 # 
-# Saves out csv of locations of intrusive contacts and csv of contact orientations. Orientations can take one of four modes (inward/ outward dipping normal/reverse polarity) and have dip direction normal to local contact and fixed arbitrary dip
-# For each instruve but not sill polygon, find older neighbours and store decimated contact points. Also store dipping contact orientations (user defined, just because) with four possible sub-surface configurations:
-# saucers: +++/ batholiths: +++/_ __ _+++ domes: /‾+++‾
-# pendants: +++\ _/+++
+# Saves out csv of locations of intrusive contacts and csv of contact orientations. Orientations can take one of four modes 
+# (inward/ outward dipping normal/reverse polarity) and have dip direction normal to local contact and fixed arbitrary dip
+# For each instruve but not sill polygon, find older neighbours and store decimated contact points. Also store dipping contact 
+# orientations (user defined, just because) with four possible sub-surface configurations:
+# saucers: +++/ batholiths: +++/_ __ _+++ domes: /‾+++‾ pendants: +++\ _/+++
 # 
 # Saves out orientations and contact points
 #########################################
@@ -880,141 +926,19 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
     print(output_path+'ign_contacts.csv')
     print(output_path+'ign_orientations_'+pluton_form+'.csv')
 
-######################################
-# Interpolate dipd,dipdirection data from shapefile usin fold axial traces as additional constraints     
-######################################
-def interpolate_orientations_with_fat(structure_file,output_path,bbox,c_l,this_gcode,calc,gridx,gridy):
-    structure = gpd.read_file(structure_file,bbox=bbox)
-    fat_orientations=pd.read_csv(output_path+'fold_axial_trace_orientations2.csv',",")
-    
-    
-    
-    if(len(this_gcode)==1):       
-        is_gp=structure[c_l['g']] == thisgcode # subset orientations to just those with this group
-        gp_structure = structure[is_gp]
-        print('single group')
-        display(gp_structure)
-    else:
-        print('first code',this_gcode[0])
-        is_gp=structure[c_l['g']] == this_gcode[0] # subset orientations to just those with this group
-        gp_structure = structure[is_gp]
-        gp_structure_all = gp_structure.copy()
-        print('first group')
-        display(gp_structure)
-
-        for i in range (1,len(this_gcode)):
-            print('next code',this_gcode[i])
-            is_gp=structure[c_l['g']] == this_gcode[i] # subset orientations to just those with this group
-            temp_gp_structure = structure[is_gp]
-            gp_structure_all = pd.concat([gp_structure_all, temp_gp_structure], ignore_index=True)
-            print('next group')
-            display(gp_structure)
-
-    npts = len(gp_structure_all)+len(fat_orientations)
-    
-    nx, ny = gridx,gridy
-
-    xi = np.linspace(bbox[0],bbox[2], nx)
-    yi = np.linspace(bbox[1],bbox[3], ny)
-    xi, yi = np.meshgrid(xi, yi)
-    xi, yi = xi.flatten(), yi.flatten()
-    x = np.zeros(npts)
-    y = np.zeros(npts)
-    dip = np.zeros(npts)
-    dipdir = np.zeros(npts)
-    
-    i=0
-    for a_pt in gp_structure_all.iterrows():
-        x[i]=a_pt[1]['geometry'].x
-        y[i]=a_pt[1]['geometry'].y
-        dip[i] = a_pt[1][c_l['d']]
-        dipdir[i] = a_pt[1][c_l['dd']]
-        i=i+1
-
-    for a_pt in fat_orientations.iterrows():
-        x[i]=a_pt[1]['X']
-        y[i]=a_pt[1]['Y']
-        dip[i] = a_pt[1]['dip']
-        dipdir[i] = a_pt[1]['azimuth']
-        i=i+1
-    
-    l=np.zeros(npts)
-    m=np.zeros(npts)
-    n=np.zeros(npts)
-    
-    for i in range(0,npts):
-        l[i],m[i],n[i]=m2l_utils.ddd2dircos(dip[i],dipdir[i])
-
-    ZIl,ZIm,ZIn=call_interpolator(calc,x,y,l,m,n,xi,yi,nx,ny)
-    
-    # Comparisons...
-    plot(x,-y,l,ZIl)
-    plt.title('l')
-    plot(x,-y,m,ZIm)
-    plt.title('m')
-    plot(x,-y,n,ZIn)
-    plt.title('n')
-    
-    plt.show()
-    
-    f=open(output_path+'input.csv','w')
-    fi=open(output_path+'interpolation_'+calc+'.csv','w')
-    fl=open(output_path+'interpolation_l.csv','w')
-    fm=open(output_path+'interpolation_m.csv','w')
-    fn=open(output_path+'interpolation_n.csv','w')
-    
-    f.write("x,y,dip,dipdirection\n")
-    fi.write("x,y,dip,dipdirection\n")
-    fl.write("x,y,l\n")
-    fm.write("x,y,m\n")
-    fn.write("x,y,n\n")
-    
-    for i in range (0,npts):
-        ostr=str(x[i])+","+str(y[i])+","+str(int(dip[i]))+","+str(int(dipdir[i]))+'\n'
-        f.write(ostr)
-    
-    for xx in range (0,gridx):
-        for yy in range (0,gridy):
-            yyy=xx
-            xxx=gridy-2-yy
-            L=ZIl[xxx,yyy]/(sqrt((pow(ZIl[xxx,yyy],2.0))+(pow(ZIm[xxx,yyy],2.0))+(pow(ZIn[xxx,yyy],2.0))))
-            M=ZIm[xxx,yyy]/(sqrt((pow(ZIl[xxx,yyy],2.0))+(pow(ZIm[xxx,yyy],2.0))+(pow(ZIn[xxx,yyy],2.0))))
-            N=ZIn[xxx,yyy]/(sqrt((pow(ZIl[xxx,yyy],2.0))+(pow(ZIm[xxx,yyy],2.0))+(pow(ZIn[xxx,yyy],2.0))))
-            
-            dip,dipdir=m2l_utils.dircos2ddd(L,M,N)
-
-            ostr=str(bbox[0]+(xx*((bbox[2]-bbox[0])/gridx)))+","+str(bbox[1]+((gridy-1-yy)*((bbox[3]-bbox[1])/gridy)))+","+str(int(dip))+","+str(int(dipdir))+'\n'
-            fi.write(ostr)
-            
-            ostr=str(xx)+","+str(yy)+","+str(L)+'\n'
-            fl.write(ostr)
-            ostr=str(xx)+","+str(yy)+","+str(M)+'\n'
-            fm.write(ostr)
-            ostr=str(xx)+","+str(yy)+","+str(N)+'\n'
-            fn.write(ostr)
-    
-    f.close()
-    fi.close()
-    fl.close()
-    fm.close()
-    fn.close()
-    
-    fig, ax = plt.subplots(figsize=(10, 10),)
-    q = ax.quiver(xi, yi, -ZIm, ZIl,headwidth=0)
-    plt.show()
-    print("orientations interpolated as dip dip direction",output_path+'interpolation_'+calc+'.csv')
-    print("orientations interpolated as l,m,n dir cos",output_path+'interpolation_l.csv etc.')
-
 
 ###################################
-# Remove orientations that don't belong to actual formations in mode
+# Remove orientations that don't belong to actual formations in model
 #
 # tidy_data(output_path,tmp_path,use_gcode,use_interpolations,pluton_form)
 # Args:
 # output_path directory of outputs from m2lc
-# tmp_path directory of temporary outputs from m2l use_gcode list of groups that will be retained if possible use_interpolations include extra data from dip/contact interpolation pluton_form fundamental pluton geometry (one of domes, saucers, pendant, batholith)
+# tmp_path directory of temporary outputs from m2l use_gcode list of groups that will be retained if possible 
+# use_interpolations include extra data from dip/contact interpolation pluton_form fundamental 
+# pluton geometry (one of domes, saucers, pendant, batholith)
 # 
-# Removes formations that don’t belong to a group, groups with no formations, orientations without formations, contacts without formations etc so gempy and other packages don’t have a fit.
+# Removes formations that don’t belong to a group, groups with no formations, orientations 
+# without formations, contacts without formations etc so gempy and other packages don’t have a fit.
 ###################################
 def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_form,inputs):
 
@@ -1161,14 +1085,14 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_f
 
 
 ####################################################
-# calculate distance between two points
+# calculate distance between two points (duplicate from m2l_utils??
 ####################################################
-def pt_dist(x1,y1,x2,y2):
+def xxxpt_dist(x1,y1,x2,y2):
     dist=sqrt(pow(x1-x2,2)+pow(y1-y2,2))
     return(dist)
 
 ####################################################
-# determine if two bounding boxes overlap
+# determine if two bounding boxes overlap (not used currently)
 ####################################################
 
 def bboxes_intersect(bbox1,bbox2):
@@ -1186,6 +1110,15 @@ def bboxes_intersect(bbox1,bbox2):
             return(False)
 
 ####################################
+# Calculate local formation thickness estimates 
+#
+# calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed)
+# Args:
+# tmp_path path to temprorary file storage directory
+# output_path path to m2l ouptuts directory
+# buffer distance within which interpolated bedding orientations will be used for averaging
+# max_thickness_allowed maximum valiud thickness (should be replaced by infinite search where no faults or fold axial traces are crossed
+# 
 # Calculate local formation thickness estimates by finding intersection of normals to basal contacts 
 # with next upper formation in stratigraphy, and using interpolated orientaiton estimates to calculate true thickness
 ####################################
@@ -1286,7 +1219,7 @@ def calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed):
                         min_dist=1e8
                         min_pt=0
                         for f in range(0,i): #find closest hit
-                            this_dist=pt_dist(crossings[f,3],crossings[f,4],cx[k],cy[k])
+                            this_dist=m2l_utils.ptsdist(crossings[f,3],crossings[f,4],cx[k],cy[k])
                             if(this_dist<min_dist):
                                 min_dist=this_dist
                                 min_pt=f
@@ -1303,6 +1236,12 @@ def calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed):
 
 ####################################
 # Normalise thickness for each estimate to median for that formation
+#
+# normalise_thickness(output_path)
+# Args:
+# output_path path to m2l output directory
+#
+# Normalises previously calculated formation thickness by dviding by median value for that formation
 ####################################
 def normalise_thickness(output_path):
     thickness=pd.read_csv(output_path+'formation_thicknesses.csv', sep=',')
@@ -1332,20 +1271,7 @@ def normalise_thickness(output_path):
     f.close()
     fs.close()
     
-def bboxes_intersect(bbox1,bbox2):
-        if(bbox1[0]<=bbox2[2] and bbox1[0]>=bbox2[0] and bbox1[1]<=bbox2[3] and bbox1[1]>=bbox2[1]):
-            return(True)
-        elif(bbox1[0]<=bbox2[2] and bbox1[0]>=bbox2[0] and bbox1[3]<=bbox2[3] and bbox1[3]>=bbox2[1]):
-            return(True)
-        elif(bbox1[2]<=bbox2[2] and bbox1[2]>=bbox2[0] and bbox1[1]<=bbox2[3] and bbox1[1]>=bbox2[1]):
-            return(True)
-        elif(bbox1[2]<=bbox2[2] and bbox1[2]>=bbox2[0] and bbox1[3]<=bbox2[3] and bbox1[3]>=bbox2[1]):
-            return(True)
-        elif(bbox2[0]<=bbox1[2] and bbox2[0]>=bbox1[0] and bbox2[3]<=bbox1[3] and bbox2[3]>=bbox1[1]):
-            return(True)
-        else:
-            return(False)
-        
+
 ####################################################
 # For each fault string:
 
@@ -1412,19 +1338,19 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dataset,
                             geometry = [Point(midxr,midyr)]
                             gdf = GeoDataFrame(dummy, crs=dst_crs, geometry=geometry)
                             structure_code = gpd.sjoin(gdf, geology, how="left", op="within")
-                            if(not str(structure_code.iloc[0]['CODE'])=='nan'):
+                            if(not str(structure_code.iloc[0][c_l['c']])=='nan'):
                                 locations=[(midxr,midyr)]                  
                                 height=m2l_utils.value_from_raster(dataset,locations)
-                                ostr=str(midxr)+','+str(midyr)+','+str(height)+','+str(dipdir)+','+str(int(dip))+',1,'+str(structure_code.iloc[0]['CODE']).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0]['GROUP_'])+'\n'
+                                ostr=str(midxr)+','+str(midyr)+','+str(height)+','+str(dipdir)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
                                 f.write(ostr)
                             
                             geometry = [Point(midxl,midyl)]
                             gdf = GeoDataFrame(dummy, crs=dst_crs, geometry=geometry)
                             structure_code = gpd.sjoin(gdf, geology, how="left", op="within")
-                            if(not str(structure_code.iloc[0]['CODE'])=='nan'):
+                            if(not str(structure_code.iloc[0][c_l['c']])=='nan'):
                                 locations=[(midxl,midyl)]                  
                                 height=m2l_utils.value_from_raster(dataset,locations)
-                                ostr=str(midxl)+','+str(midyl)+','+str(height)+','+str(dipdir+180)+','+str(int(dip))+',1,'+str(structure_code.iloc[0]['CODE']).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0]['GROUP_'])+'\n'
+                                ostr=str(midxl)+','+str(midyl)+','+str(height)+','+str(dipdir+180)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
                                 f.write(ostr)
                     first=False
                     lastx=afs[0]

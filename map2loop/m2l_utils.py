@@ -19,7 +19,7 @@ from osgeo import gdal
 # output version number
 ############################################
 def v():
-    print('0.0.46')
+    print('0.0.50')
     
 ############################################
 # first test
@@ -452,7 +452,13 @@ def clip_shp(shp, clip_obj):
 
 ####################################################
 # convert rectangle to shapefile
-
+#
+# save_clip_to_bbox(path,geom,minx,maxx,miny,maxy,dst_crs)
+# Args:
+# path path to shapefile output
+# geom NOT USED
+# minx,maxx,miny,maxy coordinates of bounding box
+# dst_crs Coordinate Refernce System
 ####################################################
 def save_clip_to_bbox(path,geom,minx,maxx,miny,maxy,dst_crs):
     y_point_list = [miny, miny, maxy, maxy, miny]

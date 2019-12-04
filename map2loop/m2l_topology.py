@@ -8,6 +8,11 @@ import operator
 
 ####################################
 # parse stratigraphy GML file to get number of series and series names
+#
+# get_series(path_in,id_label)
+# Args:
+# path_in path to gml file
+# id_label code for eacah node that defines node type (group or formation)
 ####################################
 def get_series(path_in,id_label):
     G=nx.read_gml(path_in,label=id_label) # load a stratigraphy with groups needs to feed via yed!!
