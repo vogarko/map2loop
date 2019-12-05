@@ -12,6 +12,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 - Fault and fold axial trace as PolyLines  
 - Structure measurements (bed dips)
 - Graphs are created in-code from Vitaliy's map2model cpp code as Points
+- See below for more details
   
 #### map2loop outputs:
 ![Example outputs](./graphics/pretties_sm.png "Example Outputs")   
@@ -97,3 +98,34 @@ sys
 math
 shapely
 gempy
+
+#### Inputs  
+Minimum map2loop inputs:  
+  
+1.	EPSG coordinate reference system for input data (metre-based projection like UTM)   
+   
+2.	Max/min coordinates of area of interest   
+   
+3.	Geology polygons:
+-a.	All polygons are watertight
+-b.	Polygons stop on faults
+-c.	Polygons have as attributes:
+-i.	Object ID
+-ii.	Stratigraphic code
+-iii.	Stratigraphic group
+-iv.	One of more fields that describe if sill, if igneous, if volcanic
+-v.	Min_age field
+-vi.	Max_age field (can be same as Min_age field, and can be simple numerical ordering (bigger number is older)   
+   
+4.	Fault/Fold Axial Trace Polylines:
+-a.	Faults terminate on other faults but don’t cross
+-b.	Faults/Folds have as attributes:
+-i.	Object ID
+-ii.	Field that determines if polyline is fault or fold axial trace
+-iii.	Field that determine type of fold axial trace e.g. syncline or anticline)   
+   
+5.	Bedding orientations:
+-a.	Assumes dip/dip direction data
+-b.	Orientations have as attributes:
+-i.	Dip
+-ii.	Dip Direction
