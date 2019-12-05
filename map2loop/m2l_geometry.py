@@ -570,7 +570,7 @@ def save_faults(path_faults,output_path,dataset,c_l,fault_decimate,fault_min_len
                 height=m2l_utils.value_from_raster(dataset,locations)
                 ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+","+str(fault_dip)+",1,"+fault_name+"\n"
                 fo.write(ostr)
-                ostr=fault_name+","+str(strike/2)+","+str(strike/2)+","+str(strike/4.0)+"\n"
+                ostr=fault_name+","+str(strike/2)+","+str(strike)+","+str(strike/4.0)+"\n"
                 fd.write(ostr)
 
     f.close()

@@ -20,7 +20,11 @@
         <max>1166.4783935546757</max>
         <__undefined>false</__undefined>
       </__userDataBounds>
-      <__visualBounds reference="11"/>
+      <__visualBounds id="12">
+        <min>273.9761962890625</min>
+        <max>1166.4783935546757</max>
+        <__undefined>false</__undefined>
+      </__visualBounds>
     </__data>
   </__data>
 </com.geomodeller.ui.dialogs.LutConfigurator>
