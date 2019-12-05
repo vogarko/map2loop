@@ -1271,22 +1271,18 @@ def normalise_thickness(output_path):
     f.close()
     fs.close()
     
-
 ####################################################
-# For each fault string:
+# Save out near-fold axial trace orientations:
+# save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dataset,c_l,dst_crs,fold_decimate,fat_step,close_dip)
+# Args:
+# path_faults path to clipped fold axial trace layer
+# path_fault_orientations directory for outputs
+# dataset rasterio format elevation grid
+# c_l dictionary of codes and labels specific to input geo information layers
+# fault_decimate decimation factor for saving every nth input point on fault polylines
 
-#    incementally advance along polyline every at each inter-node (no point in doing more?)
-#    find local stratigraphy 10m to left and right of fault
-# Once full fault has been traversed:
-
-#    Find list of contacts left
-#    Find equivalent contacts on right
-#    use interpolated orientations to estimate minimum true offset assuming vertical displacement and store
-#    if no equivalent found, flag as domain fault and find min strat offset for contact, use cumulative minimum thickness estimate and store with flag (not implemented)
-#    estimate median & sd of minimum fault offset and store with flag (not implemented)
-# Local Orientations: Since much of the code is the same, we benefit by calculating local orientation data either side of 
-# fault so that geomodeller/gempy have satisfied fault compartment orientation data
 ###################################################
+
 def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dataset,c_l,dst_crs,fold_decimate,fat_step,close_dip):
     geology = gpd.read_file(tmp_path+'geol_clip.shp')
     contacts=np.genfromtxt(tmp_path+'interpolation_contacts_scipy_rbf.csv',delimiter=',',dtype='float')

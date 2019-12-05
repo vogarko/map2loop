@@ -798,6 +798,24 @@ def interpolate_orientations_with_fat(structure_file,output_path,bbox,c_l,this_g
     print("orientations interpolated as dip dip direction",output_path+'interpolation_'+calc+'.csv')
     print("orientations interpolated as l,m,n dir cos",output_path+'interpolation_l.csv etc.')
 
+####################################################
+# For each fault string:
+# process_fault_throw_and_near_orientations(tmp_path,output_path,dtm_reproj_file,c_l,use_gcode,use_gcode2,dst_crs,bbox,scheme)
+# Args:
+#
+#    incementally advance along polyline every at each inter-node (no point in doing more?)
+#    find local stratigraphy 10m to left and right of fault
+# Once full fault has been traversed:
+#
+#    Find list of contacts left
+#    Find equivalent contacts on right
+#    use interpolated orientations to estimate minimum true offset assuming vertical displacement and store
+#    if no equivalent found, flag as domain fault and find min strat offset for contact, use cumulative minimum thickness estimate and store with flag (not implemented)
+#    estimate median & sd of minimum fault offset and store with flag (not implemented)
+# Local Orientations: Since much of the code is the same, we benefit by calculating local orientation data either side of 
+# fault so that geomodeller/gempy have satisfied fault compartment orientation data
+###################################################
+
 def process_fault_throw_and_near_orientations(tmp_path,output_path,dtm_reproj_file,c_l,use_gcode,use_gcode2,dst_crs,bbox,scheme):
     fault_file=tmp_path+'faults_clip.shp'
     geology_file=tmp_path+'geol_clip.shp'

@@ -14,8 +14,9 @@ A package to extract information from geological maps to feed 3D modelling packa
 - Graphs are created in-code from Vitaliy's map2model cpp code as Points
   
 #### map2loop outputs:
-<img src="./graphics/pretties_sm.png">
-##### Topology:
+![Example outputs](./graphics/pretties_sm.png "Example Outputs")   
+
+#### map2loop outputs:
 
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
@@ -44,7 +45,6 @@ A package to extract information from geological maps to feed 3D modelling packa
 | Basal contacts shapefile | \*/tmp/basal_contacts.shp | m2l_geometry. save_basal_no_faults |  1 |
 | Clipped geology map shapefile | \*/tmp/geol_clip.shp | Notebook 1 |  1 |
 | Clipped fault & fold axial traces shapefile  | \*/tmp/faults_clip.shp | Notebook 1 |  1 |
-| Basic vtk model thanks to gempy  | \*/vtk/\*.vtp | gempy |  1 |
 | Pluton contacts with z and formation | \*/output/ign_contacts.csv | m2l_geometry. process_plutons |  1 |
 | Local formation thickness estimates | \*/output/formation_thicknesses_norm.csv and formation_summary_thickness.csv| m2l_geometry. calc_thickness and normalise_thickness|  2 |
 | Fault dimensions | \*/output/fault_dimensions.csv | m2l_geometry. save_faults |  1 |
@@ -69,6 +69,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
 | Gempy | Notebook creates 3D model itself | m2l_export. loop2gempy |  1a |
+| Basic vtk model thanks to gempy  | \*/vtk/\*.vtp | gempy |  1 |
 | Geomodeller | m2l.taskfile | m2l_export. loop2geomodeller |  1b  |
 | LoopStructural | Notebook creates 3D model itself | m2l_export. loop2LoopStructural |  1c  |
 
