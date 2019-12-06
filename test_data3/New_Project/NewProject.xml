@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?driver version="2.0.1"?>
+<!--Composed by Intrepid GeoModeller 4.0.8 v4.0.8 HEAD for Windows (x64) by PELAGIAN optimised build 88b64e610d9, Nov 12 2019-->
+<geo:Project3DEdit xmlns:geo="http://www.geomodeller.com/geo" xmlns:gml="http://www.opengis.net/gml" author="00073294" CoordSystem="AGD84 / AMG zone 50" date=" 6/12/2019 15:44:27" deflection2d="0.001" deflection3d="1.0E-4" description="geotifftest" discretisation="1000000.0" precision="1.0" projectName="New Project" unit="M" version="2.0">
+  <geo:Extent3DOfProject>
+    <geo:ExtentBox3D>
+      <geo:Extent3D>
+        <geo:ExtentXY Xmax="603028.0" Xmin="500057.0" Ymax="7567953.0" Ymin="7455348.0"/>
+        <geo:ExtentZ Zmax="1200.0" Zmin="-1000.0"/>
+      </geo:Extent3D>
+      <geo:GraphicTitle Title="">
+        <geo:Graphic/>
+        <geo:Location>
+          <gml:coordinates cs="," decimal="." ts=" ">0.0,0.0,0.0</gml:coordinates>
+        </geo:Location>
+      </geo:GraphicTitle>
+      <geo:GraphicBox3d>
+        <geo:Graphic/>
+      </geo:GraphicBox3d>
+      <geo:GraphicTick DensityAlongX="0" DensityAlongY="0" DensityAlongZ="0" OnOff="false" TickLength="0.0">
+        <geo:Graphic/>
+      </geo:GraphicTick>
+      <geo:GraphicLabel LabelFormat="" OnOff="false">
+        <geo:Graphic/>
+      </geo:GraphicLabel>
+    </geo:ExtentBox3D>
+  </geo:Extent3DOfProject>
+  <geo:Formations/>
+  <geo:ProvenanceGroup>
+    <geo:Provenance id="Unspecified" rank="0"/>
+    <geo:Provenance id="Observed" rank="1"/>
+    <geo:Provenance id="Inferred" rank="2"/>
+    <geo:Provenance id="Interpreted" rank="3"/>
+    <geo:Provenance id="ModelConstructor" rank="4"/>
+  </geo:ProvenanceGroup>
+  <geo:GeophysicalReferenceType AmbientMagneticDeclination="0.0" AmbientMagneticInclination="90.0" AmbientMagneticMagnitude="50000.0" DensityRef="2.67"/>
+</geo:Project3DEdit>
