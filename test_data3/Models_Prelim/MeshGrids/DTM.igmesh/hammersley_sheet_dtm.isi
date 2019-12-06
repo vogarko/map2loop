@@ -1,6 +1,6 @@
 MetaData Begin
 	Name	= hammersley_sheet_dtm.ers
-	Version	= "Intrepid geomodellerbatch v4.0.7 geomodeller_4_0 for Windows (x64) by PELAGIAN optimised build 27eee3dc31ba "
+	Version	= "Intrepid geomodellerbatch v4.0.8 HEAD for Windows (x64) by PELAGIAN optimised build 88b64e610d9 "
 	hammersley_sheet_dtm Begin
 		GroupBy	= no
 		DataType	= IEEE8ByteReal

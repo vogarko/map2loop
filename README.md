@@ -115,7 +115,7 @@ Minimum map2loop inputs:
 -iii.	Stratigraphic group   
 -iv.	One of more fields that describe if sill, if igneous, if volcanic   
 -v.	Min_age field   
--vi.	Max_age field (can be same as Min_age field, and can be simple numerical ordering (bigger number is older)   
+-vi.	Max_age field (can be same as Min_age field, and can be simple numerical ordering (bigger number is older))   
    
 4.	Fault/Fold Axial Trace Polylines:   
 -a.	Faults terminate on other faults but don’t cross   

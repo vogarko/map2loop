@@ -370,8 +370,9 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
     f.write('    }\n')
     f.write('}\n')
     
+
     if(compute_etc):
-    
+     
         f.write('#---------------------------------------------------------------\n')
         f.write('#----------------------------Compute Model----------------------\n')
         f.write('#---------------------------------------------------------------\n')
@@ -379,7 +380,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('GeomodellerTask {\n')
         f.write('    ComputeModel {\n')
         f.write('        SeriesList {\n')
-        f.write('            node: "All"\n')
+        f.write('            node: ["Hamersley_Group","Fortescue_Group","Turee_Creek_Group","A_mgn_PRK", "A_mgn_PMI"] \n')
         f.write('        }\n')
         f.write('        SectionList {\n')
         f.write('            node: "All"\n')
@@ -390,13 +391,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('        radius: 10.0\n')
         f.write('    }\n')
         f.write('}\n')
-        
-        f.write('GeomodellerTask {\n')
-        f.write('    SaveProjectAs {\n')
-        f.write('        filename: "./Models_Final/Models_UWA.xml"\n')
-        f.write('    }\n')
-        f.write('}\n')   
-     
+
         f.write('#---------------------------------------------------------------\n')
         f.write('#-----------------------Add geophysical Properties--------------\n')
         f.write('#---------------------------------------------------------------\n')
@@ -408,9 +403,9 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('#---------------------------------------------------------------\n')
         f.write('GeomodellerTask {\n')
         f.write('    SaveLithologyVoxet {\n')
-        f.write('        nx: 100\n')
-        f.write('        ny: 100\n')
-        f.write('        nz: 400\n')
+        f.write('        nx: 25\n')
+        f.write('        ny: 25\n')
+        f.write('        nz: 40\n')
         f.write('        LithologyVoxetFileStub: "./Litho_Voxet/LithoVoxet.vo"\n')
         f.write('    }\n')
         f.write('}\n')
@@ -418,6 +413,12 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('#--------------------------Save As Model------------------------\n')
         f.write('#---------------------------------------------------------------\n')
         f.write('\n')
+    
+        f.write('GeomodellerTask {\n')
+        f.write('    SaveProjectAs {\n')
+        f.write('        filename: "./Models_Final/Models_UWA.xml"\n')
+        f.write('    }\n')
+        f.write('}\n')   
 
 
     f.close()
