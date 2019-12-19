@@ -129,7 +129,7 @@ Minimum map2loop inputs:
 -b.	Orientations have as attributes:   
 -i.	Dip   
 -ii.	Dip Direction   
-
+   
 #### Simplified calculation schemes   
 ##### 1)	Topology   
 ###### a.	Stratigraphic relationships   
