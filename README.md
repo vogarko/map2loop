@@ -129,3 +129,92 @@ Minimum map2loop inputs:
 -b.	Orientations have as attributes:   
 -i.	Dip   
 -ii.	Dip Direction   
+
+#### Simplified calculation schemes   
+##### 1)	Topology   
+###### a.	Stratigraphic relationships   
+i.	Adjacency relationships between neighbouring geological polygons based on formation and group   
+ii.	Directed graph based on these relationships and relative age of formations and groups   
+iii.	Edges attributed by type of contact (intrusive, stratigraphic, fault)   
+   
+###### b.	Fault relationships   
+i.	Relative ages of faults longer than a specified length estimated from truncation relationships   
+ii.	Directed graph based on these relationships   
+iii.	Cyclic relationships removed (A truncates B; B truncates C; C truncates A)   
+   
+###### c.	Fault-stratigraphy relationships   
+i.	Adjacency matrices of relative ages of faults longer than a specified length and formations and groups based on truncation relationships   
+   
+##### 2)	Position Data   
+###### a.	DTM   
+i.	DTM downloaded for defined bounding box from SRTM server   
+ii.	Re-projected to local EPSG-defined projection system   
+   
+###### b.	Basal contacts   
+i.	Formation based on stratigraphic relationship (assigned to younger formation)   
+ii.	X,Y from contact nodes with optional decimation   
+iii.	Z from DTM   
+iv.	Nodes that are defined by faults are removed   
+   
+###### c.	Igneous contacts   
+i.	Formation based on intrusive unit   
+ii.	X,Y from contact nodes with optional decimation   
+iii.	Z from DTM   
+iv.	Nodes that are defined by faults are removed   
+   
+###### d.	Faults   
+i.	Fault name based on id of fault   
+ii.	Optional removal of faults below a certain fault-tip to fault-tip distance   
+iii.	X,Y from fault nodes with optional decimation   
+iv.	Z from DTM   
+   
+###### e.	Fold axial traces   
+i.	Fold axial trace name based on id of fold axial trace   
+ii.	X,Y from fold axial trace nodes with optional decimation   
+iii.	Z from DTM   
+   
+###### f.	Local formation thickness   
+i.	X,Y from basal contact nodes   
+ii.	Z from DTM   
+iii.	Thickness from distance from normal to local contact orientation to stratigraphically next upper contact polyline in the taking into account the local orientation of bedding estimated from the interpolation of basal contacts and primary orientation data   
+iv.	Normalised formation thickness calculated for each node based on division by median of thicknesses for each formation   
+   
+###### g.	Local fault displacement   
+i.	X,Y from fault contact nodes   
+ii.	Z from DTM   
+iii.	Displacement calculated by finding distance between equivalent stratigraphic contacts either side of the fault   
+   
+##### 3)	Gradient data   
+   
+###### a.	Primary dip/dip direction    
+i.	Orientations of bedding, but filter out dip = 0   
+ii.	X,Y from primary data with optional decimation   
+iii.	Add Z from DTM   
+iv.	Add geology polygon formation info   
+   
+###### b.	Fault orientations   
+
+i.	Normal to fault tips for azimuth   
+ii.	X,Y from midpoint between fault tips   
+iii.	Dip as user-defined conceptual constraint   
+   
+###### c.	Near-Fold Axial Trace orientations   
+i.	X,Y step out normal to fat from local nodes of fold axial trace polyline with optional decimation   
+ii.	Add Z from DTM   
+iii.	Dip direction from local normal to fat and sign of fold axis   
+iv.	Dip arbitrarily set by user   
+
+###### d. Near-fault orientations   
+i.	X,Y step out normal to fault from local nodes of fault polyline with optional decimation   
+ii.	Add Z from DTM   
+iii.	Dip and dip direction from interpolation of basal contacts and primary orientation data   
+iv.	Add geology polygon formation info   
+
+###### e.	Empty series orientations   
+   
+###### f.	Igneous contacts   
+i.	X,Y from local nodes of igneous contact polyline with optional decimation   
+ii.	Add Z from DTM   
+iii.	Dip and polarity arbitrarily defined by user   
+iv.	Dip direction from local normal to igneous contact interpolation of basal contacts   
+v.	Add geology polygon formation info   
