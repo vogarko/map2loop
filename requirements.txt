@@ -2,7 +2,6 @@ rasterio
 matplotlib
 networkx
 numpy
-pillow
 pandas
 geopandas
 os

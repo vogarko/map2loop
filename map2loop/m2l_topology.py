@@ -15,7 +15,7 @@ import operator
 # id_label code for eacah node that defines node type (group or formation)
 ####################################
 def get_series(path_in,id_label):
-    G=nx.read_gml(path_in,label=id_label) # load a stratigraphy with groups needs to feed via yed!!
+    G=nx.read_gml(path_in,label=id_label) # load a stratigraphy with groups (no longer true?: needs to feed via yed!!)
 
     glabels = {}
     groups=0
@@ -88,7 +88,7 @@ def save_units(G,path_out,glabels):
 # 
 # abs_age_groups(geol,tmp_path,c_l)
 # Args:
-# geol path to geology layer tmp_path directory of temporary outputs from m2l
+# geol geopandas GeoDataBase of geology polygons
 # c_l dictionary of codes and labels specific to input geo information layers
 # 
 # Save out csv of maximum and minimum ages of formations within each group so that groups can be better sorted.
@@ -441,7 +441,8 @@ def save_geol_wkt(sub_geol,geology_file_csv,c_l):
 # save out orientation points in WKT format
 #
 # save_structure_wkt(sub_pts,structure_file_csv,c_l)
-# sub_geol geopandas format orientation layer geology_file_csv path to output WKT format file
+# sub_pts geopandas format orientation layer 
+# structure_file_csv path to output WKT format file
 # c_l dictionary of codes and labels specific to input geo information layers
 # 
 # Saves orientation layer as WKT format for use by map2model c++ code
@@ -464,6 +465,32 @@ def save_structure_wkt(sub_pts,structure_file_csv,c_l):
         f.write(functools.reduce(operator.add, (line)))
         
     f.close()
+
+####################################
+# save out mineral deposit points in WKT format
+#
+# save_mindep_wkt(sub_mindep,mindep_file_csv,c_l)
+# sub_mindep geopandas format mineral deposit layer 
+# mindep_file_csv path to output WKT format file
+# c_l dictionary of codes and labels specific to input geo information layers
+# 
+# Saves mineral deposit layer as WKT format for use by map2model c++ code
+####################################
+def save_mindep_wkt(sub_mindep,mindep_file_csv,c_l):
+    f= open(mindep_file_csv,"w+")
+    f.write('WKT\t'+c_l['msc']+'\t'+c_l['msn']+'\t'+c_l['mst']+'\t'+c_l['mtc']+'\t'+c_l['mscm']+'\t'+c_l['mcom']+'\n')
+
+    print(len(sub_mindep)," points")
+
+
+    for i in range(0,len(sub_mindep)):
+        line="\""+str(sub_mindep.loc[i].geometry)+"\"\t\""+str(sub_mindep.loc[i][c_l['msc']])+"\"\t\""+\
+          str(sub_mindep.loc[i][c_l['msn']])+"\"\t\""+str(sub_mindep.loc[i][c_l['mst']])+"\"\t\""+\
+          str(sub_mindep.loc[i][c_l['mtc']])+"\"\t\""+str(sub_mindep.loc[i][c_l['mscm']])+"\"\t\""+\
+          str(sub_mindep.loc[i][c_l['mcom']])+"\"\n"    
+        f.write(functools.reduce(operator.add, (line)))
+        
+    f.close()    
     
 ####################################
 # save out fault polylines in WKT format

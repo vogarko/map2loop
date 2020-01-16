@@ -678,9 +678,9 @@ m2l_topology.parse_fault_relationships(graph_path,tmp_path,output_path)
 
 
 save_faults=True
-compute_etc=True
+compute_etc=False
 
-m2l_export.loop2geomodeller(test_data_path,tmp_path,output_path,'./dtm/hammersley_sheet_dtm.ers',bbox,save_faults,compute_etc)
+m2l_export.loop2geomodeller(test_data_path,tmp_path,output_path,'./dtm/dtm_rp.tif',bbox,save_faults,compute_etc)
 
 
 # In[7]:

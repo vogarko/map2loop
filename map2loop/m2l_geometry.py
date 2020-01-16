@@ -1125,7 +1125,7 @@ def bboxes_intersect(bbox1,bbox2):
 def calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed):
     contact_points_file=tmp_path+'raw_contacts.csv'
     interpolated_combo_file=tmp_path+'combo_full.csv'
-    contact_lines = gpd.read_file(tmp_path+'/basal_contacts.shp') #load orientation data as geopandas dataframe 
+    contact_lines = gpd.read_file(tmp_path+'/basal_contacts.shp') #load basal contacts as geopandas dataframe 
     all_sorts=pd.read_csv(tmp_path+'all_sorts.csv')
     contacts=pd.read_csv(contact_points_file)
     orientations=pd.read_csv(interpolated_combo_file)

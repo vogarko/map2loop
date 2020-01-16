@@ -207,7 +207,7 @@ Minimum map2loop inputs:
 -vi.	Max_age field (can be same as Min_age field, and can be simple numerical ordering (bigger number is older))   
    
 4.	Fault/Fold Axial Trace Polylines:   
--a.	Faults terminate on other faults but don’t cross   
+-a.	Faults terminate on other faults but do not cross   
 -b.	Faults/Folds have as attributes:   
 -i.	Object ID   
 -ii.	Field that determines if polyline is fault or fold axial trace   

@@ -1,0 +1,968 @@
+utils Functions
+_clip_line_poly
+    Parameters
+    clip_obj
+    shp
+    pseudocode:
+        Create a single polygon object for clipping
+        Create a box for the initial intersection
+        Get a list of id's for each object that overlaps the bounding box and
+        subset the data to just those lines
+        Clip the data - with these data
+        Return the clipped layer with no null geometry values
+
+_clip_multi_point
+    Parameters
+    clip_obj
+    shp
+    pseudocode:
+       Explode multi-point features when clipping then recreate geom
+
+_clip_multi_poly_line
+    Parameters
+    clip_obj
+    shp
+    pseudocode:
+        Clip multi polygons
+
+    
+_clip_points
+    Parameters
+    clip_obj
+    shp
+    pseudocode:
+        Clip points
+    
+clip_shp
+    Parameters
+    clip_obj
+    shp
+    pseudocode:
+      Clip according to geometry type
+      
+ddd2dircos
+    Parameters
+    dip
+    dipdir
+    pseudocode:
+        Converts dip, dip direction to three direction cosine arrays(l,m,n)
+        
+dircos2ddd
+    Parameters
+    l
+    m
+    n
+    pseudocode:
+        Converts (l,m,n) direction cosine arrays to dip, dip direction
+        
+explode
+    Parameters
+    indf
+    pseudocode:
+        for each polygon in multipolygon:
+            save as polygon in GeoDataFrame
+            
+get_dtm
+    Parameters
+    maxlat
+    maxlong
+    minlat
+    minlong
+    path_out
+    pseudocode:
+        get dtm data from GA SRTM server and save as geotiff
+        
+get_dtm_bounds
+    Parameters
+    dst_crs
+    path_in
+    pseudocode:
+        get bounds of a dtm from rasterio raster
+        
+get_dtm_hawaii
+    Parameters
+    maxlat
+    maxlong
+    minlat
+    minlong
+    path_out
+    pseudocode:
+        get dtm data from Hawaiian SRTM server and save as geotiff
+        
+have_access
+    Parameters
+    url
+    hw
+    pseudocode:
+        determine if http access is available for a URL
+        
+mod_safe
+    Parameters
+    a
+    b
+    pseudocode:
+        if b == 0:
+            return 0
+        else:
+            return a modulo b
+pairs
+    Parameters
+    lst
+    pseudocode:
+        convert 1D list into paired list
+        
+pts2dircos
+    Parameters
+    p1x
+    p1y
+    p2x
+    p2y
+    pseudocode:
+        Calulate 2D direction cosines from two points
+        
+ptsdist
+    Parameters
+    p1x
+    p1y
+    p2x
+    p2y
+    pseudocode:
+        calculate distance between two points
+        
+reproject_dtm
+    Parameters
+    dst_crs
+    path_in
+    path_out
+    src_crs
+    pseudocode:
+        reportject raster using rasterio
+        
+save_clip_to_bbox
+    Parameters
+    dst_crs
+    geom
+    maxx
+    maxy
+    minx
+    miny
+    path
+    pseudocode:
+        Create polygin from points
+        Convert polygon to GeoDataFrame
+        Save GeoDatFrame to shapefile
+        
+tri_angle
+    Parameters
+    p1x
+    p1y
+    p2x
+    p2y
+    p3x
+    p3y
+    pseudocode:
+        Apical angle between three points, first point is at apex
+        
+value_from_raster
+    Parameters
+    dataset
+    locations
+    pseudocode:
+        if point is wthin bounds of raster:
+            return closest raster value to point
+        else
+            return -999
+
+
+topology Functions
+abs_age_groups
+    Parameters
+    c_l
+    geol
+    tmp_path
+    pseudocode:
+        for each polygon in GeoDataBase:
+            if no data in Group field:
+                Group data = unit data and replace spaces and hyphens
+            else:
+                replace spaces and hyphens
+            build list of groups and associated info
+        for each group:
+            calculate max/min ages of Units within that group
+        save cvs file with groups sorted by average of max/min age of group
+        
+get_series
+    Parameters
+    id_label
+    path_in
+    pseudocode:
+        load a stratigraphy with Groups from GML file
+        for each node:
+            if new group:
+                add to group list
+        return Group list, number of Groups, array of Group names
+    
+parse_fault_relationships
+    Parameters
+    graph_path
+    output_path
+    tmp_path
+    pseudocode:
+        load unit fault relationships from txt file
+        load fault lengths from csv file of faults longer than given length as array
+        for all faults in array:
+            create unique list of faults
+        for all faults from fault relationships file:
+            tidy up fault name and save out master fault to csv file
+                for every fault in unique list:
+                    if fault is in unique list and unit is in unit-fault relationships list for this master fault:
+                        save out '1' to csv file
+                    else:
+                        save out '0' to csv file
+        
+        load sorted stratigraphy from csv file
+        load newly created unit-fault csv file
+        for each Group:
+            for each Unit:
+                if Unit-fault relationship is true:
+                    Group-fault code = 1 
+        for each Group:
+            for each fault:
+                save Group-fault relationship codes to csv
+        
+        load fault fault relationships from txt file
+        for each fault relationship row:
+            make unique master list of faults
+        
+        create null Graph
+        for each master fault:
+            for each secondary fault:
+                if master fault:
+                    for each fault:
+                        if faults being compared as same:
+                            save out '0' to cvs file
+                        else:
+                            for each second order fault for this row:
+                                if second order fault is in list of long faults:
+                                    save out '1' to csv file
+                                    add edge to Graph
+                        if seconday fault found:
+                            save out '0' to cvs file
+        save out Graph to GML file
+                                
+                 
+    
+save_faults_wkt
+    Parameters
+    c_l
+    fault_file_csv
+    sub_lines
+    pseudocode:
+        for every polyline in GeoDataBase of polylines:
+            save to csv file in WKT format
+             
+save_geol_wkt
+    Parameters
+    c_l
+    geology_file_csv
+    sub_geol
+    pseudocode:
+        for every polygons in GeoDataBase of polylgons:
+            save to csv file in WKT format
+            
+save_group
+    Parameters
+    c_l
+    G
+    geol
+    glabels
+    path_out
+    pseudocode:
+        load geology polygons
+        load age-sorted Groups
+        for every edge in stratigraphy graph (input parameter):
+            if no value for Group in endnodes:
+                Group=Code for each empty endnode
+            if first endnode younger than second endnode:
+                add edge to new graph
+        
+        for every edge in copy of new graph:
+            for every edge in another copy of new graph:
+                if edges in both directions:
+                    remove one of the edges from new graph
+        
+        calculate and save out all topological sorts of new graph as csv file
+        
+        load sorted list of groups from csv file
+        
+        for each group:
+            load units
+            save out combined unit and group information to csv file
+    
+save_mindep_wkt
+    Parameters
+    c_l
+    mindep_file_csv
+    sub_mindep
+    pseudocode:
+        for every point in GeoDataBase of points:
+            save to csv file in WKT format    
+save_Parfile
+    Parameters
+    c_l
+    fault_file_csv
+    geology_file_csv
+    graph_path
+    m2m_cpp_path
+    maxx
+    maxy
+    minx
+    miny
+    structure_file_csv
+    pseudocode:
+        save input parameter file for map2model c++ code
+        
+save_structure_wkt
+    Parameters
+    c_l
+    structure_file_csv
+    sub_pts
+    pseudocode:
+        for every point in GeoDataBase of points:
+            save to csv file in WKT format    
+
+save_units
+    Parameters
+    G
+    glabels
+    path_out
+    pseudocode:
+        
+        for every Group in Group list (input variable):
+            for every node in copy of graph (input parameter):
+                if Group node or not part of current Group:
+                    delete node from copy of graph
+            calculate and save to Groupname csv all topological sorts of Units in current Group 
+            
+geometry Functions
+bboxes_intersect
+    Parameters
+    bbox1
+    bbox2
+    pseudocode:
+        calculate if corner nodes of bounding box fall within other bounding box
+        
+calc_thickness
+    Parameters
+    buffer
+    max_thickness_allowed
+    output_path
+    tmp_path
+    pseudocode:
+        load basal contacts as vectors from csv file
+        load interpolated bedding orientations from csv file
+        load basal contacts as geopandas GeoDataFrame of polylines
+        load sorted stratigraphy from csv file
+        calculate distance matrix of all orientations to all contacts
+        
+        for each contact line segment:
+            if orientations within buffer range to contact:
+                calculate average of all orientation direction cosines within range
+                calculate line normal to contact and intersecting its mid-point
+                for all basal contact polylines:
+                    if polyline Group is one stratigraphically one unit higher:
+                        if contact normal line intersects polyline:
+                            if distance between intersection and contact mid-point less than 2 x buffer:
+                                store info
+                from list of possible intersections, select one closest to contact mid-point
+                if closest is less than maximumum allowed thickness:
+                    save thickness and location to csv file
+    
+create_basal_contact_orientations
+    Parameters
+    c_l
+    contacts
+    dist_buffer
+    dtm
+    output_path
+    structures
+    pseudocode:
+        not currently used...
+        
+create_orientations
+    Parameters
+    c_l
+    dtm
+    geology
+    path_in
+    path_out
+    structures
+    pseudocode:
+        load Groups from csv file
+        for each Group:
+            for each orientation:
+                replace null Groups with Code
+                build list of groups found in orientations
+        
+        for each Group:
+            for each polygon from geology layer:
+                add to list of groups using those found in polygons
+        
+        for each polygon from geology layer:
+            build list of Units using those found in polygons
+        
+        for each Group:
+            for each polygon from geology layer:
+                if Group has no orientations and Group is not intrusive:
+                    invent and save orientation that falls within polygon to csv file 
+
+extract_poly_coords
+    Parameters
+    geom
+    i
+    pseudocode:
+        if shape is polygon:
+             extract exterior polygon and interior holes
+        else if shape is multipolygon:
+             extract exterior polygons and interior holes
+        
+        return set of all polygons
+
+normalise_thickness
+    Parameters
+    output_path
+    pseudocode:
+        load formation thicknesses from csv file
+        get list of unique Unit codes
+        for each unique code:
+            calculate median and standard deviation of thicknesses for that code
+            save out info to csv file
+        
+    
+old_save_faults
+    Parameters
+    c_l
+    dataset
+    fault_decimate
+    fault_dip
+    fault_min_len
+    path_fault_orientations
+    path_faults
+    pseudocode:
+        not used...
+    
+process_plutons
+    Parameters
+    c_l
+    contact_decimate
+    dtm
+    geol_clip
+    local_paths
+    output_path
+    pluton_dip
+    pluton_form
+    tmp_path
+    pseudocode:
+        load sorted groups from csv file
+        for each polygon in GeoDataBase of geology polygons:
+            if Group is empty:
+                Group=Code
+            for each Group:
+                calculate max/min ages for group
+            if polygon is intrusive but not sill:
+                create a new Group=Code
+                if new Group does not exist:
+                    add to list of Groups
+                    
+                calculate list of neighbour polygons using intersection test
+                if neghbours exist:
+                    for each neighbour polygon:
+                        if neighbour intrusive but not sill or neighbour not intrusive and neighbour has an age (they all do!):
+                            if polyline is linestring:
+                                for each line segment in linestring:
+                                    if decimate test passes:
+                                        if line segment within dtm bounds:
+                                           save contact point to ign_contacts csv file with x,y,z and Unit and to dictionary
+                                        else:
+                                            save to all_contacts csv file
+                                            
+                                    if decimate test passes:
+                                        calculate normal to contact line segment
+                                            save contact orientation to csv file with dip direction and polarity varied acccording to pluton_form
+        
+        update groups2 csv file with new groups
+        
+save_basal_contacts
+    Parameters
+    c_l
+    contact_decimate
+    dtm
+    geol_clip
+    intrusion_mode
+    path_in
+    pseudocode:
+        explode geology polgyons so interior holes become distinct polygons
+        for each polygon:
+                build list of polygons and their atributes
+        load sorted stratigraphy from csv file
+        for each polygon in list:
+            if not intrusive:
+                if polygon Code found in sorted stratigraphy:
+                    for each polygon in list:
+                        if two polygons are not the same:
+                            if two polygons are neighbours:
+                                 if second polygon is not a sill:
+                                    add neigbour to list
+                    if first polygon has neighbours:
+                        for each neighbour:
+                            if neighbour polygon Code found in sorted stratigraphy:
+                                if neighbour older than first polygon:
+                                    calculate intersection of two polygons:
+                                        if intersection is a multilinestring:
+                                            for all line segments in linestring:
+                                                save out segment with x,y,z Code
+                                                build dictionary of basal contacts and dictionary of decimated basal contacts
+                                                
+        return dictionary of basal contacts and dictionary of decimated basal contacts
+    
+save_basal_contacts_csv
+    Parameters
+    c_l
+    contact_decimate
+    contacts
+    dtm
+    output_path
+    pseudocode:
+        for each polyline:
+            if polyline is multilinestring:
+                for each linestring in multilinestring:
+                    for each segment in linestring:
+                        save contact line segment to csv file with x,y,z,Code
+            else if polyline is linestring:
+                for each segment in linestring:
+                    save contact line segment to csv file with x,y,z,Code
+                    
+save_basal_no_faults
+    Parameters
+    c_l
+    dist_buffer
+    dst_crs
+    ls_dict
+    path_fault
+    path_out
+    pseudocode:
+        load fault linestrings as GeoDataBase
+        create polygonal buffer aorund all faults
+        clip basal contacts to polygonal buffer
+        make copy of clipped contacts
+        for each clipped basal contact polyline:
+            if polyline is GEOMETRYCOLLECTION:
+                remove from copy of clipped basal contacts
+            else:
+                add to dictionary
+                
+        build GeoDataFrame from remaining clipped basal contacts and save out as shapefile
+    
+save_contacts_with_faults_removed
+    Parameters
+    c_l
+    dataset
+    dist_buffer
+    dst_crs
+    ls_dict
+    ls_dict_decimate
+    path_fault
+    path_out
+    pseudocode:
+        no longer used...
+        
+save_faults
+    Parameters
+    c_l
+    dataset
+    fault_decimate
+    fault_dip
+    fault_min_len
+    output_path
+    path_faults
+    pseudocode:
+        load  polylines as GeoDataFrame
+        for each polyline:
+            if polyline is a fault:
+                calculate distance between fault endpoints
+                if distance greater than minimum allowed:
+                    for each line segment in fault polyline:
+                        if passes decimate test:
+                            if apex of triangle of current three points is > 45 degrees:
+                                save fault segment to csv file with x,y,z,Fault name
+                    calculate azimuth defined by fault endpoints
+                    save azimuth, fault length etc to csv file
+               
+                
+save_fold_axial_traces
+    Parameters
+    c_l
+    dataset
+    fold_decimate
+    path_fold_orientations
+    path_folds
+    pseudocode:
+        load  polylines as GeoDataFrame
+        for each polyline:
+            for each line segment in  polyline:
+                if fold axial trace:
+                    if passes decimate test:
+                        save trace as x,y,z,Fold name,Fold sign to csv file
+    
+save_fold_axial_traces_orientations
+    Parameters
+    c_l
+    close_dip
+    dataset
+    dst_crs
+    fat_step
+    fold_decimate
+    output_path
+    path_folds
+    tmp_path
+    pseudocode:
+        load  geology polygons as GeoDataFrame
+        load interpolated contacts as array
+        load  polylines as GeoDataFrame
+        for each polyline:
+            for each line segment in  polyline:
+                if fold axial trace:
+                    if passes decimate test:
+                        calculate azimuth of line segment
+                        calculate points either side of line segment
+                        find closest interpolated contact
+                        if interpolated contact is sub-parallel to fold axial trace:
+                            save orientation data either side of segment and related x,y,z,Code to csv file
+    
+save_orientations
+    Parameters
+    c_l
+    dtm
+    orientation_decimate
+    path_out
+    structures
+    pseudocode:
+        for each point in GeoDataFrame:
+            if not intrusive:
+                if point within dtm bounds:
+                    save orientation data and x,y,z,Code to csv file
+                
+tidy_data
+    Parameters
+    inputs
+    output_path
+    pluton_form
+    tmp_path
+    use_fat
+    use_group
+    use_interpolations
+    pseudocode:
+        combine all wanted orientation files into one DataFrame
+        combine all wanted contact files into one DataFrame
+        for each Group:
+            for each contact:
+                if contact found for Group:
+                    build list of good Groups
+                else:
+                    build list of bad Contacts
+        for each Group:
+            for each contact:
+                if Group has known Units:
+                    add to list of good Groups
+                else:
+                    add to list of bad Contacts
+        for each Group:
+            for each orientation:
+                if orientation in good Group and in wanted Group:
+                    do nothing
+                else:
+                    add to list of bad Contacts
+        
+        update master stratigraphy and save to csv file
+        
+        for each orientation:
+            if orientation not in good Group:
+                do nothing
+            else:
+                save out as cleaned orientation csv file
+        
+        for each contact:
+            if contact not in good Group:
+                do nothing
+            else:
+                save out as cleaned contact csv file
+                
+
+xxxpt_dist
+    Parameters
+    x1
+    x2
+    y1
+    y2
+    pseudocode:
+        not used...
+        
+interpolation Functions
+call_interpolator
+    Parameters
+    calc
+    fault_flag
+    l
+    m
+    n
+    nx
+    ny
+    x
+    xi
+    y
+    yi
+    pseudocode:
+        pass arrays to appropriate interpolation function
+        
+distance_matrix
+    Parameters
+    x0
+    x1
+    y0
+    y1
+    pseudocode:
+        calculate distance between two sets of points
+        
+interpolate_contacts
+    Parameters
+    bbox
+    c_l
+    calc
+    dtm
+    fault_flag
+    geology_file
+    gridx
+    gridy
+    output_path
+    use_gcode
+    pseudocode:
+        create grid of positions for interpolation, or use predefined list of points
+        for each linestring from basal contacts:
+            if passes decimation test:
+                for each line segment in linestring:
+                    calculate direction cosines of line segment and save to file as csv with x,y,z,etc
+        
+        interpolate direction cosines of contact segments
+        
+        save interpolated contacts to csv files as direction cosines and azimuth info with x,y,z,etc
+    
+interpolate_orientations
+    Parameters
+    bbox
+    c_l
+    calc
+    fault_flag
+    gridx
+    gridy
+    output_path
+    structure_file
+    this_gcode
+    pseudocode:
+        subset points to those wanted
+        create grid of positions for interpolation, or use predefined list of points
+        for each point from orientations:
+             calculate direction cosines of orientations 
+             
+        interpolate direction cosines of orientations
+        
+        save interpolated orientations to csv files as direction cosines and dip,azimuth info with x,y,z,etc
+        
+interpolate_orientations_with_fat
+    Parameters
+    bbox
+    c_l
+    calc
+    gridx
+    gridy
+    output_path
+    structure_file
+    this_gcode
+    pseudocode:
+        subset points to those wanted
+        create grid of positions for interpolation
+        for each point from orientations:
+             calculate direction cosines of orientations 
+        for each point from fat orientations:
+             calculate direction cosines of fat orientations 
+             
+        interpolate direction cosines of combined orientations
+        
+        save interpolated orientations to csv files as direction cosines and dip,azimuth info with x,y,z,etc
+   
+join_contacts_and_orientations
+    Parameters
+    bbox
+    c_l
+    combo_file
+    dst_crs
+    dtm_reproj_file
+    fault_flag
+    geology_file
+    lc
+    lo
+    mc
+    mo
+    no
+    output_path
+    xy
+    pseudocode:
+        for each orientation in grid:
+            rescale contact direction cosines with z cosine of orientations
+            save out rescaled x,y direction cosines from contacts with z direction cosine from orientations and positional x,y,z,Code
+            
+        
+plot
+    Parameters
+    grid
+    x
+    y
+    z
+    pseudocode:
+        plot array as image
+    
+process_fault_throw_and_near_orientations
+    Parameters
+    bbox
+    c_l
+    dst_crs
+    dtm_reproj_file
+    output_path
+    scheme
+    tmp_path
+    use_gcode
+    use_gcode2
+    pseudocode:
+        for each polyline:
+            if fault:
+                for each line segment:
+                    build list of points either side of mid-point of line segment
+                spatially join points with geology polygons so have unit Code
+                for each point to left of fault segment:
+                    if not last point in list:
+                        if Code not same as previous in list and not sill:
+                            add to left list of contacts
+                for each point to right of fault segment:
+                    if not last point in list:
+                        if Code not same as previous in list and not sill:
+                            add to right list of contacts
+                
+                for each left contact:
+                    for each right contact:
+                         if contact Codes are the same:
+                            calculate distance between left and right contacts
+                            add to list of distances
+        
+        interpolate contacts at positions of successfully found distances and all fault positions
+        interpolate orientations at positions of successfully found distances and all fault positions
+        combine contacts and orientations at positions of successfully found distances and all fault positions
+        
+        for each successfully found distances:
+            calculate true displacement based on interpolated orientation, apparent displacement and assumed vertical dispalcement vector
+            save apprent and estimated true displacements to csv file with x,y,z
+
+save_contact_vectors
+    Parameters
+    bbox
+    c_l
+    calc
+    decimate
+    dtm
+    geology_file
+    tmp_path
+    pseudocode:
+        for each basal contact polyline:
+            for each line segment:
+                if passes decimation test:
+                    save to csv file with azimuth of contact, x,y,z
+    
+scipy_idw
+    Parameters
+    x
+    xi
+    y
+    yi
+    z
+    pseudocode:
+        call scipy IDW calc
+        
+scipy_rbf
+    Parameters
+    x
+    xi
+    y
+    yi
+    z
+    pseudocode:
+        call scipy RBF calc
+    
+simple_idw
+    Parameters
+    x
+    xi
+    y
+    yi
+    z
+    pseudocode:
+        calculate all distances between grid points and observations
+        calculate wieghts based on inverse of distances
+        normalise weights 
+        return sum of weights times observations for each grid point
+
+export Functions
+loop2gempy
+    Parameters
+    bbox
+    contacts_file
+    dtm_reproj_file
+    groups_file
+    model_base
+    model_top
+    orientations_file
+    test_data_name
+    tmp_path
+    vtk
+    vtk_pth
+    pseudocode:
+        load dtm, orientation, contact info
+        calculate gempy model
+
+loop2geomodeller
+    Parameters
+    bbox
+    compute_etc
+    dtm_file
+    output_path
+    save_faults
+    test_data_path
+    tmp_path
+    pseudocode:
+        write out Geomodeller task file using outputs from map2loop
+        pass taskfile to geomodellerbatch.exe to generate project files
+        optionally write out second taskfile and pass taskfile to geomodellerbatch.exe to generate model
+        
+loop2LoopStructural
+    Parameters
+    bbox
+    contacts_file
+    orientation_file
+    thickness_file
+    pseudocode:
+        load thickness, orientation, contact info
+        create LoopStructural model
+        
+solve_pyamg
+    Parameters
+    A
+    B
+    pseudocode:
+        no idea

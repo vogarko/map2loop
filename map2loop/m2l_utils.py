@@ -578,7 +578,7 @@ def ptsdist(p1x,p1y,p2x,p2y):
 # p2x,p2y another point
 # p3x,p3y a third point
 #
-# Caluclates anlge of three points
+# Caluclates angle of three points
 ###########################################
 def tri_angle(p1x,p1y,p2x,p2y,p3x,p3y):
     p12=ptsdist(p1x,p1y,p2x,p2y)

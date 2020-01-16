@@ -369,9 +369,19 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
     f.write('        filename: "./Models_Prelim/Models_UWA.xml"\n')
     f.write('    }\n')
     f.write('}\n')
+    f.close()
     
 
     if(compute_etc):
+        f=open(test_data_path+'m2l_compute.taskfile','w')
+        f.write('#---------------------------------------------------------------\n')
+        f.write('#----------------------------Load Model----------------------\n')
+        f.write('#---------------------------------------------------------------\n')
+        f.write('GeomodellerTask {\n')
+        f.write('    OpenProjectNoGUI {\n')
+        f.write('        filename: "./Models_Prelim/Models_UWA.xml"\n')
+        f.write('    }\n')
+        f.write('}\n')
      
         f.write('#---------------------------------------------------------------\n')
         f.write('#----------------------------Compute Model----------------------\n')
@@ -380,7 +390,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('GeomodellerTask {\n')
         f.write('    ComputeModel {\n')
         f.write('        SeriesList {\n')
-        f.write('            node: ["Hamersley_Group","Fortescue_Group","Turee_Creek_Group","A_mgn_PRK", "A_mgn_PMI"] \n')
+        f.write('            node: "All" \n')
         f.write('        }\n')
         f.write('        SectionList {\n')
         f.write('            node: "All"\n')
@@ -419,9 +429,11 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('        filename: "./Models_Final/Models_UWA.xml"\n')
         f.write('    }\n')
         f.write('}\n')   
+        f.write('GeomodellerTask {\n')
+        f.write('    CloseProjectNoGUI {\n')
+        f.write('    }\n')
 
-
-    f.close()
+        f.close()
 
 
 

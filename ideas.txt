@@ -13,7 +13,6 @@ Functionality
 42. Analyse interpolation orientations for structure (saddles, domes, etc))
 43. Erode vs onlap via gp vs gp topology
 45. Use stratigraphic offsets across faults to filter big throw combined with estimated thickness!!
-54. Fix geomodeller notebook (doesn't load properly, plus dead groups from igneous shouldn't be loaded)
 55. Fix Proper gempy notebook (crashes)
 59. Supergroup lists for structural coherence
 64. Spatial density of info a la Alan? MDL's job? Becki? Tom Cartwright
@@ -25,6 +24,9 @@ Functionality
 70. Cut poygons by faults if not edges
 71. networkx in/out connectivity for strat analysis
 72. Filter out orientations far from contacts?
+73. Filter out orientations which are inconsistent with local contact orientations?
+74. Calculate dip polarity
+75. Fold axial traces to geomodeller fold system
 
 Style
 8. Priors all in one place
@@ -87,6 +89,7 @@ Doneish
 13. xxx Filter faults by size?
 14. xxx Calculate offsets?
 65. xxx How to use fold axial traces to constrain interpolations: combine azimuth normal of trace; sign of dip from trace plus low dip?
+54. xxx Fix geomodeller notebook (doesn't load properly, plus dead groups from igneous shouldn't be loaded)
 
 Mahtab
 1. 3D potential field extrapolation
@@ -253,8 +256,5 @@ map2loop loopstructural
 
 
 
-Mark Jessell
-Professor/ Western Australian Fellow
-Centre for Exploration Targeting/ SES • M006, Perth WA 6009 Australia
-T +61 8 6488 5803 • E mark.jessell@uwa.edu.au
+
 

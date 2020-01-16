@@ -7,7 +7,7 @@ Leapfrog
 
 Geomodeller
 0 API Full model load (work in progress)
-1 dtm as ers
+1 dtm as geotiff
 2 contacts as points all one file
 3 orientations as points all one file
 4 fault-fault table
