@@ -1,0 +1,14 @@
+MetaData Begin
+	Name	= dtm_rp.ers
+	Version	= "Intrepid geomodellerbatch v4.0.8 HEAD for Windows (x64) by PELAGIAN optimised build 88b64e610d9 "
+	dtm_rp Begin
+		GroupBy	= no
+		DataType	= IEEE8ByteReal
+		ByteOrder	= LSBFirst
+		Primitive	= quad
+		Alias	= dtm_rp
+		Bands	= 1
+		Projection	= "MGA50"
+		Datum	= "GDA94"
+	dtm_rp End
+MetaData End
