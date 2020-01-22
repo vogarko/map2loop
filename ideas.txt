@@ -5,10 +5,10 @@ General to do
 Functionality
 4. Thickness no faults or fold hinges
 5. Thickness no intervening layers and bigger search radius
-10. Sills. Can be inter or intra, can have holes!. 
+10. Sills. Can be inter or intra, can have holes (probably ignore holes for now)!. 
 12. Add polarity code to orientations 
 15. Calculate fold wavelengths, amplitudes?
-20. Cope with warox naming conventions and add to geoserver
+20. Cope with warox naming conventions and add to geoserver [partially done, added strike possibility vs dip direction]
 23. Extended topology to reduce uncertainty (group, intragroup)
 42. Analyse interpolation orientations for structure (saddles, domes, etc))
 43. Erode vs onlap via gp vs gp topology
@@ -21,12 +21,14 @@ Functionality
 67. List of data sources for export
 68. Filter faults by centrality? (networkx degree_centrality(G) or eigenvector_centrality())
 69. Merge colinear fault strings
-70. Cut poygons by faults if not edges
+70. Cut polygons by faults if not edges
 71. networkx in/out connectivity for strat analysis
 72. Filter out orientations far from contacts?
 73. Filter out orientations which are inconsistent with local contact orientations?
 74. Calculate dip polarity
 75. Fold axial traces to geomodeller fold system
+76. DEfine what units are actually intrusive
+77. Move clipping upfront so can be used to modify coding (e.g. when multiple layers have same codes)
 
 Style
 8. Priors all in one place

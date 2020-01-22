@@ -162,7 +162,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
                         f.write('}\n')    
 
     if(save_faults):
-        output_path='../test_data3/output/'
+        output_path=test_data_path+'output/'
 
         faults_len=pd.read_csv(output_path+'fault_dimensions.csv')
 

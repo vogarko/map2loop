@@ -45,7 +45,7 @@ def save_orientations(structures,path_out,c_l,orientation_decimate,dtm):
                     i+=1
         
     f.close()
-    print(i,'orientations saved to',path_out+'/orientations.csv')
+    print(i,'orientations saved to',path_out+'orientations.csv')
 
 ####################################################
 # Find those series that don't have any orientation or contact point data and add some random data
@@ -1112,17 +1112,18 @@ def bboxes_intersect(bbox1,bbox2):
 ####################################
 # Calculate local formation thickness estimates 
 #
-# calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed)
+# calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed,c_l)
 # Args:
 # tmp_path path to temprorary file storage directory
 # output_path path to m2l ouptuts directory
 # buffer distance within which interpolated bedding orientations will be used for averaging
 # max_thickness_allowed maximum valiud thickness (should be replaced by infinite search where no faults or fold axial traces are crossed
+# c_l dictionary of codes and labels specific to input geo information layers
 # 
 # Calculate local formation thickness estimates by finding intersection of normals to basal contacts 
 # with next upper formation in stratigraphy, and using interpolated orientaiton estimates to calculate true thickness
 ####################################
-def calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed):
+def calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed,c_l):
     contact_points_file=tmp_path+'raw_contacts.csv'
     interpolated_combo_file=tmp_path+'combo_full.csv'
     contact_lines = gpd.read_file(tmp_path+'/basal_contacts.shp') #load basal contacts as geopandas dataframe 
@@ -1188,7 +1189,7 @@ def calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed):
 
                 if(ctextcode[k]==apair[1]['code']):
                     #if(all_sorts.iloc[g]['group']==all_sorts.iloc[g-1]['group']):
-                    is_contacta=contact_lines['CODE'] == all_sorts.iloc[g-1]['code'] # subset contacts to just those with 'a' code
+                    is_contacta=contact_lines[c_l['c']] == all_sorts.iloc[g-1]['code'] # subset contacts to just those with 'a' code
                     acontacts = contact_lines[is_contacta]
                     i=0 
                     for acontact in acontacts.iterrows():   #loop through distinct linestrings for upper contact
