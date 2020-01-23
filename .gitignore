@@ -154,3 +154,4 @@ test_model_finite/*
 notebooks/geomodeller-batch.audit
 notebooks/geomodeller-batch.rpt
 test_data4/*
+arcgis/*
