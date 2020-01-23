@@ -213,7 +213,10 @@ def save_group(G,path_out,glabels,geol,c_l):
     #f.write(str(len(glist))+" ")
     #f.write(str(len(glist[0]))+"\n")
     #print("xxxx",len(glist),len(glist[0]))
-    for n in range(0,len(glist)):
+    glen=len(glist)
+    if(glen>100):
+        glen=100
+    for n in range(0,glen):
         f.write('Choice '+str(n))
         for m in range(0,len(glist[0])):    
             f.write(','+str(glabels[glist[n][m]])) #check underscore

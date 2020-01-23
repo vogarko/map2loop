@@ -1069,7 +1069,22 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_f
     fao.close()
 
     # Update formation info
-
+    age_sorted=pd.read_csv(tmp_path+'age_sorted_groups.csv',",")
+    
+    newdx=1
+    gpdx=1
+    fas=open(tmp_path+'all_sorts_clean.csv',"w")
+    fas.write('index,group number,index in group,number in group,code,group,uctype\n')
+    for a_sort in age_sorted.iterrows():
+        if(a_sort[1]['group_'] not in no_contacts):
+            for old_sort in all_sorts.iterrows():
+                if(a_sort[1]['group_']== old_sort[1]['group']):
+                    ostr=str(newdx)+","+str(gpdx)+","+str(old_sort[1]['index in group'])+","+str(old_sort[1]['number in group'])+","+old_sort[0]+","+old_sort[1]['group']+",erode\n"
+                    fas.write(ostr)
+                    newdx=newdx+1
+            gpdx=gpdx+1
+    fas.close()
+"""
     fac=open(output_path+'contacts_clean.csv',"w")
     fac.write('X,Y,Z,formation\n')
 
@@ -1082,7 +1097,7 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_f
             fac.write(ostr)
 
     fac.close()
-
+"""
 
 ####################################################
 # calculate distance between two points (duplicate from m2l_utils??

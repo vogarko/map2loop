@@ -17,7 +17,7 @@ Functionality
 59. Supergroup lists for structural coherence
 64. Spatial density of info a la Alan? MDL's job? Becki? Tom Cartwright
 65. https://epsg.io/28350.prettywkt
-66. Filtering of near_fault orentation data (only need one orientation per series)
+66. Filtering of near_fault orientation data (only need one orientation per series)
 67. List of data sources for export
 68. Filter faults by centrality? (networkx degree_centrality(G) or eigenvector_centrality())
 69. Merge colinear fault strings
@@ -29,6 +29,7 @@ Functionality
 75. Fold axial traces to geomodeller fold system
 76. DEfine what units are actually intrusive
 77. Move clipping upfront so can be used to modify coding (e.g. when multiple layers have same codes)
+78. Group age as ultimate ordering control? (done in tidy_data())
 
 Style
 8. Priors all in one place
