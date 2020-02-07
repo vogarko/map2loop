@@ -1,619 +1,619 @@
-[23/01/2020 17:43:16.484000]  >>>>  CreateProject_GMT
-[23/01/2020 17:43:16.496000]  >>>>  CustomDTM_GMT
-[23/01/2020 17:43:17.597000]  <<<<  CustomDTM_GMT
-[23/01/2020 17:43:17.597000]  <<<<  CreateProject_GMT
-[23/01/2020 17:43:17.617000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 2.198000]  >>>>  CreateProject_GMT
+[03/02/2020 15:15: 2.209000]  >>>>  CustomDTM_GMT
+[03/02/2020 15:15: 2.907000]  <<<<  CustomDTM_GMT
+[03/02/2020 15:15: 2.907000]  <<<<  CreateProject_GMT
+[03/02/2020 15:15: 2.920000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:17.618000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:17.639000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 2.920000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 2.936000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:17.639000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:17.663000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 2.937000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 2.954000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:17.664000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:17.690000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 2.954000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 2.971000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:17.691000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:17.713000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 2.971000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 2.988000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:17.713000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:17.736000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 2.989000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 3.006000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:17.737000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:17.776000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 3.007000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 3.025000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:17.776000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:17.822000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 3.026000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 3.055000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:17.822000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:17.896000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 3.056000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 3.092000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:17.897000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:17.969000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 3.093000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 3.203000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:17.970000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:18.017000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 3.204000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 3.246000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:18.017000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:18.066000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 3.247000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 3.298000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:18.067000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:18.092000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 3.299000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 3.323000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:18.092000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:18.140000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 3.323000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 3.367000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:18.140000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:18.174000]  >>>>  CreateFormation_GMT
+[03/02/2020 15:15: 3.368000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 3.386000]  >>>>  CreateFormation_GMT
 
-[23/01/2020 17:43:18.174000]  <<<<  CreateFormation_GMT
-[23/01/2020 17:43:18.211000]  >>>>  SetSeries_GMT
-[23/01/2020 17:43:18.212000]  <<<<  SetSeries_GMT
-[23/01/2020 17:43:18.237000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.237000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.313000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.313000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.399000]  >>>>  SetSeries_GMT
-[23/01/2020 17:43:18.399000]  <<<<  SetSeries_GMT
-[23/01/2020 17:43:18.490000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.490000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.544000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.545000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.591000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.591000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.631000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.631000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.658000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.658000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.734000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.734000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.804000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.804000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.832000]  >>>>  SetSeries_GMT
-[23/01/2020 17:43:18.832000]  <<<<  SetSeries_GMT
-[23/01/2020 17:43:18.860000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.861000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.920000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.920000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.996000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:18.996000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:19.061000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:19.062000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:19.111000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:19.111000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:19.198000]  >>>>  SetSeries_GMT
-[23/01/2020 17:43:19.198000]  <<<<  SetSeries_GMT
-[23/01/2020 17:43:19.249000]  >>>>  AddFormationToSeries_GMT
-[23/01/2020 17:43:19.249000]  <<<<  AddFormationToSeries_GMT
-[23/01/2020 17:43:19.301000]  >>>>  SetSeries_GMT
-[23/01/2020 17:43:19.301000]  <<<<  SetSeries_GMT
-[23/01/2020 17:43:19.357000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:19.358000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:19.419000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:19.419000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:19.470000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:19.470000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:19.541000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:19.541000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:19.591000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:19.591000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:19.639000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:19.639000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:19.692000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:19.692000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:19.739000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:19.739000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:19.768000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:19.769000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:19.866000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:19.866000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:19.945000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:19.946000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:20.015000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.015000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.066000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:20.066000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:20.092000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.092000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.148000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:20.149000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:20.190000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.190000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.246000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:20.247000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:20.295000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.295000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.335000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:20.335000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:20.389000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.390000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.444000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:20.444000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:20.496000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.496000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.575000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:20.576000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:20.626000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.626000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.678000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:20.678000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:20.718000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.718000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.751000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:20.751000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:20.795000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.796000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.838000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:20.838000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:20.884000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.884000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.943000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:20.943000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:20.967000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:20.967000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.027000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:21.027000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:21.078000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.078000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.119000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:21.120000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:21.201000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.202000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.249000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:21.249000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:21.295000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.295000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.334000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:21.334000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:21.416000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.416000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.488000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:21.489000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:21.554000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.555000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.581000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:21.581000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:21.652000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.653000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.701000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:21.701000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:21.768000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.768000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.817000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:21.818000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:21.843000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.844000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.893000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:21.893000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:21.966000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:21.966000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.040000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:22.040000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:22.091000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.092000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.196000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:22.197000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:22.222000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.222000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.253000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:22.253000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:22.319000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.319000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.364000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:22.365000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:22.408000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.408000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.452000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:22.452000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:22.498000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.498000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.541000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:22.542000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:22.588000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.588000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.654000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:22.655000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:22.689000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.690000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.719000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:22.720000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:22.786000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.786000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.844000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:22.845000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:22.890000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.890000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.934000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:22.935000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:22.972000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:22.972000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.001000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:23.002000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:23.082000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.082000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.171000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:23.172000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:23.222000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.222000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.277000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:23.277000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:23.333000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.333000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.399000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:23.399000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:23.454000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.454000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.515000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:23.516000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:23.565000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.566000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.618000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:23.619000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:23.655000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.655000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.699000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:23.699000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:23.733000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.734000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.772000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:23.772000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:23.848000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.849000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.916000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:23.917000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:23.982000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:23.982000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.063000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:24.063000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:24.101000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.101000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.141000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:24.142000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:24.171000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.171000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.214000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:24.215000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:24.254000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.254000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.334000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:24.335000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:24.386000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.386000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.467000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:24.468000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:24.514000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.514000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.543000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:24.543000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:24.579000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.580000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.675000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:24.675000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:24.731000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.731000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.807000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:24.807000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:24.854000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.854000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.918000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:24.918000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:24.958000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.958000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:24.983000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:24.983000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:25.036000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:25.036000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:25.079000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:25.080000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:25.129000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:25.129000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:25.218000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:25.218000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:25.270000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:25.271000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:25.295000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:25.295000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:25.349000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:25.349000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:25.377000]  >>>>  CreateFault_GMT
-[23/01/2020 17:43:25.377000]  <<<<  CreateFault_GMT
-[23/01/2020 17:43:25.436000]  >>>>  Set3dFaultLimits_GMT
-[23/01/2020 17:43:25.437000]  <<<<  Set3dFaultLimits_GMT
-[23/01/2020 17:43:25.545000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.545000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.600000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.601000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.645000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.646000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.753000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.755000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.815000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.820000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.875000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.875000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.928000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.929000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.996000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:25.997000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.069000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.069000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.150000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.151000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.215000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.215000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.262000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.263000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.302000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.303000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.348000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.348000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.379000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.379000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:26.458000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.460000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.521000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.522000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.575000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.576000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.625000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.625000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.676000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.677000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.753000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.755000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.828000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.829000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.855000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.856000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.901000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.901000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.950000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:26.952000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:27.019000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:27.020000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:27.094000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:27.094000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:27.152000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:27.152000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:27.193000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:27.193000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:27.253000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:27.253000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:27.280000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.280000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.338000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.338000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.381000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.382000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.468000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.468000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.554000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.555000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.676000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.676000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.703000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.703000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.744000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.744000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.785000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.787000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.862000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.862000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.921000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:27.921000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.033000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.033000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.063000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.063000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.138000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.138000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.236000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.237000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.321000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.321000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.384000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.384000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.442000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.443000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.482000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.483000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.525000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.525000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.581000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.581000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.631000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.631000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.677000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.677000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.747000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.747000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.842000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.842000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.921000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.921000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.966000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:28.966000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.019000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.019000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.047000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.047000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.101000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.101000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.138000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.138000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.195000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.195000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.268000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.268000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.331000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.331000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.359000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.359000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.418000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.419000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.465000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.465000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.504000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.508000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.600000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.600000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.653000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.654000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.705000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.705000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.742000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.743000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.814000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.816000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.864000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.864000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.894000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.894000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.953000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.953000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.996000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:29.996000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.035000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.035000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.098000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.098000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.122000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.122000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.183000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.183000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.218000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.218000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.258000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.259000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.309000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.309000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.347000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.347000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.395000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.397000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.493000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.494000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.545000]  >>>>  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.545000]  <<<<  Add3DInterfacesToFormation_GMT
-[23/01/2020 17:43:30.612000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.612000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.644000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.644000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.711000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.711000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.762000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.763000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.842000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.842000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.884000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.884000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.934000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:30.935000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.008000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.009000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.047000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.047000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.087000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.087000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.114000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.114000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.143000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.143000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.194000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.194000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.257000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.258000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.283000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.283000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.369000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.369000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.442000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.442000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.500000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.500000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.539000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.539000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.586000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.586000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.623000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.624000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.668000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.668000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.712000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.712000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.780000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.781000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.822000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.823000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.919000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.919000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.987000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:31.987000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.039000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.040000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.081000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.081000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.144000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.145000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.199000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.199000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.249000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.249000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.292000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.292000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.332000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.332000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.378000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.378000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.424000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.424000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.457000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.457000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.500000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.500000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.543000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.544000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.593000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.593000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.644000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.645000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.684000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.684000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.746000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.746000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.824000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.825000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.868000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.868000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.930000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:32.931000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.004000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.005000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.052000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.053000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.099000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.100000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.136000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.136000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.175000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.175000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.218000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.219000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.262000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.262000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.342000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.342000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.411000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.411000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.460000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.461000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.503000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.503000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.554000]  >>>>  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.554000]  <<<<  Add3DFoliationToFormation_GMT
-[23/01/2020 17:43:33.577000]  >>>>  LinkFaultsWithFaults_GMT
-[23/01/2020 17:43:33.583000]  <<<<  LinkFaultsWithFaults_GMT
-[23/01/2020 17:43:33.611000]  >>>>  LinkFaultsWithSeries_GMT
-[23/01/2020 17:43:33.615000]  <<<<  LinkFaultsWithSeries_GMT
-[23/01/2020 17:43:33.660000]  >>>>  SaveProjectAs_GMT
-[23/01/2020 17:43:39.567000]  <<<<  SaveProjectAs_GMT
+[03/02/2020 15:15: 3.387000]  <<<<  CreateFormation_GMT
+[03/02/2020 15:15: 3.417000]  >>>>  SetSeries_GMT
+[03/02/2020 15:15: 3.417000]  <<<<  SetSeries_GMT
+[03/02/2020 15:15: 3.441000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.441000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.493000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.493000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.516000]  >>>>  SetSeries_GMT
+[03/02/2020 15:15: 3.517000]  <<<<  SetSeries_GMT
+[03/02/2020 15:15: 3.548000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.549000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.580000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.580000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.671000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.671000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.726000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.726000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.751000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.751000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.819000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.819000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.879000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.879000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 3.957000]  >>>>  SetSeries_GMT
+[03/02/2020 15:15: 3.957000]  <<<<  SetSeries_GMT
+[03/02/2020 15:15: 4.024000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.036000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.113000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.114000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.169000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.169000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.215000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.215000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.254000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.254000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.292000]  >>>>  SetSeries_GMT
+[03/02/2020 15:15: 4.292000]  <<<<  SetSeries_GMT
+[03/02/2020 15:15: 4.331000]  >>>>  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.331000]  <<<<  AddFormationToSeries_GMT
+[03/02/2020 15:15: 4.404000]  >>>>  SetSeries_GMT
+[03/02/2020 15:15: 4.405000]  <<<<  SetSeries_GMT
+[03/02/2020 15:15: 4.427000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 4.427000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 4.454000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 4.454000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 4.513000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 4.514000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 4.581000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 4.582000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 4.674000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 4.675000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 4.713000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 4.713000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 4.737000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 4.737000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 4.761000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 4.762000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 4.786000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 4.786000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 4.837000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 4.837000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 4.932000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 4.932000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 4.999000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 4.999000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.040000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 5.040000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 5.067000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.067000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.097000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 5.097000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 5.183000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.183000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.236000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 5.237000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 5.277000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.277000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.300000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 5.300000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 5.364000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.364000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.417000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 5.417000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 5.458000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.458000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.484000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 5.484000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 5.540000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.540000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.563000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 5.563000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 5.621000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.621000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.661000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 5.662000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 5.708000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.708000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.768000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 5.768000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 5.791000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.791000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.854000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 5.854000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 5.897000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.897000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.951000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 5.951000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 5.989000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 5.990000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.027000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 6.027000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 6.078000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.078000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.143000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 6.143000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 6.196000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.196000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.254000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 6.254000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 6.277000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.277000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.366000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 6.367000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 6.425000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.426000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.467000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 6.467000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 6.517000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.517000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.574000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 6.575000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 6.673000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.673000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.702000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 6.703000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 6.734000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.734000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.779000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 6.779000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 6.836000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.837000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.857000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 6.858000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 6.896000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.897000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.921000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 6.922000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 6.957000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 6.957000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.022000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 7.023000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 7.096000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.097000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.175000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 7.176000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 7.202000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.203000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.236000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 7.236000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 7.271000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.272000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.359000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 7.359000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 7.398000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.398000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.448000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 7.448000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 7.472000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.472000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.520000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 7.521000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 7.547000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.547000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.623000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 7.623000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 7.674000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.674000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.718000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 7.719000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 7.756000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.756000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.867000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 7.868000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 7.918000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.918000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.949000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 7.950000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 7.990000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 7.991000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.018000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 8.019000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 8.058000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.058000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.106000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 8.106000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 8.129000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.129000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.208000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 8.208000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 8.258000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.259000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.331000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 8.331000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 8.376000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.376000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.410000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 8.411000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 8.435000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.435000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.492000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 8.493000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 8.512000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.513000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.574000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 8.574000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 8.623000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.624000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.654000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 8.655000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 8.713000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.714000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.737000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 8.737000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 8.766000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.766000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.811000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 8.812000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 8.855000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.855000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.904000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 8.904000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 8.971000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 8.971000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.025000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 9.025000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 9.053000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.053000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.078000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 9.078000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 9.108000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.109000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.150000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 9.150000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 9.210000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.210000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.244000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 9.245000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 9.286000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.286000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.351000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 9.351000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 9.379000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.379000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.407000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 9.407000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 9.448000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.448000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.513000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 9.514000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 9.581000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.581000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.660000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 9.661000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 9.698000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.699000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.729000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 9.729000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 9.780000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.780000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.828000]  >>>>  CreateFault_GMT
+[03/02/2020 15:15: 9.828000]  <<<<  CreateFault_GMT
+[03/02/2020 15:15: 9.874000]  >>>>  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.874000]  <<<<  Set3dFaultLimits_GMT
+[03/02/2020 15:15: 9.908000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15: 9.909000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15: 9.964000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15: 9.964000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15: 9.989000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15: 9.989000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.011000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.012000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.080000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.080000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.135000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.135000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.190000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.191000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.253000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.253000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.319000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.320000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.376000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.377000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.422000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.422000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.457000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.457000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.490000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.490000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.542000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.542000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.649000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.649000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:10.731000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:10.731000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:10.753000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:10.753000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:10.819000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:10.820000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:10.863000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:10.863000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:10.892000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:10.892000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:10.946000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:10.947000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.008000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.009000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.083000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.083000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.132000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.133000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.181000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.182000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.222000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.222000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.275000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.276000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.319000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.322000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.372000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.373000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.397000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.397000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:11.480000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.480000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.535000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.535000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.581000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.581000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.625000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.625000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.673000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.674000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.718000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.721000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.788000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.791000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.821000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.821000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.874000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.874000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.901000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.901000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.946000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.946000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.972000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:11.973000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.070000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.070000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.146000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.146000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.193000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.193000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.222000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.222000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.313000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.313000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.392000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.392000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.460000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.461000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.516000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.516000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.550000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.550000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.580000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.580000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.607000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.607000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.649000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.650000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.697000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.698000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.738000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.738000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.771000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.771000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.839000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.839000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.889000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.889000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.934000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.934000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.970000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:12.970000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.011000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.011000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.087000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.088000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.115000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.115000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.179000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.179000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.246000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.246000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.268000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.268000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.307000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.307000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.375000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.376000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.420000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.420000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.462000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.462000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.488000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.489000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.517000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.518000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.586000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.586000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.662000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.662000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.717000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.717000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.740000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.741000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.771000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.771000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.803000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.803000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.879000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.879000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.921000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.921000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.977000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:13.977000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.001000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.001000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.054000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.054000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.105000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.105000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.146000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.147000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.171000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.172000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.231000]  >>>>  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.231000]  <<<<  Add3DInterfacesToFormation_GMT
+[03/02/2020 15:15:14.253000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.253000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.304000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.304000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.498000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.498000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.537000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.538000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.585000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.585000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.619000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.619000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.664000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.664000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.748000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.749000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.801000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.802000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.865000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.866000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.913000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.913000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.965000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:14.966000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.011000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.012000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.080000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.080000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.132000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.133000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.155000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.155000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.206000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.206000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.272000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.272000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.312000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.313000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.373000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.374000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.438000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.439000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.470000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.471000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.516000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.517000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.558000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.558000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.604000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.604000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.654000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.654000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.697000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.697000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.751000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.751000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.786000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.786000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.869000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.869000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.893000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.893000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.955000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:15.955000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.000000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.000000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.046000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.047000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.089000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.089000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.154000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.154000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.199000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.199000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.263000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.263000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.306000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.311000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.390000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.390000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.446000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.447000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.478000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.478000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.525000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.525000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.589000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.590000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.698000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.698000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.758000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.758000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.803000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.804000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.829000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.829000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.857000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.857000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.895000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.895000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.949000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.949000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.972000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:16.972000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.022000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.022000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.067000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.067000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.107000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.107000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.150000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.150000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.190000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.190000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.264000]  >>>>  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.265000]  <<<<  Add3DFoliationToFormation_GMT
+[03/02/2020 15:15:17.345000]  >>>>  LinkFaultsWithFaults_GMT
+[03/02/2020 15:15:17.352000]  <<<<  LinkFaultsWithFaults_GMT
+[03/02/2020 15:15:17.377000]  >>>>  LinkFaultsWithSeries_GMT
+[03/02/2020 15:15:17.382000]  <<<<  LinkFaultsWithSeries_GMT
+[03/02/2020 15:15:17.479000]  >>>>  SaveProjectAs_GMT
+[03/02/2020 15:15:21.997000]  <<<<  SaveProjectAs_GMT

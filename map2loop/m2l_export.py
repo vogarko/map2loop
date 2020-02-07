@@ -503,7 +503,8 @@ def loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox):
                                                         solver='external',
                                                         external=solve_pyamg
                                                        )   
-    viewer = LavaVuModelViewer()
+    #viewer = LavaVuModelViewer()
+    viewer = LavaVuModelViewer(model)
     viewer.add_data(strati['feature'])
     viewer.add_isosurface(strati['feature'],
     #                       nslices=10,
@@ -513,11 +514,12 @@ def loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox):
                           cmap='tab20'
 
                          )
-    viewer.add_scalar_field(model.bounding_box,(100,100,100),
-                              'scalar',
-    #                             norm=True,
-                             paint_with=strati['feature'],
-                             cmap='tab20')
+    #viewer.add_scalar_field(model.bounding_box,(100,100,100),
+   #                           'scalar',
+    ##                             norm=True,
+    #                         paint_with=strati['feature'],
+    #                         cmap='tab20')
+    viewer.add_scalar_field(strati['feature'])
     viewer.set_viewer_rotation([-53.8190803527832, -17.1993350982666, -2.1576387882232666])
     #viewer.save("fdi_surfaces.png")
     viewer.interactive()

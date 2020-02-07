@@ -403,38 +403,39 @@ def save_basal_contacts_csv(contacts,output_path,dtm,contact_decimate,c_l):
         i=0
         lastx,lasty=-1e7,-1e7
         first=True
-        if contact.geometry.type == 'MultiLineString':
-            for line in contact.geometry: 
-                if(line.coords[0][0]==lastx and line.coords[0][1]==lasty): #continuation of line
-                    if(m2l_utils.mod_safe(i,contact_decimate)==0 or i==int((len(contact.geometry)-1)/2) or i==len(contact.geometry)-1):
+        if(not str(contact.geometry)=='None'):
+             if contact.geometry.type == 'MultiLineString':
+                for line in contact.geometry: 
+                    if(line.coords[0][0]==lastx and line.coords[0][1]==lasty): #continuation of line
+                        if(m2l_utils.mod_safe(i,contact_decimate)==0 or i==int((len(contact.geometry)-1)/2) or i==len(contact.geometry)-1):
+                            locations=[(line.coords[0][0],line.coords[0][1])]
+                            height=m2l_utils.value_from_raster(dtm,locations)
+                            ostr=str(line.coords[0][0])+','+str(line.coords[0][1])+','+str(height)+','+str(contact[c_l['c']])+'\n'
+                            f.write(ostr)
+                    else: #new line
+                        if(not first):
+                            locations=[(lastx,lasty)]
+                            height=m2l_utils.value_from_raster(dtm,locations)                        
+                            ostr=str(lastx)+','+str(lasty)+','+str(height)+','+str(contact[c_l['c']])+'\n'
+                            f.write(ostr)
                         locations=[(line.coords[0][0],line.coords[0][1])]
-                        height=m2l_utils.value_from_raster(dtm,locations)
+                        height=m2l_utils.value_from_raster(dtm,locations)                        
                         ostr=str(line.coords[0][0])+','+str(line.coords[0][1])+','+str(height)+','+str(contact[c_l['c']])+'\n'
                         f.write(ostr)
-                else: #new line
-                    if(not first):
-                        locations=[(lastx,lasty)]
-                        height=m2l_utils.value_from_raster(dtm,locations)                        
-                        ostr=str(lastx)+','+str(lasty)+','+str(height)+','+str(contact[c_l['c']])+'\n'
-                        f.write(ostr)
-                    locations=[(line.coords[0][0],line.coords[0][1])]
-                    height=m2l_utils.value_from_raster(dtm,locations)                        
-                    ostr=str(line.coords[0][0])+','+str(line.coords[0][1])+','+str(height)+','+str(contact[c_l['c']])+'\n'
-                    f.write(ostr)
-                    first=False
-                i=i+1
-                lastx=line.coords[1][0]
-                lasty=line.coords[1][1]
+                        first=False
+                    i=i+1
+                    lastx=line.coords[1][0]
+                    lasty=line.coords[1][1]
 
-        elif contact.geometry.type == 'LineString':
-            locations=[(contact.geometry.coords[0][0],contact.geometry.coords[0][1])]
-            height=m2l_utils.value_from_raster(dtm,locations)                        
-            ostr=str(contact.geometry.coords[0][0])+','+str(contact.geometry.coords[0][1])+','+str(height)+','+str(contact[c_l['c']])+'\n'
-            f.write(ostr)
-            locations=[(contact.geometry.coords[1][0],contact.geometry.coords[1][1])]
-            height=m2l_utils.value_from_raster(dtm,locations)                        
-            ostr=str(contact.geometry.coords[1][0])+','+str(contact.geometry.coords[1][1])+','+str(height)+','+str(contact[c_l['c']])+'\n'
-            f.write(ostr)
+             elif contact.geometry.type == 'LineString':
+                locations=[(contact.geometry.coords[0][0],contact.geometry.coords[0][1])]
+                height=m2l_utils.value_from_raster(dtm,locations)                        
+                ostr=str(contact.geometry.coords[0][0])+','+str(contact.geometry.coords[0][1])+','+str(height)+','+str(contact[c_l['c']])+'\n'
+                f.write(ostr)
+                locations=[(contact.geometry.coords[1][0],contact.geometry.coords[1][1])]
+                height=m2l_utils.value_from_raster(dtm,locations)                        
+                ostr=str(contact.geometry.coords[1][0])+','+str(contact.geometry.coords[1][1])+','+str(height)+','+str(contact[c_l['c']])+'\n'
+                f.write(ostr)
     f.close()
     print('decimated contacts saved as',output_path+'contacts4.csv')
     
@@ -1209,43 +1210,44 @@ def calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed,c_l):
                     i=0 
                     for acontact in acontacts.iterrows():   #loop through distinct linestrings for upper contact
                         #if(bboxes_intersect(ddline.bounds,acontact[1].geometry.bounds)):
+                        if(not str(acontact[1].geometry)=='None'):
 
-                        if(ddline.intersects(acontact[1].geometry)): 
-                            isects=ddline.intersection(acontact[1].geometry)
-                            if(isects.geom_type=="MultiPoint"):
-                                for pt in isects: 
-                                    if(pt.distance(orig)<buffer*2):
-                                        #print(i,",", pt.x, ",",pt.y,",",apair[1]['code'],",",apair[1]['group'])
+                            if(ddline.intersects(acontact[1].geometry)): 
+                                isects=ddline.intersection(acontact[1].geometry)
+                                if(isects.geom_type=="MultiPoint"):
+                                    for pt in isects: 
+                                        if(pt.distance(orig)<buffer*2):
+                                            #print(i,",", pt.x, ",",pt.y,",",apair[1]['code'],",",apair[1]['group'])
+                                            crossings[i,0]=i
+                                            crossings[i,1]=int(apair[1]['index'])
+                                            crossings[i,2]=0
+                                            crossings[i,3]=pt.x
+                                            crossings[i,4]=pt.y
+                                            i=i+1
+                                else:
+                                    if(isects.distance(orig)<buffer*2):
+                                        #print(i,",", isects.x,",", isects.y,",",apair[1]['code'],",",apair[1]['group'])
                                         crossings[i,0]=i
                                         crossings[i,1]=int(apair[1]['index'])
                                         crossings[i,2]=0
-                                        crossings[i,3]=pt.x
-                                        crossings[i,4]=pt.y
+                                        crossings[i,3]=isects.x
+                                        crossings[i,4]=isects.y
                                         i=i+1
-                            else:
-                                if(isects.distance(orig)<buffer*2):
-                                    #print(i,",", isects.x,",", isects.y,",",apair[1]['code'],",",apair[1]['group'])
-                                    crossings[i,0]=i
-                                    crossings[i,1]=int(apair[1]['index'])
-                                    crossings[i,2]=0
-                                    crossings[i,3]=isects.x
-                                    crossings[i,4]=isects.y
-                                    i=i+1
-                    if(i>0): #if we found any intersections with base of next higher unit
-                        min_dist=1e8
-                        min_pt=0
-                        for f in range(0,i): #find closest hit
-                            this_dist=m2l_utils.ptsdist(crossings[f,3],crossings[f,4],cx[k],cy[k])
-                            if(this_dist<min_dist):
-                                min_dist=this_dist
-                                min_pt=f
-                        if(min_dist<max_thickness_allowed): #if not too far, add to output
-                            true_thick=sin(radians(dip_mean))*min_dist
-                            ostr=str(cx[k])+','+str(cy[k])+','+ctextcode[k]+','+str(int(true_thick))+\
-                                ','+str(cl[k])+','+str(cm[k])+','+str(lm)+','+str(mm)+','+str(nm)+','+\
-                                str(p1.x)+','+str(p1.y)+','+str(p2.x)+','+str(p2.y)+','+str(dip_mean)+'\n'
-                            file.write(ostr)
-                            n_est=n_est+1
+                                    if(i>0): #if we found any intersections with base of next higher unit
+                                        min_dist=1e8
+                                        min_pt=0
+                                        for f in range(0,i): #find closest hit
+                                            this_dist=m2l_utils.ptsdist(crossings[f,3],crossings[f,4],cx[k],cy[k])
+                                            if(this_dist<min_dist):
+                                                min_dist=this_dist
+                                                min_pt=f
+                                        if(min_dist<max_thickness_allowed): #if not too far, add to output
+                                            true_thick=sin(radians(dip_mean))*min_dist
+                                            ostr=str(cx[k])+','+str(cy[k])+','+ctextcode[k]+','+str(int(true_thick))+\
+                                                ','+str(cl[k])+','+str(cm[k])+','+str(lm)+','+str(mm)+','+str(nm)+','+\
+                                                str(p1.x)+','+str(p1.y)+','+str(p2.x)+','+str(p2.y)+','+str(dip_mean)+'\n'
+                                            file.write(ostr)
+                                            n_est=n_est+1
                                 
                 g=g+1
     print(n_est,'thickness estimates saved as',output_path+'formation_thicknesses.csv')
