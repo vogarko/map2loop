@@ -432,6 +432,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('GeomodellerTask {\n')
         f.write('    CloseProjectNoGUI {\n')
         f.write('    }\n')
+        f.write('}\n')
 
         f.close()
 
