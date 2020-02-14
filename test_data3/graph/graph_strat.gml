@@ -2,9 +2,6 @@
 # OBJECT COORDINATES              =WKT
 # FAULT: ID                       =OBJECTID
 # FAULT: FEATURE                  =FEATURE
-# POINT: ID                       =GEOPNT_ID
-# POINT: DIP                      =DIP
-# POINT: DIP DIR                  =DIP_DIR
 # POLYGON: ID                     =OBJECTID
 # POLYGON: LEVEL1 NAME            =UNITNAME
 # POLYGON: LEVEL2 NAME            =GROUP_
@@ -14,18 +11,23 @@
 # POLYGON: DESCRIPTION            =DESCRIPTN
 # POLYGON: ROCKTYPE1              =ROCKTYPE1
 # POLYGON: ROCKTYPE2              =ROCKTYPE2
+# DEPOSIT: SITE CODE                                  =SITE_CODE
+# DEPOSIT: SITE TYPE                                  =SITE_TYPE_
+# DEPOSIT: SITE COMMODITY                             =SITE_COMMO
 # --- SOME CONSTANTS: ----------------------------------------------------------------------------
 # FAULT AXIAL FEATURE NAME        =Fold axial trace
 # SILL UNIT DESCRIPTION CONTAINS  =sill
 # IGNEOUS ROCKTYPE CONTAINS                           =intrusive
 # VOLCANIC ROCKTYPE CONTAINS                          =volcanic
+# IGNORE DEPOSITS WITH SITE TYPE                      =Infrastructure
 # Intersect Contact With Fault: angle epsilon (deg)   =1.0
 # Intersect Contact With Fault: distance epsilon (m)  =15.0
+# Distance buffer (fault stops on another fault) (m)  =20.0
 # ------------------------------------------------------------------------------------------------
 # Path to the output data folder                      =../test_data3/graph/
 # Path to geology data file                           =../test_data3/tmp/hams2_geol.csv
 # Path to faults data file                            =../test_data3/tmp/GEOS_GEOLOGY_LINEARSTRUCTURE_500K_GSD.csv
-# Path to points data file                            =../test_data3/tmp/hams2_structure.csv
+# Path to mineral deposits data file                  =../test_data3/tmp/mindeps_2018.csv
 # ------------------------------------------------------------------------------------------------
 # Clipping window X1 Y1 X2 Y2 (zeros for infinite)    =500057 7455348 603028 7567953
 # Min length fraction for strat/fault graphs          =0.0

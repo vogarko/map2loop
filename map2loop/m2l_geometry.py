@@ -975,7 +975,9 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_f
 
     all_contacts=pd.concat([intrusive_contacts,contacts],sort=False)
     all_contacts.reset_index(inplace=True)
-    #display(all_sorts)
+    all_contacts.to_csv(output_path+'contacts_clean.csv', index = None, header=True)
+
+    output_path+'contacts_clean.csv'
     all_groups=set(all_sorts['group'])
 
     unique_contacts=set(all_contacts['formation'])
@@ -1375,3 +1377,115 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dataset,
     f.close()
     print("fold axial traces saved as",output_path+'fold_axial_traces.csv')
     print("fold axial trace orientations saved as",output_path+'fold_axial_trace_orientations.csv')
+
+####################################################
+# Convert XZ section information to XY Model coordinates:
+# section2model(seismic_line,seismic_bbox,sx,sy)
+# Args:
+# seismic_line geopandas object showing surface trace of seismic line
+# seismic_bbox geopandas object defining TL,TR and BR coordinates of seismic interp
+# sx,sy XZ coordinates of a posiiton in the section
+# returns XY coordinates in model space
+###################################################
+
+def section2model(seismic_line,seismic_bbox,sx,sy):
+    sx1=(sx-seismic_bbox.loc['TL'].geometry.x)/(seismic_bbox.loc['TR'].geometry.x-seismic_bbox.loc['TL'].geometry.x)
+    sy1=(sy-seismic_bbox.loc['TR'].geometry.y)
+    for indx,lines in seismic_line.iterrows():
+        s_ls=LineString(lines.geometry)
+        first=True
+        cdist=0
+        for seg in s_ls.coords:        
+            if(not first):
+                dist=m2l_utils.ptsdist(seg[0],seg[1],lsegx,lsegy)
+                cdist=cdist+dist
+                lsegx=seg[0]
+                lsegy=seg[1]
+            else:
+                first=False
+                lsegx=seg[0]
+                lsegy=seg[1]
+        break
+    
+    full_dist=cdist
+    
+    for indx,lines in seismic_line.iterrows():
+        s_ls=LineString(lines.geometry)
+        first=True
+        cdist=0
+        for seg in s_ls.coords:        
+            if(not first):
+                dist=m2l_utils.ptsdist(seg[0],seg[1],lsegx,lsegy)
+                cdist=cdist+dist
+                norm_dist=cdist/full_dist
+                if(sx1>last_norm_dist and sx1<norm_dist):
+                    local_norm=((sx1-last_norm_dist)/(norm_dist-last_norm_dist))
+                    mx=lsegx+((seg[0]-lsegx)*local_norm)
+                    my=lsegy+((seg[1]-lsegy)*local_norm)
+                    return(mx,my)
+                lsegx=seg[0]
+                lsegy=seg[1]
+                last_norm_dist=norm_dist
+            else:
+                first=False
+                lsegx=seg[0]
+                lsegy=seg[1]
+                last_norm_dist=0
+        return(-999,-999)
+
+####################################################
+# Extract fault and group stratigraphy information from section:
+# extract_section(tmp_path,output_path,seismic_line,seismic_bbox,seismic_interp,dtm,surface_cut)
+# Args:
+# tmp_path path to tmp directory
+# output_path path to output directory
+# seismic_line geopandas object showing surface trace of seismic line
+# seismic_bbox geopandas object defining TL,TR and BR coordinates of seismic interp
+# seismic_interp geopandas object containing interreted faults and strat surfaces as polylines
+# dtm projected dtm grid as rasterio object
+# surface_cut shallowest level to extract from section (in section metre coordinates)
+###################################################
+
+def extract_section(tmp_path,output_path,seismic_line,seismic_bbox,seismic_interp,dtm,surface_cut):
+    fault_clip_file=tmp_path+'faults_clip.shp'   
+    faults = gpd.read_file(fault_clip_file) #import faults    
+    all_sorts=pd.read_csv(tmp_path+'all_sorts2.csv',",")
+    sf=open(output_path+'seismic_faults.csv',"w")
+    sf.write('X,Y,Z,formation\n')
+    sb=open(output_path+'seismic_base.csv',"w")
+    sb.write('X,Y,Z,formation\n')
+    for indx,interps in seismic_interp.iterrows():
+        i_ls=LineString(interps.geometry)
+        for seg in i_ls.coords:
+            mx,my=section2model(seismic_line,seismic_bbox,seg[0],seg[1])
+            if( mx != -999 and  my != -999):
+                mz=seismic_bbox.loc['BR']['DEPTH']*(seismic_bbox.loc['TR'].geometry.y-seg[1])/(seismic_bbox.loc['TR'].geometry.y-seismic_bbox.loc['BR'].geometry.y)
+                locations=[(mx,my)]
+                height= m2l_utils.value_from_raster(dtm,locations)
+                if(not height==-999 and mz>surface_cut):
+                    mz2=-mz+float(height)
+                    #print(mx,my,mz,height,mz2)
+                    if(str(interps['IDENT'])=='None'):
+                        ident='None'
+                    else:
+                        ident=str(interps['IDENT'])
+                    if('Base' in interps['FEATURE']):
+                        maxfm=0
+                        maxname=''
+                        for indx,formation in all_sorts.iterrows():
+                            if(formation['group'] in interps['IDENT'] and formation['index in group']>maxfm):
+                                maxfm=formation['index in group']
+                                maxname=formation['code']
+                        ostr=str(mx)+','+str(my)+','+str(mz2)+','+maxname+'\n'
+                        sb.write(ostr)
+                    else:
+                        for indx,aflt in faults.iterrows():
+                            if(not str(aflt['NAME'])=='None' and not ident == 'None'):
+                                fname=aflt['NAME'].replace(" ","_")
+                                if(fname in interps['IDENT'] ):
+                                    fault_id='Fault_'+str(aflt['OBJECTID'])
+                                    ostr=str(mx)+','+str(my)+','+str(mz2)+','+fault_id+'\n'
+                                    sf.write(ostr)
+                                    break
+    sf.close()
+    sb.close()

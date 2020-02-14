@@ -46,7 +46,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
     f.write('        Extents {\n')
     f.write('            xmin: '+str(bbox[0])+'\n')
     f.write('            ymin: '+str(bbox[1])+'\n')
-    f.write('            zmin: -3000\n')
+    f.write('            zmin: -7000\n')
     f.write('            xmax: '+str(bbox[2])+'\n')
     f.write('            ymax: '+str(bbox[3])+'\n')
     f.write('            zmax: 1200\n')
@@ -202,7 +202,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
     f.write('#-----------------------Import 3D contact data ---Base Model----\n')
     f.write('#---------------------------------------------------------------\n')
 
-    contacts=pd.read_csv(output_path+'contacts_clean.csv',',')
+    contacts=pd.read_csv(output_path+'contacts4.csv',',')
     all_sorts=pd.read_csv(tmp_path+'all_sorts_clean.csv',',')
     #all_sorts.set_index('code',  inplace = True)
     #display(all_sorts)
