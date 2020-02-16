@@ -1,6 +1,6 @@
 MetaData Begin
 	Name	= DTM.igmesh
-	Version	= "Intrepid geomodellerbatch v4.0.8 HEAD for Windows (x64) by PELAGIAN optimised build 88b64e610d9 "
+	Version	= "Intrepid GeoModeller v4.0.8 HEAD for Windows (x64) by PELAGIAN optimised build 88b64e610d9 "
 	quad_dtm_rp Begin
 		DataType	= IEEE8ByteReal
 		ByteOrder	= LSBFirst
@@ -11,6 +11,7 @@ MetaData Begin
 		Type	= regular-grid
 		Dimensions	= 2
 		Purpose	= "MODEL"
+		Description	= "no description"
 		Suffix	= .ers
 		Format	= iogrid
 		Name	= DTM
@@ -52,6 +53,7 @@ MetaData Begin
 				Name	= dtm_rp
 				Primitive	= quad
 				DataType	= IEEE8ByteReal
+				Units	= none
 				Alias	= dtm_rp
 				NumElem	= 33792
 			dtm_rp End

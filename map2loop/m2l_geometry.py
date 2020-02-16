@@ -1393,22 +1393,9 @@ def section2model(seismic_line,seismic_bbox,sx,sy):
     sy1=(sy-seismic_bbox.loc['TR'].geometry.y)
     for indx,lines in seismic_line.iterrows():
         s_ls=LineString(lines.geometry)
-        first=True
-        cdist=0
-        for seg in s_ls.coords:        
-            if(not first):
-                dist=m2l_utils.ptsdist(seg[0],seg[1],lsegx,lsegy)
-                cdist=cdist+dist
-                lsegx=seg[0]
-                lsegy=seg[1]
-            else:
-                first=False
-                lsegx=seg[0]
-                lsegy=seg[1]
+        full_dist=s_ls.length
         break
-    
-    full_dist=cdist
-    
+        
     for indx,lines in seismic_line.iterrows():
         s_ls=LineString(lines.geometry)
         first=True
