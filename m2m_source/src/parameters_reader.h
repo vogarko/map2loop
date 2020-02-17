@@ -19,10 +19,10 @@ public:
   // Field names in CSV data files, and some other literal constants.
   std::map<std::string, std::string> constNames;
 
-  //! Path to the output data folder.
+  // Path to the output data folder.
   std::string path_output;
 
-  //! Converter lib input parameters.
+  // Converter lib input parameters.
   std::string path_geology;
   std::string path_faults;
   std::string path_points;
@@ -35,7 +35,7 @@ public:
   int partial_graph_polygon_id;
   int partial_graph_depth;
 
-  //! Size of the map subregion size for calculating Jaccard indexes.
+  // Size of the map subregion size for calculating Jaccard indexes.
   double subregion_size_x;
   double subregion_size_y;
 
@@ -46,8 +46,17 @@ public:
   double angleEpsilon;
   double distanceEpsilon;
 
-  //! Reading input parameters from a file.
-  //! Returns parameter lines that were read.
+  // Distance buffer from a point to segment (to find if a fault stops on another fault).
+  double faultFaultDistanceBuffer;
+
+  // Distance buffer from a point (deposit) to contact (to find if a point is sitting on the contact).
+  double pointToContactDistanceBuffer;
+
+  // Deposit names for which we are adding info on the graph.
+  std::vector<std::string> depositListForGraphInfo;
+
+  // Reading input parameters from a file.
+  // Returns parameter lines that were read.
   std::string Read(const std::string &filename);
 
 };

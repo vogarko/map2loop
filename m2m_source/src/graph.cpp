@@ -96,6 +96,7 @@ void GraphWriter::WriteGraph(const std::string &file_graph, const UnitContacts &
                              const std::string &label_type, bool exclude_sills,
                              int edge_width_type, const std::vector<double> &edge_width_categories,
                              int edge_direction_type,
+                             const std::string& depositName,
                              const std::string &comments)
 {
   // Sanity check.
@@ -133,8 +134,8 @@ graph [\n\
 
   for (UnitContacts::const_iterator it = contacts.begin(); it != contacts.end(); ++it)
   {
-    filtered_units.insert(Units::value_type(it->unit1.name, it->unit1));
-    filtered_units.insert(Units::value_type(it->unit2.name, it->unit2));
+    filtered_units.insert(Units::value_type(it->unit1->name, *(it->unit1)));
+    filtered_units.insert(Units::value_type(it->unit2->name, *(it->unit2)));
   }
   std::cout << "Number of units in the graph: " << filtered_units.size() << std::endl;
 
@@ -223,31 +224,31 @@ graph [\n\
   for (UnitContacts::const_iterator unit_contact_it = contacts.begin();
        unit_contact_it != contacts.end(); ++unit_contact_it)
   {
-    // Exclude with sills, if needed.
+    // Exclude contacts with sills, if needed.
     if (exclude_sills &&
-        (unit_contact_it->unit1.is_sill || unit_contact_it->unit2.is_sill)) continue;
+        (unit_contact_it->unit1->is_sill || unit_contact_it->unit2->is_sill)) continue;
 
     // Direct graph edges according to the age.
     double age1, age2;
 
     if (edge_direction_type == 0)
     {
-      age1 = unit_contact_it->unit1.min_age;
-      age2 = unit_contact_it->unit2.min_age;
+      age1 = unit_contact_it->unit1->min_age;
+      age2 = unit_contact_it->unit2->min_age;
     }
     else if (edge_direction_type == 1)
     {
-      age1 = unit_contact_it->unit1.max_age;
-      age2 = unit_contact_it->unit2.max_age;
+      age1 = unit_contact_it->unit1->max_age;
+      age2 = unit_contact_it->unit2->max_age;
     }
     else
     {
-      age1 = (unit_contact_it->unit1.min_age + unit_contact_it->unit1.max_age) / 2.;
-      age2 = (unit_contact_it->unit2.min_age + unit_contact_it->unit2.max_age) / 2.;
+      age1 = (unit_contact_it->unit1->min_age + unit_contact_it->unit1->max_age) / 2.;
+      age2 = (unit_contact_it->unit2->min_age + unit_contact_it->unit2->max_age) / 2.;
     }
 
-    int id1 = unit_contact_it->unit1.id;
-    int id2 = unit_contact_it->unit2.id;
+    int id1 = unit_contact_it->unit1->id;
+    int id2 = unit_contact_it->unit2->id;
 
     // Setting source and target IDs.
     if (age1 <= age2)
@@ -302,12 +303,33 @@ graph [\n\
 
     std::string color = CreateHexRGBString(unit_contact_it->faults_length / unit_contact_it->total_length);
 
+    std::string edgeLabel = "";
+    if (unit_contact_it->deposits.size() > 0) {
+        size_t numDeposits = 0;
+        for (size_t i = 0; i < unit_contact_it->deposits.size(); i++) {
+            const std::string commodity = unit_contact_it->deposits[i]->point->site_commo;
+            std::size_t found = commodity.find(depositName);
+              if (found != std::string::npos) {
+                  numDeposits++;
+              }
+        }
+        if (numDeposits > 0) {
+            edgeLabel = SSTR(numDeposits);
+        }
+    }
+
     file <<
 "  edge [\n\
     source " << source << "\n\
     target " << target << "\n\
-    graphics [ style \"" << style << "\" arrow \"" << arrow << "\" width " << width << " fill \"" << color << "\" ]\n\
-  ]\n";
+    graphics [ style \"" << style << "\" arrow \"" << arrow << "\" width " << width << " fill \"" << color << "\" ]\n";
+    // Adding the edge label info.
+    if (edgeLabel != "") {
+        file <<
+"    LabelGraphics [ text \"" << edgeLabel << "\" fontSize 14 fontStyle \"bold\" model \"centered\" position \"center\" outline \"#000000\" fill \"#FFFFFF\"]\n";
+    }
+    file <<
+"  ]\n";
 
     file_txt << source << " " << target << " " << (arrow == "both") << std::endl;
   }

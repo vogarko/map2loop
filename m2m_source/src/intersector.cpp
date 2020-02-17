@@ -14,6 +14,223 @@
 
 namespace ConverterLib {
 
+int PointInMultipolygon(const IntPoint &pt, const Object &multipolygon)
+{
+    assert(multipolygon.paths.size() > 0);
+    std::vector<int> inPolygonResults(multipolygon.paths.size());
+
+    // Assume that the first polygon is the "main" one, and the followings are its holes.
+    // So a point must be inside the "main" polygon, but not inside any of its holes.
+    for (std::size_t i = 0; i < multipolygon.paths.size(); i++) {
+        const Path &polygon = multipolygon.paths[i];
+        inPolygonResults[i] = ClipperLib::PointInPolygon(pt, polygon);
+    }
+
+    //----------------------------------------------------------------------
+    // Check if a point lies on boundary.
+    for (std::size_t i = 0; i < multipolygon.paths.size(); i++) {
+        if (inPolygonResults[i] == -1) {
+            return -1;
+        }
+    }
+
+    //---------------------------------------------------------------------
+    // Check if a point is inside a multipolygon, and not inside its hole.
+    bool inside = false;
+    for (std::size_t i = 0; i < multipolygon.paths.size(); i++) {
+        if (inPolygonResults[i] == 1) {
+        // Point is inside.
+            inside = true;
+
+            const Path &polygon = multipolygon.paths[i];
+
+            // This way it is tested for a hole in DoSVG().
+            bool hole = !ClipperLib::Orientation(polygon);
+
+            if (hole) {
+                // Point is inside a hole.
+                return 0;
+            }
+        }
+    }
+    if (inside) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+void IntersectPointsWithPolygons(PointPolygonIntersectionList &pointPolygonIntersectionList,
+                                 const Objects &points, const Objects &polygons)
+{
+    std::cout << "Intersecting points with polygons..." << std::endl;
+
+    for (std::size_t i = 0; i < points.size(); i++) {
+        assert(points[i].paths.size() == 1);
+        assert(points[i].paths[0].size() == 1);
+
+        bool foundIntersectingPolygon = false;
+
+        const IntPoint &pt = (points[i].paths[0])[0];
+
+        size_t numInside = 0;
+        for (std::size_t j = 0; j < polygons.size(); j++) {
+            int res = PointInMultipolygon(pt, polygons[j]);
+
+            if (res > 0) {
+                foundIntersectingPolygon = true;
+                numInside++;
+
+                // Sanity check.
+                if (numInside > 1) {
+                    throw std::runtime_error("A point " + points[i].site_code + " is inside more than one multipolygon! This should not happen.");
+                }
+            }
+            else if (res == -1) {
+                foundIntersectingPolygon = true;
+                std::cout << "Point is on boundary: " << points[i].site_code << ", " << polygons[j].id << std::endl;
+            }
+
+            if (res != 0) {
+                PointInPolygon pip;
+                pip.point = &points[i];
+                pip.containingPolygon = &polygons[j];
+                pip.onContact = (res == -1);
+
+                pointPolygonIntersectionList.push_back(pip);
+            }
+        }
+
+        if (!foundIntersectingPolygon) {
+            std::cout << "WARNING: Did not find an intersecting polygon for a point with SITE CODE = " << points[i].site_code << std::endl;
+        }
+    }
+}
+
+void FindClosestContactForPoints(PointPolygonIntersectionList &pointPolygonIntersectionList,
+                                 const Contacts& contacts, const Objects& faults,
+                                 const Converter& converter, double pointToContactDistanceBuffer)
+{
+    std::cout << "Finding closest contacts (for points)..." << std::endl;
+
+    //==================================================================================
+    // 1. First check points against the contacts.
+    //==================================================================================
+    for (std::size_t i = 0; i < pointPolygonIntersectionList.size(); i++) {
+        PointInPolygon& pip = pointPolygonIntersectionList[i];
+
+        const IntPoint& pt = pip.point->paths[0][0];
+
+        double minDist2;
+        int closestContactIndex = -1;
+        int faultID1 = -1;
+        //int faultID2 = -1;
+
+        // Finding a closest contact to a point.
+        for (std::size_t j = 0; j < contacts.size(); j++) {
+            const Contact& contact = contacts[j];
+
+            if (contact.obj1 == pip.containingPolygon || contact.obj2 == pip.containingPolygon) {
+            // This is a contact of a polygon where the point is located.
+
+                // Need to find the (minimum) distance from a point to the contact.
+                // Loop over all segments of a contact.
+                for (Path::const_iterator it = contact.path.begin();
+                     it != contact.path.end() - 1; ++it) {
+                    double dist2 = ConverterUtils::DistanceFromSegmentSqrd(pt, *it, *(it + 1));
+
+                    if (closestContactIndex < 0 || dist2 < minDist2) {
+                        minDist2 = dist2;
+                        closestContactIndex = j;
+
+                        faultID1 = it->faultID;
+                        //faultID2 = (it + 1)->faultID;
+                    }
+                }
+            }
+        }
+        assert(closestContactIndex >= 0);
+
+        const Contact& closestContact = contacts[closestContactIndex];
+
+        if (closestContact.obj1 == pip.containingPolygon) {
+            pip.neighbourPolygon = closestContact.obj2;
+        }
+        else if (closestContact.obj2 == pip.containingPolygon) {
+            pip.neighbourPolygon = closestContact.obj1;
+        }
+        else {
+            std::cout << "Wrong closest contact!" << std::endl;
+            assert(false);
+        }
+
+        // Finding contact type -----------------------------
+        std::string rocktype1 = closestContact.obj1->rocktype1 +  " " + closestContact.obj1->rocktype2;
+        std::string rocktype2 = closestContact.obj2->rocktype1 +  " " + closestContact.obj2->rocktype2;
+        double age1 = closestContact.obj1->max_age;
+        double age2 = closestContact.obj2->max_age;
+
+        int res = converter.TestForIgneousContact(rocktype1, rocktype2, age1, age2);
+
+        if (res > 0) {
+        // Igneouse/intrusive contacts get priority over fault contacts.
+            if (res == 2) {
+                pip.contactType = IgneousContact;
+            } else {
+                pip.contactType = IntrusiveIgneousContact;
+            }
+        } else {
+            pip.contactType = closestContact.type;
+        }
+        //---------------------------------------------------
+
+        if (pip.contactType == FaultContact) {
+            assert(faultID1 >= 0);
+            pip.faultObjectID = faultID1;
+        }
+
+        pip.distanceToContact2 = minDist2;
+    }
+
+    //==================================================================================
+    // 2. Treat faults separately.
+    // Note: faults are also considered as contacts, even if it is a fault inside a unit (i.e, between A and A).
+    // Our conventional contacts don't contain A-A fault contacts, so we test against faults separately.
+    //==================================================================================
+    for (std::size_t i = 0; i < pointPolygonIntersectionList.size(); i++) {
+        PointInPolygon& pip = pointPolygonIntersectionList[i];
+
+        const IntPoint& pt = pip.point->paths[0][0];
+
+        for (std::size_t j = 0; j < faults.size(); j++) {
+            const Object &fault = faults[j];
+            assert(fault.paths.size() == 1);
+
+            for (Path::const_iterator it = fault.paths[0].begin();
+                 it != fault.paths[0].end() - 1; ++it) {
+
+                double dist2 = ConverterUtils::DistanceFromSegmentSqrd(pt, *it, *(it + 1));
+
+                if (dist2 <= pip.distanceToContact2) {
+                // Found a fault that is closer to the point than any of the contact.
+                // So this should be a fault splitting the same unit, i.e., A-A contact.
+                    pip.contactType = FaultContact;
+                    pip.faultObjectID = fault.id;
+                    pip.neighbourPolygon = pip.containingPolygon; // fault contact between A and A.
+                    pip.distanceToContact2 = dist2;
+                }
+            }
+        }
+        // Setting the "onContact" flag.
+        if (pip.distanceToContact2 <= pointToContactDistanceBuffer * pointToContactDistanceBuffer) {
+            pip.onContact = true;
+        } else {
+            assert(pip.onContact == false);
+        }
+    }
+}
+//=====================================================================================================
+
 void IntersectFaultsWithPolygons(const Objects &faults, const Objects &polygons,
                                  UnitFaultIntersectionList &unitFaultIntersectionList)
 {
@@ -98,9 +315,10 @@ bool FaultAndPolygonIntersecting(const Object &fault, const Object &polygon)
 
   return 0;
 }
-//=======================================================================================
+//=====================================================================================================
 
-void IntersectFaultsWithFaults(const Objects &faults, FaultIntersectionList &faultIntersectionList)
+void IntersectFaultsWithFaults(const Objects &faults, FaultIntersectionList &faultIntersectionList,
+                               double distanceBuffer)
 {
   std::cout << "Intersecting faults with faults..." << std::endl;
 
@@ -110,7 +328,7 @@ void IntersectFaultsWithFaults(const Objects &faults, FaultIntersectionList &fau
       double intersectionAngle;
       int intersectionType;
 
-      if (FaultsAreIntersecting(faults[i], faults[j], intersectionType, intersectionAngle)) {
+      if (FaultsAreIntersecting(faults[i], faults[j], intersectionType, intersectionAngle, distanceBuffer)) {
 
         int faultId1, faultId2;
 
@@ -145,7 +363,8 @@ void IntersectFaultsWithFaults(const Objects &faults, FaultIntersectionList &fau
 //=======================================================================================
 
 bool FaultsAreIntersecting(const Object &fault1, const Object &fault2,
-                           int &intersectionType, double &intersectionAngle)
+                           int &intersectionType, double &intersectionAngle,
+                           double distanceBuffer)
 {
   // Bounding box check.
   if (!AABB::BoundingBoxesOverlap(fault1.aabb, fault2.aabb)) {
@@ -172,8 +391,8 @@ bool FaultsAreIntersecting(const Object &fault1, const Object &fault2,
       assert(faultA.size() > 1);
       assert(faultB.size() > 1);
 
-      // Distance buffer from point to segment (to find if a fault stops on another fault).
-      double distBuffer = 20.; // meters
+      // Distance buffer from a point to segment (to find if a fault stops on another fault).
+      const double distanceBufferSquared = distanceBuffer * distanceBuffer;
 
       // Loop over all segments of faultB.
       for (Path::const_iterator it = faultB.begin();
@@ -185,12 +404,12 @@ bool FaultsAreIntersecting(const Object &fault1, const Object &fault2,
         bool intersect = false;
         TEdge2 faultASegment;
 
-        if (ConverterUtils::DistanceFromSegmentSqrd(faultA.front(), p1, p2) <= distBuffer * distBuffer) {
+        if (ConverterUtils::DistanceFromSegmentSqrd(faultA.front(), p1, p2) <= distanceBufferSquared) {
           intersect = true;
           // Form an edge from the first two points.
           faultASegment = TEdge2(*(faultA.begin() + 1), *(faultA.begin()));
 
-        } else if (ConverterUtils::DistanceFromSegmentSqrd(faultA.back(), p1, p2) <= distBuffer * distBuffer) {
+        } else if (ConverterUtils::DistanceFromSegmentSqrd(faultA.back(), p1, p2) <= distanceBufferSquared) {
           intersect = true;
           // Form an edge from the last two points.
           faultASegment = TEdge2(*(faultA.end() - 2), *(faultA.end() - 1));
@@ -336,6 +555,7 @@ std::size_t IntersectContactWithFault(Contact &contact, const Object &fault,
     {
       // Mark a corresponding segment vertex as intersecting.
       contact_vertex_it->type = 1;
+      contact_vertex_it->faultID = fault.id;
       num_intersections++;
     }
   }

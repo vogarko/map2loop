@@ -30,15 +30,12 @@ void Converter::SetOutputFolder(const std::string &path)
   path_output = path;
 }
 
-void Converter::SetSillDescription(const std::string &_sill_descript)
-{
-  sill_descript = _sill_descript;
-}
 //========================================================================================
 
 void Converter::ReadData(const std::string &filename, const std::string& keyword,
                          const std::map<std::string, std::string>& constNames,
-                         const std::vector<int>& idsToRead)
+                         const std::vector<int>& idsToRead,
+                         const std::vector<std::string>& idsToReadString)
 {
   if (keyword == "POLYGON")
   {
@@ -54,7 +51,7 @@ void Converter::ReadData(const std::string &filename, const std::string& keyword
   }
   else if (keyword == "POINT")
   {
-    ReadDataObj(filename, keyword, constNames, points_read, idsToRead);
+    ReadDataObj(filename, keyword, constNames, points_read, idsToRead, idsToReadString);
     points = points_read;
   }
   else
@@ -142,7 +139,7 @@ void Converter::BuildUnitsAndGroupsLists()
 
       // Marking sills.
       std::string description = poly_it->description;
-      std::size_t pos = description.find(sill_descript);
+      std::size_t pos = description.find(SILL_DESCRIPTION);
       if (pos == std::string::npos) {
         unit.is_sill = false;
       } else {
@@ -212,7 +209,7 @@ void Converter::ClipData(const AABB &window)
 {
   // Clipping polygons.
   polygons = ClipDataObj(polygons_read, window, true);
-  std::cout << "Multipolygons left (after clipping): " << polygons.size() << std::endl;
+  std::cout << "Polygons left (after clipping): " << polygons.size() << std::endl;
 
   // Setting last vertex = first vertex, for polygons. As this gets broken after clipping.
   for (Objects::iterator poly_it = polygons.begin(); poly_it != polygons.end(); poly_it++)
@@ -230,17 +227,24 @@ void Converter::ClipData(const AABB &window)
   faults = ClipDataObj(faults_read, window, false);
   std::cout << "Faults left (after clipping): " << faults.size() << std::endl;
 
-  // Points (not clipping at the moment).
-  points = points_read;
+  // Clipping points.
+  points.clear();
+  for (Objects::const_iterator it = points_read.begin();
+       it != points_read.end(); ++it) {
+      const IntPoint& pt = it->paths[0][0];
+      if (AABB::PointInsideBox(pt, window)) {
+          points.push_back(*it);
+      }
+  }
+  std::cout << "Points left (after clipping): " << points.size() << std::endl;
 
   //----------------------------------------------------------------------------------
   // Calculate window perimeter.
   Path window_path = AABB::AABB2Path(window);
 
   double perimeter = 0.0;
-  for (Path::const_iterator it = window_path.begin(); it != window_path.end() - 1; it++)
-  {
-    perimeter += ConverterUtils::GetDistance(*it, *(it + 1));
+  for (Path::const_iterator it = window_path.begin(); it != window_path.end() - 1; it++) {
+      perimeter += ConverterUtils::GetDistance(*it, *(it + 1));
   }
   m_window_length = perimeter;
 
@@ -364,6 +368,11 @@ const Objects& Converter::GetFaults() const
   return faults;
 }
 
+const Objects& Converter::GetPoints() const
+{
+  return points;
+}
+
 void Converter::PrintLengths(double contacts_length) const
 {
   // Test: two lengths should be the same, if there is a proper clipping window.
@@ -398,8 +407,8 @@ void Converter::BuildUnitContactsList(const Contacts &poly_contacts, UnitContact
     for (UnitContacts::iterator unit_contact_it = unit_contacts.begin();
          unit_contact_it != unit_contacts.end(); ++unit_contact_it)
     {
-      if ((unit_contact_it->unit1.name == name1 && unit_contact_it->unit2.name == name2)
-          || (unit_contact_it->unit1.name == name2 && unit_contact_it->unit2.name == name1))
+      if ((unit_contact_it->unit1->name == name1 && unit_contact_it->unit2->name == name2)
+          || (unit_contact_it->unit1->name == name2 && unit_contact_it->unit2->name == name1))
       {
       // This pair of unit names is already added.
         exist = true;
@@ -469,7 +478,7 @@ void Converter::BuildUnitContactsList(const Contacts &poly_contacts, UnitContact
       unit_it = units.find(name1);
       if (unit_it != units.end())
       {
-        unit_contact.unit1 = unit_it->second;
+        unit_contact.unit1 = &(unit_it->second);
       } else
       {
         std::cout << "Error: could not find a unit!" << std::endl;
@@ -479,7 +488,7 @@ void Converter::BuildUnitContactsList(const Contacts &poly_contacts, UnitContact
       unit_it = units.find(name2);
       if (unit_it != units.end())
       {
-        unit_contact.unit2 = unit_it->second;
+        unit_contact.unit2 = &(unit_it->second);
       } else
       {
         std::cout << "Error: could not find a unit!" << std::endl;
@@ -489,8 +498,6 @@ void Converter::BuildUnitContactsList(const Contacts &poly_contacts, UnitContact
       unit_contacts.push_back(unit_contact);
     }
   }
-
-  std::cout << "Number of unit-contacts: " << unit_contacts.size() << std::endl;
 
   //------------------------------------------------------------------------------
   // Determine unit contact type.
@@ -547,8 +554,8 @@ void Converter::BuildUnitContactsList(const Contacts &poly_contacts, UnitContact
        unit_contact_it != unit_contacts.end();
        unit_contact_it++)
   {
-    double length1 = unit_contact_it->unit1.length;
-    double length2 = unit_contact_it->unit2.length;
+    double length1 = unit_contact_it->unit1->length;
+    double length2 = unit_contact_it->unit2->length;
 
     unit_contact_it->relative_length = unit_contact_it->total_length / (length1 + length2) / 2.0;
 
@@ -578,10 +585,37 @@ void Converter::BuildUnitContactsList(const Contacts &poly_contacts, UnitContact
   file.close();
 }
 //========================================================================================
+int Converter::TestForIgneousContact(const std::string& rocktype1,
+                                     const std::string& rocktype2,
+                                     double age1, double age2) const
+{
+    int res = 0;
 
-void Converter::IdentifyIgneousUnitContacts(UnitContacts &unitContacts,
-                                            const std::string IGNEOUS_STRING,
-                                            const std::string VOLCANIC_STRING) const
+    bool contains_i_1 = (rocktype1.find(IGNEOUS_STRING) != std::string::npos);
+    bool contains_i_2 = (rocktype2.find(IGNEOUS_STRING) != std::string::npos);
+
+    bool contains_v_1 = (rocktype1.find(VOLCANIC_STRING) != std::string::npos);
+    bool contains_v_2 = (rocktype2.find(VOLCANIC_STRING) != std::string::npos);
+
+    bool igneous1 = contains_i_1 && !contains_v_1;
+    bool igneous2 = contains_i_2 && !contains_v_2;
+
+    if (igneous1 || igneous2) {
+        // Intrusive igneous.
+        res = 1;
+    }
+
+    if ((igneous1 && igneous2)
+        || (igneous1 && (age1 < age2))
+        || (igneous2 && (age2 < age1))) {
+        // Igneous.
+        res = 2;
+    }
+
+    return res;
+}
+
+void Converter::IdentifyIgneousUnitContacts(UnitContacts &unitContacts) const
 {
     std::cout << "Identifying igneous contacts..." << std::endl;
     size_t numIntrusiveIgneous = 0;
@@ -590,37 +624,51 @@ void Converter::IdentifyIgneousUnitContacts(UnitContacts &unitContacts,
     for (UnitContacts::iterator it = unitContacts.begin();
          it != unitContacts.end(); ++it) {
         // Build the rocktype form rocktype1 and rocktype2 fields (extracted from shapefile).
-        std::string rocktype1 = it->unit1.rocktype1 +  " " + it->unit1.rocktype2;
-        std::string rocktype2 = it->unit2.rocktype1 +  " " + it->unit2.rocktype2;
+        std::string rocktype1 = it->unit1->rocktype1 +  " " + it->unit1->rocktype2;
+        std::string rocktype2 = it->unit2->rocktype1 +  " " + it->unit2->rocktype2;
 
-        bool contains_i_1 = (rocktype1.find(IGNEOUS_STRING) != std::string::npos);
-        bool contains_i_2 = (rocktype2.find(IGNEOUS_STRING) != std::string::npos);
+        int res = TestForIgneousContact(rocktype1, rocktype2,
+                                        it->unit1->max_age, it->unit2->max_age);
 
-        bool contains_v_1 = (rocktype1.find(VOLCANIC_STRING) != std::string::npos);
-        bool contains_v_2 = (rocktype2.find(VOLCANIC_STRING) != std::string::npos);
-
-        // Flag unit as igneous.
-        bool igneous1 = contains_i_1 && !contains_v_1;
-        bool igneous2 = contains_i_2 && !contains_v_2;
-
-        double age1 = it->unit1.max_age;
-        double age2 = it->unit2.max_age;
-
-        if (igneous1 || igneous2) {
+        if (res > 0) {
             it->isIntrusiveIgneous = true;
             numIntrusiveIgneous++;
         }
 
-        if ((igneous1 && igneous2)
-            || (igneous1 && (age1 < age2))
-            || (igneous2 && (age2 < age1))) {
+        if (res == 2) {
             // A potentially (partially) igneous contact (unless its full length = fault length).
             it->isIgneous = true;
             numIgneous++;
         }
     }
+
     std::cout << "Number of intrusive igneous unit contacts: " << numIntrusiveIgneous << std::endl;
     std::cout << "Number of igneous unit contacts: " << numIgneous << std::endl;
+}
+//========================================================================================
+
+void Converter::AddPointsToUnitContacts(UnitContacts &unitContacts,
+                                       const PointPolygonIntersectionList& pointPolygonIntersectionList) const
+{
+    // Loop over unit contacts.
+    for (UnitContacts::iterator it = unitContacts.begin();
+         it != unitContacts.end(); ++it) {
+
+        // Loop over points (deposits).
+        for (std::size_t i = 0; i < pointPolygonIntersectionList.size(); i++) {
+            const PointInPolygon& pip = pointPolygonIntersectionList[i];
+
+            if (pip.onContact) {
+                if ((it->unit1->name == pip.containingPolygon->name
+                     && it->unit2->name == pip.neighbourPolygon->name)
+                    || (it->unit2->name == pip.containingPolygon->name
+                        && it->unit1->name == pip.neighbourPolygon->name)) {
+                    // Adding deposit on this contact.
+                    it->deposits.push_back(&pip);
+                }
+            }
+        }
+    }
 }
 //========================================================================================
 
@@ -657,7 +705,9 @@ void Converter::IdentifyPolygonContactTypes(Contacts &contacts, double angleEpsi
       if (AABB::BoundingBoxesOverlap(contact_aabb, fault_it->aabb))
       {
         // Mark coinciding contact-with-fault segments.
-        if (IntersectContactWithFault(contact, *fault_it, angleEpsilon, distanceEpsilon) == contact.path.size() - 1)
+        size_t num_intersections0 = IntersectContactWithFault(contact, *fault_it, angleEpsilon, distanceEpsilon);
+
+        if (num_intersections0 == contact.path.size() - 1)
         {
           //std::cout << "Full contact of polygons: " << contact.obj1->id << ", " << contact.obj2->id <<
           //             " with a fault: " << fault_it->id << std::endl;
@@ -666,7 +716,6 @@ void Converter::IdentifyPolygonContactTypes(Contacts &contacts, double angleEpsi
       }
     }
 
-    //! TODO: Is num_intersections calculated here the same as return above from IntersectContactWithFault()?
     std::size_t num_intersections = 0;
     for (Path::const_iterator vertex_it = contact.path.begin(); vertex_it != contact.path.end() - 1; ++vertex_it)
     {

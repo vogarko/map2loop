@@ -37,8 +37,12 @@ public:
   std::string description;
   // Rocktypes (for polygons).
   std::string rocktype1, rocktype2;
-  // Dip and dip direction (for points).
-  int dip, dip_dir;
+
+  // Site code (for deposits).
+  std::string site_code;
+  // Site commodity (for deposits).
+  std::string site_commo;
+
   // Polygons withing a multi-polygon, or a fault, or point coordinates.
   Paths paths;
   // Bounding box (AABB), Y-axis points down.
@@ -48,7 +52,8 @@ public:
          aabb(_aabb) {};
 };
 
-enum ContactType { StratigraphicContact, FaultContact, MixedContact, NotSpecifiedContact };
+enum ContactType { StratigraphicContact, FaultContact, MixedContact, NotSpecifiedContact,
+                   IntrusiveIgneousContact, IgneousContact};
 
 // Litho contact between two polygons.
 class Contact
@@ -64,6 +69,9 @@ public:
   double length;
   // Contact type.
   ContactType type;
+
+  // For fault contact type.
+  int faultID;
 
   Contact(int _id = - 1):
           id(_id) {};
@@ -103,13 +111,27 @@ public:
 
 typedef std::vector<Contact> Contacts;
 
+struct PointInPolygon {
+    const Object* point;
+
+    bool onContact;
+    // Containing and neighbor polygons.
+    const Object *containingPolygon, *neighbourPolygon;
+    // Fault, Strat, etc.
+    ContactType contactType;
+    // Distance (squared) to the closest contact segment.
+    double distanceToContact2;
+    // For fault contacts
+    int faultObjectID;
+};
+typedef std::vector<PointInPolygon> PointPolygonIntersectionList;
+
 // Litho contact between two units.
 class UnitContact
 {
 public:
   // Units that are in contact.
-  // (To make them pointers, need to add a container of all units in the map).
-  Unit unit1, unit2;
+  const Unit *unit1, *unit2;
   // Polygon contacts which the unit contact is made of.
   Contacts contacts;
   // Total contact length, length of fault, stratigraphic and mixed contacts.
@@ -121,6 +143,8 @@ public:
   // Flags for igneous contacts;
   bool isIgneous;
   bool isIntrusiveIgneous;
+  // Deposits located on this contact.
+  std::vector<const PointInPolygon*> deposits;
 };
 
 typedef std::vector<Object> Objects;

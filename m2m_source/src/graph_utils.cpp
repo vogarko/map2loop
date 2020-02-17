@@ -24,8 +24,8 @@ int RemoveUncommonUnits(Graph &A, const Graph &B)
 
     for (UnitContacts::const_iterator B_it = B.begin(); B_it != B.end(); ++B_it)
     {
-      if (B_it->unit1.name == A_it->unit1.name || B_it->unit2.name == A_it->unit1.name) unit1_found = true;
-      if (B_it->unit1.name == A_it->unit2.name || B_it->unit2.name == A_it->unit2.name) unit2_found = true;
+      if (B_it->unit1->name == A_it->unit1->name || B_it->unit2->name == A_it->unit1->name) unit1_found = true;
+      if (B_it->unit1->name == A_it->unit2->name || B_it->unit2->name == A_it->unit2->name) unit2_found = true;
 
       if (unit1_found && unit2_found) break;
     }
@@ -66,8 +66,8 @@ void CalculateJaccardIndex(const Graph &A, const Graph &B, std::vector<double> &
     for (UnitContacts::const_iterator A_it = A.begin(); A_it != A.end(); ++A_it)
       for (UnitContacts::const_iterator B_it = B.begin(); B_it != B.end(); ++B_it)
     {
-      if ((A_it->unit1.name == B_it->unit1.name && A_it->unit2.name == B_it->unit2.name)
-          || (A_it->unit1.name == B_it->unit2.name && A_it->unit2.name == B_it->unit1.name))
+      if ((A_it->unit1->name == B_it->unit1->name && A_it->unit2->name == B_it->unit2->name)
+          || (A_it->unit1->name == B_it->unit2->name && A_it->unit2->name == B_it->unit1->name))
       { // Same graph edge found.
         intersection_number++;
 
@@ -99,8 +99,8 @@ double CalculateGraphDensity(const Graph &graph)
   // Building a list of nodes.
   for (Graph::const_iterator it = graph.begin(); it != graph.end(); ++it)
   {
-    graph_nodes.push_back(it->unit1.name);
-    graph_nodes.push_back(it->unit2.name);
+    graph_nodes.push_back(it->unit1->name);
+    graph_nodes.push_back(it->unit2->name);
   }
   graph_nodes.sort();
   graph_nodes.unique();

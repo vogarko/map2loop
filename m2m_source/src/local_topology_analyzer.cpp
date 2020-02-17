@@ -229,10 +229,13 @@ void LocalTopologyAnalyzer::BuildLocalGraphs(const Parameters &par, Converter &c
     double world_y = ConverterUtils::CoordToDouble(window_local.TopLeft.Y + (cInt)(dy / 2.));
     local_graph_coords[coord_x][coord_y] = std::pair<double, double>(world_x, world_y);
 
+    std::string depositName = "";
+
     // Generating a complete graph.
     std::string file_graph = par.path_output + "/graph_" + postfix + ".gml";
     graph.WriteGraph(file_graph, unit_contacts, "UNIT_NAME", false, 1,
-                     par.graph_edge_width_categories, par.graph_edge_direction_type);
+                     par.graph_edge_width_categories, par.graph_edge_direction_type,
+                     depositName);
   }
 
   // An image showing polygons with topology grid.

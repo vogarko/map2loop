@@ -111,7 +111,7 @@ structure_file_csv=structure_file.replace(".shp",".csv").replace("/data/","/tmp/
 geology_file_csv=geology_file.replace(".shp",".csv").replace("/data/","/tmp/")
 mindep_file_csv=mindep_file.replace(".shp",".csv").replace("/data/","/tmp/")
 
-strat_graph_file=test_data_path+'graph/graph_strat.gml'
+strat_graph_file=test_data_path+'graph/graph_strat_NONE.gml'
 
 dtm_file=dtm_path+'dtm.tif'
 dtm_reproj_file=dtm_path+'dtm_rp.tif'

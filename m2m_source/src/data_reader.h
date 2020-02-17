@@ -19,7 +19,8 @@ namespace ConverterLib {
 int ReadDataObj(const std::string &filename, const std::string& keyword,
                 const std::map<std::string, std::string>& constNames,
                 Objects &objects,
-                const std::vector<int>& idsToRead);
+                const std::vector<int>& idsToRead,
+                const std::vector<std::string>& idsToReadString = std::vector<std::string>());
 
 // Reads field value in a given column (removes quotes if any).
 std::string ReadField(const std::string &__line, size_t column, const char delimiter = '\t');

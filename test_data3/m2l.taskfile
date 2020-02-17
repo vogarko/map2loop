@@ -46,129 +46,129 @@ description: "Automate_batch_Model"
 GeomodellerTask {
 CreateFormation {
     name: "P__TKk_sf"
-    red: 182
-    green: 170
-    blue: 4
+    red: 59
+    green: 100
+    blue: 36
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__TK_s"
-    red: 64
-    green: 118
-    blue: 138
+    red: 16
+    green: 182
+    blue: 201
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAo_ci"
-    red: 207
-    green: 167
-    blue: 24
+    red: 93
+    green: 141
+    blue: 15
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAw_fr"
-    red: 138
-    green: 230
-    blue: 179
+    red: 174
+    green: 174
+    blue: 150
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAj_xci_od"
-    red: 32
-    green: 200
-    blue: 43
+    red: 69
+    green: 114
+    blue: 204
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "P__HAb_cib"
-    red: 138
-    green: 255
-    blue: 67
+    red: 246
+    green: 74
+    blue: 160
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_HAS_xsl_ci"
-    red: 52
-    green: 253
-    blue: 147
+    red: 216
+    green: 91
+    blue: 82
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_HAd_kd"
-    red: 44
-    green: 242
-    blue: 68
+    red: 100
+    green: 176
+    blue: 136
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_HAm_cib"
-    red: 48
-    green: 208
-    blue: 218
+    red: 35
+    green: 108
+    blue: 170
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOj_xs_b"
-    red: 156
-    green: 253
-    blue: 194
+    red: 200
+    green: 45
+    blue: 244
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOu_bbo"
-    red: 204
-    green: 203
-    blue: 8
+    red: 26
+    green: 192
+    blue: 174
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOp_bs"
-    red: 0
-    green: 100
-    blue: 69
+    red: 230
+    green: 51
+    blue: 94
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOo_bbo"
-    red: 34
-    green: 39
-    blue: 179
+    red: 252
+    green: 196
+    blue: 55
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_FOh_xs_f"
-    red: 87
-    green: 251
-    blue: 63
+    red: 233
+    green: 99
+    blue: 235
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_mgn_PMI"
-    red: 200
-    green: 193
-    blue: 108
+    red: 157
+    green: 27
+    blue: 38
     }
 }
 GeomodellerTask {
 CreateFormation {
     name: "A_mgn_PRK"
-    red: 119
-    green: 249
-    blue: 153
+    red: 237
+    green: 131
+    blue: 42
     }
 }
 #---------------------------------------------------------------
@@ -308,9 +308,9 @@ AddFormationToSeries {
 GeomodellerTask {
 CreateFault {
     name: "Fault_12644"
-    red: 33
-    green: 229
-    blue: 31
+    red: 117
+    green: 18
+    blue: 210
     }
 }
 GeomodellerTask {
@@ -324,9 +324,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_2235"
-    red: 11
-    green: 11
-    blue: 235
+    red: 109
+    green: 126
+    blue: 18
     }
 }
 GeomodellerTask {
@@ -340,9 +340,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_11442"
-    red: 178
-    green: 122
-    blue: 68
+    red: 120
+    green: 109
+    blue: 134
     }
 }
 GeomodellerTask {
@@ -356,9 +356,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_3496"
-    red: 103
-    green: 79
-    blue: 158
+    red: 178
+    green: 153
+    blue: 51
     }
 }
 GeomodellerTask {
@@ -372,9 +372,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_5298"
-    red: 21
-    green: 102
-    blue: 220
+    red: 251
+    green: 114
+    blue: 218
     }
 }
 GeomodellerTask {
@@ -388,9 +388,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_12647"
-    red: 195
-    green: 172
-    blue: 219
+    red: 77
+    green: 234
+    blue: 39
     }
 }
 GeomodellerTask {
@@ -404,9 +404,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_2997"
-    red: 68
-    green: 33
-    blue: 1
+    red: 46
+    green: 55
+    blue: 47
     }
 }
 GeomodellerTask {
@@ -420,9 +420,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_1236"
-    red: 142
-    green: 169
-    blue: 95
+    red: 77
+    green: 253
+    blue: 204
     }
 }
 GeomodellerTask {
@@ -436,9 +436,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_2689"
-    red: 87
-    green: 29
-    blue: 52
+    red: 2
+    green: 156
+    blue: 61
     }
 }
 GeomodellerTask {
@@ -452,9 +452,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_3498"
-    red: 43
-    green: 232
-    blue: 240
+    red: 6
+    green: 43
+    blue: 94
     }
 }
 GeomodellerTask {
@@ -468,9 +468,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_2688"
-    red: 71
-    green: 172
-    blue: 253
+    red: 73
+    green: 250
+    blue: 68
     }
 }
 GeomodellerTask {
@@ -484,9 +484,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_2843"
-    red: 212
-    green: 233
-    blue: 103
+    red: 246
+    green: 84
+    blue: 3
     }
 }
 GeomodellerTask {
@@ -500,9 +500,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_14378"
-    red: 30
-    green: 216
-    blue: 191
+    red: 26
+    green: 99
+    blue: 200
     }
 }
 GeomodellerTask {
@@ -516,9 +516,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_12658"
-    red: 48
-    green: 160
-    blue: 183
+    red: 138
+    green: 159
+    blue: 4
     }
 }
 GeomodellerTask {
@@ -532,9 +532,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_12660"
-    red: 116
-    green: 208
-    blue: 92
+    red: 42
+    green: 219
+    blue: 155
     }
 }
 GeomodellerTask {
@@ -548,9 +548,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_15552"
-    red: 40
-    green: 26
-    blue: 8
+    red: 161
+    green: 209
+    blue: 247
     }
 }
 GeomodellerTask {
@@ -564,9 +564,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_16769"
-    red: 31
-    green: 59
-    blue: 152
+    red: 125
+    green: 6
+    blue: 130
     }
 }
 GeomodellerTask {
@@ -580,9 +580,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_2248"
-    red: 96
-    green: 102
-    blue: 83
+    red: 50
+    green: 98
+    blue: 154
     }
 }
 GeomodellerTask {
@@ -596,9 +596,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_8973"
-    red: 190
-    green: 14
-    blue: 203
+    red: 38
+    green: 40
+    blue: 97
     }
 }
 GeomodellerTask {
@@ -612,9 +612,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_10659"
-    red: 203
-    green: 123
-    blue: 24
+    red: 41
+    green: 23
+    blue: 126
     }
 }
 GeomodellerTask {
@@ -628,9 +628,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_16896"
-    red: 26
-    green: 33
-    blue: 54
+    red: 81
+    green: 209
+    blue: 171
     }
 }
 GeomodellerTask {
@@ -644,9 +644,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_16245"
-    red: 116
-    green: 176
-    blue: 89
+    red: 150
+    green: 174
+    blue: 117
     }
 }
 GeomodellerTask {
@@ -660,9 +660,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_12618"
-    red: 110
-    green: 194
-    blue: 114
+    red: 35
+    green: 180
+    blue: 123
     }
 }
 GeomodellerTask {
@@ -676,9 +676,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_16397"
-    red: 202
-    green: 179
-    blue: 15
+    red: 27
+    green: 255
+    blue: 8
     }
 }
 GeomodellerTask {
@@ -692,9 +692,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_2837"
-    red: 107
-    green: 175
-    blue: 210
+    red: 230
+    green: 160
+    blue: 99
     }
 }
 GeomodellerTask {
@@ -708,9 +708,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_15527"
-    red: 186
-    green: 158
-    blue: 31
+    red: 180
+    green: 252
+    blue: 124
     }
 }
 GeomodellerTask {
@@ -724,9 +724,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_313"
-    red: 134
-    green: 17
-    blue: 73
+    red: 107
+    green: 14
+    blue: 222
     }
 }
 GeomodellerTask {
@@ -740,9 +740,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_5001"
-    red: 35
-    green: 47
-    blue: 17
+    red: 203
+    green: 250
+    blue: 117
     }
 }
 GeomodellerTask {
@@ -756,9 +756,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_16502"
-    red: 234
-    green: 255
-    blue: 163
+    red: 79
+    green: 74
+    blue: 251
     }
 }
 GeomodellerTask {
@@ -772,9 +772,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_7805"
-    red: 191
-    green: 252
-    blue: 196
+    red: 141
+    green: 243
+    blue: 47
     }
 }
 GeomodellerTask {
@@ -788,9 +788,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_16825"
-    red: 175
-    green: 159
-    blue: 5
+    red: 16
+    green: 116
+    blue: 135
     }
 }
 GeomodellerTask {
@@ -804,9 +804,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_16744"
-    red: 251
-    green: 90
-    blue: 200
+    red: 144
+    green: 10
+    blue: 194
     }
 }
 GeomodellerTask {
@@ -820,9 +820,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_15531"
-    red: 65
-    green: 3
-    blue: 129
+    red: 130
+    green: 110
+    blue: 192
     }
 }
 GeomodellerTask {
@@ -836,9 +836,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_7966"
-    red: 26
-    green: 198
-    blue: 98
+    red: 184
+    green: 241
+    blue: 178
     }
 }
 GeomodellerTask {
@@ -852,9 +852,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_16816"
-    red: 48
-    green: 123
-    blue: 212
+    red: 142
+    green: 45
+    blue: 227
     }
 }
 GeomodellerTask {
@@ -868,9 +868,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_17182"
-    red: 6
-    green: 18
-    blue: 246
+    red: 251
+    green: 100
+    blue: 142
     }
 }
 GeomodellerTask {
@@ -884,9 +884,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_12627"
-    red: 139
-    green: 46
-    blue: 57
+    red: 216
+    green: 185
+    blue: 176
     }
 }
 GeomodellerTask {
@@ -900,9 +900,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_16503"
-    red: 1
-    green: 110
-    blue: 123
+    red: 236
+    green: 92
+    blue: 236
     }
 }
 GeomodellerTask {
@@ -916,9 +916,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_2229"
-    red: 74
-    green: 120
-    blue: 219
+    red: 40
+    green: 136
+    blue: 221
     }
 }
 GeomodellerTask {
@@ -932,9 +932,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_7344"
-    red: 174
-    green: 78
-    blue: 101
+    red: 94
+    green: 206
+    blue: 85
     }
 }
 GeomodellerTask {
@@ -948,9 +948,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_6519"
-    red: 252
-    green: 43
-    blue: 19
+    red: 211
+    green: 173
+    blue: 200
     }
 }
 GeomodellerTask {
@@ -964,9 +964,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_958"
-    red: 238
-    green: 196
-    blue: 32
+    red: 95
+    green: 44
+    blue: 193
     }
 }
 GeomodellerTask {
@@ -980,9 +980,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_6825"
-    red: 52
-    green: 74
-    blue: 228
+    red: 4
+    green: 187
+    blue: 37
     }
 }
 GeomodellerTask {
@@ -996,9 +996,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_7436"
-    red: 177
-    green: 223
-    blue: 217
+    red: 57
+    green: 208
+    blue: 193
     }
 }
 GeomodellerTask {
@@ -1012,9 +1012,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_2996"
-    red: 160
-    green: 28
-    blue: 149
+    red: 204
+    green: 10
+    blue: 21
     }
 }
 GeomodellerTask {
@@ -1028,9 +1028,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_16754"
-    red: 136
-    green: 170
-    blue: 135
+    red: 231
+    green: 166
+    blue: 154
     }
 }
 GeomodellerTask {
@@ -1044,9 +1044,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_2840"
-    red: 224
-    green: 205
-    blue: 33
+    red: 79
+    green: 238
+    blue: 103
     }
 }
 GeomodellerTask {
@@ -1060,9 +1060,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_7967"
-    red: 131
-    green: 9
-    blue: 74
+    red: 245
+    green: 28
+    blue: 19
     }
 }
 GeomodellerTask {
@@ -1076,9 +1076,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_17127"
-    red: 112
-    green: 118
-    blue: 159
+    red: 4
+    green: 198
+    blue: 155
     }
 }
 GeomodellerTask {
@@ -1092,9 +1092,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_6522"
-    red: 161
-    green: 236
-    blue: 174
+    red: 3
+    green: 48
+    blue: 217
     }
 }
 GeomodellerTask {
@@ -1108,9 +1108,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_10762"
-    red: 161
-    green: 70
-    blue: 254
+    red: 21
+    green: 37
+    blue: 192
     }
 }
 GeomodellerTask {
@@ -1124,9 +1124,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_8551"
-    red: 47
-    green: 13
-    blue: 51
+    red: 247
+    green: 22
+    blue: 41
     }
 }
 GeomodellerTask {
@@ -1140,9 +1140,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_7099"
-    red: 190
-    green: 254
-    blue: 214
+    red: 248
+    green: 146
+    blue: 186
     }
 }
 GeomodellerTask {
@@ -1156,9 +1156,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_7439"
-    red: 176
-    green: 171
-    blue: 80
+    red: 74
+    green: 178
+    blue: 49
     }
 }
 GeomodellerTask {
@@ -1172,9 +1172,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_5997"
-    red: 185
-    green: 192
-    blue: 247
+    red: 157
+    green: 66
+    blue: 66
     }
 }
 GeomodellerTask {
@@ -1188,9 +1188,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_5993"
-    red: 53
-    green: 176
-    blue: 66
+    red: 246
+    green: 69
+    blue: 195
     }
 }
 GeomodellerTask {
@@ -1204,9 +1204,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_12642"
-    red: 71
-    green: 93
-    blue: 193
+    red: 160
+    green: 210
+    blue: 36
     }
 }
 GeomodellerTask {
@@ -1220,9 +1220,9 @@ GeomodellerTask {
 GeomodellerTask {
 CreateFault {
     name: "Fault_6205"
-    red: 122
-    green: 106
-    blue: 213
+    red: 13
+    green: 197
+    blue: 175
     }
 }
 GeomodellerTask {
@@ -4071,7 +4071,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:511073.3009373343; y:7467043.15733414; z:314.0}
-                  direction: 238.0
+                  direction: 239.0
                   dip: 41
                   polarity: Normal_Polarity
            }
@@ -4454,7 +4454,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:514507.99820970354; y:7459233.561561661; z:330.0}
-                  direction: 225.0
+                  direction: 224.0
                   dip: 21
                   polarity: Normal_Polarity
            }
@@ -5514,7 +5514,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:501504.1801014489; y:7474087.319015478; z:446.0}
-                  direction: 195.0
+                  direction: 196.0
                   dip: 10
                   polarity: Normal_Polarity
            }
@@ -6435,12 +6435,6 @@ GeomodellerTask {
                   polarity: Normal_Polarity
            }
            foliation {
-                  Point3D {x:529959.3572624115; y:7461438.973414578; z:420.0}
-                  direction: 717.0838623536536
-                  dip: 19
-                  polarity: Normal_Polarity
-           }
-           foliation {
                   Point3D {x:545899.8507962653; y:7518859.359672214; z:720.0}
                   direction: 533.3545144045218
                   dip: 19
@@ -6970,7 +6964,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:545574.4300466483; y:7490013.477804787; z:635.0}
-                  direction: 100.0
+                  direction: 99.0
                   dip: 21
                   polarity: Normal_Polarity
            }
@@ -7522,19 +7516,19 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:529521.3209553261; y:7462739.563402671; z:447.0}
-                  direction: 293.0
+                  direction: 294.0
                   dip: 22
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:528529.9027772924; y:7463210.331083259; z:451.0}
-                  direction: 261.0
+                  direction: 263.0
                   dip: 22
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:527223.8620317715; y:7463869.38909878; z:447.0}
-                  direction: 231.0
+                  direction: 232.0
                   dip: 23
                   polarity: Normal_Polarity
            }
@@ -7552,31 +7546,31 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:523236.95467189257; y:7465371.683563302; z:519.0}
-                  direction: 193.0
+                  direction: 194.0
                   dip: 21
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:522606.290258024; y:7465602.879627118; z:442.0}
-                  direction: 197.0
+                  direction: 198.0
                   dip: 22
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:521658.911654399; y:7466066.214058247; z:499.0}
-                  direction: 201.0
+                  direction: 202.0
                   dip: 26
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:520539.922833796; y:7466788.217406208; z:490.0}
-                  direction: 203.0
+                  direction: 204.0
                   dip: 33
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:519041.4537608136; y:7467554.247931763; z:503.0}
-                  direction: 208.0
+                  direction: 209.0
                   dip: 45
                   polarity: Normal_Polarity
            }
@@ -7612,7 +7606,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:511546.6160772982; y:7472423.242738001; z:396.0}
-                  direction: 214.0
+                  direction: 215.0
                   dip: 33
                   polarity: Normal_Polarity
            }
@@ -7696,7 +7690,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:567645.2162906767; y:7472407.394926951; z:880.0}
-                  direction: 5.0
+                  direction: 6.0
                   dip: 6
                   polarity: Normal_Polarity
            }
@@ -7708,7 +7702,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:566759.347547931; y:7472743.238807755; z:833.0}
-                  direction: 343.0
+                  direction: 344.0
                   dip: 6
                   polarity: Normal_Polarity
            }
@@ -8308,7 +8302,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:546051.9518581518; y:7487932.751744926; z:681.0}
-                  direction: 25.0
+                  direction: 24.0
                   dip: 36
                   polarity: Normal_Polarity
            }
@@ -8320,7 +8314,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:545447.6225147686; y:7488428.734294345; z:843.0}
-                  direction: 46.0
+                  direction: 45.0
                   dip: 33
                   polarity: Normal_Polarity
            }
@@ -8332,25 +8326,25 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:544788.9099352862; y:7488906.199257893; z:839.0}
-                  direction: 61.0
+                  direction: 60.0
                   dip: 30
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:544800.2514722204; y:7488922.672555678; z:839.0}
-                  direction: 62.0
+                  direction: 61.0
                   dip: 30
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:544221.8977191098; y:7489281.453749692; z:864.0}
-                  direction: 75.0
+                  direction: 74.0
                   dip: 28
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:544232.5058613585; y:7489298.408610885; z:864.0}
-                  direction: 76.0
+                  direction: 75.0
                   dip: 28
                   polarity: Normal_Polarity
            }
@@ -10639,7 +10633,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:531727.8038130975; y:7461520.9288025815; z:433.0}
-                  direction: 335.0
+                  direction: 334.0
                   dip: 25
                   polarity: Normal_Polarity
            }
@@ -11369,24 +11363,6 @@ GeomodellerTask {
                   polarity: Normal_Polarity
            }
            foliation {
-                  Point3D {x:531867.5630386788; y:7463007.691867707; z:447.0}
-                  direction: 538.5923839791976
-                  dip: 19
-                  polarity: Normal_Polarity
-           }
-           foliation {
-                  Point3D {x:531904.4106330228; y:7461508.144517741; z:433.0}
-                  direction: 718.5923839791977
-                  dip: 19
-                  polarity: Normal_Polarity
-           }
-           foliation {
-                  Point3D {x:529883.0459137681; y:7462937.031016294; z:430.0}
-                  direction: 537.0838623536537
-                  dip: 19
-                  polarity: Normal_Polarity
-           }
-           foliation {
                   Point3D {x:570669.3932874989; y:7496689.697762517; z:647.0}
                   direction: 11.0
                   dip: 22
@@ -11778,7 +11754,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:533755.787554592; y:7499839.14343198; z:519.0}
-                  direction: 356.0
+                  direction: 357.0
                   dip: 36
                   polarity: Normal_Polarity
            }
@@ -12414,61 +12390,61 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:528086.571409821; y:7464674.351096357; z:438.0}
-                  direction: 211.0
+                  direction: 212.0
                   dip: 35
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:528074.9931673002; y:7464658.0432976065; z:438.0}
-                  direction: 211.0
+                  direction: 212.0
                   dip: 34
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:528526.8278250725; y:7464376.312381561; z:438.0}
-                  direction: 213.0
+                  direction: 214.0
                   dip: 34
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:528515.8807184489; y:7464359.574375211; z:438.0}
-                  direction: 213.0
+                  direction: 214.0
                   dip: 33
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:529081.9289411718; y:7463984.683208649; z:454.0}
-                  direction: 218.0
+                  direction: 220.0
                   dip: 31
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:529069.9193780465; y:7463968.69038546; z:454.0}
-                  direction: 218.0
+                  direction: 221.0
                   dip: 30
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:529652.4252310662; y:7463542.230737497; z:440.0}
-                  direction: 233.0
+                  direction: 237.0
                   dip: 26
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:529639.9134517804; y:7463526.627680774; z:440.0}
-                  direction: 235.0
+                  direction: 238.0
                   dip: 26
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:530299.0739768626; y:7462955.545557451; z:438.0}
-                  direction: 281.0
+                  direction: 283.0
                   dip: 22
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:530285.0336886892; y:7462941.302302626; z:438.0}
-                  direction: 282.0
+                  direction: 284.0
                   dip: 22
                   polarity: Normal_Polarity
            }
@@ -12504,7 +12480,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:531742.6152020574; y:7461534.3683991935; z:433.0}
-                  direction: 335.0
+                  direction: 334.0
                   dip: 25
                   polarity: Normal_Polarity
            }
@@ -12558,7 +12534,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:522393.8489202125; y:7466982.29551982; z:414.0}
-                  direction: 200.0
+                  direction: 201.0
                   dip: 30
                   polarity: Normal_Polarity
            }
@@ -12570,37 +12546,37 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:525528.40325082; y:7465762.462362988; z:430.0}
-                  direction: 201.0
+                  direction: 202.0
                   dip: 27
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:527058.6406644507; y:7465107.878641183; z:430.0}
-                  direction: 208.0
+                  direction: 209.0
                   dip: 32
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:528900.3706695639; y:7464689.970516215; z:438.0}
-                  direction: 203.0
+                  direction: 204.0
                   dip: 39
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:530992.0088006973; y:7464513.159522266; z:474.0}
-                  direction: 188.0
+                  direction: 189.0
                   dip: 38
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533213.0604419388; y:7464287.908604583; z:449.0}
-                  direction: 196.0
+                  direction: 198.0
                   dip: 33
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:535304.1067001132; y:7463930.35424287; z:422.0}
-                  direction: 227.0
+                  direction: 228.0
                   dip: 32
                   polarity: Normal_Polarity
            }
@@ -12648,31 +12624,31 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:530880.0378313663; y:7462176.169455008; z:425.0}
-                  direction: 323.0
+                  direction: 322.0
                   dip: 23
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:530391.4274079696; y:7462404.679294637; z:414.0}
-                  direction: 314.0
+                  direction: 313.0
                   dip: 23
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:529528.2483128493; y:7462758.325377988; z:447.0}
-                  direction: 292.0
+                  direction: 293.0
                   dip: 22
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:528540.0161929851; y:7463227.585613768; z:451.0}
-                  direction: 260.0
+                  direction: 262.0
                   dip: 22
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:527232.1753336778; y:7463887.579453682; z:447.0}
-                  direction: 231.0
+                  direction: 232.0
                   dip: 23
                   polarity: Normal_Polarity
            }
@@ -12684,7 +12660,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:523973.97790516977; y:7465122.727313433; z:462.0}
-                  direction: 191.0
+                  direction: 192.0
                   dip: 21
                   polarity: Normal_Polarity
            }
@@ -12696,7 +12672,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:522613.1739614482; y:7465621.6576628825; z:442.0}
-                  direction: 197.0
+                  direction: 198.0
                   dip: 22
                   polarity: Normal_Polarity
            }
@@ -12708,7 +12684,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:520550.7655640858; y:7466805.023214722; z:490.0}
-                  direction: 203.0
+                  direction: 204.0
                   dip: 33
                   polarity: Normal_Polarity
            }
@@ -12828,37 +12804,37 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:522853.4254394418; y:7465713.983755634; z:442.0}
-                  direction: 196.0
+                  direction: 197.0
                   dip: 23
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:522868.1342935357; y:7465727.535493945; z:442.0}
-                  direction: 196.0
+                  direction: 197.0
                   dip: 23
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:522372.07164631423; y:7466254.816100649; z:489.0}
-                  direction: 199.0
+                  direction: 200.0
                   dip: 26
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:522387.3092441325; y:7466267.7704671975; z:489.0}
-                  direction: 199.0
+                  direction: 200.0
                   dip: 26
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:521904.5342526717; y:7466864.235852517; z:417.0}
-                  direction: 201.0
+                  direction: 202.0
                   dip: 30
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:521920.8111968368; y:7466875.857431095; z:417.0}
-                  direction: 201.0
+                  direction: 202.0
                   dip: 30
                   polarity: Normal_Polarity
            }
@@ -12870,13 +12846,13 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:520689.0211836174; y:7468017.404815206; z:394.0}
-                  direction: 206.0
+                  direction: 207.0
                   dip: 39
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:519726.14249879273; y:7468534.1797119165; z:386.0}
-                  direction: 208.0
+                  direction: 209.0
                   dip: 45
                   polarity: Normal_Polarity
            }
@@ -13410,7 +13386,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:540400.8824089088; y:7489755.938322855; z:553.0}
-                  direction: 76.0
+                  direction: 75.0
                   dip: 32
                   polarity: Normal_Polarity
            }
@@ -13811,7 +13787,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:518556.45033394115; y:7494056.090806594; z:548.0}
-                  direction: 331.0
+                  direction: 330.0
                   dip: 30
                   polarity: Normal_Polarity
            }
@@ -13871,7 +13847,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:527994.5375723956; y:7492308.908071753; z:464.0}
-                  direction: 351.0
+                  direction: 350.0
                   dip: 43
                   polarity: Normal_Polarity
            }
@@ -13901,7 +13877,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:526802.6183929797; y:7493517.561590062; z:518.0}
-                  direction: 337.0
+                  direction: 336.0
                   dip: 41
                   polarity: Normal_Polarity
            }
@@ -13931,13 +13907,13 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:526147.9033071651; y:7494727.4912140975; z:472.0}
-                  direction: 338.0
+                  direction: 337.0
                   dip: 39
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:525906.4375744251; y:7495422.682696708; z:490.0}
-                  direction: 339.0
+                  direction: 338.0
                   dip: 38
                   polarity: Normal_Polarity
            }
@@ -13973,7 +13949,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:525815.8258555026; y:7497209.388501093; z:472.0}
-                  direction: 344.0
+                  direction: 343.0
                   dip: 36
                   polarity: Normal_Polarity
            }
@@ -14225,85 +14201,85 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:539399.1246446973; y:7496107.798700582; z:486.0}
-                  direction: 285.0
+                  direction: 283.0
                   dip: 23
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:539416.5513205823; y:7496117.612515722; z:486.0}
-                  direction: 285.0
+                  direction: 283.0
                   dip: 23
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:539203.5617861098; y:7496391.899009353; z:486.0}
-                  direction: 76.0
+                  direction: 72.0
                   dip: 24
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:539219.9531661829; y:7496403.3586192615; z:486.0}
-                  direction: 76.0
+                  direction: 72.0
                   dip: 24
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:538806.1127569242; y:7496889.649003569; z:476.0}
-                  direction: 24.0
+                  direction: 21.0
                   dip: 26
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:538820.916178023; y:7496903.097376103; z:476.0}
-                  direction: 24.0
+                  direction: 20.0
                   dip: 26
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:538348.2853085954; y:7497320.809065815; z:482.0}
-                  direction: 7.0
+                  direction: 5.0
                   dip: 28
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:538360.7938330878; y:7497336.414731935; z:482.0}
-                  direction: 6.0
+                  direction: 4.0
                   dip: 28
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:537817.054821887; y:7497682.457554901; z:492.0}
-                  direction: 1.0
+                  direction: 0.0
                   dip: 31
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:537827.0725876009; y:7497699.767793781; z:492.0}
-                  direction: 1.0
+                  direction: 0.0
                   dip: 31
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:537253.1013452252; y:7497984.384954905; z:490.0}
-                  direction: 359.0
+                  direction: 358.0
                   dip: 33
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:537261.9024420254; y:7498002.344372911; z:488.0}
-                  direction: 359.0
+                  direction: 358.0
                   dip: 33
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:536695.9020250107; y:7498209.586591434; z:490.0}
-                  direction: 358.0
+                  direction: 357.0
                   dip: 35
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:536702.0021674093; y:7498228.633592844; z:490.0}
-                  direction: 358.0
+                  direction: 357.0
                   dip: 35
                   polarity: Normal_Polarity
            }
@@ -14315,7 +14291,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:536155.6741427218; y:7498396.945762582; z:491.0}
-                  direction: 358.0
+                  direction: 357.0
                   dip: 37
                   polarity: Normal_Polarity
            }
@@ -14363,37 +14339,37 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:537368.1527739612; y:7494794.1441027075; z:488.0}
-                  direction: 278.0
+                  direction: 277.0
                   dip: 33
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:537384.4902657659; y:7494805.6804089425; z:488.0}
-                  direction: 278.0
+                  direction: 277.0
                   dip: 33
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:536704.8998661304; y:7495733.398289207; z:471.0}
-                  direction: 57.0
+                  direction: 54.0
                   dip: 35
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:536721.2365062688; y:7495744.935801459; z:471.0}
-                  direction: 57.0
+                  direction: 54.0
                   dip: 35
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:535516.6959542142; y:7497366.709155581; z:493.0}
-                  direction: 14.0
+                  direction: 13.0
                   dip: 38
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:535532.8460146679; y:7497378.5064242175; z:493.0}
-                  direction: 14.0
+                  direction: 12.0
                   dip: 38
                   polarity: Normal_Polarity
            }
@@ -14465,19 +14441,19 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:519676.96147398103; y:7493404.790579454; z:533.0}
-                  direction: 323.0
+                  direction: 322.0
                   dip: 32
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:519830.2401875012; y:7492778.206187566; z:522.0}
-                  direction: 325.0
+                  direction: 324.0
                   dip: 32
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:519810.5545838649; y:7492774.673906508; z:522.0}
-                  direction: 325.0
+                  direction: 324.0
                   dip: 32
                   polarity: Normal_Polarity
            }
@@ -14585,7 +14561,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:548874.0933314435; y:7505678.442835975; z:534.0}
-                  direction: 287.0
+                  direction: 288.0
                   dip: 9
                   polarity: Normal_Polarity
            }
@@ -14597,7 +14573,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:548748.0168391892; y:7503646.75088382; z:519.0}
-                  direction: 276.0
+                  direction: 277.0
                   dip: 7
                   polarity: Normal_Polarity
            }
@@ -14609,7 +14585,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:548691.787549731; y:7502674.289801032; z:518.0}
-                  direction: 264.0
+                  direction: 265.0
                   dip: 6
                   polarity: Normal_Polarity
            }
@@ -14621,61 +14597,61 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:548729.1990497084; y:7501946.380870167; z:525.0}
-                  direction: 249.0
+                  direction: 250.0
                   dip: 7
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:548709.4676741394; y:7501943.113942227; z:525.0}
-                  direction: 249.0
+                  direction: 250.0
                   dip: 7
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:548955.4826081138; y:7501467.647167647; z:525.0}
-                  direction: 232.0
+                  direction: 234.0
                   dip: 8
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:548941.659460845; y:7501453.1930817375; z:525.0}
-                  direction: 232.0
+                  direction: 233.0
                   dip: 8
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:549180.6740928213; y:7501252.283560692; z:514.0}
-                  direction: 222.0
+                  direction: 224.0
                   dip: 9
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:549166.8506304575; y:7501237.829776128; z:514.0}
-                  direction: 222.0
+                  direction: 224.0
                   dip: 9
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:549770.7426965175; y:7500876.7159378575; z:521.0}
-                  direction: 205.0
+                  direction: 207.0
                   dip: 11
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:549760.3450634467; y:7500859.631171937; z:521.0}
-                  direction: 205.0
+                  direction: 207.0
                   dip: 11
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:550792.1230795407; y:7500214.812953171; z:520.0}
-                  direction: 187.0
+                  direction: 188.0
                   dip: 15
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:550780.7312074372; y:7500198.374423738; z:520.0}
-                  direction: 187.0
+                  direction: 188.0
                   dip: 15
                   polarity: Normal_Polarity
            }
@@ -14687,25 +14663,25 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:551319.7352848551; y:7499820.493302642; z:527.0}
-                  direction: 180.0
+                  direction: 181.0
                   dip: 18
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:551689.656257146; y:7499563.3102985015; z:537.0}
-                  direction: 177.0
+                  direction: 178.0
                   dip: 19
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:551677.5217555361; y:7499547.412063671; z:537.0}
-                  direction: 177.0
+                  direction: 178.0
                   dip: 19
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:552302.9271089649; y:7499122.280795379; z:547.0}
-                  direction: 173.0
+                  direction: 174.0
                   dip: 22
                   polarity: Normal_Polarity
            }
@@ -14717,13 +14693,13 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:552710.4923191735; y:7498843.5937153585; z:545.0}
-                  direction: 171.0
+                  direction: 172.0
                   dip: 24
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:552698.9807375196; y:7498827.238792924; z:545.0}
-                  direction: 171.0
+                  direction: 172.0
                   dip: 24
                   polarity: Normal_Polarity
            }
@@ -14867,25 +14843,25 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:523717.2333017321; y:7456174.28364619; z:414.0}
-                  direction: 346.0
+                  direction: 343.0
                   dip: 32
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:523734.34316238103; y:7456184.639932618; z:414.0}
-                  direction: 346.0
+                  direction: 343.0
                   dip: 32
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:523051.0846147136; y:7457270.298138172; z:367.0}
-                  direction: 341.0
+                  direction: 340.0
                   dip: 32
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:523068.1678130904; y:7457280.6983464975; z:367.0}
-                  direction: 341.0
+                  direction: 340.0
                   dip: 32
                   polarity: Normal_Polarity
            }
@@ -14915,13 +14891,13 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:543337.5915171375; y:7455849.986258177; z:548.0}
-                  direction: 6.0
+                  direction: 3.0
                   dip: 9
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:542066.4136204579; y:7458063.943229143; z:444.0}
-                  direction: 15.0
+                  direction: 13.0
                   dip: 3
                   polarity: Normal_Polarity
            }
@@ -14975,13 +14951,13 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:533392.6561189685; y:7459643.8223236725; z:378.09445}
-                  direction: 346.0
+                  direction: 345.0
                   dip: 24
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533388.1509950515; y:7459624.336332334; z:378.09445}
-                  direction: 346.0
+                  direction: 345.0
                   dip: 25
                   polarity: Normal_Polarity
            }
@@ -15017,67 +14993,67 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:533805.5142455265; y:7459615.987426941; z:380.0}
-                  direction: 344.0
+                  direction: 343.0
                   dip: 22
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:535186.6185166364; y:7457956.844284208; z:456.0}
-                  direction: 347.0
+                  direction: 345.0
                   dip: 20
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:535171.1291868584; y:7457944.191985485; z:456.0}
-                  direction: 347.0
+                  direction: 345.0
                   dip: 20
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:522400.1626363875; y:7467001.272795391; z:414.0}
-                  direction: 200.0
+                  direction: 201.0
                   dip: 30
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:523997.2065358174; y:7466432.109741671; z:411.0}
-                  direction: 199.0
+                  direction: 200.0
                   dip: 27
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:525537.0481058387; y:7465780.497508722; z:430.0}
-                  direction: 201.0
+                  direction: 202.0
                   dip: 28
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:527065.8297333053; y:7465126.5419015875; z:430.0}
-                  direction: 208.0
+                  direction: 209.0
                   dip: 32
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:528902.250582359; y:7464709.881968395; z:438.0}
-                  direction: 202.0
+                  direction: 203.0
                   dip: 40
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:530993.5136922378; y:7464533.102824435; z:474.0}
-                  direction: 188.0
+                  direction: 189.0
                   dip: 38
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533215.5691358516; y:7464307.75064215; z:449.0}
-                  direction: 196.0
+                  direction: 198.0
                   dip: 33
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:535308.4684776705; y:7463949.872821111; z:422.0}
-                  direction: 226.0
+                  direction: 227.0
                   dip: 32
                   polarity: Normal_Polarity
            }
@@ -15185,7 +15161,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:583025.5943883399; y:7471038.678099599; z:655.0}
-                  direction: 264.0
+                  direction: 265.0
                   dip: 23
                   polarity: Normal_Polarity
            }
@@ -15239,13 +15215,13 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:520699.8377356429; y:7468034.227484504; z:394.0}
-                  direction: 206.0
+                  direction: 207.0
                   dip: 39
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:519734.34381373273; y:7468552.4208312165; z:386.0}
-                  direction: 208.0
+                  direction: 209.0
                   dip: 45
                   polarity: Normal_Polarity
            }
@@ -15275,7 +15251,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:514158.32868812454; y:7471414.979388048; z:342.0}
-                  direction: 213.0
+                  direction: 214.0
                   dip: 45
                   polarity: Normal_Polarity
            }
@@ -15311,7 +15287,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:511039.8411711832; y:7473830.505327612; z:353.0}
-                  direction: 212.0
+                  direction: 213.0
                   dip: 28
                   polarity: Normal_Polarity
            }
@@ -15335,7 +15311,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:509731.2539642951; y:7475076.491385598; z:363.0}
-                  direction: 213.0
+                  direction: 214.0
                   dip: 21
                   polarity: Normal_Polarity
            }
@@ -15359,7 +15335,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:508877.7256252968; y:7476362.049804833; z:371.0}
-                  direction: 225.0
+                  direction: 226.0
                   dip: 16
                   polarity: Normal_Polarity
            }
@@ -15443,13 +15419,13 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:538914.0283711179; y:7463228.546099051; z:400.0}
-                  direction: 248.0
+                  direction: 249.0
                   dip: 33
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:538923.0985512269; y:7463246.37113293; z:400.0}
-                  direction: 247.0
+                  direction: 248.0
                   dip: 33
                   polarity: Normal_Polarity
            }
@@ -15479,7 +15455,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:535755.855120918; y:7464535.362915607; z:424.0}
-                  direction: 194.0
+                  direction: 195.0
                   dip: 36
                   polarity: Normal_Polarity
            }
@@ -15575,7 +15551,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:508956.8639335971; y:7485564.584446668; z:444.0}
-                  direction: 327.0
+                  direction: 326.0
                   dip: 13
                   polarity: Normal_Polarity
            }
@@ -15863,7 +15839,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:519060.443227411; y:7456221.694184727; z:337.0}
-                  direction: 357.0
+                  direction: 358.0
                   dip: 10
                   polarity: Normal_Polarity
            }
@@ -16025,73 +16001,73 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:535255.2748311374; y:7490993.103685304; z:453.0}
-                  direction: 83.0
+                  direction: 81.0
                   dip: 41
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:535256.4708023875; y:7491013.0678945985; z:453.0}
-                  direction: 83.0
+                  direction: 81.0
                   dip: 41
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533864.4439491475; y:7491179.204453605; z:490.0}
-                  direction: 66.0
+                  direction: 64.0
                   dip: 43
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533869.9384150354; y:7491198.434920178; z:490.0}
-                  direction: 66.0
+                  direction: 64.0
                   dip: 43
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:532831.3826689144; y:7491586.297319429; z:525.0}
-                  direction: 58.0
+                  direction: 56.0
                   dip: 44
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:532840.0273520792; y:7491604.33254754; z:525.0}
-                  direction: 58.0
+                  direction: 57.0
                   dip: 44
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:531935.8175150938; y:7491914.684801161; z:518.0}
-                  direction: 52.0
+                  direction: 51.0
                   dip: 44
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:531939.0461075092; y:7491934.422485703; z:518.0}
-                  direction: 52.0
+                  direction: 51.0
                   dip: 44
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:531244.0891552555; y:7491985.058734671; z:546.0}
-                  direction: 47.0
+                  direction: 46.0
                   dip: 45
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:531245.0559835265; y:7492005.03535208; z:546.0}
-                  direction: 47.0
+                  direction: 46.0
                   dip: 45
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:530434.79559306; y:7492133.212469342; z:528.0}
-                  direction: 40.0
+                  direction: 39.0
                   dip: 44
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:530440.5125537061; y:7492152.377968579; z:528.0}
-                  direction: 40.0
+                  direction: 39.0
                   dip: 44
                   polarity: Normal_Polarity
            }
@@ -16534,7 +16510,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:531958.572835552; y:7465911.139093967; z:456.0}
-                  direction: 182.0
+                  direction: 181.0
                   dip: 45
                   polarity: Normal_Polarity
            }
@@ -16732,7 +16708,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:540278.2067582132; y:7462534.7454249775; z:401.0}
-                  direction: 171.0
+                  direction: 170.0
                   dip: 29
                   polarity: Normal_Polarity
            }
@@ -16750,7 +16726,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:534687.7422962744; y:7464831.101374214; z:437.0}
-                  direction: 194.0
+                  direction: 195.0
                   dip: 37
                   polarity: Normal_Polarity
            }
@@ -16780,13 +16756,13 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:530815.5945851842; y:7466001.49580922; z:476.0}
-                  direction: 188.0
+                  direction: 187.0
                   dip: 50
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:530823.3961096124; y:7466019.911460622; z:448.0}
-                  direction: 188.0
+                  direction: 187.0
                   dip: 50
                   polarity: Normal_Polarity
            }
@@ -16810,7 +16786,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:524040.9384619178; y:7468813.606535146; z:459.0}
-                  direction: 212.0
+                  direction: 211.0
                   dip: 31
                   polarity: Normal_Polarity
            }
@@ -16822,7 +16798,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:520943.5550991653; y:7470749.65485313; z:387.0}
-                  direction: 218.0
+                  direction: 217.0
                   dip: 39
                   polarity: Normal_Polarity
            }
@@ -16888,7 +16864,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:512977.3587449974; y:7477680.910984626; z:380.0}
-                  direction: 249.0
+                  direction: 250.0
                   dip: 19
                   polarity: Normal_Polarity
            }
@@ -17073,7 +17049,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:532235.2591455063; y:7486546.9420505585; z:438.0}
-                  direction: 14.0
+                  direction: 15.0
                   dip: 48
                   polarity: Normal_Polarity
            }
@@ -17091,7 +17067,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:529003.3324452279; y:7488024.515139669; z:451.0}
-                  direction: 13.0
+                  direction: 14.0
                   dip: 49
                   polarity: Normal_Polarity
            }
@@ -17103,7 +17079,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:529268.701477132; y:7487590.126504808; z:451.0}
-                  direction: 15.0
+                  direction: 16.0
                   dip: 49
                   polarity: Normal_Polarity
            }
@@ -17127,13 +17103,13 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:543355.4435126664; y:7455859.0032563275; z:548.0}
-                  direction: 6.0
+                  direction: 3.0
                   dip: 9
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:542083.604013682; y:7458074.16528279; z:444.0}
-                  direction: 195.0
+                  direction: 14.0
                   dip: 3
                   polarity: Normal_Polarity
            }
@@ -17187,7 +17163,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:589271.7875333542; y:7470278.899531358; z:681.0}
-                  direction: 237.0
+                  direction: 238.0
                   dip: 16
                   polarity: Normal_Polarity
            }
@@ -17247,25 +17223,25 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:546283.2999645254; y:7455944.469587446; z:479.0}
-                  direction: 2.0
+                  direction: 0.0
                   dip: 12
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:546301.8970949793; y:7455951.8280342175; z:479.0}
-                  direction: 2.0
+                  direction: 0.0
                   dip: 12
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:545683.8188402746; y:7457194.7425039075; z:446.0}
-                  direction: 2.0
+                  direction: 1.0
                   dip: 9
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:545701.2935584671; y:7457204.470516249; z:446.0}
-                  direction: 2.0
+                  direction: 1.0
                   dip: 9
                   polarity: Normal_Polarity
            }
@@ -17277,7 +17253,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:545038.2088208077; y:7458291.134230909; z:442.0}
-                  direction: 357.0
+                  direction: 356.0
                   dip: 5
                   polarity: Normal_Polarity
            }
@@ -17319,7 +17295,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:520954.6341176273; y:7470766.305839585; z:387.0}
-                  direction: 218.0
+                  direction: 217.0
                   dip: 39
                   polarity: Normal_Polarity
            }
@@ -17563,32 +17539,44 @@ GeomodellerTask {
                   polarity: Normal_Polarity
            }
            foliation {
+                  Point3D {x:546330.0911826979; y:7471872.134822939; z:443.0}
+                  direction: 200.1021546096653
+                  dip: 19
+                  polarity: Normal_Polarity
+           }
+           foliation {
+                  Point3D {x:546845.633696217; y:7473280.756815082; z:450.0}
+                  direction: 380.1021546096652
+                  dip: 19
+                  polarity: Normal_Polarity
+           }
+           foliation {
                   Point3D {x:525176.2283050846; y:7483551.5126150735; z:422.0}
-                  direction: 325.0
+                  direction: 322.0
                   dip: 27
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:525187.6631179148; y:7483567.921303491; z:422.0}
-                  direction: 325.0
+                  direction: 323.0
                   dip: 27
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:524677.6142952536; y:7484010.617861507; z:417.0}
-                  direction: 325.0
+                  direction: 323.0
                   dip: 28
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:524692.185432779; y:7484024.317567753; z:417.0}
-                  direction: 325.0
+                  direction: 323.0
                   dip: 28
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:523972.1001596442; y:7484775.236144912; z:433.0}
-                  direction: 332.0
+                  direction: 331.0
                   dip: 29
                   polarity: Normal_Polarity
            }
@@ -17606,61 +17594,61 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:534357.2954118344; y:7483946.076985982; z:429.0}
-                  direction: 12.0
+                  direction: 355.0
                   dip: 38
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:534363.6545246985; y:7483965.039097775; z:429.0}
-                  direction: 12.0
+                  direction: 355.0
                   dip: 38
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533910.1825057953; y:7484175.968204482; z:423.0}
-                  direction: 16.0
+                  direction: 359.0
                   dip: 39
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533922.5869587435; y:7484191.6567208925; z:423.0}
-                  direction: 16.0
+                  direction: 359.0
                   dip: 39
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533557.2507191867; y:7484552.076032368; z:429.0}
-                  direction: 17.0
+                  direction: 3.0
                   dip: 41
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533573.2660145335; y:7484564.055611447; z:429.0}
-                  direction: 17.0
+                  direction: 3.0
                   dip: 41
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533193.674445359; y:7485089.542723883; z:456.0}
-                  direction: 15.0
+                  direction: 7.0
                   dip: 43
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533210.6717921621; y:7485100.082657548; z:456.0}
-                  direction: 15.0
+                  direction: 7.0
                   dip: 43
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:532790.0441126354; y:7485719.559787137; z:432.0}
-                  direction: 13.0
+                  direction: 11.0
                   dip: 46
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:532806.7410402794; y:7485730.569446863; z:432.0}
-                  direction: 13.0
+                  direction: 11.0
                   dip: 46
                   polarity: Normal_Polarity
            }
@@ -17690,25 +17678,25 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:529934.8842162493; y:7486667.140806559; z:482.0}
-                  direction: 15.0
+                  direction: 14.0
                   dip: 52
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:529920.3483463248; y:7486653.403685845; z:482.0}
-                  direction: 15.0
+                  direction: 13.0
                   dip: 52
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:530439.6178332667; y:7486104.78525854; z:420.0}
-                  direction: 16.0
+                  direction: 12.0
                   dip: 53
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:530424.4304656149; y:7486091.772039729; z:420.0}
-                  direction: 15.0
+                  direction: 11.0
                   dip: 53
                   polarity: Normal_Polarity
            }
@@ -17738,7 +17726,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:596660.1590784225; y:7467086.520112645; z:661.0}
-                  direction: 221.0
+                  direction: 222.0
                   dip: 11
                   polarity: Normal_Polarity
            }
@@ -17762,31 +17750,31 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:595861.6416683078; y:7464428.560537728; z:710.0}
-                  direction: 207.0
+                  direction: 208.0
                   dip: 8
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:595629.7588451008; y:7463859.487414127; z:732.0}
-                  direction: 208.0
+                  direction: 209.0
                   dip: 8
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:595611.4514448671; y:7463867.539686892; z:732.0}
-                  direction: 208.0
+                  direction: 209.0
                   dip: 8
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:595263.2380512562; y:7463226.431751094; z:782.0}
-                  direction: 210.0
+                  direction: 211.0
                   dip: 7
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:595246.9838215194; y:7463238.085077471; z:782.0}
-                  direction: 210.0
+                  direction: 211.0
                   dip: 7
                   polarity: Normal_Polarity
            }
@@ -18115,7 +18103,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:595211.4008935563; y:7473084.937632301; z:618.0}
-                  direction: 150.0
+                  direction: 151.0
                   dip: 9
                   polarity: Normal_Polarity
            }
@@ -18211,7 +18199,7 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:600849.831513469; y:7471278.989121272; z:603.0}
-                  direction: 172.0
+                  direction: 173.0
                   dip: 25
                   polarity: Normal_Polarity
            }
@@ -18768,127 +18756,127 @@ GeomodellerTask {
            }
            foliation {
                   Point3D {x:526166.6470958313; y:7480726.700271768; z:389.0}
-                  direction: 317.0
+                  direction: 321.0
                   dip: 19
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:528299.4012437239; y:7481312.031130541; z:401.0}
-                  direction: 334.0
+                  direction: 19.0
                   dip: 24
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:529832.4063136098; y:7481342.367238423; z:430.0}
-                  direction: 336.0
+                  direction: 85.0
                   dip: 27
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:530658.4905984282; y:7480993.501089037; z:405.0}
-                  direction: 339.0
+                  direction: 285.0
                   dip: 26
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:532287.9774387893; y:7481137.3283976065; z:407.0}
-                  direction: 348.0
+                  direction: 289.0
                   dip: 27
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:533839.1393940432; y:7481256.006377983; z:422.0}
-                  direction: 351.0
+                  direction: 292.0
                   dip: 28
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:535515.5480394132; y:7481119.6511605885; z:435.0}
-                  direction: 348.0
+                  direction: 295.0
                   dip: 27
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:537106.8105933914; y:7480831.0059993025; z:486.0}
-                  direction: 343.0
+                  direction: 297.0
                   dip: 25
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:538119.4766757461; y:7480599.9287728965; z:444.0}
-                  direction: 341.0
+                  direction: 298.0
                   dip: 25
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:538690.5304059887; y:7480645.921145137; z:459.0}
-                  direction: 341.0
+                  direction: 297.0
                   dip: 25
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:539180.2157299039; y:7480909.771585179; z:513.0}
-                  direction: 343.0
+                  direction: 297.0
                   dip: 26
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:539772.557780019; y:7481071.189391435; z:497.0}
-                  direction: 345.0
+                  direction: 296.0
                   dip: 27
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:540495.3133977772; y:7481064.203597758; z:501.0}
-                  direction: 346.0
+                  direction: 295.0
                   dip: 27
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:541210.1005762803; y:7480883.0138749415; z:523.0}
-                  direction: 347.0
+                  direction: 296.0
                   dip: 26
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:541761.168120912; y:7480609.9677835675; z:451.0}
-                  direction: 347.0
+                  direction: 116.0
                   dip: 25
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:542403.5832917304; y:7480325.5346993925; z:472.0}
-                  direction: 349.0
+                  direction: 117.0
                   dip: 25
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:543037.8445710007; y:7480077.242148254; z:465.0}
-                  direction: 352.0
+                  direction: 118.0
                   dip: 24
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:543400.2633256685; y:7479873.101439284; z:507.0}
-                  direction: 355.0
+                  direction: 118.0
                   dip: 23
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:543689.1817239022; y:7479660.918838219; z:507.0}
-                  direction: 358.0
+                  direction: 119.0
                   dip: 23
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:544080.8369787051; y:7479378.9081419185; z:469.0}
-                  direction: 5.0
+                  direction: 122.0
                   dip: 21
                   polarity: Normal_Polarity
            }
            foliation {
                   Point3D {x:544654.9483023774; y:7478887.862870333; z:467.0}
-                  direction: 23.0
+                  direction: 128.0
                   dip: 19
                   polarity: Normal_Polarity
            }
@@ -20247,8 +20235,8 @@ GeomodellerTask {
 #---------------------------------------------------------------
 GeomodellerTask {
     LinkFaultsWithFaults {
+        FaultStopsOnFaults{ fault: "Fault_2837"; stopson: "Fault_313"}
         FaultStopsOnFaults{ fault: "Fault_16397"; stopson: "Fault_2837"}
-        FaultStopsOnFaults{ fault: "Fault_16825"; stopson: "Fault_2837"}
         FaultStopsOnFaults{ fault: "Fault_16503"; stopson: "Fault_958"}
         FaultStopsOnFaults{ fault: "Fault_2843"; stopson: "Fault_2235"}
         FaultStopsOnFaults{ fault: "Fault_16769"; stopson: "Fault_2248"}

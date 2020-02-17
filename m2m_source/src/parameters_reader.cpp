@@ -25,6 +25,23 @@ static std::string GetDescription(std::string str)
   return str.substr(0, str.find('=') + 1);
 }
 
+//! Split string into substrings: split("1,2,3",",") ==> ["1","2","3"]
+std::vector<std::string> split(std::string str, std::string token) {
+    std::vector<std::string> result;
+    while(str.size()){
+        size_t index = str.find(token);
+        if (index != std::string::npos) {
+            result.push_back(str.substr(0, index));
+            str = str.substr(index + token.size());
+            if (str.size() == 0) result.push_back(str);
+        } else {
+            result.push_back(str);
+            str = "";
+        }
+    }
+    return result;
+}
+
 //! Reading input parameters from a file.
 std::string Parameters::Read(const std::string &filename)
 {
@@ -42,6 +59,7 @@ std::string Parameters::Read(const std::string &filename)
     std::getline(infile, line);
     std::cout << line << std::endl;
 
+    //--- COLUMN NAMES IN CSV DATA FILES: -------------------------------------------------------------
     std::getline(infile, line);
     constNames["FIELD_COORDINATES"] = GetValue(line);
     std::cout << GetDescription(line) << constNames["FIELD_COORDINATES"] << std::endl;
@@ -53,18 +71,6 @@ std::string Parameters::Read(const std::string &filename)
     std::getline(infile, line);
     constNames["FIELD_FAULT_FEATURE"] = GetValue(line);
     std::cout << GetDescription(line) << constNames["FIELD_FAULT_FEATURE"] << std::endl;
-
-    std::getline(infile, line);
-    constNames["FIELD_POINT_ID"] = GetValue(line);
-    std::cout << GetDescription(line) << constNames["FIELD_POINT_ID"] << std::endl;
-
-    std::getline(infile, line);
-    constNames["FIELD_POINT_DIP"] = GetValue(line);
-    std::cout << GetDescription(line) << constNames["FIELD_POINT_DIP"] << std::endl;
-
-    std::getline(infile, line);
-    constNames["FIELD_POINT_DIP_DIR"] = GetValue(line);
-    std::cout << GetDescription(line) << constNames["FIELD_POINT_DIP_DIR"] << std::endl;
 
     std::getline(infile, line);
     constNames["FIELD_POLYGON_ID"] = GetValue(line);
@@ -102,7 +108,19 @@ std::string Parameters::Read(const std::string &filename)
     constNames["FIELD_POLYGON_ROCKTYPE2"] = GetValue(line);
     std::cout << GetDescription(line) << constNames["FIELD_POLYGON_ROCKTYPE2"] << std::endl;
 
-    //--------------------------------------------------------------------
+    std::getline(infile, line);
+    constNames["FIELD_SITE_CODE"] = GetValue(line);
+    std::cout << GetDescription(line) << constNames["FIELD_SITE_CODE"] << std::endl;
+
+    std::getline(infile, line);
+    constNames["FIELD_SITE_TYPE"] = GetValue(line);
+    std::cout << GetDescription(line) << constNames["FIELD_SITE_TYPE"] << std::endl;
+
+    std::getline(infile, line);
+    constNames["FIELD_SITE_COMMO"] = GetValue(line);
+    std::cout << GetDescription(line) << constNames["FIELD_SITE_COMMO"] << std::endl;
+
+    //--- SOME CONSTANTS: ----------------------------------------------------------------------------
     std::getline(infile, line);
     std::cout << line << std::endl;
 
@@ -122,6 +140,10 @@ std::string Parameters::Read(const std::string &filename)
     constNames["VOLCANIC_STRING"] = GetValue(line);
     std::cout << GetDescription(line) << constNames["VOLCANIC_STRING"] << std::endl;
 
+    std::getline(infile, line);
+    constNames["IGNORE_DEPOSITS_SITE_TYPE"] = GetValue(line);
+    std::cout << GetDescription(line) << constNames["IGNORE_DEPOSITS_SITE_TYPE"] << std::endl;
+
     infile.get(buf, 200, '='); infile.get(c); infile >> angleEpsilon;
     std::cout << buf << c << angleEpsilon << std::endl;
     infile.get(c);
@@ -130,7 +152,15 @@ std::string Parameters::Read(const std::string &filename)
     std::cout << buf << c << distanceEpsilon << std::endl;
     infile.get(c);
 
-    //--------------------------------------------------------------------
+    infile.get(buf, 200, '='); infile.get(c); infile >> faultFaultDistanceBuffer;
+    std::cout << buf << c << faultFaultDistanceBuffer << std::endl;
+    infile.get(c);
+
+    infile.get(buf, 200, '='); infile.get(c); infile >> pointToContactDistanceBuffer;
+    std::cout << buf << c << pointToContactDistanceBuffer << std::endl;
+    infile.get(c);
+
+    //--- PATHS: -------------------------------------------------------------------------------------
     std::getline(infile, line);
     std::cout << line << std::endl;
 
@@ -150,7 +180,7 @@ std::string Parameters::Read(const std::string &filename)
     path_points = GetValue(line);
     std::cout << GetDescription(line) << path_points << std::endl;
 
-    //--------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------
     std::getline(infile, line);
     std::cout << line << std::endl;
 
@@ -176,6 +206,13 @@ std::string Parameters::Read(const std::string &filename)
     infile.get(buf, 200, '='); infile.get(c); infile >> graph_edge_direction_type;
     std::cout << buf << c << graph_edge_direction_type << std::endl;
     infile.get(c);
+
+    std::string depositsString;
+    infile.get(buf, 200, '='); infile.get(c); infile >> depositsString;
+    std::cout << buf << c << depositsString << std::endl;
+    infile.get(c);
+
+    depositListForGraphInfo = split(depositsString, ",");
 
     infile.get(buf, 200, '='); infile.get(c); infile >> partial_graph_polygon_id;
     std::cout << buf << c << partial_graph_polygon_id << std::endl;

@@ -186,7 +186,8 @@ static size_t getFieldColumn(const std::map<std::string, size_t>& headerFields,
 int ReadDataObj(const std::string &filename, const std::string& keyword,
                 const std::map<std::string, std::string>& constNames,
                 Objects &objects,
-                const std::vector<int>& idsToRead)
+                const std::vector<int>& idsToRead,
+                const std::vector<std::string>& idsToReadString)
 {
   std::ifstream myfile(filename.c_str());
 
@@ -225,9 +226,8 @@ int ReadDataObj(const std::string &filename, const std::string& keyword,
         id = ReadIntField(line, getFieldColumn(headerFields, fieldName));
 
     } else if (keyword == "POINT") {
-        fieldName = getConstName(constNames, "FIELD_POINT_ID");
-        id = ReadIntField(line, getFieldColumn(headerFields, fieldName));
-
+        // Currently deposits have not integer id, so assign id here.
+        id = objects.size();
     } else {
         std::cout << "Unknown object type: " << keyword << "\n";
         exit(0);
@@ -239,12 +239,24 @@ int ReadDataObj(const std::string &filename, const std::string& keyword,
       continue;
     }
 
-    if (keyword == "LINESTRING")
-    { // For faults, skip features of this type.
-      fieldName = getConstName(constNames, "FIELD_FAULT_FEATURE");
-      std::string feature = trim(ReadField(line, getFieldColumn(headerFields, fieldName)));
+    if (keyword == "LINESTRING") {
+    // Ignore faults with features of this type.
+        fieldName = getConstName(constNames, "FIELD_FAULT_FEATURE");
+        std::string feature = trim(ReadField(line, getFieldColumn(headerFields, fieldName)));
 
-      if (feature == getConstName(constNames, "FAULT_AXIAL_FEATURE_NAME")) continue;
+        if (feature == getConstName(constNames, "FAULT_AXIAL_FEATURE_NAME")) {
+            continue;
+        }
+    }
+
+    if (keyword == "POINT") {
+    // Ignore deposits of this site type.
+        fieldName = getConstName(constNames, "FIELD_SITE_TYPE");
+        std::string site_type = trim(ReadField(line, getFieldColumn(headerFields, fieldName)));
+
+        if (site_type == getConstName(constNames, "IGNORE_DEPOSITS_SITE_TYPE")) {
+            continue;
+        }
     }
 
     Object object;
@@ -252,11 +264,18 @@ int ReadDataObj(const std::string &filename, const std::string& keyword,
 
     if (keyword == "POINT")
     {
-      fieldName = getConstName(constNames, "FIELD_POINT_DIP");
-      object.dip = String2Int(ReadField(line, getFieldColumn(headerFields, fieldName)));
+      fieldName = getConstName(constNames, "FIELD_SITE_CODE");
+      object.site_code = trim(ReadField(line, getFieldColumn(headerFields, fieldName)));
 
-      fieldName = getConstName(constNames, "FIELD_POINT_DIP_DIR");
-      object.dip_dir = String2Int(ReadField(line, getFieldColumn(headerFields, fieldName)));
+      fieldName = getConstName(constNames, "FIELD_SITE_COMMO");
+      object.site_commo = trim(ReadField(line, getFieldColumn(headerFields, fieldName)));
+
+      // Processing only codes form the input list, if it is not empty.
+      if (!idsToReadString.empty()
+          && std::find(idsToReadString.begin(), idsToReadString.end(), object.site_code) == idsToReadString.end()) {
+        continue;
+      }
+
     }
     else if (keyword == "POLYGON")
     {

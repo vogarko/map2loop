@@ -93,13 +93,15 @@ struct IntPoint {
   cInt Y;
 #ifdef use_xyz
   cInt Z;
-  IntPoint(cInt x = 0, cInt y = 0, cInt z = 0, int _type = 0): X(x), Y(y), Z(z), type(_type) {};
+  IntPoint(cInt x = 0, cInt y = 0, cInt z = 0, int _type = 0, int _faultID = -1):
+      X(x), Y(y), Z(z), type(_type), faultID(_faultID) {};
 #else
   IntPoint(cInt x = 0, cInt y = 0): X(x), Y(y) {};
 #endif
 
   // Vitaliy added.
   int type;
+  int faultID;
 
   friend inline bool operator== (const IntPoint& a, const IntPoint& b)
   {

@@ -21,6 +21,7 @@ public:
                   const std::string &label_type, bool exclude_sills,
                   int edge_width_type, const std::vector<double> &edge_width_categories,
                   int edge_direction_type,
+                  const std::string& depositName,
                   const std::string &comments = "");
 
 private:

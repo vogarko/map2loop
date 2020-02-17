@@ -10,6 +10,7 @@
 #include <list>
 
 #include "converter_types.h"
+#include "converter.h"
 
 namespace ConverterLib {
 
@@ -27,12 +28,24 @@ typedef std::pair<int, std::pair<std::string, double> > FaultIntersectionData;
 // Maps Fault ID to list of intersecting fault IDs, and intersection types & angles.
 typedef std::map<int, std::list<FaultIntersectionData> > FaultIntersectionList;
 
+// Identifies the polygon ID where a point is located.
+void IntersectPointsWithPolygons(PointPolygonIntersectionList &pointPolygonIntersectionList,
+                                 const Objects &points, const Objects &polygons);
+
+// Find the closest contacts for points.
+// Note: faults are also considered as contacts, even if it is a fault inside a unit (i.e, between A and A).
+// Our conventional contacts don't contain A-A fault contacts, so we test against faults separately.
+void FindClosestContactForPoints(PointPolygonIntersectionList &pointPolygonIntersectionList,
+                                 const Contacts& contacts, const Objects& faults,
+                                 const Converter& converter, double pointToContactDistanceBuffer);
+
 // Intersects every multipolygon (i.e., polygons with the same id) with every fault.
 void IntersectFaultsWithPolygons(const Objects &faults, const Objects &polygons,
                                  UnitFaultIntersectionList &unitFaultIntersectionList);
 
 // Intersects faults.
-void IntersectFaultsWithFaults(const Objects &faults, FaultIntersectionList &faultIntersectionList);
+void IntersectFaultsWithFaults(const Objects &faults, FaultIntersectionList &faultIntersectionList,
+                               double distanceBuffer);
 
 // Intersects a fault with a polygon.
 // Returns whether they are intersecting.
@@ -41,7 +54,8 @@ bool FaultAndPolygonIntersecting(const Object &fault, const Object &polygon);
 // Intersects a fault with a fault.
 // Returns intersection type, and intersection angle.
 bool FaultsAreIntersecting(const Object &fault1, const Object &fault2,
-                           int &intersectionType, double &intersectionAngle);
+                           int &intersectionType, double &intersectionAngle,
+                           double distanceBuffer = 1.e-17);
 
 // Check if a contact (partially) coincides with a fault, and mark intersecting contact segments.
 // Returns the number of coinciding segments with a given fault.

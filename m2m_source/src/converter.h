@@ -23,17 +23,20 @@ namespace ConverterLib {
 class Converter
 {
 public:
+  // Some global variables.
+  std::string SILL_DESCRIPTION;
+  std::string IGNEOUS_STRING;
+  std::string VOLCANIC_STRING;
+
   //! Set the output data folder.
   void SetOutputFolder(const std::string &path);
-
-  //! Set sill description (contains).
-  void SetSillDescription(const std::string &_sill_descript);
 
   //! 1. Reads polygons or faults data, that are stored using OGC WKT (Well-known text) format.
   //! 2. Calculates bounding boxes for all objects read.
   void ReadData(const std::string &filename, const std::string& keyword,
                 const std::map<std::string, std::string>& constNames,
-                const std::vector<int>& idsToRead = std::vector<int>());
+                const std::vector<int>& idsToRead = std::vector<int>(),
+                const std::vector<std::string>& idsToReadString = std::vector<std::string>());
 
   //! Clips all data based on the given window.
   void ClipData(const AABB &window);
@@ -45,10 +48,17 @@ public:
   //! Identify types of polygon contacts.
   void IdentifyPolygonContactTypes(Contacts &contacts, double angleEpsilon, double distanceEpsilon) const;
 
+  // Tests for igneous contact.
+  int TestForIgneousContact(const std::string& rocktype1,
+                            const std::string& rocktype2,
+                            double age1, double age2) const;
+
   //! Identify igneous unit contacts.
-  void IdentifyIgneousUnitContacts(UnitContacts &unitContacts,
-                                   const std::string IGNEOUS_STRING,
-                                   const std::string VOLCANIC_STRING) const;
+  void IdentifyIgneousUnitContacts(UnitContacts &unitContacts) const;
+
+  //! Adding points (deposit) to unit contacts.
+  void AddPointsToUnitContacts(UnitContacts &unitContacts,
+                               const PointPolygonIntersectionList& pointPolygonIntersectionList) const;
 
   //! Extract contacts with the given polygon.
   static void FilterContactsByPolygon(const Contacts &contacts, Contacts &contacts_filtered,
@@ -88,6 +98,9 @@ public:
   //! Returns a reference to groups.
   const Objects& GetFaults() const;
 
+  //! Returns a reference to points.
+  const Objects& GetPoints() const;
+
   //! Return a bounding box for all polygons.
   AABB GetAllPolygonsAABB() const;
 
@@ -112,8 +125,6 @@ private:
 
   //! For testing purposes, various perimeter lengths.
   double m_window_length, m_units_length;
-
-  std::string sill_descript;
 
   //! Calculates bounding boxes for all objects.
   static void CalculateBoundingBoxesObj(Objects &objects);

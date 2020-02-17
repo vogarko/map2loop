@@ -30,12 +30,16 @@ private:
   AABB window;
 
   // Writes unit vs fault intersection list.
-  static void WriteUnitFaultIntersectionList(std::string &fileName,
+  static void WriteUnitFaultIntersectionList(const std::string &fileName,
                 const UnitFaultIntersectionList &unitFaultIntersectionList);
 
   // Writes fault vs fault intersection list.
-  static void WriteFaultIntersectionList(std::string &fileName,
+  static void WriteFaultIntersectionList(const std::string &fileName,
                 const FaultIntersectionList &faultIntersectionList);
+
+  // Writes points vs polygons & contacts topology table.
+  static void WritePointPolygonIntersectionList(const std::string &fileName,
+          const PointPolygonIntersectionList &pointPolygonIntersectionList);
 };
 
 }
