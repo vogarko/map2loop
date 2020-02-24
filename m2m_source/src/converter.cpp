@@ -648,7 +648,7 @@ void Converter::IdentifyIgneousUnitContacts(UnitContacts &unitContacts) const
 //========================================================================================
 
 void Converter::AddPointsToUnitContacts(UnitContacts &unitContacts,
-                                       const PointPolygonIntersectionList& pointPolygonIntersectionList) const
+                                        const PointPolygonIntersectionList& pointPolygonIntersectionList) const
 {
     // Loop over unit contacts.
     for (UnitContacts::iterator it = unitContacts.begin();
@@ -666,6 +666,25 @@ void Converter::AddPointsToUnitContacts(UnitContacts &unitContacts,
                     // Adding deposit on this contact.
                     it->deposits.push_back(&pip);
                 }
+            }
+        }
+    }
+}
+//========================================================================================
+
+void Converter::AddPointsToUnits(const PointPolygonIntersectionList& pointPolygonIntersectionList)
+{
+    // Loop over points (deposits).
+    for (std::size_t i = 0; i < pointPolygonIntersectionList.size(); i++) {
+        const PointInPolygon& pip = pointPolygonIntersectionList[i];
+        if (!pip.onContact) {
+            const std::string unitName = pip.containingPolygon->name;
+
+            Units::iterator it = units.find(unitName);
+            if (it != units.end()) {
+                it->second.deposits.push_back(&pip);
+            } else {
+                assert(false);
             }
         }
     }

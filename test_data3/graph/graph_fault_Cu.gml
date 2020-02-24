@@ -44,31 +44,25 @@ graph [
   hierarchic 1
   directed 1
   node [
-    id -12
-    LabelGraphics [ text "A-b-PRK" anchor "n" fontStyle "bold" fontSize 14 ]
-    isGroup 1
-    graphics [ fill "#FAFAFA" ]
-  ]
-  node [
-    id -13
+    id -11
     LabelGraphics [ text "A-mgn-PMI" anchor "n" fontStyle "bold" fontSize 14 ]
     isGroup 1
     graphics [ fill "#FAFAFA" ]
   ]
   node [
-    id -14
+    id -12
     LabelGraphics [ text "A-mgn-PRK" anchor "n" fontStyle "bold" fontSize 14 ]
     isGroup 1
     graphics [ fill "#FAFAFA" ]
   ]
   node [
-    id -15
+    id -13
     LabelGraphics [ text "A-s-PMI" anchor "n" fontStyle "bold" fontSize 14 ]
     isGroup 1
     graphics [ fill "#FAFAFA" ]
   ]
   node [
-    id -16
+    id -14
     LabelGraphics [ text "A-s-PRK" anchor "n" fontStyle "bold" fontSize 14 ]
     isGroup 1
     graphics [ fill "#FAFAFA" ]
@@ -80,25 +74,25 @@ graph [
     graphics [ fill "#FAFAFA" ]
   ]
   node [
-    id -9
+    id -8
     LabelGraphics [ text "Hamersley Group" anchor "n" fontStyle "bold" fontSize 14 ]
     isGroup 1
     graphics [ fill "#FAFAFA" ]
   ]
   node [
-    id -21
+    id -19
     LabelGraphics [ text "Shingle Creek Group" anchor "n" fontStyle "bold" fontSize 14 ]
     isGroup 1
     graphics [ fill "#FAFAFA" ]
   ]
   node [
-    id -23
+    id -20
     LabelGraphics [ text "Turee Creek Group" anchor "n" fontStyle "bold" fontSize 14 ]
     isGroup 1
     graphics [ fill "#FAFAFA" ]
   ]
   node [
-    id -27
+    id -24
     LabelGraphics [ text "Wyloo Group" anchor "n" fontStyle "bold" fontSize 14 ]
     isGroup 1
     graphics [ fill "#FAFAFA" ]
@@ -117,16 +111,16 @@ graph [
   ]
   node [
     id 6
-    LabelGraphics [ text "A-FOh-xs-f
-[3]" fontSize 14 ]
+    LabelGraphics [ text "A-FOh-xs-f" fontSize 14 ]
     gid -1
-    graphics [ fill "#00ff00" w 150 ]
+    graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 10
-    LabelGraphics [ text "A-FOj-xs-b" fontSize 14 ]
+    LabelGraphics [ text "A-FOj-xs-b
+[1]" fontSize 14 ]
     gid -1
-    graphics [ fill "#ffffff" w 150 ]
+    graphics [ fill "#80ff80" w 150 ]
   ]
   node [
     id 7
@@ -136,14 +130,7 @@ graph [
   ]
   node [
     id 1
-    LabelGraphics [ text "A-FOp-bs
-[2]" fontSize 14 ]
-    gid -1
-    graphics [ fill "#55ff55" w 150 ]
-  ]
-  node [
-    id 16
-    LabelGraphics [ text "A-FOr-b" fontSize 14 ]
+    LabelGraphics [ text "A-FOp-bs" fontSize 14 ]
     gid -1
     graphics [ fill "#ffffff" w 150 ]
   ]
@@ -156,128 +143,116 @@ graph [
   node [
     id 2
     LabelGraphics [ text "A-HAS-xsl-ci" fontSize 14 ]
-    gid -9
+    gid -8
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 9
     LabelGraphics [ text "A-HAd-kd" fontSize 14 ]
-    gid -9
+    gid -8
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 0
-    LabelGraphics [ text "A-HAm-cib" fontSize 14 ]
-    gid -9
-    graphics [ fill "#ffffff" w 150 ]
-  ]
-  node [
-    id 15
-    LabelGraphics [ text "A-b-PRK" fontSize 14 ]
-    gid -12
-    graphics [ fill "#ffffff" w 150 ]
+    LabelGraphics [ text "A-HAm-cib
+[2]" fontSize 14 ]
+    gid -8
+    graphics [ fill "#00ff00" w 150 ]
   ]
   node [
     id 19
     LabelGraphics [ text "A-mgn-PMI" fontSize 14 ]
-    gid -13
+    gid -11
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 5
-    LabelGraphics [ text "A-mgn-PRK
-[1]" fontSize 14 ]
-    gid -14
-    graphics [ fill "#aaffaa" w 150 ]
+    LabelGraphics [ text "A-mgn-PRK" fontSize 14 ]
+    gid -12
+    graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 20
     LabelGraphics [ text "A-s-PMI" fontSize 14 ]
-    gid -15
+    gid -13
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 21
     LabelGraphics [ text "A-s-PRK" fontSize 14 ]
-    gid -16
+    gid -14
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 3
     LabelGraphics [ text "P_-HAb-cib" fontSize 14 ]
-    gid -9
+    gid -8
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 4
     LabelGraphics [ text "P_-HAj-xci-od" fontSize 14 ]
-    gid -9
+    gid -8
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 12
     LabelGraphics [ text "P_-HAo-ci" fontSize 14 ]
-    gid -9
+    gid -8
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 13
     LabelGraphics [ text "P_-HAw-fr" fontSize 14 ]
-    gid -9
-    graphics [ fill "#ffffff" w 150 ]
-  ]
-  node [
-    id 28
-    LabelGraphics [ text "P_-SKb-bb" fontSize 14 ]
-    gid -21
+    gid -8
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 22
     LabelGraphics [ text "P_-SKq-stq" fontSize 14 ]
-    gid -21
+    gid -19
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 18
     LabelGraphics [ text "P_-TK-s" fontSize 14 ]
-    gid -23
+    gid -20
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 11
     LabelGraphics [ text "P_-TKa-xs-k" fontSize 14 ]
-    gid -23
+    gid -20
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 27
     LabelGraphics [ text "P_-TKk-sf" fontSize 14 ]
-    gid -23
+    gid -20
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 26
     LabelGraphics [ text "P_-TKo-stq" fontSize 14 ]
-    gid -23
+    gid -20
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 24
     LabelGraphics [ text "P_-WYa-st" fontSize 14 ]
-    gid -27
+    gid -24
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 25
     LabelGraphics [ text "P_-WYd-kd" fontSize 14 ]
-    gid -27
+    gid -24
     graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 23
     LabelGraphics [ text "P_-WYm-sp" fontSize 14 ]
-    gid -27
+    gid -24
     graphics [ fill "#ffffff" w 150 ]
   ]
   edge [
@@ -289,6 +264,7 @@ graph [
     source 0
     target 10
     graphics [ style "line" arrow "last" width 7 fill "#002cd2" ]
+    LabelGraphics [ text "4" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
   ]
   edge [
     source 12
@@ -351,56 +327,21 @@ graph [
     graphics [ style "line" arrow "last" width 3 fill "#ff0000" ]
   ]
   edge [
-    source 6
-    target 5
-    graphics [ style "line" arrow "last" width 5 fill "#0000ff" ]
-  ]
-  edge [
-    source 5
-    target 15
-    graphics [ style "line" arrow "last" width 5 fill "#0000ff" ]
-  ]
-  edge [
-    source 16
-    target 5
-    graphics [ style "line" arrow "last" width 3 fill "#0000ff" ]
-  ]
-  edge [
-    source 6
-    target 15
-    graphics [ style "line" arrow "last" width 3 fill "#0000ff" ]
-  ]
-  edge [
-    source 6
-    target 16
-    graphics [ style "line" arrow "last" width 3 fill "#0000ff" ]
-  ]
-  edge [
-    source 14
-    target 6
-    graphics [ style "line" arrow "last" width 5 fill "#0000ff" ]
-  ]
-  edge [
-    source 6
-    target 21
-    graphics [ style "line" arrow "last" width 5 fill "#0000ff" ]
-    LabelGraphics [ text "2" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
-  ]
-  edge [
     source 10
     target 8
     graphics [ style "line" arrow "last" width 7 fill "#0014ea" ]
+    LabelGraphics [ text "1" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
   ]
   edge [
     source 17
     target 1
     graphics [ style "line" arrow "last" width 7 fill "#002bd3" ]
-    LabelGraphics [ text "1" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
   ]
   edge [
     source 10
     target 17
     graphics [ style "line" arrow "last" width 7 fill "#002fcf" ]
+    LabelGraphics [ text "1" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
   ]
   edge [
     source 2
@@ -416,6 +357,7 @@ graph [
     source 7
     target 6
     graphics [ style "line" arrow "last" width 5 fill "#000df1" ]
+    LabelGraphics [ text "1" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
   ]
   edge [
     source 9
@@ -463,11 +405,6 @@ graph [
     graphics [ style "line" arrow "last" width 5 fill "#0012ec" ]
   ]
   edge [
-    source 6
-    target 19
-    graphics [ style "line" arrow "last" width 3 fill "#0000ff" ]
-  ]
-  edge [
     source 8
     target 17
     graphics [ style "line" arrow "last" width 5 fill "#002bd3" ]
@@ -513,11 +450,6 @@ graph [
     graphics [ style "line" arrow "last" width 1 fill "#ff0000" ]
   ]
   edge [
-    source 16
-    target 15
-    graphics [ style "line" arrow "last" width 3 fill "#0000ff" ]
-  ]
-  edge [
     source 8
     target 7
     graphics [ style "line" arrow "last" width 5 fill "#000bf3" ]
@@ -527,7 +459,6 @@ graph [
     source 23
     target 12
     graphics [ style "line" arrow "last" width 3 fill "#ff0000" ]
-    LabelGraphics [ text "1" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
   ]
   edge [
     source 19
@@ -543,26 +474,6 @@ graph [
     source 17
     target 7
     graphics [ style "line" arrow "last" width 3 fill "#ff0000" ]
-  ]
-  edge [
-    source 22
-    target 27
-    graphics [ style "line" arrow "last" width 3 fill "#0000ff" ]
-  ]
-  edge [
-    source 22
-    target 28
-    graphics [ style "line" arrow "both" width 3 fill "#0000ff" ]
-  ]
-  edge [
-    source 23
-    target 22
-    graphics [ style "line" arrow "last" width 1 fill "#0000ff" ]
-  ]
-  edge [
-    source 22
-    target 18
-    graphics [ style "line" arrow "last" width 3 fill "#0000ff" ]
   ]
   edge [
     source 23
@@ -586,11 +497,6 @@ graph [
   ]
   edge [
     source 23
-    target 25
-    graphics [ style "line" arrow "both" width 5 fill "#0000ff" ]
-  ]
-  edge [
-    source 23
     target 17
     graphics [ style "line" arrow "last" width 1 fill "#ff0000" ]
   ]
@@ -603,21 +509,6 @@ graph [
     source 26
     target 27
     graphics [ style "line" arrow "both" width 3 fill "#004cb2" ]
-  ]
-  edge [
-    source 28
-    target 27
-    graphics [ style "line" arrow "last" width 1 fill "#0000ff" ]
-  ]
-  edge [
-    source 23
-    target 27
-    graphics [ style "line" arrow "last" width 1 fill "#0000ff" ]
-  ]
-  edge [
-    source 23
-    target 28
-    graphics [ style "line" arrow "last" width 3 fill "#0000ff" ]
   ]
   edge [
     source 1

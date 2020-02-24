@@ -1,15 +1,18 @@
 8 A-FO-od
 14 A-FO-xo-a
 6 A-FOh-xs-f
+[3]
 10 A-FOj-xs-b
 7 A-FOo-bbo
 1 A-FOp-bs
+[2]
 17 A-FOu-bbo
 2 A-HAS-xsl-ci
 9 A-HAd-kd
 0 A-HAm-cib
 19 A-mgn-PMI
 5 A-mgn-PRK
+[1]
 20 A-s-PMI
 21 A-s-PRK
 3 P_-HAb-cib

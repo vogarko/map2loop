@@ -82,6 +82,21 @@ public:
   }
 };
 
+struct PointInPolygon {
+    const Object* point;
+
+    bool onContact;
+    // Containing and neighbor polygons.
+    const Object *containingPolygon, *neighbourPolygon;
+    // Fault, Strat, etc.
+    ContactType contactType;
+    // Distance (squared) to the closest contact segment.
+    double distanceToContact2;
+    // For fault contacts
+    int faultObjectID;
+};
+typedef std::vector<PointInPolygon> PointPolygonIntersectionList;
+
 // Class representing a geological unit.
 class Unit
 {
@@ -102,6 +117,8 @@ public:
   bool is_sill;
   // Rocktypes.
   std::string rocktype1, rocktype2;
+  // Deposits located on this unit.
+  std::vector<const PointInPolygon*> deposits;
 
   bool operator< (const Unit &other) const
   {
@@ -110,21 +127,6 @@ public:
 };
 
 typedef std::vector<Contact> Contacts;
-
-struct PointInPolygon {
-    const Object* point;
-
-    bool onContact;
-    // Containing and neighbor polygons.
-    const Object *containingPolygon, *neighbourPolygon;
-    // Fault, Strat, etc.
-    ContactType contactType;
-    // Distance (squared) to the closest contact segment.
-    double distanceToContact2;
-    // For fault contacts
-    int faultObjectID;
-};
-typedef std::vector<PointInPolygon> PointPolygonIntersectionList;
 
 // Litho contact between two units.
 class UnitContact
@@ -150,6 +152,7 @@ public:
 typedef std::vector<Object> Objects;
 // Container of units in the clipped map (not all map units stored).
 typedef std::map<std::string, Unit> Units;
+typedef std::map<std::string, const Unit*> Units_p;
 typedef std::vector<UnitContact> UnitContacts;
 typedef std::map<std::string, int> Groups;
 

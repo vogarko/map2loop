@@ -56,9 +56,12 @@ public:
   //! Identify igneous unit contacts.
   void IdentifyIgneousUnitContacts(UnitContacts &unitContacts) const;
 
-  //! Adding points (deposit) to unit contacts.
+  //! Adding points (deposit) to unit contacts (those deposits that are lying on the contacts).
   void AddPointsToUnitContacts(UnitContacts &unitContacts,
                                const PointPolygonIntersectionList& pointPolygonIntersectionList) const;
+
+  //! Adding points (deposit) to units (those deposits that are NOT lying on the contacts).
+  void AddPointsToUnits(const PointPolygonIntersectionList& pointPolygonIntersectionList);
 
   //! Extract contacts with the given polygon.
   static void FilterContactsByPolygon(const Contacts &contacts, Contacts &contacts_filtered,

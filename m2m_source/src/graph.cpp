@@ -86,6 +86,25 @@ static std::string CreateHexRGBString(double scale, bool lightColors = false)
   return RGB2HexColor(color_r, color_g, color_b);
 };
 
+// Returns the number of the deposits of a given name.
+static size_t GetNumberDeposits(const std::vector<const PointInPolygon*>& deposits,
+                                const std::string& depositName)
+{
+    if (deposits.size() > 0) {
+        size_t numDeposits = 0;
+        for (size_t i = 0; i < deposits.size(); i++) {
+            const std::string commodity = deposits[i]->point->site_commo;
+            std::size_t found = commodity.find(depositName);
+              if (found != std::string::npos) {
+                  numDeposits++;
+              }
+        }
+        return numDeposits;
+    } else {
+        return 0;
+    }
+}
+
 //====================================================================================================
 // Choose label_type to set a label inside of the graph node.
 // label_type = "NO_LABEL": no label (mark graph block with a number).
@@ -130,12 +149,12 @@ graph [\n\
   // (I) Writing graph nodes.
 
   // Build list of units that are present in contacts.
-  Units filtered_units;
+  Units_p filtered_units;
 
   for (UnitContacts::const_iterator it = contacts.begin(); it != contacts.end(); ++it)
   {
-    filtered_units.insert(Units::value_type(it->unit1->name, *(it->unit1)));
-    filtered_units.insert(Units::value_type(it->unit2->name, *(it->unit2)));
+    filtered_units.insert(Units_p::value_type(it->unit1->name, it->unit1));
+    filtered_units.insert(Units_p::value_type(it->unit2->name, it->unit2));
   }
   std::cout << "Number of units in the graph: " << filtered_units.size() << std::endl;
 
@@ -144,9 +163,9 @@ graph [\n\
   // Use negative id for groups, and positive for units, to keep them unique.
   int index = -1;
 
-  for (Units::const_iterator it = filtered_units.begin(); it != filtered_units.end(); ++it)
+  for (Units_p::const_iterator it = filtered_units.begin(); it != filtered_units.end(); ++it)
   {
-    filtered_groups.insert(Groups::value_type(it->second.group, index));
+    filtered_groups.insert(Groups::value_type(it->second->group, index));
     index--;
   }
   std::cout << "Number of groups in the graph: " << filtered_groups.size() << std::endl;
@@ -168,26 +187,23 @@ graph [\n\
 
   }
 
-  // Determine min/max length to set the unit color scale.
-  double unit_min_length = 1e30;
-  double unit_max_length = 0.;
-  for (Units::const_iterator unit_it = filtered_units.begin(); unit_it != filtered_units.end(); ++unit_it) {
-      if (unit_it->second.length > unit_max_length) {
-          unit_max_length = unit_it->second.length;
-      }
-      if (unit_it->second.length < unit_min_length) {
-          unit_min_length = unit_it->second.length;
+  // Determine the max number deposits on the unit to set the color scale by the number of deposits.
+  size_t numDepositsMax = 0;
+  for (Units_p::const_iterator it = filtered_units.begin();
+       it != filtered_units.end(); ++it) {
+      size_t numDeposits = GetNumberDeposits(it->second->deposits, depositName);
+      if (numDeposits > numDepositsMax) {
+          numDepositsMax = numDeposits;
       }
   }
 
   // Adding units.
-  for (Units::const_iterator unit_it = filtered_units.begin(); unit_it != filtered_units.end(); ++unit_it)
+  for (Units_p::const_iterator unit_it = filtered_units.begin();
+       unit_it != filtered_units.end(); ++unit_it)
   {
-    int id = unit_it->second.id;
+    int id = unit_it->second->id;
 
-    // Determine the graph node color.
-    std::string color = CreateHexRGBString((unit_it->second.length - unit_min_length) / (unit_max_length - unit_min_length), true);
-
+    // Setting the label ---------------------------
     std::string label;
     if (label_type == "UNIT_NAME")
     {
@@ -197,8 +213,19 @@ graph [\n\
       label = SSTR(id);
     }
 
+    // Adding the number of the deposits to the label info.
+    size_t numDeposits = GetNumberDeposits(unit_it->second->deposits, depositName);
+    if (numDeposits > 0) {
+        label = label + "\n[" + SSTR(numDeposits) + "]";
+    }
+    //-----------------------------------------------
+
+    // Determine the graph node color.
+    int brightness = (int)(double(numDeposits) / double(numDepositsMax) * 255.);
+    std::string color = RGB2HexColor(255 - brightness, 255, 255 - brightness);
+
     // Determine group id.
-    Groups::const_iterator group_it = filtered_groups.find(unit_it->second.group);
+    Groups::const_iterator group_it = filtered_groups.find(unit_it->second->group);
     int gid = group_it->second;
 
     file <<
@@ -304,18 +331,10 @@ graph [\n\
     std::string color = CreateHexRGBString(unit_contact_it->faults_length / unit_contact_it->total_length);
 
     std::string edgeLabel = "";
-    if (unit_contact_it->deposits.size() > 0) {
-        size_t numDeposits = 0;
-        for (size_t i = 0; i < unit_contact_it->deposits.size(); i++) {
-            const std::string commodity = unit_contact_it->deposits[i]->point->site_commo;
-            std::size_t found = commodity.find(depositName);
-              if (found != std::string::npos) {
-                  numDeposits++;
-              }
-        }
-        if (numDeposits > 0) {
-            edgeLabel = SSTR(numDeposits);
-        }
+
+    size_t numDeposits = GetNumberDeposits(unit_contact_it->deposits, depositName);
+    if (numDeposits > 0) {
+        edgeLabel = SSTR(numDeposits);
     }
 
     file <<

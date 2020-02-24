@@ -30,61 +30,61 @@ graph [
     id 8
     LabelGraphics [ text "A-FO-od" fontSize 14 ]
     gid -1
-    graphics [ fill "#ff4c4c" w 150 ]
+    graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 14
     LabelGraphics [ text "A-FO-xo-a" fontSize 14 ]
     gid -1
-    graphics [ fill "#4cb694" w 150 ]
+    graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 6
     LabelGraphics [ text "A-FOh-xs-f" fontSize 14 ]
     gid -1
-    graphics [ fill "#4cc882" w 150 ]
+    graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 7
     LabelGraphics [ text "A-FOo-bbo" fontSize 14 ]
     gid -1
-    graphics [ fill "#4cc387" w 150 ]
+    graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 1
     LabelGraphics [ text "A-FOp-bs" fontSize 14 ]
     gid -1
-    graphics [ fill "#4cdf6b" w 150 ]
+    graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 16
     LabelGraphics [ text "A-FOr-b" fontSize 14 ]
     gid -1
-    graphics [ fill "#4c4cff" w 150 ]
+    graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 17
     LabelGraphics [ text "A-FOu-bbo" fontSize 14 ]
     gid -1
-    graphics [ fill "#cd7d4c" w 150 ]
+    graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 15
     LabelGraphics [ text "A-b-PRK" fontSize 14 ]
     gid -8
-    graphics [ fill "#4c5af0" w 150 ]
+    graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 5
     LabelGraphics [ text "A-mgn-PRK" fontSize 14 ]
     gid -9
-    graphics [ fill "#4c65e5" w 150 ]
+    graphics [ fill "#ffffff" w 150 ]
   ]
   node [
     id 21
     LabelGraphics [ text "A-s-PRK" fontSize 14 ]
     gid -10
-    graphics [ fill "#4c52f8" w 150 ]
+    graphics [ fill "#ffffff" w 150 ]
   ]
   edge [
     source 14

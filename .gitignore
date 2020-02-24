@@ -150,6 +150,7 @@ dfa_test_data3/*
 test_data3/xtmp/*
 test_data3/xoutput/*
 test_data3/Models_Final/*
+test_minsys/*
 test_model_finite/*
 notebooks/geomodeller-batch.audit
 notebooks/geomodeller-batch.rpt

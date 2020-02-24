@@ -529,7 +529,7 @@ def save_faults_wkt(sub_lines,fault_file_csv,c_l):
 # 
 # Creates input parameter file for map2model c++ code and saves it to the same directory as the map2model binary (../m2m_cpp)
 ####################################
-def save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,structure_file_csv,minx,maxx,miny,maxy):
+def save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,structure_file_csv,minx,maxx,miny,maxy,deposit_dist,commodities):
     f=open(m2m_cpp_path+'Parfile','w')
     f.write('--- COLUMN NAMES IN CSV DATA FILES: -------------------------------------------------------------\n')
     f.write('OBJECT COORDINATES              =WKT\n')
@@ -557,7 +557,7 @@ def save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,str
     f.write('Intersect Contact With Fault: angle epsilon (deg)   =1.0\n')
     f.write('Intersect Contact With Fault: distance epsilon (m)  =15.0\n')
     f.write('Distance buffer (fault stops on another fault) (m)  =20.0\n')
-    f.write('Distance buffer (point on contact) (m)              =100.0\n')
+    f.write('Distance buffer (point on contact) (m)              ='+str(deposit_dist)+'\n')
     f.write('------------------------------------------------------------------------------------------------\n')
     f.write('Path to the output data folder                      ='+graph_path+'\n')
     f.write('Path to geology data file                           ='+geology_file_csv+'\n')
@@ -568,7 +568,7 @@ def save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,str
     f.write('Min length fraction for strat/fault graphs          =0.0\n')
     f.write('Graph edge width categories (three doubles)         =2000. 20000. 200000.\n')
     f.write('Graph edge direction (0-min age, 1-max age, 2-avg)  =2\n')
-    f.write('Deposit names for adding info on the graph          =Fe,Au,NONE\n')
+    f.write('Deposit names for adding info on the graph          ='+commodities+'\n')
     f.write('Partial graph polygon ID                            =32\n')
     f.write('Partial graph depth                                 =4\n')
     f.write('Map subregion size dx, dy [m] (zeros for full map)  =0. 0.\n')

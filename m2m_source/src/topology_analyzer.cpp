@@ -57,7 +57,9 @@ void TopologyAnalyzer::Initialize(const Parameters &par)
   // Reading the map data.
   converter.ReadData(par.path_geology, "POLYGON", par.constNames, polygonsIdsToRead);
   converter.ReadData(par.path_faults, "LINESTRING", par.constNames, faultsIdsToRead);
-  converter.ReadData(par.path_points, "POINT", par.constNames, pointsIdsToRead, pointsIdsToReadString);
+  if (par.path_points != "") {
+      converter.ReadData(par.path_points, "POINT", par.constNames, pointsIdsToRead, pointsIdsToReadString);
+  }
 
   // Initialize the clipping window.
   if (par.clipping_window[0] == par.clipping_window[2]
@@ -317,6 +319,7 @@ void TopologyAnalyzer::AnalyzeGlobalTopology(const Parameters &par, const std::s
   converter.BuildUnitContactsList(contacts, unit_contacts);
   converter.IdentifyIgneousUnitContacts(unit_contacts);
   converter.AddPointsToUnitContacts(unit_contacts, pointPolygonIntersectionList);
+  converter.AddPointsToUnits(pointPolygonIntersectionList);
 
   //------------------------------------------------------------------------
   // Writing full graphs with all, strat, fault, and igneous contacts.

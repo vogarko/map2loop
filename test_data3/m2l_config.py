@@ -15,20 +15,19 @@ model_base=-8200
 local_paths=True       #flag to use local or WFS source for data inputs (True = local)
 
 test_data_path='../test_data3/'
-m2m_cpp_path='../m2m_cpp/'
 
 geology_file='hams2_geol.shp'   #input geology file (if local)
 fault_file='GEOS_GEOLOGY_LINEARSTRUCTURE_500K_GSD.shp' #input fault file (if local)
 structure_file='hams2_structure.shp' #input bedding orientation file (if local)
 mindep_file='mindeps_2018.shp' #input mineral deposit file (if local)
 
-
 #CRS
 
 src_crs = {'init': 'EPSG:4326'}  # coordinate reference system for imported dtms (geodetic lat/long WGS84)
 dst_crs = {'init': 'EPSG:28350'} # coordinate system for data
 
-#codes and labels these refer to specific fields (codes) in GIS layer or database that contain the info needed for these calcs and text substrings (labels) in the contents of these fields
+#CODES AND LABELS 
+# these refer to specific fields (codes) in GIS layer or database that contain the info needed for these calcs and text substrings (labels) in the contents of these fields
 c_l= {
 #Orientations
   "d": "DIP",                  #field that contains dip information
@@ -75,7 +74,6 @@ contact_decimate=10     #store every nth contact point (in object order) 0 = sav
 fault_decimate=5        #store every nth fault point (in object order) 0 = save all
 fold_decimate=5         #store every nth fold axial trace point (in object order) 0 = save all
 
-
 #INTERPOLATION
 
 gridx=50                #x grid dimensions (no of points, not distance) for interpolations
@@ -91,8 +89,9 @@ pluton_dip=45           #surface dip of pluton contacts
 pluton_form='domes'     #saucers: \__+_+__/  batholith: +/       \+   domes: /  +  + \  pendant: +\_____/+
 fault_dip=90            #surface dip of faults
 
-#DERIVED PATHS
+#DERIVED AND FIXED PATHS
 
+m2m_cpp_path='../m2m_cpp/'
 
 graph_path=test_data_path+'graph/'
 tmp_path=test_data_path+'tmp/'
