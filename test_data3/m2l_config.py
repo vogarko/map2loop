@@ -81,7 +81,7 @@ gridy=50                #x grid dimensions (no of points, not distance) for inte
 scheme='scipy_rbf'      #interpolation scheme
 dist_buffer=5           #buffer distance for clipping points by faults (in metres or same units as dst_crs)
 intrusion_mode=0        # 1 all intrusions exluded from basal contacts, 0 only sills
-use_interpolations=False    # flag to sue interpolated orientations or not.
+use_interpolations=False    # flag to use interpolated orientations or not.
 
 #ASSUMPTIONS
 
