@@ -6,6 +6,7 @@ import numpy as np
 import functools 
 import operator  
 
+
 ####################################
 # parse stratigraphy GML file to get number of series and series names
 #

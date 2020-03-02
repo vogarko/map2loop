@@ -636,14 +636,7 @@ def loop2gempy(test_data_name,tmp_path,vtk_pth,orientations_file,contacts_file,g
     #gp.plot.plot_section(geo_model, 49, direction='z', show_data=False)
     
     ver , sim = gp.get_surfaces(geo_model)    
-    
-    import winsound
-    duration = 700  # milliseconds
-    freq = 1100  # Hz
-    winsound.Beep(freq, duration)
-    winsound.Beep(freq, duration)
-    winsound.Beep(freq, duration)    
-    
+        
     #Visualise Model
     gp.plot.plot_3D(geo_model, render_data=False)
     
