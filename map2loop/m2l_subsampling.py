@@ -28,13 +28,13 @@ def vector_aggregate (dataframe, column, geometry_column, output_file):
 	group = {}
 
 	for i in range(len(dataframe)):
-		unit_name_id = dataframe.at[i, column]
-		ygsb_geometry = dataframe.at[i, geometry_column]
+		group_id = dataframe.at[i, column]
+		dataframe_geometry = dataframe.at[i, geometry_column]
 		# if the feature's state doesn't yet exist, create it and assign a list
-		if unit_name_id not in unit_name:
-			unit_name[unit_name_id] = []
+		if group_id not in group:
+			group[group_id] = []
 		# append the feature to the list of features
-		unit_name[unit_name_id].append(ygsb_geometry)
+		group[group_id].append(dataframe_geometry)
 
 	# create a geopandas geodataframe, with columns for state and geometry
 	group_dissolved = gpd.GeoDataFrame(columns=[column, geometry_column], crs=dataframe.crs)
