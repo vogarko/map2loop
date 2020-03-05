@@ -17,12 +17,12 @@ def plot (dataframe, column):
 def upscale_by (dataframe, column):
 	group = dataframe.groupby(column)
 	group.head()
-	plot=dataframe.plot(column=column,figsize=(5,5), edgecolor='#000000',linewidth=0.2, legend=True, cmap='Set2')
+	plot=dataframe.plot(column=column,figsize=(7,7), edgecolor='#000000',linewidth=0.2, legend=True, cmap='Set2')
 
 def vector_aggregate (dataframe, column, geometry_column, output_file):
 	group = dataframe.dissolve(by=column)
 	group.head()
-	group.plot(figsize=(5,5), edgecolor='#000000', linewidth=0.2, legend=True, cmap='Set2')
+	#group.plot(figsize=(5,5), edgecolor='#000000', linewidth=0.2, legend=True, cmap='Set2')
 	
 	# create a dictionary
 	group = {}
@@ -51,8 +51,13 @@ def vector_aggregate (dataframe, column, geometry_column, output_file):
 		group_dissolved.set_value(group, geometry_column, geom)
 
 	group_dissolved.head()
-	group_dissolved.plot(cmap='Set2', edgecolor='#000000', linewidth=0.2, figsize=(5, 5), legend=True)
-	group_dissolved.area
+	#group_dissolved.plot(cmap='Set2', edgecolor='#000000', linewidth=0.2, figsize=(5, 5), legend=True)
+	#group_dissolved.area
+	#ygsb = gpd.read_file(geology_file)
+	fig, (ax1,ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 16))
+	ax1=dataframe.plot(column='UNITNAME', edgecolor='#000000',linewidth=0.2, cmap='Set2', ax=ax1)
+	ax2=group_dissolved.plot(edgecolor='#000000', linewidth=0.2, cmap='Set2', legend=True, ax=ax2)
+	plt.figure()
 	group_dissolved.to_file(output_file)
 	
 debug = True
@@ -95,9 +100,9 @@ def vector_simplify (inFile, outFile, threshold):
 		with open('debug_junctions.txt', 'w') as output:
 			for key in dictJunctions:
 				output.write(str(key))
-	test=gpd.read_file(outFile)
-	plot=test.plot(figsize=(5,5), edgecolor='#000000',linewidth=0.2, cmap='Set2')
-	plot = plot.figure; plot.tight_layout()
+	#test=gpd.read_file(outFile)
+	#plot=test.plot(figsize=(5,5), edgecolor='#000000',linewidth=0.2, cmap='Set2')
+	#plot = plot.figure; plot.tight_layout()
 	
 def check_invalid_geometry(shapeList):
 	checkedShapeList = []
