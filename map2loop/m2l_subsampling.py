@@ -7,7 +7,9 @@ import fiona
 import shapely
 from shapely.geometry import shape, mapping, LineString, Polygon, MultiLineString, MultiPolygon, MultiPoint
 from shapely.geometry.polygon import LinearRing
+from shapely.ops import unary_union
 import heapq
+from itertools import chain
 
 def plot (dataframe, column):
 	plot=dataframe.plot(column=column,figsize=(5,5), edgecolor='#000000',linewidth=0.2, cmap='Set2')
@@ -641,3 +643,74 @@ class TriangleCalculator(object):
 		#print "area = " + str(area) + ", point = " + str(self.point)
 		return area
 #modified from rmapshaper( Visvalignam-Whyatt + Topology preservation)
+
+def CountNodes (inputfile):
+	df = gpd.read_file(inputfile)
+	m=0
+	for i, row in df.iterrows():
+		# It's better to check if multigeometry
+		multi = row.geometry.type.startswith("Multi")
+		if multi:
+			n = 0
+			# iterate over all parts of multigeometry
+			for part in row.geometry:
+				n += len(part.exterior.coords)
+		else: # if single geometry like point, linestring or polygon
+			n = len(row.geometry.exterior.coords)
+		#print(n)
+		m=m+n
+	print ("No. Of Nodes= ",m)
+#https://gis.stackexchange.com/questions/328884/how-to-calculate-number-of-vertices-in-geopandas
+	
+def AddNodeInfo(inputfile, outputfile):
+	df = gpd.read_file(inputfile)
+	n_vertices=[] ###
+	for i, row in df.iterrows():
+		# It's better to check if multigeometry
+		multi = row.geometry.type.startswith("Multi")
+
+		if multi:
+			n = 0
+			# iterate over all parts of multigeometry
+			for part in row.geometry:
+				n += len(part.exterior.coords)
+		else:
+			n = len(row.geometry.exterior.coords)
+		n_vertices.append(n) ###
+	df["n_vertices"] = n_vertices ###
+	df.to_file(outputfile)	
+#https://gis.stackexchange.com/questions/328884/how-to-calculate-number-of-vertices-in-geopandas
+		
+def xxxpoly2point(polygonfile, pointfile):
+	polygonfile= gpd.read_file(polygonfile)
+	polygonfile.iloc[0]['geometry'].intersection(polygonfile.iloc[1]['geometry'])
+	polygonfile = polygonfile.copy()
+	polygonfile ['geometry']= polygonfile.geometry.map(lambda x: unary_union(x))
+	col = polygonfile.columns.tolist()
+	print(col)
+	pointfile = gpd.GeoDataFrame(columns=col)
+	for index, row in polygonfile.iterrows():
+		for j in list(row['geometry'].exterior.coords): 
+			pointfile = pointfile.append({'geometry':Point(j) },ignore_index=True)
+	#nodes.head()
+#https://gis.stackexchange.com/questions/217789/geopandas-shapely-spatial-difference-topologyexception-no-outgoing-diredge-f/217858#217858
+#https://gis.stackexchange.com/questions/302430/polygon-to-point-in-geopandas	
+#https://gis.stackexchange.com/questions/218774/how-to-extract-long-and-lat-from-geometry-column-in-geopandas
+
+def xxxpoly2point2(polygonfile, pointfile):
+	polygonfile = gpd.read_file(polygonfile)
+	pointfile = polygonfile.copy()
+	for i, row in polygonfile.iterrows():
+		# It's better to check if multigeometry
+		multi = row.geometry.type.startswith("Multi")
+		if multi:
+			for part in row.geometry:
+				list(part.geometry.exterior.coords)
+				#pointfile.geometry = pointfile.geometry.apply(lambda x: list(chain.from_iterable(x.exterior.coords[:-1])))
+			#allparts = [p.buffer(0) for p in pointfile.geometry]
+			#x = shapely.ops.cascaded_union(allparts)
+		else:
+			pointfile.geometry = pointfile.geometry.apply(lambda x: MultiPoint(list(x.exterior.coords)))
+	#pointfile.head()
+#https://gis.stackexchange.com/questions/302430/polygon-to-point-in-geopandas	
+#https://tutel.me/c/gis/questions/180142/converting+shapely+multipolygon+to+polygon+technique+doesn39t+always+work
