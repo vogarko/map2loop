@@ -1275,14 +1275,14 @@ def normalise_thickness(output_path):
     for code in codes:
         is_code=thickness.formation.str.contains(code, regex=False)
         all_thick = thickness[is_code]
-        print(code,all_thick.loc[:,"thickness"].median(),all_thick.loc[:,"thickness"].std())
-        ostr=str(code)+","+str(all_thick.loc[:,"thickness"].median())+","+str(all_thick.loc[:,"thickness"].std())+"\n"    
+        all_thick2=all_thick[all_thick["thickness"]!=0]
+        print(code,all_thick2.loc[:,"thickness"].median(),all_thick2.loc[:,"thickness"].std())
+        ostr=str(code)+","+str(all_thick2.loc[:,"thickness"].median())+","+str(all_thick2.loc[:,"thickness"].std())+"\n"    
         fs.write(ostr)
+        med=all_thick2.loc[:,"thickness"].median()
+        std=all_thick2.loc[:,"thickness"].std()
         
-        med=all_thick.loc[:,"thickness"].median()
-        std=all_thick.loc[:,"thickness"].std()
-        
-        thick=all_thick.to_numpy()
+        thick=all_thick2.to_numpy()
     
         for i in range(len(thick)):
             if(med>0):
