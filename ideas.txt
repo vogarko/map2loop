@@ -3,10 +3,15 @@ M2L thoughts
 General to do
 
 Functionality
+
+12. Add polarity code to orientations 
+79. Capture  fault/contact info as inferred for consistency checker
+80. capture contact and volume age gradient info for consistency checker
+74. Stratigraphic unit x thickness fault offset calcs
+
 4. Thickness no faults or fold hinges
 5. Thickness no intervening layers and bigger search radius
 10. Sills. Can be inter or intra, can have holes (probably ignore holes for now)!. 
-12. Add polarity code to orientations 
 15. Calculate fold wavelengths, amplitudes?
 20. Cope with warox naming conventions and add to geoserver [partially done, added strike possibility vs dip direction]
 23. Extended topology to reduce uncertainty (group, intragroup)
@@ -25,12 +30,12 @@ Functionality
 71. networkx in/out connectivity for strat analysis
 72. Filter out orientations far from contacts?
 73. Filter out orientations which are inconsistent with local contact orientations?
-74. Calculate dip polarity
 75. Fold axial traces to geomodeller fold system
 76. DEfine what units are actually intrusive
 77. Move clipping upfront so can be used to modify coding (e.g. when multiple layers have same codes)
 78. Group age as ultimate ordering control? (done in tidy_data())
-
+81. Modify docstrings so that question marks work (use pycharm)
+82. import warnings              new line        warnings.filterwarnings("ignore")
 Style
 8. Priors all in one place
 16. Expose all file names in functions?

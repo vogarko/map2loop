@@ -336,7 +336,7 @@ def interpolate_orientations(structure_file,output_path,bbox,c_l,this_gcode,calc
 def interpolate_contacts(geology_file,output_path,dtm,bbox,c_l,use_gcode,calc,gridx,gridy,fault_flag):
     geol_file = gpd.read_file(geology_file,bbox=bbox)
     #print(len(geol_file))
-    geol_file.plot( color='black',edgecolor='black') 
+    #geol_file.plot( color='black',edgecolor='black') 
     
     # Setup: Generate data...
     npts = 0
@@ -510,7 +510,7 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,c_l,use_gcode,calc,gr
 def save_contact_vectors(geology_file,tmp_path,dtm,bbox,c_l,calc,decimate):
     geol_file = gpd.read_file(geology_file,bbox=bbox)
     print(len(geol_file))
-    geol_file.plot( color='black',edgecolor='black') 
+    #geol_file.plot( color='black',edgecolor='black') 
     
     npts = 0
     x = np.zeros(20000)

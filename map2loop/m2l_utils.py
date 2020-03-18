@@ -591,3 +591,17 @@ def tri_angle(p1x,p1y,p2x,p2y,p3x,p3y):
     angle=degrees(acos(numerator/divisor))
     
     return(angle)
+
+###########################################
+# plot_points
+###########################################
+
+def plot_points(point_source,geol_clip, colour_code,x_code,y_code):
+    from shapely.geometry import Point
+    thick=pd.read_csv(point_source,encoding = "ISO-8859-1", dtype='object')
+    thick[x_code]=thick[x_code].astype('float64')
+    thick[y_code]=thick[y_code].astype('float64')
+    thick=gpd.GeoDataFrame(thick, geometry=[Point(xy) for xy in zip(thick[x_code], thick[y_code])])
+    base=geol_clip.plot(color='white',figsize=(7,7),edgecolor='#000000',linewidth=0.2)
+    plot2 = thick.plot(ax=base, column=colour_code, markersize=15,cmap='rainbow')
+    plot2 = plot2.figure; plot2.tight_layout()

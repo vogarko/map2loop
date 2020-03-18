@@ -123,10 +123,9 @@ graph [
   ]
   node [
     id 10
-    LabelGraphics [ text "A-FOj-xs-b
-[1]" fontSize 14 ]
+    LabelGraphics [ text "A-FOj-xs-b[1]" fontSize 14 ]
     gid -1
-    graphics [ fill "#80ff80" w 150 ]
+    graphics [ fill "#c0ffc0" w 150 ]
   ]
   node [
     id 7
@@ -166,10 +165,9 @@ graph [
   ]
   node [
     id 0
-    LabelGraphics [ text "A-HAm-cib
-[2]" fontSize 14 ]
+    LabelGraphics [ text "A-HAm-cib[2]" fontSize 14 ]
     gid -9
-    graphics [ fill "#00ff00" w 150 ]
+    graphics [ fill "#80ff80" w 150 ]
   ]
   node [
     id 15
@@ -283,7 +281,7 @@ graph [
     source 0
     target 10
     graphics [ style "line" arrow "last" width 7 fill "#002cd2" ]
-    LabelGraphics [ text "4" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
+    LabelGraphics [ text "4" fill "#00ff00" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000"]
   ]
   edge [
     source 14
@@ -349,7 +347,7 @@ graph [
     source 14
     target 6
     graphics [ style "line" arrow "last" width 5 fill "#0000ff" ]
-    LabelGraphics [ text "1" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
+    LabelGraphics [ text "1" fill "#c0ffc0" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000"]
   ]
   edge [
     source 6
@@ -360,7 +358,7 @@ graph [
     source 10
     target 8
     graphics [ style "line" arrow "last" width 7 fill "#0014ea" ]
-    LabelGraphics [ text "1" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
+    LabelGraphics [ text "1" fill "#c0ffc0" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000"]
   ]
   edge [
     source 17
@@ -371,7 +369,7 @@ graph [
     source 10
     target 17
     graphics [ style "line" arrow "last" width 7 fill "#002fcf" ]
-    LabelGraphics [ text "1" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
+    LabelGraphics [ text "1" fill "#c0ffc0" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000"]
   ]
   edge [
     source 2
@@ -381,13 +379,13 @@ graph [
   edge [
     source 11
     target 26
-    graphics [ style "line" arrow "both" width 3 fill "#001ae4" ]
+    graphics [ style "line" arrow "last" width 3 fill "#001ae4" ]
   ]
   edge [
     source 7
     target 6
     graphics [ style "line" arrow "last" width 5 fill "#000df1" ]
-    LabelGraphics [ text "1" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
+    LabelGraphics [ text "1" fill "#c0ffc0" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000"]
   ]
   edge [
     source 9
@@ -422,7 +420,7 @@ graph [
   edge [
     source 14
     target 8
-    graphics [ style "line" arrow "both" width 5 fill "#0003fb" ]
+    graphics [ style "line" arrow "last" width 5 fill "#0003fb" ]
   ]
   edge [
     source 14
@@ -468,7 +466,7 @@ graph [
     source 8
     target 7
     graphics [ style "line" arrow "last" width 5 fill "#000bf3" ]
-    LabelGraphics [ text "1" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000" fill "#FFFFFF"]
+    LabelGraphics [ text "1" fill "#c0ffc0" fontSize 14 fontStyle "bold" model "centered" position "center" outline "#000000"]
   ]
   edge [
     source 22
@@ -491,14 +489,14 @@ graph [
     graphics [ style "line" arrow "last" width 3 fill "#0000ff" ]
   ]
   edge [
-    source 23
-    target 25
-    graphics [ style "line" arrow "both" width 5 fill "#0000ff" ]
+    source 25
+    target 23
+    graphics [ style "line" arrow "last" width 5 fill "#0000ff" ]
   ]
   edge [
     source 26
     target 27
-    graphics [ style "line" arrow "both" width 3 fill "#004cb2" ]
+    graphics [ style "line" arrow "last" width 3 fill "#004cb2" ]
   ]
   edge [
     source 28
@@ -533,7 +531,7 @@ graph [
   edge [
     source 11
     target 27
-    graphics [ style "line" arrow "both" width 3 fill "#0029d5" ]
+    graphics [ style "line" arrow "last" width 3 fill "#0029d5" ]
   ]
   edge [
     source 6
@@ -543,7 +541,7 @@ graph [
   edge [
     source 12
     target 27
-    graphics [ style "line" arrow "both" width 5 fill "#005aa4" ]
+    graphics [ style "line" arrow "last" width 5 fill "#005aa4" ]
   ]
   edge [
     source 25

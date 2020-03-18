@@ -909,15 +909,16 @@ void Converter::FilterContactsByPolygon(const Contacts &contacts, Contacts &cont
 }
 //========================================================================================
 
-void Converter::FilterUnitStratFaultContacts(UnitContacts &contacts, ContactType contactType,
-                                             double minFractionInMixedContact)
+UnitContacts Converter::FilterUnitStratFaultContacts(const UnitContacts &contacts, ContactType contactType,
+                                                     double minFractionInMixedContact)
 {
     assert(contactType == StratigraphicContact || contactType == FaultContact);
 
-    UnitContacts::iterator it = contacts.begin();
+    UnitContacts filteredContacts;
 
     // Loop over all contacts.
-    while (it != contacts.end()) {
+    for (UnitContacts::const_iterator it = contacts.cbegin();
+         it != contacts.cend(); ++it) {
         bool keepContact = false;
 
         if (it->type == contactType) {
@@ -938,26 +939,26 @@ void Converter::FilterUnitStratFaultContacts(UnitContacts &contacts, ContactType
         }
 
         if (keepContact) {
-            it++;
-        } else {
-            it = contacts.erase(it);
+            filteredContacts.push_back(*it);
         }
     }
+    return filteredContacts;
 }
 //========================================================================================
 
-void Converter::FilterIgneousUnitContacts(UnitContacts &contacts)
+UnitContacts Converter::FilterIgneousUnitContacts(const UnitContacts &contacts)
 {
-    UnitContacts::iterator it = contacts.begin();
+    UnitContacts filteredContacts;
 
     // Loop over all contacts.
-    while (it != contacts.end()) {
+    for (UnitContacts::const_iterator it = contacts.cbegin();
+         it != contacts.cend(); ++it) {
+
         if (it->isIntrusiveIgneous && it->type != FaultContact) {
-            it++;
-        } else {
-            it = contacts.erase(it);
+            filteredContacts.push_back(*it);
         }
     }
+    return filteredContacts;
 }
 //========================================================================================
 

@@ -1,30 +1,21 @@
 8 A-FO-od
 14 A-FO-xo-a
-6 A-FOh-xs-f
-[3]
+6 A-FOh-xs-f[3]
 10 A-FOj-xs-b
 7 A-FOo-bbo
-1 A-FOp-bs
-[1]
+1 A-FOp-bs[1]
 16 A-FOr-b
-17 A-FOu-bbo
-[1]
-2 A-HAS-xsl-ci
-[2]
-9 A-HAd-kd
-[6]
-0 A-HAm-cib
-[10]
+17 A-FOu-bbo[1]
+2 A-HAS-xsl-ci[2]
+9 A-HAd-kd[6]
+0 A-HAm-cib[10]
 15 A-b-PRK
 19 A-mgn-PMI
-5 A-mgn-PRK
-[1]
+5 A-mgn-PRK[1]
 20 A-s-PMI
 21 A-s-PRK
-3 P_-HAb-cib
-[50]
-4 P_-HAj-xci-od
-[1]
+3 P_-HAb-cib[50]
+4 P_-HAj-xci-od[1]
 12 P_-HAo-ci
 13 P_-HAw-fr
 28 P_-SKb-bb
@@ -62,7 +53,7 @@
 17 1 0
 10 17 0
 2 10 0
-11 26 1
+11 26 0
 7 6 0
 9 10 0
 12 13 0
@@ -70,7 +61,7 @@
 13 4 0
 18 13 0
 9 0 0
-14 8 1
+14 8 0
 14 17 0
 8 6 0
 6 19 0
@@ -97,18 +88,18 @@
 18 17 0
 25 22 0
 22 17 0
-23 25 1
+25 23 0
 23 17 0
 25 17 0
-26 27 1
+26 27 0
 28 27 0
 23 27 0
 23 28 0
 1 7 0
 5 21 0
 22 11 0
-11 27 1
+11 27 0
 6 20 0
-12 27 1
+12 27 0
 25 18 0
 24 25 0

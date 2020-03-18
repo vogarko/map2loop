@@ -330,18 +330,14 @@ void TopologyAnalyzer::AnalyzeGlobalTopology(const Parameters &par, const std::s
       std::string depositName = par.depositListForGraphInfo[i];
 
       // ALL contacts. -----------------------------------------------
-      UnitContacts unit_contacts_all = unit_contacts;
-
       std::string file_graph_all = par.path_output + "/graph_all_" + depositName + ".gml";
-      graph.WriteGraph(file_graph_all, unit_contacts_all, "UNIT_NAME", false, 1,
+      graph.WriteGraph(file_graph_all, unit_contacts, "UNIT_NAME", false, 1,
                        par.graph_edge_width_categories, par.graph_edge_direction_type,
                        depositName, graph_comments);
 
       // Stratigraphic unit contacts. --------------------------------
-      UnitContacts unit_contacts_strat = unit_contacts;
-
-      // Filter unit contacts by the type.
-      converter.FilterUnitStratFaultContacts(unit_contacts_strat, StratigraphicContact, par.minFractionInMixedContact);
+      UnitContacts unit_contacts_strat =
+              Converter::FilterUnitStratFaultContacts(unit_contacts, StratigraphicContact, par.minFractionInMixedContact);
 
       std::string file_graph_strat = par.path_output + "/graph_strat_" + depositName + ".gml";
       graph.WriteGraph(file_graph_strat, unit_contacts_strat, "UNIT_NAME", false, 1,
@@ -349,10 +345,8 @@ void TopologyAnalyzer::AnalyzeGlobalTopology(const Parameters &par, const std::s
                        depositName, graph_comments);
 
       // Fault unit contacts. ----------------------------------------
-      UnitContacts unit_contacts_fault = unit_contacts;
-
-      // Filter unit contacts by the type.
-      converter.FilterUnitStratFaultContacts(unit_contacts_fault, FaultContact, par.minFractionInMixedContact);
+      UnitContacts unit_contacts_fault =
+              Converter::FilterUnitStratFaultContacts(unit_contacts, FaultContact, par.minFractionInMixedContact);
 
       std::string file_graph_fault = par.path_output + "/graph_fault_" + depositName + ".gml";
       graph.WriteGraph(file_graph_fault, unit_contacts_fault, "UNIT_NAME", false, 1,
@@ -360,10 +354,7 @@ void TopologyAnalyzer::AnalyzeGlobalTopology(const Parameters &par, const std::s
                        depositName, graph_comments);
 
        // Igneous unit contacts. -------------------------------------
-      UnitContacts unit_contacts_ingeous = unit_contacts;
-
-      // Filter unit contacts by the type.
-      converter.FilterIgneousUnitContacts(unit_contacts_ingeous);
+      UnitContacts unit_contacts_ingeous = Converter::FilterIgneousUnitContacts(unit_contacts);
 
       std::string file_graph_ign = par.path_output + "/graph_igneous_" + depositName + ".gml";
       graph.WriteGraph(file_graph_ign, unit_contacts_ingeous, "UNIT_NAME", false, 1,

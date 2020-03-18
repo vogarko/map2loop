@@ -4,15 +4,8 @@ import random
 import numpy as np
 import pandas as pd
 import os
-from LoopStructural import GeologicalModel
-from LoopStructural.visualisation import LavaVuModelViewer
-from scipy.interpolate import Rbf
-import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
-import lavavu
-from pyamg import solve
-import gempy as gp
-from gempy import plot
+from pyamg import solve    
+
 
 ##########################################################################
 # Save out and compile taskfile needed to generate geomodeller model using the geomodellerbatch engine
@@ -28,6 +21,7 @@ from gempy import plot
 # Creates geomodeller taskfile files from varous map2loop outputs
 ##########################################################################
 def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faults,compute_etc):
+
     f=open(test_data_path+'m2l.taskfile','w')
     f.write('#---------------------------------------------------------------\n')
     f.write('#-----------------------Project Header-----------------------\n')
@@ -454,7 +448,12 @@ def solve_pyamg(A,B):
 # Calculates model and displays in LavaVu wthin notebook
 ##########################################################################
 def loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox):
+    from LoopStructural import GeologicalModel
+    from LoopStructural.visualisation import LavaVuModelViewer
+    import lavavu
+    
     df = pd.read_csv(thickness_file)
+    
     thickness = {}
     for f in df['formation'].unique():
         thickness[f] = np.mean(df[df['formation']==f]['thickness'])
@@ -545,6 +544,8 @@ def loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox):
 # Calculates model and displays in external vtk viewer
 ##########################################################################
 def loop2gempy(test_data_name,tmp_path,vtk_pth,orientations_file,contacts_file,groups_file,dtm_reproj_file,bbox,model_base, model_top,vtk):
+    import gempy as gp
+    from gempy import plot
     geo_model = gp.create_model(test_data_name) 
 
     gp.init_data(geo_model, extent=[bbox[0], bbox[2], bbox[1], bbox[3], model_base, model_top],
@@ -636,7 +637,14 @@ def loop2gempy(test_data_name,tmp_path,vtk_pth,orientations_file,contacts_file,g
     #gp.plot.plot_section(geo_model, 49, direction='z', show_data=False)
     
     ver , sim = gp.get_surfaces(geo_model)    
-        
+    
+    import winsound
+    duration = 700  # milliseconds
+    freq = 1100  # Hz
+    winsound.Beep(freq, duration)
+    winsound.Beep(freq, duration)
+    winsound.Beep(freq, duration)    
+    
     #Visualise Model
     gp.plot.plot_3D(geo_model, render_data=False)
     

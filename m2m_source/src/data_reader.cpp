@@ -106,6 +106,13 @@ static int String2Int(const std::string str)
   return res;
 }
 
+static double String2Double(const std::string str)
+{
+  double res;
+  std::istringstream(str) >> res;
+  return res;
+}
+
 std::string ReadField(const std::string &__line, size_t column, const char delimiter)
 {
   std::string line = __line;
@@ -286,10 +293,10 @@ int ReadDataObj(const std::string &filename, const std::string& keyword,
       object.group = trim(ReadField(line, getFieldColumn(headerFields, fieldName)));
 
       fieldName = getConstName(constNames, "FIELD_POLYGON_MIN_AGE");
-      object.min_age = String2Int(ReadField(line, getFieldColumn(headerFields, fieldName)));
+      object.min_age = String2Double(ReadField(line, getFieldColumn(headerFields, fieldName)));
 
       fieldName = getConstName(constNames, "FIELD_POLYGON_MAX_AGE");
-      object.max_age = String2Int(ReadField(line, getFieldColumn(headerFields, fieldName)));
+      object.max_age = String2Double(ReadField(line, getFieldColumn(headerFields, fieldName)));
 
       fieldName = getConstName(constNames, "FIELD_POLYGON_CODE");
       object.code = ReadField(line, getFieldColumn(headerFields, fieldName));

@@ -68,11 +68,11 @@ public:
                                       int poly_id, int depth, int poly_last_id = - 1, bool last_call = true);
 
   //! Filter unit strat/fault contacts.
-  static void FilterUnitStratFaultContacts(UnitContacts &contacts, ContactType contactType,
-                                           double minFractionInMixedContact);
+  static UnitContacts FilterUnitStratFaultContacts(const UnitContacts &contacts, ContactType contactType,
+                                                   double minFractionInMixedContact);
 
   //! Filter igneous unit contacts.
-  static void FilterIgneousUnitContacts(UnitContacts &contacts);
+  static UnitContacts FilterIgneousUnitContacts(const UnitContacts &contacts);
 
   //! Build lists of units and groups.
   void BuildUnitsAndGroupsLists();

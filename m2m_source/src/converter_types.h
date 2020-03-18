@@ -26,7 +26,7 @@ public:
   // Unique id.
   int id;
   // Min/max age ma (for polygons).
-  int min_age, max_age;
+  double min_age, max_age;
   // Unit name (for polygons).
   std::string name;
   // Group name (for polygons).

@@ -420,8 +420,20 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
 # 
 # Saves geology layer as WKT format for use by map2model c++ code
 ####################################
-def save_geol_wkt(sub_geol,geology_file_csv,c_l):
-    #print(sub_geol,geology_file_csv,ocode,gcode,mincode,maxcode,ccode,r1code,r2code,dscode,ucode)
+def save_geol_wkt(sub_geol,geology_file_csv,c_l,hint_flag):
+    #hint_flag=False
+    if(hint_flag==True):
+        print("Using ENS age hints")
+        code_hint_file='../test_data3/data/code_age_hint.csv'   #input code_hint file 
+        code_hints=pd.read_csv(code_hint_file,sep=',')
+        code_hints.drop_duplicates(inplace = True)
+        code_hints.set_index('code',  inplace = True)
+
+        hint_list=[]
+        for indx,row in code_hints.iterrows():
+            if(not indx in hint_list):
+                hint_list.append(indx)
+
     f= open(geology_file_csv,"w+")
     f.write('WKT\t'+c_l['o'].replace("\n","")+'\t'+c_l['u'].replace("\n","")+'\t'+c_l['g'].replace("\n","")+'\t'+c_l['min'].replace("\n","")+'\t'+c_l['max'].replace("\n","")+'\t'+c_l['c'].replace("\n","")+'\t'+c_l['r1'].replace("\n","")+'\t'+c_l['r2'].replace("\n","")+'\t'+c_l['ds'].replace("\n","")+'\n')
     #display(sub_geol)        
@@ -433,8 +445,17 @@ def save_geol_wkt(sub_geol,geology_file_csv,c_l):
         f.write("\""+str(sub_geol.loc[i][c_l['o']])+"\"\t")
         f.write("\""+str(sub_geol.loc[i][c_l['c']])+"\"\t")
         f.write("\""+str(sub_geol.loc[i][c_l['g']]).replace("None","")+"\"\t") #since map2model is looking for "" not "None"
-        f.write("\""+str(sub_geol.loc[i][c_l['min']])+"\"\t")
-        f.write("\""+str(sub_geol.loc[i][c_l['max']])+"\"\t")
+
+        if(hint_flag==True and sub_geol.loc[i][c_l['c']] in hint_list ):
+            hint=code_hints.loc[sub_geol.loc[i][c_l['c']]]['hint']
+        else:
+            hint=0
+        min=float(sub_geol.loc[i][c_l['min']])+float(hint)
+        max=float(sub_geol.loc[i][c_l['max']])+float(hint)
+        #f.write("\""+str(sub_geol.loc[i][c_l['min']])+"\"\t")
+        #f.write("\""+str(sub_geol.loc[i][c_l['max']])+"\"\t")
+        f.write("\""+str(min)+"\"\t")
+        f.write("\""+str(max)+"\"\t")
         f.write("\""+str(sub_geol.loc[i][c_l['u']])+"\"\t")
         f.write("\""+str(sub_geol.loc[i][c_l['r1']])+"\"\t")
         f.write("\""+str(sub_geol.loc[i][c_l['r2']])+"\"\t")

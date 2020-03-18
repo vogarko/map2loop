@@ -126,6 +126,7 @@ void GraphWriter::WriteGraph(const std::string &file_graph, const UnitContacts &
   }
 
   std::cout << "Writing topology graph to a file: " << file_graph << std::endl;
+  std::cout << "Number of contacts in the graph: " << contacts.size() << std::endl;
 
   // Writing graph to a file.
   std::ofstream file;
@@ -187,6 +188,7 @@ graph [\n\
 
   }
 
+  //------------------------------------------------------------------------------------------------------
   // Determine the max number deposits on the unit to set the color scale by the number of deposits.
   size_t numDepositsMax = 0;
   for (Units_p::const_iterator it = filtered_units.begin();
@@ -196,7 +198,17 @@ graph [\n\
           numDepositsMax = numDeposits;
       }
   }
+  // Sharing the same LUT color with edge labels.
+  for (UnitContacts::const_iterator it = contacts.begin();
+       it != contacts.end(); ++it) {
+      size_t numDeposits = GetNumberDeposits(it->deposits, depositName);
+      if (numDeposits > numDepositsMax) {
+          numDepositsMax = numDeposits;
+      }
+  }
+  std::cout << "Maximum number of deposits: " << numDepositsMax << std::endl;
 
+  //------------------------------------------------------------------------------------------------------
   // Adding units.
   for (Units_p::const_iterator unit_it = filtered_units.begin();
        unit_it != filtered_units.end(); ++unit_it)
@@ -216,7 +228,7 @@ graph [\n\
     // Adding the number of the deposits to the label info.
     size_t numDeposits = GetNumberDeposits(unit_it->second->deposits, depositName);
     if (numDeposits > 0) {
-        label = label + "\n[" + SSTR(numDeposits) + "]";
+        label = label + "[" + SSTR(numDeposits) + "]";
     }
     //-----------------------------------------------
 
@@ -337,6 +349,10 @@ graph [\n\
         edgeLabel = SSTR(numDeposits);
     }
 
+    // Determine the graph edge label color (the same LUT as for the graph nodes).
+    int brightness = (int)(double(numDeposits) / double(numDepositsMax) * 255.);
+    std::string edgeLabelColor = RGB2HexColor(255 - brightness, 255, 255 - brightness);
+
     file <<
 "  edge [\n\
     source " << source << "\n\
@@ -345,7 +361,7 @@ graph [\n\
     // Adding the edge label info.
     if (edgeLabel != "") {
         file <<
-"    LabelGraphics [ text \"" << edgeLabel << "\" fontSize 14 fontStyle \"bold\" model \"centered\" position \"center\" outline \"#000000\" fill \"#FFFFFF\"]\n";
+"    LabelGraphics [ text \"" << edgeLabel << "\" fill \"" << edgeLabelColor << "\" fontSize 14 fontStyle \"bold\" model \"centered\" position \"center\" outline \"#000000\"]\n";
     }
     file <<
 "  ]\n";
