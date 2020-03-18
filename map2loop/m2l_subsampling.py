@@ -23,52 +23,11 @@ def upscale_by (dataframe, column):
 
 def vector_aggregate (dataframe, column, geometry_column, output_file):
 	group = dataframe.dissolve(by=column)
-<<<<<<< HEAD
 	fig, (ax1,ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 16))
 	ax1=dataframe.plot(column=column, edgecolor='#000000',linewidth=0.2, cmap='Set2', ax=ax1)
 	ax2=group.plot(edgecolor='#000000', linewidth=0.2, cmap='Set2', legend=True, ax=ax2)
 	plt.figure()
 	group.to_file(output_file)
-=======
-	group.head()
-	#group.plot(figsize=(5,5), edgecolor='#000000', linewidth=0.2, legend=True, cmap='Set2')
-	
-	# create a dictionary
-	group = {}
-
-	for i in range(len(dataframe)):
-		group_id = dataframe.at[i, column]
-		dataframe_geometry = dataframe.at[i, geometry_column]
-		# if the feature's state doesn't yet exist, create it and assign a list
-		if group_id not in group:
-			group[group_id] = []
-		# append the feature to the list of features
-		group[group_id].append(dataframe_geometry)
-
-	# create a geopandas geodataframe, with columns for state and geometry
-	group_dissolved = gpd.GeoDataFrame(columns=[column, geometry_column], crs=dataframe.crs)
-
-	#iterate your dictionary
-	for group, dataframe_list in group.items():
-		#create a geoseries from the list of features
-		geom = gpd.GeoSeries(dataframe_list)
-		#use unary_union to join them, thus returning polygon or multi-polygon
-		geom = geom.unary_union
-    
-		#set your state and geometry values
-		group_dissolved.set_value(group, column, group)
-		group_dissolved.set_value(group, geometry_column, geom)
-
-	group_dissolved.head()
-	#group_dissolved.plot(cmap='Set2', edgecolor='#000000', linewidth=0.2, figsize=(5, 5), legend=True)
-	#group_dissolved.area
-	#ygsb = gpd.read_file(geology_file)
-	fig, (ax1,ax2) = plt.subplots(nrows=1, ncols=2, figsize=(20, 16))
-	ax1=dataframe.plot(column='UNITNAME', edgecolor='#000000',linewidth=0.2, cmap='Set2', ax=ax1)
-	ax2=group_dissolved.plot(edgecolor='#000000', linewidth=0.2, cmap='Set2', legend=True, ax=ax2)
-	plt.figure()
-	group_dissolved.to_file(output_file)
->>>>>>> 18f269d5b06e30f0bde41efb6d24a9220e69d8a6
 	
 debug = True
 self_intersections_fixed = 0
