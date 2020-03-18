@@ -2,9 +2,12 @@
 
 A package to extract information from geological maps to feed 3D modelling packages
 
+## This is very much a proof of concept code that is unlikely to work first time with anything but the example dataset provided, but if you would like to try it with your own data please feel free to contact me at mark.jessell@uwa.edu.au to discuss your plans.   
+
+
 #### What it does:
   
--  Combines information extracted from vector geology maps in various forms to supoprt 3D geological modelling. Outputs are simple csv files that should be readble by any 3D modelling system (I think).
+-  Combines information extracted from vector geology maps in various forms to supoprt 3D geological modelling. Outputs are simple csv files that should be readable by any 3D modelling system (I think).
 
 #### Inputs: (example data supplied) 
    
