@@ -196,7 +196,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
     f.write('#-----------------------Import 3D contact data ---Base Model----\n')
     f.write('#---------------------------------------------------------------\n')
 
-    contacts=pd.read_csv(output_path+'contacts4.csv',',')
+    contacts=pd.read_csv(output_path+'contacts_clean.csv',',')
     all_sorts=pd.read_csv(tmp_path+'all_sorts_clean.csv',',')
     #all_sorts.set_index('code',  inplace = True)
     #display(all_sorts)

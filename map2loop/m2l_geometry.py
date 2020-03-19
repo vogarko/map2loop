@@ -1235,21 +1235,22 @@ def calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed,c_l):
                                         crossings[i,3]=isects.x
                                         crossings[i,4]=isects.y
                                         i=i+1
-                                    if(i>0): #if we found any intersections with base of next higher unit
-                                        min_dist=1e8
-                                        min_pt=0
-                                        for f in range(0,i): #find closest hit
-                                            this_dist=m2l_utils.ptsdist(crossings[f,3],crossings[f,4],cx[k],cy[k])
-                                            if(this_dist<min_dist):
-                                                min_dist=this_dist
-                                                min_pt=f
-                                        if(min_dist<max_thickness_allowed): #if not too far, add to output
-                                            true_thick=sin(radians(dip_mean))*min_dist
-                                            ostr=str(cx[k])+','+str(cy[k])+','+ctextcode[k]+','+str(int(true_thick))+\
-                                                ','+str(cl[k])+','+str(cm[k])+','+str(lm)+','+str(mm)+','+str(nm)+','+\
-                                                str(p1.x)+','+str(p1.y)+','+str(p2.x)+','+str(p2.y)+','+str(dip_mean)+'\n'
-                                            file.write(ostr)
-                                            n_est=n_est+1
+                                
+                                if(i>0): #if we found any intersections with base of next higher unit
+                                    min_dist=1e8
+                                    min_pt=0
+                                    for f in range(0,i): #find closest hit
+                                        this_dist=m2l_utils.ptsdist(crossings[f,3],crossings[f,4],cx[k],cy[k])
+                                        if(this_dist<min_dist):
+                                            min_dist=this_dist
+                                            min_pt=f
+                                    if(min_dist<max_thickness_allowed): #if not too far, add to output
+                                        true_thick=sin(radians(dip_mean))*min_dist
+                                        ostr=str(cx[k])+','+str(cy[k])+','+ctextcode[k]+','+str(int(true_thick))+\
+                                            ','+str(cl[k])+','+str(cm[k])+','+str(lm)+','+str(mm)+','+str(nm)+','+\
+                                            str(p1.x)+','+str(p1.y)+','+str(p2.x)+','+str(p2.y)+','+str(dip_mean)+'\n'
+                                        file.write(ostr)
+                                        n_est=n_est+1
                                 
                 g=g+1
     print(n_est,'thickness estimates saved as',output_path+'formation_thicknesses.csv')
@@ -1476,3 +1477,107 @@ def extract_section(tmp_path,output_path,seismic_line,seismic_bbox,seismic_inter
                                     break
     sf.close()
     sb.close()
+    
+def save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,all_sorts_path):
+    buffer=10000
+    contact_lines = gpd.read_file(basal_path)
+    all_sorts=pd.read_csv(all_sorts_path,",")
+    orientations=pd.read_csv(orientations_path,",")
+    codes=all_sorts['code'].unique()
+    all_sorts.set_index('code',  inplace = True)
+    
+    f=open(path_out+'orientations_polarity.csv','w')
+    f.write("X,Y,Z,azimuth,dip,polarity,formation\n")
+
+    for indx,anori in orientations.iterrows(): # loop through orientations
+        l,m,n=m2l_utils.ddd2dircos(float(anori["dip"]),float(anori["azimuth"])+90.0)
+        l2=l/sqrt((l*l)+(m*m))
+        m2=m/sqrt((l*l)+(m*m))
+        
+        dx1=0
+        dy1=0
+        dx2=m2*buffer
+        dy2=-l2*buffer
+        p1=Point((dx1+float(anori["X"]),dy1+float(anori["Y"])))
+        p2=Point((dx2+float(anori["X"]),dy2+float(anori["Y"])))
+        ddline=LineString((p1,p2))
+        orig = Point((float(anori["X"]),float(anori["Y"])))
+             
+        close_dist=1e9
+        close_fm=''
+        close_x=0
+        close_y=0
+       
+        for indx2,acontact in contact_lines.iterrows():   #loop through distinct linestrings dipdir +180
+            if(acontact["CODE"] in codes):
+                if(not str(acontact.geometry)=='None'):
+                    isects=ddline.intersection(acontact.geometry)
+                    if(isects.geom_type=="MultiPoint"):
+                        for pt in isects: 
+                            if(pt.distance(orig)<buffer*2):
+                                dist=m2l_utils.ptsdist(float(anori["X"]),float(anori["Y"]),pt.x,pt.y)
+                                if(dist<close_dist):
+                                    close_dist=dist
+                                    close_fm=acontact["CODE"]
+                                    close_x=pt.x
+                                    close_y=pt.y
+                                    sign=1
+                    elif(isects.geom_type=="Point"):
+                        if(isects.distance(orig)<buffer*2):
+                            dist=m2l_utils.ptsdist(float(anori["X"]),float(anori["Y"]),isects.x,isects.y)
+                            if(dist<close_dist):
+                                close_dist=dist
+                                close_fm=acontact["CODE"]
+                                close_x=isects.x
+                                close_y=isects.y
+                                sign=1
+
+        dx2=-m2*buffer
+        dy2=l2*buffer
+        p1=Point((dx1+float(anori["X"]),dy1+float(anori["Y"])))
+        p2=Point((dx2+float(anori["X"]),dy2+float(anori["Y"])))
+        ddline=LineString((p1,p2))
+
+        for indx2,acontact in contact_lines.iterrows():   #loop through distinct linestrings dipdir
+            if(acontact["CODE"] in codes):
+                if(not str(acontact.geometry)=='None'):
+                    isects=ddline.intersection(acontact.geometry)
+                    if(isects.geom_type=="MultiPoint"):
+                        for pt in isects: 
+                            if(pt.distance(orig)<buffer*2):
+                                dist=m2l_utils.ptsdist(float(anori["X"]),float(anori["Y"]),pt.x,pt.y)
+                                if(dist<close_dist):
+                                    close_dist=dist
+                                    close_fm=acontact["CODE"]
+                                    close_x=pt.x
+                                    close_y=pt.y
+                                    sign=0
+                    elif(isects.geom_type=="Point"):
+                        if(isects.distance(orig)<buffer*2):
+                            dist=m2l_utils.ptsdist(float(anori["X"]),float(anori["Y"]),isects.x,isects.y)
+                            if(dist<close_dist):
+                                close_dist=dist
+                                close_fm=acontact["CODE"]
+                                close_x=isects.x
+                                close_y=isects.y
+                                sign=0
+
+        if(not close_fm ==''):
+            #print(sign,anori["formation"],close_fm,int(all_sorts.loc[anori["formation"]]["index"]),int(all_sorts.loc[close_fm]["index"]))
+            if(sign==1):
+                if(int(all_sorts.loc[anori["formation"]]["index"])<=int(all_sorts.loc[close_fm]["index"]) and close_dist < buffer*2):
+                    polarity=1
+                else:
+                    polarity=0
+            else:
+                if(int(all_sorts.loc[anori["formation"]]["index"])<int(all_sorts.loc[close_fm]["index"]) and close_dist < buffer*2):
+                    polarity=0
+                else:
+                    polarity=1                
+        else: #failed to find contact close enough defined by buffer
+            polarity=-999
+        
+        ostr=str(anori['X'])+","+str(anori['Y'])+","+str(anori['Z'])+","+str(anori['azimuth'])+","+str(anori['dip'])+","+str(polarity)+","+str(anori['formation'])+"\n"
+        f.write(ostr)
+    f.close()                                    
+    print('orientations saved to',path_out+'orientations_polarity.csv')
