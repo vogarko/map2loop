@@ -54,12 +54,14 @@ A recent workshop as part of the Loop/MinEx CRC collaborations provides a tutori
 | Local formation thickness estimates | \*/output/formation_thicknesses_norm.csv and formation_summary_thickness.csv| m2l_geometry. calc_thickness and normalise_thickness|  2 |
 | Fault dimensions | \*/output/fault_dimensions.csv | m2l_geometry. save_faults |  1 |
 | Fault displacements | \*/output/fault_displacement3.csv | Notebook 6 |  6 |
+| Fault strat & thickness-based displacements | \*/output/fault_strat_offset3.csv | m2l_geometry. fault_strat_offset  |  1c |
 
 ##### Orientations:
 
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
 | Bed dip dd data with z and formation | \*/output/orientations.csv or orientations_clean.csv| m2l_geometry. save_orientations |  1 |
+| Bed dip dd data with calculated polarity | \*/output/orientations_polarity.csv | m2l_geometry. save_orientations_with_polarity |  1c |
 | Extra orientations for empty series | \*/output/empty_series_orientations.csv | m2l_geometry. create_orientations |  1 |
 | Fault orientation with z | \*/output/fault_orientations.csv |  m2l_geometry. save_faults |  1 |
 | Clipped orientations shapefile | \*/tmp/structure_clip.shp | Notebook 1 |  1 |
