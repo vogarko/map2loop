@@ -1477,6 +1477,21 @@ def extract_section(tmp_path,output_path,seismic_line,seismic_bbox,seismic_inter
                                     break
     sf.close()
     sb.close()
+
+####################################################
+# Calculate polarity of bedding:
+# save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,all_sorts_path)
+# Args:
+# orientations_path path to orientations file
+# path_out path to output directory
+# c_l dictionary of codes and labels specific to input geo information layers
+# basal_path path to basal contacts file
+# all_sorts_path path to all_sorted_formations file
+#
+# -999 means couldn't calculate polarity
+# 0 means inverted
+# 1 means normal polarity
+###################################################
     
 def save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,all_sorts_path):
     buffer=10000
@@ -1581,7 +1596,23 @@ def save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,al
         f.write(ostr)
     f.close()                                    
     print('orientations saved to',path_out+'orientations_polarity.csv')
-
+    
+    
+####################################################
+# Calculate stratigraphic and absolute minimum stratigraphic offset of faults:
+# fault_strat_offset(path_out,c_l,dst_crs,fm_thick_file, all_sorts_file,fault_file,geol_file,fault_dim_file)# Args:
+# orientations_path path to orientations file
+# path_out path to output directory
+# c_l dictionary of codes and labels specific to input geo information layers
+# dst_crs Coordinate Reference System of vector files
+# fm_thick_file path to summary formation thicknesses file
+# fault_file path to fault shapefile
+# geol_file path to geology polygon shapefile
+# fault_dim_file path to fault dimensions file
+#
+# Stratigraphic offset is the difference in stratigraphically sorted indices of formations across a fault 
+# Absolute minimum stratigraphic ossfet is based on the calculated formation thicknesses seprarating two units across a fault
+###################################################
 def fault_strat_offset(path_out,c_l,dst_crs,fm_thick_file, all_sorts_file,fault_file,geol_file,fault_dim_file):
     
     fm_thick=pd.read_csv(fm_thick_file,",",index_col=False)
