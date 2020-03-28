@@ -1478,6 +1478,21 @@ def extract_section(tmp_path,output_path,seismic_line,seismic_bbox,seismic_inter
                                     break
     sf.close()
     sb.close()
+
+####################################################
+# Calculate polarity of bedding:
+# save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,all_sorts_path)
+# Args:
+# orientations_path path to orientations file
+# path_out path to output directory
+# c_l dictionary of codes and labels specific to input geo information layers
+# basal_path path to basal contacts file
+# all_sorts_path path to all_sorted_formations file
+#
+# -999 means couldn't calculate polarity
+# 0 means inverted
+# 1 means normal polarity
+###################################################
     
 def save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,all_sorts_path):
     buffer=10000
@@ -1582,3 +1597,130 @@ def save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,al
         f.write(ostr)
     f.close()                                    
     print('orientations saved to',path_out+'orientations_polarity.csv')
+    
+    
+####################################################
+# Calculate stratigraphic and absolute minimum stratigraphic offset of faults:
+# fault_strat_offset(path_out,c_l,dst_crs,fm_thick_file, all_sorts_file,fault_file,geol_file,fault_dim_file)# Args:
+# orientations_path path to orientations file
+# path_out path to output directory
+# c_l dictionary of codes and labels specific to input geo information layers
+# dst_crs Coordinate Reference System of vector files
+# fm_thick_file path to summary formation thicknesses file
+# fault_file path to fault shapefile
+# geol_file path to geology polygon shapefile
+# fault_dim_file path to fault dimensions file
+#
+# Stratigraphic offset is the difference in stratigraphically sorted indices of formations across a fault 
+# Absolute minimum stratigraphic ossfet is based on the calculated formation thicknesses seprarating two units across a fault
+###################################################
+def fault_strat_offset(path_out,c_l,dst_crs,fm_thick_file, all_sorts_file,fault_file,geol_file,fault_dim_file):
+    
+    fm_thick=pd.read_csv(fm_thick_file,",",index_col=False)
+    formations=fm_thick['formation'].unique()
+    all_sorts=pd.read_csv(all_sorts_file,",")
+    codes=all_sorts['code'].unique()
+    faults = gpd.read_file(fault_file)
+    geology = gpd.read_file(geol_file)
+    
+    als_thick=[["index","group number","index in group","number in group","code","group","uctype","thickness median"]]
+    index=0
+    for ias,als in all_sorts.iterrows():
+        found=False
+        for ifm,fm in fm_thick.iterrows():
+            if (als["code"]==fm["formation"]):
+                als_thick+=[[index,als["group number"],als["index in group"],als["number in group"],als["code"],als["group"],"erode",fm["thickness median"]]]
+                index=index+1
+                found=True
+                break
+        if(not found):
+            als_thick+=[[index,als["group number"],als["index in group"],als["number in group"],als["code"],als["group"],"erode",0]]
+            index=index+1
+            
+    column_names = als_thick.pop(0)
+    new_als = pd.DataFrame(als_thick, columns=column_names)
+    fm_no=len(new_als)
+    
+    #create and fill array proving mimimum displacement for all possible strat combinations
+    fm_thick_arr=np.zeros((fm_no,fm_no))
+    
+    for i in range(0,fm_no-1):
+        thick_diff=0
+        fm_thick_arr[i,0]=0
+        fm_thick_arr[i,1]=0
+        
+        for j in range (i+1,fm_no-1):
+            thick_diff=thick_diff+new_als.iloc[j]['thickness median']
+            fm_thick_arr[i,j+1]=thick_diff
+                    
+    np.savetxt(path_out+'fault_strat_offset_array.csv',fm_thick_arr,delimiter=',') 
+
+    new_als.set_index('code',  inplace = True)
+    display(new_als)
+
+    all_long_faults=np.genfromtxt(fault_dim_file,delimiter=',',dtype='U25')
+    fault_names=all_long_faults[1:,:1]
+
+    f=open(path_out+'fault_strat_offset3.csv','w')
+    f.write('X,Y,id,left_fm,right_fm,min_offset,strat_offset\n')
+    
+    for index,fault in faults.iterrows():
+        if('Fault_'+str(fault[c_l['o']]) in fault_names):
+            lcoords=[]
+            rcoords=[]
+            index=[]
+            for i in range (0,len(fault.geometry.coords)-1):
+                midx=fault.geometry.coords[i][0]+((fault.geometry.coords[i+1][0]-fault.geometry.coords[i][0])/2.0)            
+                midy=fault.geometry.coords[i][1]+((fault.geometry.coords[i+1][1]-fault.geometry.coords[i][1])/2.0)
+                l,m=m2l_utils.pts2dircos(fault.geometry.coords[i][0],fault.geometry.coords[i][1],fault.geometry.coords[i+1][0],fault.geometry.coords[i+1][1])
+                lcoords.append([(midx+(10*m),midy-(10*l))])
+                rcoords.append([(midx-(10*m),midy+(10*l))])
+                index.append([(i)])
+            lgeom=[Point(xy) for xy in lcoords]        
+            rgeom=[Point(xy) for xy in rcoords]
+            lgdf = GeoDataFrame(index, crs=dst_crs, geometry=lgeom)
+            rgdf = GeoDataFrame(index, crs=dst_crs, geometry=rgeom)
+            lcode = gpd.sjoin(lgdf, geology, how="left", op="within")        
+            rcode = gpd.sjoin(rgdf, geology, how="left", op="within")
+            
+            for i in range (0,len(fault.geometry.coords)-1):
+                lcode_fm=lcode.iloc[i]["CODE"].replace("-","_").replace("\n","")
+                rcode_fm=rcode.iloc[i]["CODE"].replace("-","_").replace("\n","")
+                
+                if(lcode_fm in codes and rcode_fm in codes and lcode_fm in formations and rcode_fm in formations ):            
+                    midx=lcode.iloc[i].geometry.x+((rcode.iloc[i].geometry.x-lcode.iloc[i].geometry.x)/2)
+                    midy=lcode.iloc[i].geometry.y+((rcode.iloc[i].geometry.y-lcode.iloc[i].geometry.y)/2)
+
+                    fm_l= int(new_als.loc[lcode_fm]["index"])
+                    fm_r= int(new_als.loc[rcode_fm]["index"])
+
+                    if(fm_l>fm_r):
+                        t=fm_l
+                        fm_l=fm_r
+                        fm_r=t
+                    diff=fm_r-fm_l
+                    number_string = str(diff)
+                    diff = number_string.zfill(3)
+                    
+                    ostr=str(midx)+','+str(midy)+','+str('Fault_'+str(fault[c_l['o']]))+','+str(lcode_fm)+','+str(rcode_fm)+','+str(fm_thick_arr[fm_l,fm_r])+","+str(diff)+'\n'
+                elif(lcode_fm in codes and rcode_fm in codes):
+                    midx=lcode.iloc[i].geometry.x+((rcode.iloc[i].geometry.x-lcode.iloc[i].geometry.x)/2)
+                    midy=lcode.iloc[i].geometry.y+((rcode.iloc[i].geometry.y-lcode.iloc[i].geometry.y)/2)
+
+                    fm_l= int(new_als.loc[lcode_fm]["index"])
+                    fm_r= int(new_als.loc[rcode_fm]["index"])
+
+                    if(fm_l>fm_r):
+                        t=fm_l
+                        fm_l=fm_r
+                        fm_r=t
+                    diff=fm_r-fm_l
+                    number_string = str(diff)
+                    diff = number_string.zfill(3)
+                    ostr=str(midx)+','+str(midy)+','+str('Fault_'+str(fault[c_l['o']]))+','+str(lcode_fm)+','+str(rcode_fm)+','+str('-1')+","+str(diff)+'\n'
+                else:
+                    ostr=str(midx)+','+str(midy)+','+str('Fault_'+str(fault[c_l['o']]))+','+str('')+','+str('')+','+str('-1')+','+str('-1')+'\n'
+                    
+                f.write(ostr)  
+    f.close()
+    print('minumim stratigraphic offsets saved as',path_out+'fault_strat_offset3.csv' )

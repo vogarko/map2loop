@@ -11,7 +11,7 @@ from rasterio import features
 import re    #typo? check
 from urllib.request import urlopen
 from IPython.display import Image
-from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow, acos
+from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow, acos, fmod
 from owslib.wcs import WebCoverageService
 from osgeo import gdal
 
@@ -593,7 +593,7 @@ def tri_angle(p1x,p1y,p2x,p2y,p3x,p3y):
     return(angle)
 
 ###########################################
-# plot_points
+# plot_points on map
 ###########################################
 
 def plot_points(point_source,geol_clip, colour_code,x_code,y_code,legend):
@@ -605,3 +605,82 @@ def plot_points(point_source,geol_clip, colour_code,x_code,y_code,legend):
     base=geol_clip.plot(color='white',figsize=(7,7),edgecolor='#000000',linewidth=0.2)
     plot2 = thick.plot(ax=base, column=colour_code, markersize=15,cmap='rainbow',legend=legend)
     plot2 = plot2.figure; plot2.tight_layout()
+
+###########################################
+# plot bedding stereonets
+###########################################
+    
+def plot_bedding_stereonets(orientations,all_sorts):
+    import mplstereonet
+    import matplotlib.pyplot as plt
+    
+    groups=all_sorts['group'].unique()
+
+    fig, ax = mplstereonet.subplots(figsize=(7,7))
+    strikes = orientations["azimuth"].values -90
+    dips = orientations["dip"].values
+    cax = ax.density_contourf(strikes, dips, measurement='poles')
+    ax.pole(strikes, dips, markersize=5, color='w')
+    ax.grid(True)
+    text = ax.text(2.2, 1.37, "All data", color='b')
+    plt.show()
+
+    for gp in groups:
+        all_sorts2=all_sorts[all_sorts["group"]==gp]
+        all_sorts2.set_index("code",  inplace = True)
+
+        frames={}
+        first=True
+        for indx,as2 in all_sorts2.iterrows():
+            orientations2=orientations[orientations["formation"]==indx]
+            if(first):
+                first=False
+                all_orientations=orientations2.copy()
+            else:
+                all_orientations=pd.concat([all_orientations,orientations2],sort=False)
+
+        if(len(all_orientations)>0):
+            print("----------------------------------------------------------------------------------------------------------------------")
+            print(gp,"observations n=",len(all_orientations))
+            fig, ax = mplstereonet.subplots(figsize=(5,5))
+            strikes = all_orientations["azimuth"].values -90
+            dips = all_orientations["dip"].values
+            cax = ax.density_contourf(strikes, dips, measurement='poles')
+            ax.pole(strikes, dips, markersize=5, color='w')
+            ax.grid(True)
+            text = ax.text(2.2, 1.37,gp, color='b')
+            plt.show()
+
+    for gp in groups:
+        all_sorts2=all_sorts[all_sorts["group"]==gp]
+        all_sorts2.set_index("code",  inplace = True)
+
+        print("----------------------------------------------------------------------------------------------------------------------")
+        print(gp)
+        #display(all_sorts2)
+        ind=0
+
+        for indx,as2 in all_sorts2.iterrows():
+            ind2=int(fmod(ind,3))
+            orientations2=orientations[orientations["formation"]==indx]
+            print(indx,"observations n=",len(orientations2))
+            #display(orientations2)
+            if(len(orientations2)>0):
+                if(ind2==0):
+                    fig, ax = mplstereonet.subplots(1,3,figsize=(15,15))
+                strikes = orientations2["azimuth"].values -90
+                dips = orientations2["dip"].values
+
+                cax = ax[ind2].density_contourf(strikes, dips, measurement='poles')
+                ax[ind2].pole(strikes, dips, markersize=5, color='w')
+                ax[ind2].grid(True)
+                #fig.colorbar(cax)
+                text = ax[ind2].text(2.2, 1.37, indx, color='b')
+
+                if(ind2==2):
+                    plt.show()
+
+                ind=ind+1
+
+        if(ind>0 and not ind2==2):
+            plt.show()
