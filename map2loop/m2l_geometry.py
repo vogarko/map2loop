@@ -63,6 +63,7 @@ def save_orientations(structures,path_out,c_l,orientation_decimate,dtm):
 # (if there is one) but don't do this yet.
 ####################################################
 def create_orientations( path_in, path_out,dtm,geology,structures,c_l):
+    """Create orientations if there is a series that does not have one."""
     #f=open(path_in+'/groups.csv',"r")
     #contents =f.readlines()
     #f.close
