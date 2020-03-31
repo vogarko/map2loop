@@ -20,7 +20,7 @@ def test_loop2gempy():
     dtm_path = test_data_path + 'dtm/'
     dtm_reproj_file = dtm_path + 'dtm_rp.tif'
 
-    geo_model = m2l_export.loop2gempy_pro(test_data_name, tmp_path, vtk_path, output_path + 'orientations_clean.csv',
-                                          output_path + 'contacts_clean.csv', tmp_path + 'groups_clean.csv',
-                                          bbox, model_base, model_top, vtk=False, dtm_reproj_file=dtm_reproj_file,
-                                          verbose=False)
+    geo_model = m2l_export.loop2gempy(test_data_name, tmp_path, vtk_path, output_path + 'orientations_clean.csv',
+                                      output_path + 'contacts_clean.csv', tmp_path + 'groups_clean.csv',
+                                      bbox, model_base, model_top, vtk=False, dtm_reproj_file=dtm_reproj_file,
+                                      verbose=False)

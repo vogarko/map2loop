@@ -543,11 +543,29 @@ def loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox):
 #
 # Calculates model and displays in external vtk viewer
 ##########################################################################
-def loop2gempy_pro(test_data_name: str, tmp_path: str, vtk_path: str, orientations_file: str,
-                   contacts_file: str, groups_file:str,
-                   bbox: tuple, model_base: float, model_top:float, vtk: bool, dtm_reproj_file:str = None,
-                   ve=None,
-                   verbose: bool = False, compute: bool = True):
+def loop2gempy(test_data_name: str, tmp_path: str, vtk_path: str, orientations_file: str,
+               contacts_file: str, groups_file:str,
+               bbox: tuple, model_base: float, model_top: float, vtk: bool, dtm_reproj_file:str = None,
+               va=None,
+               verbose: bool = False, compute: bool = True):
+    """
+
+    :param test_data_name:
+    :param tmp_path:
+    :param vtk_path:
+    :param orientations_file:
+    :param contacts_file:
+    :param groups_file:
+    :param bbox:
+    :param model_base:
+    :param model_top:
+    :param vtk:
+    :param dtm_reproj_file:
+    :param va: vertical anisotropy. Factor by which all Z coordinates are multiplied by
+    :param verbose:
+    :param compute:
+    :return:
+    """
     import gempy as gp
     from gempy import plot
 
@@ -555,20 +573,20 @@ def loop2gempy_pro(test_data_name: str, tmp_path: str, vtk_path: str, orientatio
 
     # If depth coordinates are much smaller than XY the whole system of equations becomes very unstable. Until
     # I fix it properly in gempy this is a handcrafted hack
-    if ve is None:
-        ve = (bbox[0] - bbox[2]) / (model_base - model_top)
+    if va is None:
+        va = (bbox[0] - bbox[2]) / (model_base - model_top)/2
 
-        if ve < 3:
-            ve = 0
+        if va < 3:
+            va = 0
         else:
-            print('The vertical exageration is: ', ve)
+            print('The vertical exageration is: ', va)
 
-    gp.init_data(geo_model, extent=[bbox[0], bbox[2], bbox[1], bbox[3], model_base * ve, model_top * ve],
+    gp.init_data(geo_model, extent=[bbox[0], bbox[2], bbox[1], bbox[3], model_base * va, model_top * va],
                  resolution=(50, 50, 50),
                  path_o=orientations_file,
                  path_i=contacts_file)
 
-    geo_model.modify_surface_points(geo_model.surface_points.df.index, Z=geo_model.surface_points.df['Z']*ve)
+    geo_model.modify_surface_points(geo_model.surface_points.df.index, Z=geo_model.surface_points.df['Z'] * va)
 
     if dtm_reproj_file is not None:
         # Load reprojected topography to model
@@ -577,7 +595,7 @@ def loop2gempy_pro(test_data_name: str, tmp_path: str, vtk_path: str, orientatio
         geo_model.set_topography(source='gdal', filepath=fp)
 
         # Rescaling topography:
-        geo_model.grid.topography.values[:, 2] *= ve
+        geo_model.grid.topography.values[:, 2] *= va
         geo_model.grid.update_grid_values()
         geo_model.update_from_grid()
 
@@ -628,8 +646,8 @@ def loop2gempy_pro(test_data_name: str, tmp_path: str, vtk_path: str, orientatio
     return geo_model
 
 
-def loop2gempy(test_data_name,tmp_path,vtk_path,orientations_file,contacts_file,groups_file,dtm_reproj_file,
-               bbox,model_base, model_top,vtk):
+def loop2gempy_(test_data_name, tmp_path, vtk_path, orientations_file, contacts_file, groups_file, dtm_reproj_file,
+                bbox, model_base, model_top, vtk):
     import gempy as gp
     from gempy import plot
     geo_model = gp.create_model(test_data_name)
