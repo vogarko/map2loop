@@ -574,7 +574,7 @@ def loop2gempy(test_data_name: str, tmp_path: str, vtk_path: str, orientations_f
     # If depth coordinates are much smaller than XY the whole system of equations becomes very unstable. Until
     # I fix it properly in gempy this is a handcrafted hack
     if va is None:
-        va = (bbox[0] - bbox[2]) / (model_base - model_top)/2
+        va = (float(bbox[0]) - float(bbox[2])) / (model_base - model_top)/2
 
         if va < 3:
             va = 0
