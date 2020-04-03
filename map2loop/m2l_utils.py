@@ -11,7 +11,7 @@ from rasterio import features
 import re    #typo? check
 from urllib.request import urlopen
 from IPython.display import Image
-from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow, acos, fmod
+from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow, acos, fmod, fabs
 from owslib.wcs import WebCoverageService
 from osgeo import gdal
 
@@ -587,8 +587,11 @@ def tri_angle(p1x,p1y,p2x,p2y,p3x,p3y):
       
     numerator=pow(p12,2.0)+pow(p13,2.0)-pow(p23,2.0)
     divisor=2*p12*p13
-    
-    angle=degrees(acos(numerator/divisor))
+
+    if(fabs(numerator/divisor)>1.0 ):
+        angle=0.0
+    else:
+        angle=degrees(acos(numerator/divisor))
     
     return(angle)
 

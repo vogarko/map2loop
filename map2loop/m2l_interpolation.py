@@ -605,18 +605,25 @@ def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_repro
     f.write('x,y,dip,dipdirection,misorientation,dotproduct\n')
 
     for i in range(0,len(lc)):
+        #print(mc[i,2],lc[i,2],lo[i,2],mo[i,2],no[i,2])
         scale=sqrt(1-pow(no[i,2],2)) #scaling contact dircos to *include* dip info
         lcscaled=scale*-mc[i,2] #includes 90 rotation to account for orthogonality of contact and dip direction
         mcscaled=scale*lc[i,2]
         scale2=sqrt(pow(lo[i,2],2)+pow(mo[i,2],2)) #scaling dip dipdir dircos to *exclude* dip info
-        loscaled=lo[i,2]/scale2
-        moscaled=mo[i,2]/scale2
+        if(scale2>0.0):
+            loscaled=lo[i,2]/scale2
+            moscaled=mo[i,2]/scale2
+        else:
+            loscaled=0
+            moscaled=0
         dotproduct=(-mc[i,2]*loscaled)+(lc[i,2]*moscaled) #includes 90 rotation to account for orthogonality of contact and dip direction
         if(dotproduct<0):
             lcscaled=-lcscaled
             mcscaled=-mcscaled
+
         misorientation=degrees(acos(dotproduct))
         dip,dipdir=m2l_utils.dircos2ddd(lcscaled,mcscaled,no[i,2])
+        
         ostr=str(xy[i,0])+','+str(xy[i,1])+','+str(int(dip))+','+str(int(dipdir))+','+str(int(misorientation))+','+str(dotproduct)+'\n'
         f.write(ostr)
     f.close()   
@@ -648,7 +655,7 @@ def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_repro
         ostr=ostr+str(a_point[1]['y'])+','
         ostr=ostr+str(height)+','+str(int(a_point[1]['dipdirection']))+','
         ostr=ostr+str(int(a_point[1]['dip']))+',1,'
-        ostr=ostr+str(a_point[1][c_l['c']]).replace("-","_")+'\n'
+        ostr=ostr+str(a_point[1][c_l['c']]).replace("-","_").replace(" ","_")+'\n'
 
         if(not str(a_point[1][c_l['c']])=='nan'):
             f.write(ostr)
@@ -862,14 +869,20 @@ def process_fault_throw_and_near_orientations(tmp_path,output_path,dtm_reproj_fi
             lastrcode=''
             for indl in lcode.iterrows():
                 if(indl[0]<len(lcode)):
-                    if((not indl[1][c_l['c']]==lastlcode) and ((not c_l['sill'] in indl[1][c_l['ds']]) or (not c_l['intrusive'] in indl[1][c_l['r1']] ))):
-                        lcontact.append([(indl[0],lastlcode,indl[1][c_l['c']])])
-                    lastlcode=indl[1][c_l['c']]
+                    ntest1=str(indl[1][c_l['ds']])
+                    ntest2=str(indl[1][c_l['r1']])
+                    if(not ntest1 == 'None' and not ntest2 == 'None' ):
+                        if((not indl[1][c_l['c']]==lastlcode) and ((not c_l['sill'] in indl[1][c_l['ds']]) or (not c_l['intrusive'] in indl[1][c_l['r1']] ))):
+                            lcontact.append([(indl[0],lastlcode,indl[1][c_l['c']])])
+                        lastlcode=indl[1][c_l['c']]
             for indr in rcode.iterrows():
                 if(indr[0]<len(rcode)):
-                    if((not indr[1][c_l['c']]==lastlcode) and ((not c_l['sill'] in indr[1][c_l['ds']]) or (not c_l['intrusive'] in indr[1][c_l['r1']] ))):
-                        rcontact.append([(indr[0],lastrcode,indr[1][c_l['c']])]) 
-                    lastrcode=indr[1][c_l['c']]
+                    ntest1=str(indr[1][c_l['ds']])
+                    ntest2=str(indr[1][c_l['r1']])
+                    if(not ntest1 == 'None' and not ntest2 == 'None' ):
+                        if((not indr[1][c_l['c']]==lastlcode) and ((not c_l['sill'] in indr[1][c_l['ds']]) or (not c_l['intrusive'] in indr[1][c_l['r1']] ))):
+                            rcontact.append([(indr[0],lastrcode,indr[1][c_l['c']])]) 
+                        lastrcode=indr[1][c_l['c']]
 
             for lc in lcontact:
                 for rc in rcontact:

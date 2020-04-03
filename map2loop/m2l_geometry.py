@@ -1,5 +1,5 @@
 from shapely import geometry
-from shapely.geometry import shape, Polygon, LineString, Point
+from shapely.geometry import shape, Polygon, LineString, Point, MultiLineString
 import matplotlib.pyplot as plt
 import requests
 import rasterio
@@ -202,7 +202,7 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,c_l,intrusion_mod
     i=0
     all_geom=m2l_utils.explode(geol_clip)
 
-    #print(type(all_geom))
+
 
     for ageol in all_geom.iterrows(): # central polygon
         all_coords=extract_poly_coords(ageol[1].geometry,0)
@@ -238,99 +238,105 @@ def save_basal_contacts(path_in,dtm,geol_clip,contact_decimate,c_l,intrusion_mod
     id=0
     #print(len(plist))
     for a_poly in range(0,len(plist),7):
-        if( not 'intrusive' in plist[a_poly+5]):
-            a_polygon=Polygon(plist[a_poly+1])
-            agp=str(plist[a_poly+4])
-            if(agp=='None'):
-                agp=plist[a_poly+2].replace(" ","_").replace("-","_")
+        ntest1=str(plist[a_poly+5])
+        ntest2=str(plist[a_poly+3])
+        if(not ntest1 == 'None' and not ntest2 == 'None' ):
+            if( not 'intrusive' in plist[a_poly+5]):
+                a_polygon=Polygon(plist[a_poly+1])
+                agp=str(plist[a_poly+4])
+                if(agp=='None'):
+                    agp=plist[a_poly+2].replace(" ","_").replace("-","_")
 
-            neighbours=[]
-            j+=1
-            out=[item for item in ulist if plist[a_poly+2].replace(" ","_").replace("-","_") in item]
-            if(len(out)>0):
-                central=out[0][0]    #relative age of central polygon
+                neighbours=[]
+                j+=1
+                out=[item for item in ulist if plist[a_poly+2].replace(" ","_").replace("-","_") in item]
+                if(len(out)>0):
+                    central=out[0][0]    #relative age of central polygon
 
-                for b_poly in range(0,len(plist),7):
-                    b_polygon=LineString(plist[b_poly+1])
+                    for b_poly in range(0,len(plist),7):
+                        b_polygon=LineString(plist[b_poly+1])
+                        ntest1=str(plist[b_poly+5])
+                        ntest2=str(plist[b_poly+3])
+                        if(not ntest1 == 'None' and not ntest2 == 'None' ):
 
-                    if(plist[a_poly] != plist[b_poly]): #do not compare with self
+                            if(plist[a_poly] != plist[b_poly]): #do not compare with self
 
-                        if (a_polygon.intersects(b_polygon)) : # is a neighbour, but not a sill
-                           if(  (not c_l['sill'] in plist[b_poly+3] or not c_l['intrusive'] in plist[b_poly+5]) and intrusion_mode==0): #intrusion_mode=0 (sills only excluded)
-                                 neighbours.append((b_poly))                               
-                           elif((not c_l['intrusive'] in plist[b_poly+5])  and intrusion_mode==1): #intrusion_mode=1 (all intrusions  excluded)
-                                 neighbours.append((b_poly))                               
+                                if (a_polygon.intersects(b_polygon)) : # is a neighbour, but not a sill
+                                    if(  (not c_l['sill'] in plist[b_poly+3] or not c_l['intrusive'] in plist[b_poly+5]) and intrusion_mode==0): #intrusion_mode=0 (sills only excluded)
+                                         neighbours.append((b_poly))                               
+                                    elif((not c_l['intrusive'] in plist[b_poly+5])  and intrusion_mode==1): #intrusion_mode=1 (all intrusions  excluded)
+                                         neighbours.append((b_poly))                               
 
 
-                if(len(neighbours) >0):
-                    for i in range (0,len(neighbours)):
-                        b_polygon=LineString(plist[neighbours[i]+1])
+                    if(len(neighbours) >0):
+                        for i in range (0,len(neighbours)):
+                            b_polygon=LineString(plist[neighbours[i]+1])
 
-                        out=[item for item in ulist if plist[neighbours[i]+2].replace(" ","_").replace("-","_")  in item]
+                            out=[item for item in ulist if plist[neighbours[i]+2].replace(" ","_").replace("-","_")  in item]
 
-                        if(len(out)>0):
-                            #if(out[0][0] > central and out[0][0] < youngest_older): # neighbour is older than central, and younger than previous candidate
-                            if(out[0][0] > central  ): # neighbour is older than central
+                            if(len(out)>0):
+                                #if(out[0][0] > central and out[0][0] < youngest_older): # neighbour is older than central, and younger than previous candidate
+                                if(out[0][0] > central  ): # neighbour is older than central
 
-                                if(not a_polygon.is_valid ):
-                                    a_polygon = a_polygon.buffer(0)
-                                if(not b_polygon.is_valid):
-                                    b_polygon = b_polygon.buffer(0)                                    
-                                LineStringC = a_polygon.intersection(b_polygon)
+                                    if(not a_polygon.is_valid ):
+                                        a_polygon = a_polygon.buffer(0)
+                                    if(not b_polygon.is_valid):
+                                        b_polygon = b_polygon.buffer(0)                                    
+                                    LineStringC = a_polygon.intersection(b_polygon)
 
-                                if(LineStringC.wkt.split(" ")[0]=='GEOMETRYCOLLECTION' ): #ignore weird intersections for now, worry about them later!
-                                    #print("debug:GC")
-                                    continue
-                                elif(LineStringC.wkt.split(" ")[0]=='MULTIPOLYGON' or
-                                     LineStringC.wkt.split(" ")[0]=='POLYGON'):
-                                         print("debug:MP,P",ageol[1][c_l['c']])
+                                    if(LineStringC.wkt.split(" ")[0]=='GEOMETRYCOLLECTION' ): #ignore weird intersections for now, worry about them later!
+                                        #print("debug:GC")
+                                        continue
+                                    elif(LineStringC.wkt.split(" ")[0]=='MULTIPOLYGON' or
+                                         LineStringC.wkt.split(" ")[0]=='POLYGON'):
+                                             print("debug:MP,P",ageol[1][c_l['c']])
 
-                                elif(LineStringC.wkt.split(" ")[0]=='MULTILINESTRING'):
-                                    k=0
+                                    elif(LineStringC.wkt.split(" ")[0]=='MULTILINESTRING'):
+                                        k=0
 
-                                    if(str(plist[a_poly+4])=='None'):
-                                        ls_dict[id] = {"id": id,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": LineStringC}
-                                    else:
-                                        ls_dict[id] = {"id": id,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": LineStringC}
-                                    id=id+1
-                                    for lineC in LineStringC: #process all linestrings
-                                        if(m2l_utils.mod_safe(k,contact_decimate)==0 or k==int((len(LineStringC)-1)/2) or k==len(LineStringC)-1): #decimate to reduce number of points, but also take second and third point of a series to keep gempy happy
-                                            locations=[(lineC.coords[0][0],lineC.coords[0][1])] #doesn't like point right on edge?
-                                            if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
-                                               lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
+                                        if(str(plist[a_poly+4])=='None'):
+                                            ls_dict[id] = {"id": id,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": LineStringC}
+                                        else:
+                                            ls_dict[id] = {"id": id,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": LineStringC}
+                                        id=id+1
+                                        for lineC in LineStringC: #process all linestrings
+                                            if(m2l_utils.mod_safe(k,contact_decimate)==0 or k==int((len(LineStringC)-1)/2) or k==len(LineStringC)-1): #decimate to reduce number of points, but also take second and third point of a series to keep gempy happy
+                                                locations=[(lineC.coords[0][0],lineC.coords[0][1])] #doesn't like point right on edge?
+                                                if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
+                                                   lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
+                                                        height=m2l_utils.value_from_raster(dtm,locations)
+                                                        ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(plist[a_poly+2].replace(" ","_").replace("-","_"))+"\n"
+                                                        ac.write(ostr)
+                                                        allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
+                                                        if(str(plist[a_poly+4])=='None'):
+                                                            ls_dict_decimate[deci_points] = {"id": allpts,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                        else:
+                                                            ls_dict_decimate[deci_points] = {"id": allpts,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                        allpts+=1 
+                                                        deci_points=deci_points+1
+                                                else:
+                                                    continue
+                                                    #print("debug:edge points")
+                                            else:
+                                                locations=[(lineC.coords[0][0]+0.0000001,lineC.coords[0][1])] #doesn't like point right on edge?
+                                                if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
+                                                    lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
                                                     height=m2l_utils.value_from_raster(dtm,locations)
                                                     ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(plist[a_poly+2].replace(" ","_").replace("-","_"))+"\n"
-                                                    ac.write(ostr)
                                                     allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
-                                                    if(str(plist[a_poly+4])=='None'):
-                                                        ls_dict_decimate[deci_points] = {"id": allpts,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+2].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
-                                                    else:
-                                                        ls_dict_decimate[deci_points] = {"id": allpts,c_l['c']:plist[a_poly+2].replace(" ","_").replace("-","_"),c_l['g']:plist[a_poly+4].replace(" ","_").replace("-","_"), "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
-                                                    allpts+=1 
-                                                    deci_points=deci_points+1
-                                            else:
-                                                continue
-                                                #print("debug:edge points")
-                                        else:
-                                            locations=[(lineC.coords[0][0]+0.0000001,lineC.coords[0][1])] #doesn't like point right on edge?
-                                            if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
-                                                lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
-                                                height=m2l_utils.value_from_raster(dtm,locations)
-                                                ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+str(plist[a_poly+2].replace(" ","_").replace("-","_"))+"\n"
-                                                allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
-                                                allpts+=1    
+                                                    allpts+=1    
+                                            k+=1
+                                    elif(LineStringC.wkt.split(" ")[0]=='LINESTRING'): # apparently this is not needed
+                                        k=0
+                                        for pt in LineStringC.coords: #process one linestring
+                                            k+=1
+                                    elif(LineStringC.wkt.split(" ")[0]=='POINT'): # apparently this is not needed
+                                        #print("debug:POINT")
+                                        k=0
                                         k+=1
-                                elif(LineStringC.wkt.split(" ")[0]=='LINESTRING'): # apparently this is not needed
-                                    k=0
-                                    for pt in LineStringC.coords: #process one linestring
+                                    else:
+                                        k=0
                                         k+=1
-                                elif(LineStringC.wkt.split(" ")[0]=='POINT'): # apparently this is not needed
-                                    #print("debug:POINT")
-                                    k=0
-                                    k+=1
-                                else:
-                                    k=0
-                                    k+=1
 
 
     ac.close()
@@ -651,19 +657,33 @@ def save_fold_axial_traces(path_folds,path_fold_orientations,dataset,c_l,fold_de
     fo=open(path_fold_orientations+'/fold_axial_traces.csv',"w")
     fo.write("X,Y,Z,code,type\n")
 
-    for fold in folds_clip.iterrows():
-        fold_name=str(fold[1][c_l['o']])   
-        fold_ls=LineString(fold[1].geometry)
+    for indx,fold in folds_clip.iterrows():
+        fold_name=str(fold[c_l['o']])
+        if(fold.geometry.type=='MultiLineString'):
+            for mls in fold.geometry:
+                fold_ls=LineString(mls)
 
-        i=0
-        for afs in fold_ls.coords:
-            if(c_l['fold'] in fold[1][c_l['f']]):
-                if(m2l_utils.mod_safe(i,fold_decimate)==0 or i==int((len(fold_ls.coords)-1)/2) or i==len(fold_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
-                    locations=[(afs[0],afs[1])]     
-                    height=m2l_utils.value_from_raster(dataset,locations)
-                    ostr=str(afs[0])+','+str(afs[1])+','+str(height)+','+'FA_'+fold_name+','+fold[1][c_l['t']].replace(',','')+'\n'
-                    fo.write(ostr)                
-            i=i+1  
+                i=0
+                for afs in fold_ls.coords:
+                    if(c_l['fold'] in fold[c_l['f']]):
+                        if(m2l_utils.mod_safe(i,fold_decimate)==0 or i==int((len(fold_ls.coords)-1)/2) or i==len(fold_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
+                            locations=[(afs[0],afs[1])]     
+                            height=m2l_utils.value_from_raster(dataset,locations)
+                            ostr=str(afs[0])+','+str(afs[1])+','+str(height)+','+'FA_'+fold_name+','+fold[c_l['t']].replace(',','')+'\n'
+                            fo.write(ostr)                
+                    i=i+1  
+        else:
+            fold_ls=LineString(fold.geometry)
+
+            i=0
+            for afs in fold_ls.coords:
+                if(c_l['fold'] in fold[c_l['f']]):
+                    if(m2l_utils.mod_safe(i,fold_decimate)==0 or i==int((len(fold_ls.coords)-1)/2) or i==len(fold_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
+                        locations=[(afs[0],afs[1])]     
+                        height=m2l_utils.value_from_raster(dataset,locations)
+                        ostr=str(afs[0])+','+str(afs[1])+','+str(height)+','+'FA_'+fold_name+','+fold[c_l['t']].replace(',','')+'\n'
+                        fo.write(ostr)                
+                i=i+1  
 
     fo.close()
     print("fold axial traces saved as",path_fold_orientations+'fold_axial_traces.csv')
@@ -893,9 +913,11 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
                             for pt in LineStringC.coords: #process one linestring
                                 k+=1
                         elif(LineStringC.wkt.split(" ")[0]=='POINT'): # apparently this is not needed
+                            k=0
                             #print("debug:POINT")
                             k+=1
                         else:
+                            k=0
                             #print(LineStringC.wkt.split(" ")[0]) # apparently this is not needed
                             k+=1
     ac.close()
@@ -1305,9 +1327,9 @@ def normalise_thickness(output_path):
 
 ###################################################
 
-def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dataset,c_l,dst_crs,fold_decimate,fat_step,close_dip):
+def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dataset,c_l,dst_crs,fold_decimate,fat_step,close_dip,scheme):
     geology = gpd.read_file(tmp_path+'geol_clip.shp')
-    contacts=np.genfromtxt(tmp_path+'interpolation_contacts_scipy_rbf.csv',delimiter=',',dtype='float')
+    contacts=np.genfromtxt(tmp_path+'interpolation_contacts_'+scheme+'.csv',delimiter=',',dtype='float')
     f=open(output_path+'fold_axial_trace_orientations2.csv','w')
     f.write('X,Y,Z,azimuth,dip,polarity,formation,group\n')
     folds_clip=gpd.read_file(path_folds,)
@@ -1317,64 +1339,125 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dataset,
     dummy.append(1)
     for indx,fold in folds_clip.iterrows():
         fold_name=str(fold[c_l['o']])   
-        fold_ls=LineString(fold.geometry)
-        i=0
-        first=True
-        for afs in fold_ls.coords:
-            if(c_l['fold'] in fold[c_l['f']]):
-                # save out current geometry of FAT
-                if(m2l_utils.mod_safe(i,fold_decimate)==0 or i==int((len(fold_ls.coords)-1)/2) or i==len(fold_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
-                    locations=[(afs[0],afs[1])]                  
-                    height=m2l_utils.value_from_raster(dataset,locations)
-                    ostr=str(afs[0])+','+str(afs[1])+','+str(height)+','+'FA_'+fold_name+','+fold[c_l['t']].replace(',','')+'\n'
-                    fo.write(ostr)  
-                    # calculate FAT normal offsets  
-                    if(not first):
-                        l,m=m2l_utils.pts2dircos(lastx,lasty,afs[0],afs[1])
-                        midx=lastx+((afs[0]-lastx)/2)
-                        midy=lasty+((afs[1]-lasty)/2)
-                        midxr=midx+(fat_step*-m)
-                        midyr=midy+(fat_step*l)
-                        midxl=midx-(fat_step*-m)
-                        midyl=midy-(fat_step*l)
-                        dip,dipdir=m2l_utils.dircos2ddd(-m,l,cos(radians(close_dip)))
-                        if(c_l['syn'] in fold[c_l['t']]):
-                            dipdir=dipdir+180
-                        mindist=1e9
-                        minind=-1
-                        for i in range(1,len(contacts)):
-                            dist=m2l_utils.ptsdist(contacts[i,0],contacts[i,1],midx,midy)
-                            if(dist<mindist):
-                                mindist=dist
-                                minind=i
-                        lc=sin(radians(contacts[minind,2]))
-                        mc=cos(radians(contacts[minind,2]))
-                        dotprod=fabs((l*lc)+(m*mc))
-                        #print(dotprod,midx,midy,minind,contacts[minind,2],l,m,lc,mc)   
-                        # if FAT is sub-parallel to local interpolated contacts, save out as orientations  
-                        if(dotprod>0.85):
-                            geometry = [Point(midxr,midyr)]
-                            gdf = GeoDataFrame(dummy, crs=dst_crs, geometry=geometry)
-                            structure_code = gpd.sjoin(gdf, geology, how="left", op="within")
-                            if(not str(structure_code.iloc[0][c_l['c']])=='nan'):
-                                locations=[(midxr,midyr)]                  
-                                height=m2l_utils.value_from_raster(dataset,locations)
-                                ostr=str(midxr)+','+str(midyr)+','+str(height)+','+str(dipdir)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
-                                f.write(ostr)
-                            
-                            geometry = [Point(midxl,midyl)]
-                            gdf = GeoDataFrame(dummy, crs=dst_crs, geometry=geometry)
-                            structure_code = gpd.sjoin(gdf, geology, how="left", op="within")
-                            if(not str(structure_code.iloc[0][c_l['c']])=='nan'):
-                                locations=[(midxl,midyl)]                  
-                                height=m2l_utils.value_from_raster(dataset,locations)
-                                ostr=str(midxl)+','+str(midyl)+','+str(height)+','+str(dipdir+180)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
-                                f.write(ostr)
-                    first=False
-                    lastx=afs[0]
-                    lasty=afs[1]
-            i=i+1  
+        if(fold.geometry.type=='MultiLineString'):
+            for mls in fold.geometry:              
+                fold_ls=LineString(mls)        
 
+                i=0
+                first=True
+                for afs in fold_ls.coords:
+                    if(c_l['fold'] in fold[c_l['f']]):
+                        # save out current geometry of FAT
+                        if(m2l_utils.mod_safe(i,fold_decimate)==0 or i==int((len(fold_ls.coords)-1)/2) or i==len(fold_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
+                            locations=[(afs[0],afs[1])]                  
+                            height=m2l_utils.value_from_raster(dataset,locations)
+                            ostr=str(afs[0])+','+str(afs[1])+','+str(height)+','+'FA_'+fold_name+','+fold[c_l['t']].replace(',','')+'\n'
+                            fo.write(ostr)  
+                            # calculate FAT normal offsets  
+                            if(not first):
+                                l,m=m2l_utils.pts2dircos(lastx,lasty,afs[0],afs[1])
+                                midx=lastx+((afs[0]-lastx)/2)
+                                midy=lasty+((afs[1]-lasty)/2)
+                                midxr=midx+(fat_step*-m)
+                                midyr=midy+(fat_step*l)
+                                midxl=midx-(fat_step*-m)
+                                midyl=midy-(fat_step*l)
+                                dip,dipdir=m2l_utils.dircos2ddd(-m,l,cos(radians(close_dip)))
+                                if(c_l['syn'] in fold[c_l['t']]):
+                                    dipdir=dipdir+180
+                                mindist=1e9
+                                minind=-1
+                                for i in range(1,len(contacts)):
+                                    dist=m2l_utils.ptsdist(contacts[i,0],contacts[i,1],midx,midy)
+                                    if(dist<mindist):
+                                        mindist=dist
+                                        minind=i
+                                lc=sin(radians(contacts[minind,2]))
+                                mc=cos(radians(contacts[minind,2]))
+                                dotprod=fabs((l*lc)+(m*mc))
+                                #print(dotprod,midx,midy,minind,contacts[minind,2],l,m,lc,mc)   
+                                # if FAT is sub-parallel to local interpolated contacts, save out as orientations  
+                                if(dotprod>0.85):
+                                    geometry = [Point(midxr,midyr)]
+                                    gdf = GeoDataFrame(dummy, crs=dst_crs, geometry=geometry)
+                                    structure_code = gpd.sjoin(gdf, geology, how="left", op="within")
+                                    if(not str(structure_code.iloc[0][c_l['c']])=='nan'):
+                                        locations=[(midxr,midyr)]                  
+                                        height=m2l_utils.value_from_raster(dataset,locations)
+                                        ostr=str(midxr)+','+str(midyr)+','+str(height)+','+str(dipdir)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
+                                        f.write(ostr)
+                                    
+                                    geometry = [Point(midxl,midyl)]
+                                    gdf = GeoDataFrame(dummy, crs=dst_crs, geometry=geometry)
+                                    structure_code = gpd.sjoin(gdf, geology, how="left", op="within")
+                                    if(not str(structure_code.iloc[0][c_l['c']])=='nan'):
+                                        locations=[(midxl,midyl)]                  
+                                        height=m2l_utils.value_from_raster(dataset,locations)
+                                        ostr=str(midxl)+','+str(midyl)+','+str(height)+','+str(dipdir+180)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
+                                        f.write(ostr)
+                            first=False
+                            lastx=afs[0]
+                            lasty=afs[1]
+                    i=i+1  
+        else:
+            fold_ls=LineString(fold.geometry)
+            i=0
+            first=True
+            for afs in fold_ls.coords:
+                if(c_l['fold'] in fold[c_l['f']]):
+                    # save out current geometry of FAT
+                    if(m2l_utils.mod_safe(i,fold_decimate)==0 or i==int((len(fold_ls.coords)-1)/2) or i==len(fold_ls.coords)-1): #decimate to reduce number of points, but also take mid and end points of a series to keep some shape
+                        locations=[(afs[0],afs[1])]                  
+                        height=m2l_utils.value_from_raster(dataset,locations)
+                        ostr=str(afs[0])+','+str(afs[1])+','+str(height)+','+'FA_'+fold_name+','+fold[c_l['t']].replace(',','')+'\n'
+                        fo.write(ostr)  
+                        # calculate FAT normal offsets  
+                        if(not first):
+                            l,m=m2l_utils.pts2dircos(lastx,lasty,afs[0],afs[1])
+                            midx=lastx+((afs[0]-lastx)/2)
+                            midy=lasty+((afs[1]-lasty)/2)
+                            midxr=midx+(fat_step*-m)
+                            midyr=midy+(fat_step*l)
+                            midxl=midx-(fat_step*-m)
+                            midyl=midy-(fat_step*l)
+                            dip,dipdir=m2l_utils.dircos2ddd(-m,l,cos(radians(close_dip)))
+                            if(c_l['syn'] in fold[c_l['t']]):
+                                dipdir=dipdir+180
+                            mindist=1e9
+                            minind=-1
+                            for i in range(1,len(contacts)):
+                                dist=m2l_utils.ptsdist(contacts[i,0],contacts[i,1],midx,midy)
+                                if(dist<mindist):
+                                    mindist=dist
+                                    minind=i
+                            lc=sin(radians(contacts[minind,2]))
+                            mc=cos(radians(contacts[minind,2]))
+                            dotprod=fabs((l*lc)+(m*mc))
+                            #print(dotprod,midx,midy,minind,contacts[minind,2],l,m,lc,mc)   
+                            # if FAT is sub-parallel to local interpolated contacts, save out as orientations  
+                            if(dotprod>0.85):
+                                geometry = [Point(midxr,midyr)]
+                                gdf = GeoDataFrame(dummy, crs=dst_crs, geometry=geometry)
+                                structure_code = gpd.sjoin(gdf, geology, how="left", op="within")
+                                if(not str(structure_code.iloc[0][c_l['c']])=='nan'):
+                                    locations=[(midxr,midyr)]                  
+                                    height=m2l_utils.value_from_raster(dataset,locations)
+                                    ostr=str(midxr)+','+str(midyr)+','+str(height)+','+str(dipdir)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
+                                    f.write(ostr)
+                                
+                                geometry = [Point(midxl,midyl)]
+                                gdf = GeoDataFrame(dummy, crs=dst_crs, geometry=geometry)
+                                structure_code = gpd.sjoin(gdf, geology, how="left", op="within")
+                                if(not str(structure_code.iloc[0][c_l['c']])=='nan'):
+                                    locations=[(midxl,midyl)]                  
+                                    height=m2l_utils.value_from_raster(dataset,locations)
+                                    ostr=str(midxl)+','+str(midyl)+','+str(height)+','+str(dipdir+180)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
+                                    f.write(ostr)
+                        first=False
+                        lastx=afs[0]
+                        lasty=afs[1]
+                i=i+1  
+    
     fo.close()
     f.close()
     print("fold axial traces saved as",output_path+'fold_axial_traces.csv')
@@ -1525,7 +1608,7 @@ def save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,al
         close_y=0
        
         for indx2,acontact in contact_lines.iterrows():   #loop through distinct linestrings dipdir +180
-            if(acontact["CODE"] in codes):
+            if(acontact[c_l['c']] in codes):
                 if(not str(acontact.geometry)=='None'):
                     isects=ddline.intersection(acontact.geometry)
                     if(isects.geom_type=="MultiPoint"):
@@ -1534,7 +1617,7 @@ def save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,al
                                 dist=m2l_utils.ptsdist(float(anori["X"]),float(anori["Y"]),pt.x,pt.y)
                                 if(dist<close_dist):
                                     close_dist=dist
-                                    close_fm=acontact["CODE"]
+                                    close_fm=acontact[c_l['c']]
                                     close_x=pt.x
                                     close_y=pt.y
                                     sign=1
@@ -1543,7 +1626,7 @@ def save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,al
                             dist=m2l_utils.ptsdist(float(anori["X"]),float(anori["Y"]),isects.x,isects.y)
                             if(dist<close_dist):
                                 close_dist=dist
-                                close_fm=acontact["CODE"]
+                                close_fm=acontact[c_l['c']]
                                 close_x=isects.x
                                 close_y=isects.y
                                 sign=1
@@ -1555,7 +1638,7 @@ def save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,al
         ddline=LineString((p1,p2))
 
         for indx2,acontact in contact_lines.iterrows():   #loop through distinct linestrings dipdir
-            if(acontact["CODE"] in codes):
+            if(acontact[c_l['c']] in codes):
                 if(not str(acontact.geometry)=='None'):
                     isects=ddline.intersection(acontact.geometry)
                     if(isects.geom_type=="MultiPoint"):
@@ -1564,7 +1647,7 @@ def save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,al
                                 dist=m2l_utils.ptsdist(float(anori["X"]),float(anori["Y"]),pt.x,pt.y)
                                 if(dist<close_dist):
                                     close_dist=dist
-                                    close_fm=acontact["CODE"]
+                                    close_fm=acontact[c_l['c']]
                                     close_x=pt.x
                                     close_y=pt.y
                                     sign=0
@@ -1573,7 +1656,7 @@ def save_orientations_with_polarity(orientations_path,path_out,c_l,basal_path,al
                             dist=m2l_utils.ptsdist(float(anori["X"]),float(anori["Y"]),isects.x,isects.y)
                             if(dist<close_dist):
                                 close_dist=dist
-                                close_fm=acontact["CODE"]
+                                close_fm=acontact[c_l['c']]
                                 close_x=isects.x
                                 close_y=isects.y
                                 sign=0
@@ -1684,8 +1767,8 @@ def fault_strat_offset(path_out,c_l,dst_crs,fm_thick_file, all_sorts_file,fault_
             rcode = gpd.sjoin(rgdf, geology, how="left", op="within")
             
             for i in range (0,len(fault.geometry.coords)-1):
-                lcode_fm=lcode.iloc[i]["CODE"].replace("-","_").replace("\n","")
-                rcode_fm=rcode.iloc[i]["CODE"].replace("-","_").replace("\n","")
+                lcode_fm=lcode.iloc[i][c_l['c']].replace("-","_").replace("\n","")
+                rcode_fm=rcode.iloc[i][c_l['c']].replace("-","_").replace("\n","")
                 
                 if(lcode_fm in codes and rcode_fm in codes and lcode_fm in formations and rcode_fm in formations ):            
                     midx=lcode.iloc[i].geometry.x+((rcode.iloc[i].geometry.x-lcode.iloc[i].geometry.x)/2)

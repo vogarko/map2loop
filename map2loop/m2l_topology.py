@@ -551,7 +551,7 @@ def save_faults_wkt(sub_lines,fault_file_csv,c_l):
 # 
 # Creates input parameter file for map2model c++ code and saves it to the same directory as the map2model binary (../m2m_cpp)
 ####################################
-def save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,structure_file_csv,minx,maxx,miny,maxy,deposit_dist,commodities):
+def save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,structure_file_csv,mindep_file_csv,minx,maxx,miny,maxy,deposit_dist,commodities):
     f=open(m2m_cpp_path+'Parfile','w')
     f.write('--- COLUMN NAMES IN CSV DATA FILES: -------------------------------------------------------------\n')
     f.write('OBJECT COORDINATES              =WKT\n')
@@ -584,7 +584,7 @@ def save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,str
     f.write('Path to the output data folder                      ='+graph_path+'\n')
     f.write('Path to geology data file                           ='+geology_file_csv+'\n')
     f.write('Path to faults data file                            ='+fault_file_csv+'\n')
-    f.write('Path to mineral deposits data file                  =../test_data3/tmp/mindeps_2018.csv\n')
+    f.write('Path to mineral deposits data file                  ='+mindep_file_csv+'\n')
     f.write('------------------------------------------------------------------------------------------------\n')
     f.write('Clipping window X1 Y1 X2 Y2 (zeros for infinite)    ='+str(minx)+' '+str(miny)+' '+str(maxx)+' '+str(maxy)+'\n')
     f.write('Min length fraction for strat/fault graphs          =0.0\n')
