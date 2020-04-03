@@ -429,7 +429,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
 
         f.close()
 
-
+from pyamg import solve
 def solve_pyamg(A,B):
     return solve(A,B,verb=False,tol=1e-8)
 
@@ -449,7 +449,7 @@ def loop2LoopStructural(thickness_file,orientation_file,contacts_file,bbox):
     from LoopStructural import GeologicalModel
     from LoopStructural.visualisation import LavaVuModelViewer
     import lavavu
-    from pyamg import solve
+
 
 
     df = pd.read_csv(thickness_file)
