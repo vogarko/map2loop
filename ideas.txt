@@ -53,6 +53,8 @@ Style
 38. Documentation!!
 48. Templates for specific databases or map sets: URI; field names; field values; dictionaries
 63. Redo adjacency matrixes using networkx?
+83. Rename faults with names, and others with leading zeros
+84. DOn't use *in* for if() comparisons to avoid subset equivalencies
 
 Data
 22. Get all warox layers

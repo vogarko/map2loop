@@ -845,73 +845,122 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,pluton_form,p
                         if(not older_polygon.is_valid):
                             older_polygon = older_polygon.buffer(0)
                         LineStringC = central_poly.intersection(older_polygon)
-                        if(LineStringC.wkt.split(" ")[0]=='GEOMETRYCOLLECTION' or 
-                           LineStringC.wkt.split(" ")[0]=='MULTIPOLYGON' or
+                        if(LineStringC.wkt.split(" ")[0]=='MULTIPOLYGON' or 
                            LineStringC.wkt.split(" ")[0]=='POLYGON'): #ignore polygon intersections for now, worry about them later!
-                            #print("debug:GC,MP,P")
+                            print(ageol[1][c_l['o']],"debug:",LineStringC.wkt.split(" ")[0])
                             continue
 
-                        elif(LineStringC.wkt.split(" ")[0]=='MULTILINESTRING'):
+                        elif(LineStringC.wkt.split(" ")[0]=='MULTILINESTRING' or LineStringC.wkt.split(" ")[0]=='GEOMETRYCOLLECTION'):
                             k=0
                             ls_dict[id] = {"id": id,c_l['c']:newgp,c_l['g']:newgp, "geometry": LineStringC}
                             id=id+1
                             for lineC in LineStringC: #process all linestrings
-                                if(m2l_utils.mod_safe(k,contact_decimate)==0 or k==int((len(LineStringC)-1)/2) or k==len(LineStringC)-1): #decimate to reduce number of points, but also take second and third point of a series to keep gempy happy
-                                    locations=[(lineC.coords[0][0],lineC.coords[0][1])] #doesn't like point right on edge?
-                                    if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
-                                       lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
+                                if(lineC.wkt.split(" ")[0]=='LINESTRING'):
+                                    if(m2l_utils.mod_safe(k,contact_decimate)==0 or k==int((len(LineStringC)-1)/2) or k==len(LineStringC)-1): #decimate to reduce number of points, but also take second and third point of a series to keep gempy happy
+                                        locations=[(lineC.coords[0][0],lineC.coords[0][1])] #doesn't like point right on edge?
+                                        if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
+                                           lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
+                                                height=m2l_utils.value_from_raster(dtm,locations)
+                                                ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+newgp.replace(" ","_").replace("-","_")+"\n"
+                                                ac.write(ostr)
+                                                allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
+                                                ls_dict_decimate[allpts] = {"id": allpts,c_l['c']:newgp,c_l['g']:newgp, "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                                allpts+=1 
+                                        else:
+                                            continue
+                                    else:
+                                        if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
+                                                lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
                                             height=m2l_utils.value_from_raster(dtm,locations)
                                             ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+newgp.replace(" ","_").replace("-","_")+"\n"
-                                            ac.write(ostr)
+                                            #ls_dict_decimate[allpts] = {"id": id,"CODE":ageol[1]['CODE'],"GROUP_":ageol[1]['GROUP_'], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
                                             allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
-                                            ls_dict_decimate[allpts] = {"id": allpts,c_l['c']:newgp,c_l['g']:newgp, "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
-                                            allpts+=1 
-                                    else:
-                                        continue
-                                else:
-                                    if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
-                                            lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
+                                            allpts+=1
+
+                                    if(m2l_utils.mod_safe(k,contact_decimate)==0 or k==int((len(LineStringC)-1)/2) or k==len(LineStringC)-1): #decimate to reduce number of points, but also take second and third point of a series to keep gempy happy
+                                        dlsx=lineC.coords[0][0]-lineC.coords[1][0]
+                                        dlsy=lineC.coords[0][1]-lineC.coords[1][1]
+                                        lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
+                                        lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))                                        
+
+                                        locations=[(lineC.coords[0][0],lineC.coords[0][1])]
+                                        height= m2l_utils.value_from_raster(dtm,locations)
+                                        azimuth=(180+degrees(atan2(lsy,-lsx)))%360 #normal to line segment
+                                        testpx=lineC.coords[0][0]+lsy # pt just a bit in/out from line
+                                        testpy=lineC.coords[0][0]+lsx
+
+                                        for cgeol in geol_clip.iterrows(): # check on direction to dip
+                                            if LineString(central_poly.exterior.coords).contains(Point(testpx, testpy)):
+                                                azimuth=(azimuth-180)%360
+                                                break
+                                        if(pluton_form=='saucers'):
+                                            ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",1,"+newgp.replace(" ","_").replace("-","_")+"\n"
+                                        elif(pluton_form=='domes'):
+                                            azimuth=(azimuth-180)%360
+                                            ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",0,"+newgp.replace(" ","_").replace("-","_")+"\n"
+                                        elif(pluton_form=='pendant'):
+                                            ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",0,"+newgp.replace(" ","_").replace("-","_")+"\n"
+                                        else: #pluton_form == batholith
+                                            azimuth=(azimuth-180)%360
+                                            ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",1,"+newgp.replace(" ","_").replace("-","_")+"\n"
+
+                                        ao.write(ostr)
+
+                                    k+=1
+                        elif(LineStringC.wkt.split(" ")[0]=='LINESTRING'): # apparently this is not needed
+                            k=0
+                            lineC=LineString(LineStringC)
+                            if(m2l_utils.mod_safe(k,contact_decimate)==0 or k==int((len(LineStringC)-1)/2) or k==len(LineStringC)-1): #decimate to reduce number of points, but also take second and third point of a series to keep gempy happy
+                                locations=[(lineC.coords[0][0],lineC.coords[0][1])] #doesn't like point right on edge?
+                                if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
+                                   lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
                                         height=m2l_utils.value_from_raster(dtm,locations)
                                         ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+newgp.replace(" ","_").replace("-","_")+"\n"
-                                        #ls_dict_decimate[allpts] = {"id": id,"CODE":ageol[1]['CODE'],"GROUP_":ageol[1]['GROUP_'], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                        ac.write(ostr)
                                         allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
-                                        allpts+=1
-                                
-                                if(m2l_utils.mod_safe(k,contact_decimate)==0 or k==int((len(LineStringC)-1)/2) or k==len(LineStringC)-1): #decimate to reduce number of points, but also take second and third point of a series to keep gempy happy
-                                    dlsx=lineC.coords[0][0]-lineC.coords[1][0]
-                                    dlsy=lineC.coords[0][1]-lineC.coords[1][1]
-                                    lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
-                                    lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))                                        
+                                        ls_dict_decimate[allpts] = {"id": allpts,c_l['c']:newgp,c_l['g']:newgp, "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                        allpts+=1 
+                                else:
+                                    continue
+                            else:
+                                if(lineC.coords[0][0] > dtm.bounds[0] and lineC.coords[0][0] < dtm.bounds[2] and  
+                                        lineC.coords[0][1] > dtm.bounds[1] and lineC.coords[0][1] < dtm.bounds[3]):       
+                                    height=m2l_utils.value_from_raster(dtm,locations)
+                                    ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+height+","+newgp.replace(" ","_").replace("-","_")+"\n"
+                                    #ls_dict_decimate[allpts] = {"id": id,"CODE":ageol[1]['CODE'],"GROUP_":ageol[1]['GROUP_'], "geometry": Point(lineC.coords[0][0],lineC.coords[0][1])}
+                                    allc.write(agp+","+str(ageol[1][c_l['o']])+","+ostr)
+                                    allpts+=1
+                            
+                            if(m2l_utils.mod_safe(k,contact_decimate)==0 or k==int((len(LineStringC)-1)/2) or k==len(LineStringC)-1): #decimate to reduce number of points, but also take second and third point of a series to keep gempy happy
+                                dlsx=lineC.coords[0][0]-lineC.coords[1][0]
+                                dlsy=lineC.coords[0][1]-lineC.coords[1][1]
+                                lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
+                                lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))                                        
 
-                                    locations=[(lineC.coords[0][0],lineC.coords[0][1])]
-                                    height= m2l_utils.value_from_raster(dtm,locations)
-                                    azimuth=(180+degrees(atan2(lsy,-lsx)))%360 #normal to line segment
-                                    testpx=lineC.coords[0][0]+lsy # pt just a bit in/out from line
-                                    testpy=lineC.coords[0][0]+lsx
+                                locations=[(lineC.coords[0][0],lineC.coords[0][1])]
+                                height= m2l_utils.value_from_raster(dtm,locations)
+                                azimuth=(180+degrees(atan2(lsy,-lsx)))%360 #normal to line segment
+                                testpx=lineC.coords[0][0]+lsy # pt just a bit in/out from line
+                                testpy=lineC.coords[0][0]+lsx
 
-                                    for cgeol in geol_clip.iterrows(): # check on direction to dip
-                                        if LineString(central_poly.exterior.coords).contains(Point(testpx, testpy)):
-                                            azimuth=(azimuth-180)%360
-                                            break
-                                    if(pluton_form=='saucers'):
-                                        ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",1,"+newgp.replace(" ","_").replace("-","_")+"\n"
-                                    elif(pluton_form=='domes'):
+                                for cgeol in geol_clip.iterrows(): # check on direction to dip
+                                    if LineString(central_poly.exterior.coords).contains(Point(testpx, testpy)):
                                         azimuth=(azimuth-180)%360
-                                        ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",0,"+newgp.replace(" ","_").replace("-","_")+"\n"
-                                    elif(pluton_form=='pendant'):
-                                        ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",0,"+newgp.replace(" ","_").replace("-","_")+"\n"
-                                    else: #pluton_form == batholith
-                                        azimuth=(azimuth-180)%360
-                                        ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",1,"+newgp.replace(" ","_").replace("-","_")+"\n"
-                                        
-                                    ao.write(ostr)
+                                        break
+                                if(pluton_form=='saucers'):
+                                    ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",1,"+newgp.replace(" ","_").replace("-","_")+"\n"
+                                elif(pluton_form=='domes'):
+                                    azimuth=(azimuth-180)%360
+                                    ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",0,"+newgp.replace(" ","_").replace("-","_")+"\n"
+                                elif(pluton_form=='pendant'):
+                                    ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",0,"+newgp.replace(" ","_").replace("-","_")+"\n"
+                                else: #pluton_form == batholith
+                                    azimuth=(azimuth-180)%360
+                                    ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",1,"+newgp.replace(" ","_").replace("-","_")+"\n"
+                                    
+                                ao.write(ostr)
 
-                                k+=1
-                        elif(LineStringC.wkt.split(" ")[0]=='LINESTRING'): # apparently this is not needed
-                            #print("debug:LINESTRING")
-                            k=0
-                            for pt in LineStringC.coords: #process one linestring
-                                k+=1
+                            k+=1                                
                         elif(LineStringC.wkt.split(" ")[0]=='POINT'): # apparently this is not needed
                             k=0
                             #print("debug:POINT")

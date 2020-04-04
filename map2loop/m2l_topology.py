@@ -289,7 +289,7 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
         faults=row[1].replace("}","").replace(" ","").split(",")
         ostr=str(unit[1]).strip().replace(" ","_").replace("-","_")
         for ul in unique_list:
-            out=[item for item in faults if ul in item]
+            out=[item for item in faults if ul == item]
             if(len(out)>0 ):
                 ostr=ostr+",1"
             else:

@@ -1,23 +1,23 @@
 --- COLUMN NAMES IN CSV DATA FILES: -------------------------------------------------------------
 OBJECT COORDINATES              =WKT
 FAULT: ID                       =OBJECTID
-FAULT: FEATURE                  =FEATURE
+FAULT: FEATURE                  =Feature
 POLYGON: ID                     =OBJECTID
-POLYGON: LEVEL1 NAME            =UNITNAME
-POLYGON: LEVEL2 NAME            =GROUP_
-POLYGON: MIN AGE                =MIN_AGE_MA
-POLYGON: MAX AGE                =MAX_AGE_MA
-POLYGON: CODE                   =CODE
-POLYGON: DESCRIPTION            =DESCRIPTN
-POLYGON: ROCKTYPE1              =ROCKTYPE1
-POLYGON: ROCKTYPE2              =ROCKTYPE2
+POLYGON: LEVEL1 NAME            =Code
+POLYGON: LEVEL2 NAME            =Group_
+POLYGON: MIN AGE                =Age_To
+POLYGON: MAX AGE                =Age_From
+POLYGON: CODE                   =Formation
+POLYGON: DESCRIPTION            =Rock_type
+POLYGON: ROCKTYPE1              =Rock_type
+POLYGON: ROCKTYPE2              =Lithology_
 DEPOSIT: SITE CODE                                  =SITE_CODE
 DEPOSIT: SITE TYPE                                  =SITE_TYPE_
 DEPOSIT: SITE COMMODITY                             =SITE_COMMO
 --- SOME CONSTANTS: ----------------------------------------------------------------------------
-FAULT AXIAL FEATURE NAME        =Fold axial trace
+FAULT AXIAL FEATURE NAME        =form
 SILL UNIT DESCRIPTION CONTAINS  =sill
-IGNEOUS ROCKTYPE CONTAINS                           =intrusive
+IGNEOUS ROCKTYPE CONTAINS                           =Granite
 VOLCANIC ROCKTYPE CONTAINS                          =volcanic
 IGNORE DEPOSITS WITH SITE TYPE                      =Infrastructure
 Intersect Contact With Fault: angle epsilon (deg)   =1.0
@@ -25,12 +25,12 @@ Intersect Contact With Fault: distance epsilon (m)  =15.0
 Distance buffer (fault stops on another fault) (m)  =20.0
 Distance buffer (point on contact) (m)              =500.0
 ------------------------------------------------------------------------------------------------
-Path to the output data folder                      =../test_data3/graph/
-Path to geology data file                           =../test_data3/tmp/hams2_geol.csv
-Path to faults data file                            =../test_data3/tmp/GEOS_GEOLOGY_LINEARSTRUCTURE_500K_GSD.csv
-Path to mineral deposits data file                  =../test_data3/tmp/mindeps_2018.csv
+Path to the output data folder                      =../fabiele/graph/
+Path to geology data file                           =../fabiele/tmp/Geology_FK_V4_FDS.csv
+Path to faults data file                            =../fabiele/tmp/Structure_FK_V4_FDS.csv
+Path to mineral deposits data file                  =../fabiele/tmp/mindeps_2018.csv
 ------------------------------------------------------------------------------------------------
-Clipping window X1 Y1 X2 Y2 (zeros for infinite)    =500057 7455348 603028 7567953
+Clipping window X1 Y1 X2 Y2 (zeros for infinite)    =315030 7512943 489111 7673071
 Min length fraction for strat/fault graphs          =0.0
 Graph edge width categories (three doubles)         =2000. 20000. 200000.
 Graph edge direction (0-min age, 1-max age, 2-avg)  =2

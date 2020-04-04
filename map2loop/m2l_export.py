@@ -259,7 +259,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('    Add3DInterfacesToFormation {\n')
         f.write('          formation: "'+str(afault['Fault'])+'"\n')
         for indx2,acontact in contacts.iterrows():
-            if(acontact['formation'] in afault['Fault']):
+            if(acontact['formation'] == afault['Fault']):
                 ostr='              point {x:'+str(acontact['X'])+'; y:'+str(acontact['Y'])+'; z:'+str(acontact['Z'])+'}\n'
                 f.write(ostr)
         f.write('    }\n')
@@ -277,7 +277,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('    Add3DFoliationToFormation {\n')
         f.write('          formation: "'+str(afault['Fault'])+'"\n')
         for indx2,ano in orientations.iterrows():
-            if(ano['formation'] in afault['Fault']):
+            if(ano['formation'] == afault['Fault']):
                 f.write('           foliation {\n')
                 ostr='                  Point3D {x:'+str(ano['X'])+'; y:'+str(ano['Y'])+'; z:'+str(ano['Z'])+'}\n'
                 f.write(ostr)
