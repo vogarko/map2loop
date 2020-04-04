@@ -10,4 +10,14 @@ sys
 math
 shapely
 gempy
+owslib
+descartes
+gdal
+pyproj
+mplstereonet
 
+optional:
+gempy
+pyvtk
+lavavu
+LoopStructural
