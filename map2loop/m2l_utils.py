@@ -11,7 +11,7 @@ from rasterio import features
 import re    #typo? check
 from urllib.request import urlopen
 from IPython.display import Image
-from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow, acos, fmod, fabs
+from math import sin, cos, atan, atan2, asin, radians, degrees, sqrt, pow, acos, fmod, fabs, isnan
 from owslib.wcs import WebCoverageService
 from osgeo import gdal
 
@@ -45,7 +45,7 @@ def mod_safe(a,b):
         return(a%b)
         
 ############################################
-# get value froma rasterio raster at location x,y (real world coords)
+# get value from a rasterio raster at location x,y (real world coords)
 #
 # value_from_raster(dataset,locations)
 # Args:
@@ -64,6 +64,50 @@ def value_from_raster(dataset,locations):
         return(value)
     else:
         return(-999)
+
+############################################
+# get value from two rasterio rasters (dtm and depth to basement) at location x,y (real world coords)
+#
+# value_from_raster(dtm,dtb,dtb_null,locations)
+# Args:
+# dtm rasterio format georeferenced dtm grid
+# dtb rasterio format georeferenced dtb grid
+# dtb_null value when zero cover thickness
+# cover_map boolean wrt to use of dtb
+# locations list of x,y locations in same coordinate system for which values will be calculated Returns:
+# list of values for specified lcoations
+# 
+# Given rasterio georeferenced grid of dtm and maybe dtb, return value at list of locations stored in x1,y1 using same projection. From...
+############################################
+
+def value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations):
+    if(cover_map):
+        if(locations[0][0] > dtm.bounds[0] and locations[0][0] < dtm.bounds[2] and  
+        locations[0][1] > dtm.bounds[1] and locations[0][1] < dtm.bounds[3] and
+        locations[0][0] > dtb.bounds[0] and locations[0][0] < dtb.bounds[2] and  
+        locations[0][1] > dtb.bounds[1] and locations[0][1] < dtb.bounds[3]):       
+            for val in dtm.sample(locations):
+                value_dtm=float(str(val).replace("[","").replace("]",""))
+
+            for val in dtb.sample(locations):
+                value_dtb=float(str(val).replace("[","").replace("]",""))
+
+            if(value_dtb==float(dtb_null) or value_dtb==-999999):
+                value_dtb=0
+
+            return(str(value_dtm-value_dtb))
+        else:
+            return(-999)
+    else: 
+        if(locations[0][0] > dtm.bounds[0] and locations[0][0] < dtm.bounds[2] and  
+        locations[0][1] > dtm.bounds[1] and locations[0][1] < dtm.bounds[3]):       
+            for val in dtm.sample(locations):
+                value_dtm=str(val).replace("[","").replace("]","")
+                
+            return(value_dtm)
+        else:
+            return(-999)
+           
 
 ############################################
 # turn a simple list into a list of paired data

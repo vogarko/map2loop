@@ -98,16 +98,16 @@ def abs_age_groups(geol,tmp_path,c_l):
     groups=[]
     info=[]
     ages=[]
-    for a_poly in geol.iterrows(): #loop through all polygons
-        if(str(a_poly[1][c_l['g']])=='None'):
-            grp=a_poly[1][c_l['c']].replace(" ","_").replace("-","_")
+    for indx,a_poly in geol.iterrows(): #loop through all polygons
+        if(str(a_poly[c_l['g']])=='None'):
+            grp=a_poly[c_l['c']].replace(" ","_").replace("-","_")
         else:
-            grp=a_poly[1][c_l['g']].replace(" ","_").replace("-","_")
+            grp=a_poly[c_l['g']].replace(" ","_").replace("-","_")
         #print(grp)
         if(not grp in groups):
             groups+=[(grp)]
 
-        info+=[(grp,a_poly[1][c_l['min']],a_poly[1][c_l['max']])]
+        info+=[(grp,a_poly[c_l['min']],a_poly[c_l['max']])]
 
     #display(info)
     #display(groups)

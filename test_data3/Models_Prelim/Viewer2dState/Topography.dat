@@ -154,7 +154,7 @@
       <__undefined>false</__undefined>
     </__Vrange>
     <__doLines>true</__doLines>
-    <__doFill>true</__doFill>
+    <__doFill>false</__doFill>
     <__doTrend>false</__doTrend>
     <__doLimitToTopo>false</__doLimitToTopo>
     <__doTriangles>false</__doTriangles>

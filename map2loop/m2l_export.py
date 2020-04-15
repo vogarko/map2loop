@@ -19,7 +19,7 @@ import os
 #
 # Creates geomodeller taskfile files from varous map2loop outputs
 ##########################################################################
-def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faults,compute_etc):
+def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faults,compute_etc,workflow):
 
     f=open(test_data_path+'m2l.taskfile','w')
     f.write('#---------------------------------------------------------------\n')
@@ -94,7 +94,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
     f.write('#---------------------------------------------------------------\n')
     f.write('#-----------------------Create Formations-----------------------\n')
     f.write('#---------------------------------------------------------------\n')
-
+       
     for i in range (1,nformations):
         if( not all_sorts[i,4] in empty_fm):
             f.write('GeomodellerTask {\n')
@@ -118,8 +118,8 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
     f.write('#---------------------------------------------------------------\n')
     f.write('#-----------------------Set Stratigraphic Pile------------------\n')
     f.write('#---------------------------------------------------------------\n')
-
-
+      
+             
     for i in range (1,nformations):
     #for i in range (nformations-1,0,-1):
         if(all_sorts[i,2]==str(1)):

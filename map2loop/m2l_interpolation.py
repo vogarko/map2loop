@@ -333,7 +333,7 @@ def interpolate_orientations(structure_file,output_path,bbox,c_l,this_gcode,calc
 # 
 # Interpolate basal contacts layer to produce regular grid of l,m direction cosines
 ######################################
-def interpolate_contacts(geology_file,output_path,dtm,bbox,c_l,use_gcode,calc,gridx,gridy,fault_flag):
+def interpolate_contacts(geology_file,output_path,dtm,dtb,dtb_null,cover_map,bbox,c_l,use_gcode,calc,gridx,gridy,fault_flag):
     geol_file = gpd.read_file(geology_file,bbox=bbox)
     #print(len(geol_file))
     #geol_file.plot( color='black',edgecolor='black') 
@@ -363,13 +363,13 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,c_l,use_gcode,calc,gr
     f.write("X,Y,Z,angle,lsx,lsy,formation,group\n")
     j=0
     i=0
-    for acontact in geol_file.iterrows():   #loop through distinct linestrings in MultiLineString
-        if(acontact[1].geometry.type=='MultiLineString'):
+    for indx,acontact in geol_file.iterrows():   #loop through distinct linestrings in MultiLineString
+        if(acontact.geometry.type=='MultiLineString'):
             #print(i)
-            for line in acontact[1].geometry: # loop through line segments
-                #print(i,len(acontact[1].geometry))
-                if(m2l_utils.mod_safe(i,decimate)  ==0 and acontact[1][c_l['g']] in use_gcode):
-                    #if(acontact[1]['id']==170): 
+            for line in acontact.geometry: # loop through line segments
+                #print(i,len(acontact.geometry))
+                if(m2l_utils.mod_safe(i,decimate)  ==0 and acontact[c_l['g']] in use_gcode):
+                    #if(acontact['id']==170): 
                         #display(npts,line.coords[0][0],line.coords[1][0]) 
                     dlsx=line.coords[0][0]-line.coords[1][0]
                     dlsy=line.coords[0][1]-line.coords[1][1]
@@ -382,35 +382,35 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,c_l,use_gcode,calc,gr
                         l[i]=lsx
                         m[i]=lsy
                         locations=[(x[i],y[i])] #doesn't like point right on edge?
-                        height=m2l_utils.value_from_raster(dtm,locations)
-                        if(str(acontact[1][c_l['g']])=='None'):
-                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+"\n"
+                        height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                        if(str(acontact[c_l['g']])=='None'):
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+"\n"
                         else:
-                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['g']].replace(" ","_").replace("-","_")+"\n"
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+","+acontact[c_l['g']].replace(" ","_").replace("-","_")+"\n"
                         f.write(ostr)
                         npts=npts+1
                 i=i+1
         else:
-            #display(acontact[1].geometry,acontact[1].geometry.coords)
-            #for line in acontact[1]: # loop through line segments in LineString
-            if(  m2l_utils.mod_safe(i,decimate)  ==0 and acontact[1][c_l['g']] in use_gcode):
-                dlsx=acontact[1].geometry.coords[0][0]-acontact[1].geometry.coords[1][0]
-                dlsy=acontact[1].geometry.coords[0][1]-acontact[1].geometry.coords[1][1]
-                if(not acontact[1].geometry.coords[0][0]==acontact[1].geometry.coords[1][0] 
-                   or not acontact[1].geometry.coords[0][1]==acontact[1].geometry.coords[1][1]):
+            #display(acontact.geometry,acontact.geometry.coords)
+            #for line in acontact: # loop through line segments in LineString
+            if(  m2l_utils.mod_safe(i,decimate)  ==0 and acontact[c_l['g']] in use_gcode):
+                dlsx=acontact.geometry.coords[0][0]-acontact.geometry.coords[1][0]
+                dlsy=acontact.geometry.coords[0][1]-acontact.geometry.coords[1][1]
+                if(not acontact.geometry.coords[0][0]==acontact.geometry.coords[1][0] 
+                   or not acontact.geometry.coords[0][1]==acontact.geometry.coords[1][1]):
                     lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
                     lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))
-                    x[i]=acontact[1].geometry.coords[1][0]+(dlsx/2)
-                    y[i]=acontact[1].geometry.coords[1][1]+(dlsy/2)
+                    x[i]=acontact.geometry.coords[1][0]+(dlsx/2)
+                    y[i]=acontact.geometry.coords[1][1]+(dlsy/2)
                     angle=degrees(atan2(lsx,lsy))
                     l[i]=lsx
                     m[i]=lsy
                     locations=[(x[i],y[i])] #doesn't like point right on edge?
-                    height=m2l_utils.value_from_raster(dtm,locations)
-                    if(str(acontact[1][c_l['g']])=='None'):
-                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+"\n"
+                    height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                    if(str(acontact[c_l['g']])=='None'):
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+"\n"
                     else:
-                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['g']].replace(" ","_").replace("-","_")+"\n"
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+","+acontact[c_l['g']].replace(" ","_").replace("-","_")+"\n"
                     #print(ostr)
                     f.write(ostr)
                     #print(npts,dlsx,dlsy)
@@ -507,7 +507,7 @@ def interpolate_contacts(geology_file,output_path,dtm,bbox,c_l,use_gcode,calc,gr
 # calc NOT USED
 # decimate simple decimation factor for saving vectors
 ######################################
-def save_contact_vectors(geology_file,tmp_path,dtm,bbox,c_l,calc,decimate):
+def save_contact_vectors(geology_file,tmp_path,dtm,dtb,dtb_null,cover_map,bbox,c_l,calc,decimate):
     geol_file = gpd.read_file(geology_file,bbox=bbox)
     print(len(geol_file))
     #geol_file.plot( color='black',edgecolor='black') 
@@ -522,13 +522,13 @@ def save_contact_vectors(geology_file,tmp_path,dtm,bbox,c_l,calc,decimate):
     f.write("X,Y,Z,angle,lsx,lsy,formation,group\n")
     j=0
     i=0
-    for acontact in geol_file.iterrows():   #loop through distinct linestrings in MultiLineString
-        if(acontact[1].geometry.type=='MultiLineString'):
+    for indx,acontact in geol_file.iterrows():   #loop through distinct linestrings in MultiLineString
+        if(acontact.geometry.type=='MultiLineString'):
             #print(i)
-            for line in acontact[1].geometry: # loop through line segments
-                #print(i,len(acontact[1].geometry))
+            for line in acontact.geometry: # loop through line segments
+                #print(i,len(acontact.geometry))
                 if(m2l_utils.mod_safe(i,decimate)  ==0):
-                    #if(acontact[1]['id']==170): 
+                    #if(acontact['id']==170): 
                         #display(npts,line.coords[0][0],line.coords[1][0]) 
                     dlsx=line.coords[0][0]-line.coords[1][0]
                     dlsy=line.coords[0][1]-line.coords[1][1]
@@ -541,35 +541,36 @@ def save_contact_vectors(geology_file,tmp_path,dtm,bbox,c_l,calc,decimate):
                         l[i]=lsx
                         m[i]=lsy
                         locations=[(x[i],y[i])] #doesn't like point right on edge?
-                        height=m2l_utils.value_from_raster(dtm,locations)
-                        if(str(acontact[1][c_l['g']])=='None'):
-                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+"\n"
+                        height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+
+                        if(str(acontact[c_l['g']])=='None'):
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+"\n"
                         else:
-                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['g']].replace(" ","_").replace("-","_")+"\n"
+                            ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+","+acontact[c_l['g']].replace(" ","_").replace("-","_")+"\n"
                         f.write(ostr)
                         npts=npts+1
                 i=i+1
         else:
-            #display(acontact[1].geometry,acontact[1].geometry.coords)
-            #for line in acontact[1]: # loop through line segments in LineString
+            #display(acontact.geometry,acontact.geometry.coords)
+            #for line in acontact: # loop through line segments in LineString
             if(  m2l_utils.mod_safe(i,decimate)  ==0):
-                dlsx=acontact[1].geometry.coords[0][0]-acontact[1].geometry.coords[1][0]
-                dlsy=acontact[1].geometry.coords[0][1]-acontact[1].geometry.coords[1][1]
-                if(not acontact[1].geometry.coords[0][0]==acontact[1].geometry.coords[1][0] 
-                   or not acontact[1].geometry.coords[0][1]==acontact[1].geometry.coords[1][1]):
+                dlsx=acontact.geometry.coords[0][0]-acontact.geometry.coords[1][0]
+                dlsy=acontact.geometry.coords[0][1]-acontact.geometry.coords[1][1]
+                if(not acontact.geometry.coords[0][0]==acontact.geometry.coords[1][0] 
+                   or not acontact.geometry.coords[0][1]==acontact.geometry.coords[1][1]):
                     lsx=dlsx/sqrt((dlsx*dlsx)+(dlsy*dlsy))
                     lsy=dlsy/sqrt((dlsx*dlsx)+(dlsy*dlsy))
-                    x[i]=acontact[1].geometry.coords[1][0]+(dlsx/2)
-                    y[i]=acontact[1].geometry.coords[1][1]+(dlsy/2)
+                    x[i]=acontact.geometry.coords[1][0]+(dlsx/2)
+                    y[i]=acontact.geometry.coords[1][1]+(dlsy/2)
                     angle=degrees(atan2(lsx,lsy))
                     l[i]=lsx
                     m[i]=lsy
                     locations=[(x[i],y[i])] #doesn't like point right on edge?
-                    height=m2l_utils.value_from_raster(dtm,locations)
-                    if(str(acontact[1][c_l['g']])=='None'):
-                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+"\n"
+                    height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                    if(str(acontact[c_l['g']])=='None'):
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+"\n"
                     else:
-                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[1][c_l['c']].replace(" ","_").replace("-","_")+","+acontact[1][c_l['g']].replace(" ","_").replace("-","_")+"\n"
+                        ostr=str(x[i])+","+str(y[i])+","+str(height)+","+str(angle%180)+","+str(lsx)+","+str(lsy)+","+acontact[c_l['c']].replace(" ","_").replace("-","_")+","+acontact[c_l['g']].replace(" ","_").replace("-","_")+"\n"
                     #print(ostr)
                     f.write(ostr)
                     #print(npts,dlsx,dlsy)
@@ -600,7 +601,7 @@ def save_contact_vectors(geology_file,tmp_path,dtm,bbox,c_l,calc,decimate):
 # 
 # Useful for adding data where no orientations are available (e.g. in fault bounded domains) and for calculating true thickness of layers. Assumes a 2D plane of data, but if 3D RBF was calulated and projected contact info was used it should apply with topography too.
 ####################################    
-def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_reproj_file,c_l,lo,mo,no,lc,mc,xy,dst_crs,bbox,fault_flag):
+def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_reproj_file,dtb,dtb_null,cover_map,c_l,lo,mo,no,lc,mc,xy,dst_crs,bbox,fault_flag):
     f=open(combo_file,'w')
     f.write('x,y,dip,dipdirection,misorientation,dotproduct\n')
 
@@ -648,16 +649,16 @@ def join_contacts_and_orientations(combo_file,geology_file,output_path,dtm_repro
     else:
         f=open(output_path+'combo_full.csv','w')
     f.write('X,Y,Z,azimuth,dip,polarity,formation\n')
-    for a_point in structure_code.iterrows():
-        locations=[(a_point[1]['x'],a_point[1]['y'])]
-        height=m2l_utils.value_from_raster(dtm,locations)
-        ostr=str(a_point[1]['x'])+','
-        ostr=ostr+str(a_point[1]['y'])+','
-        ostr=ostr+str(height)+','+str(int(a_point[1]['dipdirection']))+','
-        ostr=ostr+str(int(a_point[1]['dip']))+',1,'
-        ostr=ostr+str(a_point[1][c_l['c']]).replace("-","_").replace(" ","_")+'\n'
+    for indx,a_point in structure_code.iterrows():
+        locations=[(a_point['x'],a_point['y'])]
+        height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+        ostr=str(a_point['x'])+','
+        ostr=ostr+str(a_point['y'])+','
+        ostr=ostr+str(height)+','+str(int(a_point['dipdirection']))+','
+        ostr=ostr+str(int(a_point['dip']))+',1,'
+        ostr=ostr+str(a_point[c_l['c']]).replace("-","_").replace(" ","_")+'\n'
 
-        if(not str(a_point[1][c_l['c']])=='nan'):
+        if(not str(a_point[c_l['c']])=='nan'):
             f.write(ostr)
     f.close()  
     if(fault_flag):
@@ -724,18 +725,18 @@ def interpolate_orientations_with_fat(structure_file,output_path,bbox,c_l,this_g
     dipdir = np.zeros(npts)
     
     i=0
-    for a_pt in gp_structure_all.iterrows():
-        x[i]=a_pt[1]['geometry'].x
-        y[i]=a_pt[1]['geometry'].y
-        dip[i] = a_pt[1][c_l['d']]
-        dipdir[i] = a_pt[1][c_l['dd']]
+    for ind,a_pt in gp_structure_all.iterrows():
+        x[i]=a_pt['geometry'].x
+        y[i]=a_pt['geometry'].y
+        dip[i] = a_pt[c_l['d']]
+        dipdir[i] = a_pt[c_l['dd']]
         i=i+1
 
-    for a_pt in fat_orientations.iterrows():
-        x[i]=a_pt[1]['X']
-        y[i]=a_pt[1]['Y']
-        dip[i] = a_pt[1]['dip']
-        dipdir[i] = a_pt[1]['azimuth']
+    for ind,a_pt in fat_orientations.iterrows():
+        x[i]=a_pt['X']
+        y[i]=a_pt['Y']
+        dip[i] = a_pt['dip']
+        dipdir[i] = a_pt['azimuth']
         i=i+1
     
     l=np.zeros(npts)
@@ -823,7 +824,7 @@ def interpolate_orientations_with_fat(structure_file,output_path,bbox,c_l,this_g
 # fault so that geomodeller/gempy have satisfied fault compartment orientation data
 ###################################################
 
-def process_fault_throw_and_near_orientations(tmp_path,output_path,dtm_reproj_file,c_l,use_gcode,use_gcode2,dst_crs,bbox,scheme):
+def process_fault_throw_and_near_orientations(tmp_path,output_path,dtm_reproj_file,dtb,dtb_null,cover_map,c_l,use_gcode,use_gcode2,dst_crs,bbox,scheme):
     fault_file=tmp_path+'faults_clip.shp'
     geology_file=tmp_path+'geol_clip.shp'
 
@@ -867,22 +868,22 @@ def process_fault_throw_and_near_orientations(tmp_path,output_path,dtm_reproj_fi
             rcontact=[]
             lastlcode=''
             lastrcode=''
-            for indl in lcode.iterrows():
-                if(indl[0]<len(lcode)):
-                    ntest1=str(indl[1][c_l['ds']])
-                    ntest2=str(indl[1][c_l['r1']])
+            for ind,indl in lcode.iterrows():
+                if(ind<len(lcode)):
+                    ntest1=str(indl[c_l['ds']])
+                    ntest2=str(indl[c_l['r1']])
                     if(not ntest1 == 'None' and not ntest2 == 'None' ):
-                        if((not indl[1][c_l['c']]==lastlcode) and ((not c_l['sill'] in indl[1][c_l['ds']]) or (not c_l['intrusive'] in indl[1][c_l['r1']] ))):
-                            lcontact.append([(indl[0],lastlcode,indl[1][c_l['c']])])
-                        lastlcode=indl[1][c_l['c']]
-            for indr in rcode.iterrows():
-                if(indr[0]<len(rcode)):
-                    ntest1=str(indr[1][c_l['ds']])
-                    ntest2=str(indr[1][c_l['r1']])
+                        if((not indl[c_l['c']]==lastlcode) and ((not c_l['sill'] in indl[c_l['ds']]) or (not c_l['intrusive'] in indl[c_l['r1']] ))):
+                            lcontact.append([(ind,lastlcode,indl[c_l['c']])])
+                        lastlcode=indl[c_l['c']]
+            for ind,indr in rcode.iterrows():
+                if(ind<len(rcode)):
+                    ntest1=str(indr[c_l['ds']])
+                    ntest2=str(indr[c_l['r1']])
                     if(not ntest1 == 'None' and not ntest2 == 'None' ):
-                        if((not indr[1][c_l['c']]==lastlcode) and ((not c_l['sill'] in indr[1][c_l['ds']]) or (not c_l['intrusive'] in indr[1][c_l['r1']] ))):
-                            rcontact.append([(indr[0],lastrcode,indr[1][c_l['c']])]) 
-                        lastrcode=indr[1][c_l['c']]
+                        if((not indr[c_l['c']]==lastlcode) and ((not c_l['sill'] in indr[c_l['ds']]) or (not c_l['intrusive'] in indr[c_l['r1']] ))):
+                            rcontact.append([(ind,lastrcode,indr[c_l['c']])]) 
+                        lastrcode=indr[c_l['c']]
 
             for lc in lcontact:
                 for rc in rcontact:
@@ -909,8 +910,8 @@ def process_fault_throw_and_near_orientations(tmp_path,output_path,dtm_reproj_fi
 
     dtm = rasterio.open(dtm_reproj_file)
 
-    interpolate_contacts(basal_contacts_file,tmp_path,dtm,bbox,c_l,use_gcode2,scheme,xi,yi,True)
-    interpolate_contacts(basal_contacts_file,tmp_path+'ex_',dtm,bbox,c_l,use_gcode2,scheme,all_coords_x,all_coords_y,True)    
+    interpolate_contacts(basal_contacts_file,tmp_path,dtm,dtb,dtb_null,cover_map,bbox,c_l,use_gcode2,scheme,xi,yi,True)
+    interpolate_contacts(basal_contacts_file,tmp_path+'ex_',dtm,dtb,dtb_null,cover_map,bbox,c_l,use_gcode2,scheme,all_coords_x,all_coords_y,True)    
     
     combo_file=tmp_path+'f_combo.csv'
     ex_combo_file=tmp_path+'ex_f_combo.csv'
@@ -929,8 +930,8 @@ def process_fault_throw_and_near_orientations(tmp_path,output_path,dtm_reproj_fi
     ex_no=np.loadtxt(tmp_path+'ex_f_interpolation_n.csv',skiprows =1,delimiter =',',dtype=float)
     ex_xy=np.loadtxt(tmp_path+'ex_f_interpolation_'+scheme+'.csv',skiprows =1,delimiter =',',dtype=float)
 
-    join_contacts_and_orientations(combo_file,geology_file,tmp_path,dtm_reproj_file,c_l,lo,mo,no,lc,mc,xy,dst_crs,bbox,True)
-    join_contacts_and_orientations(ex_combo_file,geology_file,tmp_path+'ex_',dtm_reproj_file,c_l,ex_lo,ex_mo,ex_no,ex_lc,ex_mc,ex_xy,dst_crs,bbox,True)
+    join_contacts_and_orientations(combo_file,geology_file,tmp_path,dtm_reproj_file,dtb,dtb_null,cover_map,c_l,lo,mo,no,lc,mc,xy,dst_crs,bbox,True)
+    join_contacts_and_orientations(ex_combo_file,geology_file,tmp_path+'ex_',dtm_reproj_file,dtb,dtb_null,cover_map,c_l,ex_lo,ex_mo,ex_no,ex_lc,ex_mc,ex_xy,dst_crs,bbox,True)
 
     ddd=pd.read_csv(tmp_path+'f_combo_full.csv')
     f=open(output_path+'fault_displacements3.csv','w')
