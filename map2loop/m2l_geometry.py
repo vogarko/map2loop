@@ -40,7 +40,12 @@ def save_orientations(structures,path_out,c_l,orientation_decimate,dtm,dtb,dtb_n
                 if(apoint['geometry'].x > dtm.bounds[0] and apoint['geometry'].x < dtm.bounds[2] and  
                     apoint['geometry'].y > dtm.bounds[1] and apoint['geometry'].y < dtm.bounds[3]):       
                     height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
-                    ostr=str(apoint['geometry'].x)+","+str(apoint['geometry'].y)+","+height+","+str(apoint[c_l['dd']])+","+str(apoint[c_l['d']])+",1,"+str(apoint[c_l['c']].replace(" ","_").replace("-","_"))+"\n"
+                    if(c_l['otype']=='strike'):
+                        dipdir=apoint[c_l['dd']]+90
+                    else:
+                        dipdir=apoint[c_l['dd']]
+                        
+                    ostr=str(apoint['geometry'].x)+","+str(apoint['geometry'].y)+","+height+","+str(dipdir)+","+str(apoint[c_l['d']])+",1,"+str(apoint[c_l['c']].replace(" ","_").replace("-","_"))+"\n"
                     f.write(ostr)
                     i+=1
         

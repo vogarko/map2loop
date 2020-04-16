@@ -34,6 +34,7 @@ c_l= {
   "dd": "DIP_DIR",             #field that contains dip direction information
   "sf": 'FEATURE',             #field that contains information on type of structure
   "bedding": 'Bed',            #text to search for in field defined by sf code to show that this is a bedding measurement
+  "otype": 'dip direction',            #flag to determine measurement convention (currently 'strike' or 'dip direction')
 #Stratigraphy
   "g": 'GROUP_',               #field that contains coarser stratigraphic coding
   "c": 'CODE',                 #field that contains finer stratigraphic coding
