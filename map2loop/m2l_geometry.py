@@ -34,21 +34,23 @@ def save_orientations(structures,path_out,c_l,orientation_decimate,dtm,dtb,dtb_n
     f=open(path_out+'/orientations.csv',"w")
     f.write("X,Y,Z,azimuth,dip,polarity,formation\n")
     for indx,apoint in structures.iterrows():
-        if(not c_l['intrusive'] in apoint[c_l['r1']]):
-            if(apoint[c_l['d']]!=0 and m2l_utils.mod_safe(i,orientation_decimate)==0):
-                locations=[(apoint['geometry'].x, apoint['geometry'].y)]
-                if(apoint['geometry'].x > dtm.bounds[0] and apoint['geometry'].x < dtm.bounds[2] and  
-                    apoint['geometry'].y > dtm.bounds[1] and apoint['geometry'].y < dtm.bounds[3]):       
-                    height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
-                    if(c_l['otype']=='strike'):
-                        dipdir=apoint[c_l['dd']]+90
-                    else:
-                        dipdir=apoint[c_l['dd']]
-                        
-                    ostr=str(apoint['geometry'].x)+","+str(apoint['geometry'].y)+","+height+","+str(dipdir)+","+str(apoint[c_l['d']])+",1,"+str(apoint[c_l['c']].replace(" ","_").replace("-","_"))+"\n"
-                    f.write(ostr)
-                    i+=1
-        
+        if(not str(apoint[c_l['r1']])=='None'):
+
+            if(not c_l['intrusive'] in apoint[c_l['r1']]):
+                if(apoint[c_l['d']]!=0 and m2l_utils.mod_safe(i,orientation_decimate)==0):
+                    locations=[(apoint['geometry'].x, apoint['geometry'].y)]
+                    if(apoint['geometry'].x > dtm.bounds[0] and apoint['geometry'].x < dtm.bounds[2] and  
+                        apoint['geometry'].y > dtm.bounds[1] and apoint['geometry'].y < dtm.bounds[3]):       
+                        height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                        if(c_l['otype']=='strike'):
+                            dipdir=apoint[c_l['dd']]+90
+                        else:
+                            dipdir=apoint[c_l['dd']]
+                            
+                        ostr=str(apoint['geometry'].x)+","+str(apoint['geometry'].y)+","+height+","+str(dipdir)+","+str(apoint[c_l['d']])+",1,"+str(apoint[c_l['c']].replace(" ","_").replace("-","_"))+"\n"
+                        f.write(ostr)
+                        i+=1
+            
     f.close()
     print(i,'orientations saved to',path_out+'orientations.csv')
 
@@ -75,7 +77,7 @@ def create_orientations( path_in, path_out,dtm,dtb,dtb_null,cover_map,geology,st
 
     #ngroups=contents[0].split(" ")
     #ngroups=int(ngroups[1])
-    contents=np.genfromtxt(path_in+'groups.csv',delimiter=',',dtype='U25')
+    contents=np.genfromtxt(path_in+'groups.csv',delimiter=',',dtype='U100')
     ngroups=len(contents[0])-1
     #print(len(contents[0]))
     groups=[]
@@ -772,13 +774,13 @@ def create_basal_contact_orientations(contacts,structures,output_path,dtm,dtb,dt
 #########################################
 def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,dtb,dtb_null,cover_map,pluton_form,pluton_dip,contact_decimate,c_l):
     
-    groups=np.genfromtxt(tmp_path+'groups.csv',delimiter=',',dtype='U25')
+    groups=np.genfromtxt(tmp_path+'groups.csv',delimiter=',',dtype='U100')
     ngroups=len(groups[0])-1
 
     orig_ngroups=ngroups
 
     gp_ages=np.zeros((1000,3))
-    gp_names=np.zeros((1000),dtype='U25')
+    gp_names=np.zeros((1000),dtype='U100')
 
     for i in range (0,ngroups):
         gp_ages[i,0]=-1e6 # group max_age
@@ -1815,7 +1817,7 @@ def fault_strat_offset(path_out,c_l,dst_crs,fm_thick_file, all_sorts_file,fault_
     new_als.set_index('code',  inplace = True)
     display(new_als)
 
-    all_long_faults=np.genfromtxt(fault_dim_file,delimiter=',',dtype='U25')
+    all_long_faults=np.genfromtxt(fault_dim_file,delimiter=',',dtype='U100')
     fault_names=all_long_faults[1:,:1]
 
     f=open(path_out+'fault_strat_offset3.csv','w')
@@ -2067,7 +2069,7 @@ def process_cover(output_path,dtm,dtb,dtb_null,cover,cover_map,cover_dip,bbox,ds
 # Save out dip info along basal contacts, dip defined, dip direction normal to local vector
 ##########################################################
 def save_basal_contacts_orientations_csv(contacts,orientations,geol_clip,tmp_path,output_path,dtm,dtb,
-                                         dtb_null,cover_map,contact_decimate,c_l,dip):
+                                         dtb_null,cover_map,contact_decimate,c_l,contact_dip):
 
     interpolated_combo_file=tmp_path+'combo_full.csv'
     orientations=pd.read_csv(interpolated_combo_file)
@@ -2120,7 +2122,7 @@ def save_basal_contacts_orientations_csv(contacts,orientations,geol_clip,tmp_pat
                         #    if(dist<closest):
                         #        closest=dist
                         #        dip=ori['dip']
-                        ostr=str(midx)+','+str(midy)+','+str(height)+','+str(dipdir)+','+str(int(dip))+',1,'+str(contact[c_l['c']]).replace(" ","_").replace("-","_")+'\n'
+                        ostr=str(midx)+','+str(midy)+','+str(height)+','+str(dipdir)+','+str(contact_dip)+',1,'+str(contact[c_l['c']]).replace(" ","_").replace("-","_")+'\n'
                         f.write(ostr)
                 else:
                     lastx=line.coords[0][0]

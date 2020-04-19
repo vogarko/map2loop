@@ -88,7 +88,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
 
     #print(empty_fm)
 
-    all_sorts=np.genfromtxt(tmp_path+'all_sorts_clean.csv',delimiter=',',dtype='U25')
+    all_sorts=np.genfromtxt(tmp_path+'all_sorts_clean.csv',delimiter=',',dtype='U100')
     nformations=len(all_sorts)
 
     f.write('#---------------------------------------------------------------\n')
@@ -325,7 +325,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
         f.write('}\n')
 
     if(save_faults):
-        all_fault_group=np.genfromtxt(output_path+'group-fault-relationships.csv',delimiter=',',dtype='U25')
+        all_fault_group=np.genfromtxt(output_path+'group-fault-relationships.csv',delimiter=',',dtype='U100')
         ngroups=len(all_fault_group)
         all_fault_group=np.transpose(all_fault_group)
         nfaults=len(all_fault_group)
@@ -601,14 +601,14 @@ def loop2gempy(test_data_name: str, tmp_path: str, vtk_path: str, orientations_f
 
     # Pile processing:
     contents = np.genfromtxt(groups_file,
-                             delimiter=',', dtype='U25')
+                             delimiter=',', dtype='U100')
 
     # Init dictionary Series:Surfaces
     map_series_to_surfaces = {}
     choice = 0
     for group in contents:
         # Reading surfaces groups
-        surfaces_g = np.atleast_2d(np.genfromtxt(tmp_path + group + '.csv', delimiter=',', dtype='U25'))
+        surfaces_g = np.atleast_2d(np.genfromtxt(tmp_path + group + '.csv', delimiter=',', dtype='U100'))
 
         # Check if there are several choices
         if surfaces_g.shape[1] > 1:
@@ -682,7 +682,7 @@ def loop2gempy_(test_data_name, tmp_path, vtk_path, orientations_file, contacts_
     fp = dtm_reproj_file
     geo_model.set_topography(source='gdal',filepath=fp)
 
-    contents=np.genfromtxt(groups_file,delimiter=',',dtype='U25')
+    contents=np.genfromtxt(groups_file,delimiter=',',dtype='U100')
     ngroups=len(contents)
 
     faults = gp.Faults()
@@ -706,7 +706,7 @@ def loop2gempy_(test_data_name, tmp_path, vtk_path, orientations_file, contacts_
 
     print(ngroups,groups)
     for i in range(0,ngroups):
-        contents=np.genfromtxt(tmp_path+groups[i]+'.csv',delimiter=',',dtype='U25')
+        contents=np.genfromtxt(tmp_path+groups[i]+'.csv',delimiter=',',dtype='U100')
         nformations=len(contents.shape)
 
         if(nformations==1):

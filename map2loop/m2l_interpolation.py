@@ -831,7 +831,7 @@ def process_fault_throw_and_near_orientations(tmp_path,output_path,dtm_reproj_fi
     faults = gpd.read_file(fault_file)
     geology = gpd.read_file(geology_file)
 
-    all_long_faults=np.genfromtxt(output_path+'fault_dimensions.csv',delimiter=',',dtype='U25')
+    all_long_faults=np.genfromtxt(output_path+'fault_dimensions.csv',delimiter=',',dtype='U100')
     fault_names=all_long_faults[1:,:1]
     
     xi=[]
@@ -937,7 +937,7 @@ def process_fault_throw_and_near_orientations(tmp_path,output_path,dtm_reproj_fi
     f=open(output_path+'fault_displacements3.csv','w')
     f.write('X,Y,fname,apparent_displacement,vertical_displacement\n')
 
-    for i in range (len(ddd)):
+    for i in range (len(fdc)):
         l,m,n=m2l_utils.ddd2dircos(ddd.iloc[i]['dip'],ddd.iloc[i]['azimuth'])
         lnorm=l/sqrt(pow(l,2)+pow(m,2))
         mnorm=m/sqrt(pow(l,2)+pow(m,2))

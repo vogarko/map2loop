@@ -723,7 +723,11 @@ def plot_bedding_stereonets(orientations,all_sorts):
                 ax[ind2].grid(True)
                 #fig.colorbar(cax)
                 text = ax[ind2].text(2.2, 1.37, indx, color='b')
-
+                
+                # Fit a plane to the girdle of the distribution and display it.
+                fit_strike, fit_dip = mplstereonet.fit_girdle(strikes, dips)
+                print('strike/dip of girdle',fit_strike, '/', fit_dip)                
+               
                 if(ind2==2):
                     plt.show()
 

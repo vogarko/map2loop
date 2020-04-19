@@ -19,5 +19,7 @@ mplstereonet
 optional:
 gempy
 pyvtk
-lavavu
+
 LoopStructural
+pyamg
+lavavu

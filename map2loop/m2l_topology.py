@@ -229,14 +229,14 @@ def save_group(G,path_out,glabels,geol,c_l):
     #contents =g.readlines()
     #g.close
     #hdr=contents[0].split(" ")
-    contents=np.genfromtxt(path_out+'groups.csv',delimiter=',',dtype='U25')
+    contents=np.genfromtxt(path_out+'groups.csv',delimiter=',',dtype='U100')
     
     #display('lencon',len(contents[0]))
     k=0
     ag=open(path_out+'/all_sorts.csv',"w")
     ag.write("index,group number,index in group,number in group,code,group\n")
     for i in range(1,len(contents[0])):
-        ucontents=np.genfromtxt(path_out+"/"+contents[0][i].replace("\n","").replace(" ","_")+".csv",delimiter=',',dtype='U25')
+        ucontents=np.genfromtxt(path_out+"/"+contents[0][i].replace("\n","").replace(" ","_")+".csv",delimiter=',',dtype='U100')
         #f=open(path_out+"/"+contents[i].replace("\n","").replace(" ","_")+".csv","r")#check underscore
         #ucontents =f.readlines()
         #f.close
@@ -267,7 +267,7 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
     contents =uf.readlines()
     uf.close()
     
-    all_long_faults=np.genfromtxt(output_path+'fault_dimensions.csv',delimiter=',',dtype='U25')
+    all_long_faults=np.genfromtxt(output_path+'fault_dimensions.csv',delimiter=',',dtype='U100')
     n_faults=len(all_long_faults)
     #print(n_faults)
     all_faults={}
@@ -306,7 +306,7 @@ def parse_fault_relationships(graph_path,tmp_path,output_path):
     ngroups=len(summary.group.unique())
     #print(ngroups,'groups',groups,groups[0])
     uf_array=uf_rel.to_numpy()
-    gf_array=np.zeros((ngroups,uf_array.shape[1]),dtype='U25')
+    gf_array=np.zeros((ngroups,uf_array.shape[1]),dtype='U100')
 
     for i in range(0,ngroups):
         for j in range(0,len(uf_rel)):
