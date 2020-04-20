@@ -1843,8 +1843,8 @@ def fault_strat_offset(path_out,c_l,dst_crs,fm_thick_file, all_sorts_file,fault_
             rcode = gpd.sjoin(rgdf, geology, how="left", op="within")
             
             for i in range (0,len(fault.geometry.coords)-1):
-                lcode_fm=lcode.iloc[i][c_l['c']].replace("-","_").replace("\n","")
-                rcode_fm=rcode.iloc[i][c_l['c']].replace("-","_").replace("\n","")
+                lcode_fm=lcode.iloc[i][c_l['c']].replace(" ","_").replace("-","_").replace("\n","")
+                rcode_fm=rcode.iloc[i][c_l['c']].replace(" ","_").replace("-","_").replace("\n","")
                 
                 if(lcode_fm in codes and rcode_fm in codes and lcode_fm in formations and rcode_fm in formations ):            
                     midx=lcode.iloc[i].geometry.x+((rcode.iloc[i].geometry.x-lcode.iloc[i].geometry.x)/2)
