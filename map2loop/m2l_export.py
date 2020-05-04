@@ -19,9 +19,9 @@ import os
 #
 # Creates geomodeller taskfile files from varous map2loop outputs
 ##########################################################################
-def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faults,compute_etc,workflow):
+def loop2geomodeller(model_name,test_data_path,tmp_path,output_path,dtm_file,bbox,save_faults,compute_etc,workflow):
 
-    f=open(test_data_path+'m2l.taskfile','w')
+    f=open(test_data_path+'/'+model_name+'/m2l.taskfile','w')
     f.write('#---------------------------------------------------------------\n')
     f.write('#-----------------------Project Header-----------------------\n')
     f.write('#---------------------------------------------------------------\n')
@@ -359,20 +359,20 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
 
     f.write('GeomodellerTask {\n')
     f.write('    SaveProjectAs {\n')
-    f.write('        filename: "./Models_Prelim/Models_UWA.xml"\n')
+    f.write('        filename: "./'+model_name+'.xml"\n')
     f.write('    }\n')
     f.write('}\n')
     f.close()
     
 
     if(compute_etc):
-        f=open(test_data_path+'m2l_compute.taskfile','w')
+        f=open(test_data_path+model_name+'/'+'m2l_compute.taskfile','w')
         f.write('#---------------------------------------------------------------\n')
         f.write('#----------------------------Load Model----------------------\n')
         f.write('#---------------------------------------------------------------\n')
         f.write('GeomodellerTask {\n')
         f.write('    OpenProjectNoGUI {\n')
-        f.write('        filename: "./Models_Prelim/Models_UWA.xml"\n')
+        f.write('        filename: "./'+model_name+'.xml"\n')
         f.write('    }\n')
         f.write('}\n')
      
@@ -419,7 +419,7 @@ def loop2geomodeller(test_data_path,tmp_path,output_path,dtm_file,bbox,save_faul
     
         f.write('GeomodellerTask {\n')
         f.write('    SaveProjectAs {\n')
-        f.write('        filename: "./Models_Final/Models_UWA.xml"\n')
+        f.write('        filename: "/'+model_name+'.xml"\n')
         f.write('    }\n')
         f.write('}\n')   
         f.write('GeomodellerTask {\n')

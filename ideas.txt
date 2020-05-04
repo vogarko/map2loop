@@ -2,12 +2,18 @@ M2L thoughts
 
 General to do
 
+Pre-processing of data:
+69. Merge colinear fault strings
+85. Strip commas from unit & group names in input data file text fields
+86. look for blank groups, dips, etc in fields
+
 Functionality
 
 12. Add polarity code to orientations 
 79. Capture  fault/contact info as inferred for consistency checker
 80. capture contact and volume age gradient info for consistency checker
 74. Stratigraphic unit x thickness fault offset calcs
+87. smooth term in rbf?
 
 4. Thickness no faults or fold hinges
 5. Thickness no intervening layers and bigger search radius
@@ -25,7 +31,6 @@ Functionality
 66. Filtering of near_fault orientation data (only need one orientation per series)
 67. List of data sources for export
 68. Filter faults by centrality? (networkx degree_centrality(G) or eigenvector_centrality())
-69. Merge colinear fault strings
 70. Cut polygons by faults if not edges
 71. networkx in/out connectivity for strat analysis
 72. Filter out orientations far from contacts?
@@ -36,6 +41,7 @@ Functionality
 78. Group age as ultimate ordering control? (done in tidy_data())
 81. Modify docstrings so that question marks work (use pycharm)
 82. import warnings              new line        warnings.filterwarnings("ignore")
+
 Style
 8. Priors all in one place
 16. Expose all file names in functions?

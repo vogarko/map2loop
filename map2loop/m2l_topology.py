@@ -235,21 +235,36 @@ def save_group(G,path_out,glabels,geol,c_l):
     k=0
     ag=open(path_out+'/all_sorts.csv',"w")
     ag.write("index,group number,index in group,number in group,code,group\n")
-    for i in range(1,len(contents[0])):
-        ucontents=np.genfromtxt(path_out+"/"+contents[0][i].replace("\n","").replace(" ","_")+".csv",delimiter=',',dtype='U100')
-        #f=open(path_out+"/"+contents[i].replace("\n","").replace(" ","_")+".csv","r")#check underscore
-        #ucontents =f.readlines()
-        #f.close
-        #print(len(ucontents.shape),ucontents)
-        if(len(ucontents.shape)==1):
-            for j in range(1,len(ucontents)):
-                ag.write(str(k)+","+str(i)+","+str(j)+","+str(len(ucontents)-1)+","+ucontents[j].replace("\n","")+","+contents[0][i].replace("\n","").replace(" ","_").replace("-","_")+"\n")
-                k=k+1
-        else:
-            for j in range(1,len(ucontents[0])):
-                ag.write(str(k)+","+str(i)+","+str(j)+","+str(len(ucontents[0])-1)+","+ucontents[0][j].replace("\n","")+","+contents[0][i].replace("\n","").replace(" ","_").replace("-","_")+"\n")
-                k=k+1
-            
+    if(len(contents.shape)==1):
+        for i in range(1,len(contents)):
+            ucontents=np.genfromtxt(path_out+"/"+contents[i].replace("\n","").replace(" ","_")+".csv",delimiter=',',dtype='U100')
+            #f=open(path_out+"/"+contents[i].replace("\n","").replace(" ","_")+".csv","r")#check underscore
+            #ucontents =f.readlines()
+            #f.close
+            #print(len(ucontents.shape),ucontents)
+            if(len(ucontents.shape)==1):
+                for j in range(1,len(ucontents)):
+                    ag.write(str(k)+","+str(i)+","+str(j)+","+str(len(ucontents)-1)+","+ucontents[j].replace("\n","")+","+contents[i].replace("\n","").replace(" ","_").replace("-","_")+"\n")
+                    k=k+1
+            else:
+                for j in range(1,len(ucontents[0])):
+                    ag.write(str(k)+","+str(i)+","+str(j)+","+str(len(ucontents[0])-1)+","+ucontents[0][j].replace("\n","")+","+contents[i].replace("\n","").replace(" ","_").replace("-","_")+"\n")
+                    k=k+1
+    else:
+         for i in range(1,len(contents[0])):
+            ucontents=np.genfromtxt(path_out+"/"+contents[0][i].replace("\n","").replace(" ","_")+".csv",delimiter=',',dtype='U100')
+            #f=open(path_out+"/"+contents[i].replace("\n","").replace(" ","_")+".csv","r")#check underscore
+            #ucontents =f.readlines()
+            #f.close
+            #print(len(ucontents.shape),ucontents)
+            if(len(ucontents.shape)==1):
+                for j in range(1,len(ucontents)):
+                    ag.write(str(k)+","+str(i)+","+str(j)+","+str(len(ucontents)-1)+","+ucontents[j].replace("\n","")+","+contents[0][i].replace("\n","").replace(" ","_").replace("-","_")+"\n")
+                    k=k+1
+            else:
+                for j in range(1,len(ucontents[0])):
+                    ag.write(str(k)+","+str(i)+","+str(j)+","+str(len(ucontents[0])-1)+","+ucontents[0][j].replace("\n","")+","+contents[0][i].replace("\n","").replace(" ","_").replace("-","_")+"\n")
+                    k=k+1            
     ag.close()
 
 ####################################

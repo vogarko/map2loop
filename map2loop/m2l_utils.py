@@ -662,6 +662,7 @@ def plot_bedding_stereonets(orientations,all_sorts):
     import matplotlib.pyplot as plt
     
     groups=all_sorts['group'].unique()
+    print("All observations n=",len(orientations))
 
     fig, ax = mplstereonet.subplots(figsize=(7,7))
     strikes = orientations["azimuth"].values -90
