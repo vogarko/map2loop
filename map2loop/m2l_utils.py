@@ -159,17 +159,17 @@ def get_dtm_hawaii(path_out, minlong,maxlong,minlat,maxlat):
     #print(grid)
     grid=grid.split(" ")
     grid=grid[2:(sizex*sizey)+2]
-    OPeNDAP = np.ones((sizey,sizex), dtype='int16')
-    k=0
-    for j in range (0, sizey, 1):
-        for i in range (0, sizex, 1):
-            OPeNDAP[sizey-1-j][i]=int(float(grid[k]))
-            k+=1
+    
+    #OPeNDAP = np.ones((sizey,sizex), dtype='int16')
+    #k=0
+    #for j in range (0, sizey, 1):
+    #    for i in range (0, sizex, 1):
+    #        OPeNDAP[sizey-1-j][i]=int(float(grid[k]))
+    #        k+=1
 
-    #maxtopo=np.amax(OPeNDAP)
-    #print("max height =",maxtopo)
-    #maxtopo=np.around(maxtopo,-2)+100
-    #print("rounded up max height =",maxtopo)
+    OPeNDAP=np.asarray(grid,dtype=np.float16).reshape(sizey,sizex)
+    OPeNDAP=OPeNDAP.astype('int16')
+    OPeNDAP=np.flipud(OPeNDAP)
 
 
     transform = from_origin(minlong, maxlat,0.008333333,0.008333333)

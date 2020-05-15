@@ -1,5 +1,5 @@
 from shapely import geometry
-from shapely.geometry import shape, Polygon, LineString, Point, MultiLineString
+from shapely.geometry import shape, Polygon, LineString, Point, MultiLineString, MultiPolygon
 import matplotlib.pyplot as plt
 import requests
 import rasterio
@@ -7,7 +7,7 @@ from pandas import DataFrame
 from geopandas import GeoDataFrame
 import geopandas as gpd
 import pandas as pd
-from math import acos, sqrt, cos, sin, degrees, radians, fabs, atan2, fmod
+from math import acos, sqrt, cos, sin, degrees, radians, fabs, atan2, fmod, isnan
 from map2loop import m2l_utils
 from map2loop import m2l_interpolation
 import numpy as np
@@ -1040,10 +1040,12 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,dtb,dtb_null,
                                         testpx=lineC.coords[0][0]-lsy # pt just a bit in/out from line
                                         testpy=lineC.coords[0][0]+lsx
 
-                                        for cgeol in geol_clip.iterrows(): # check on direction to dip
-                                            if LineString(central_poly.exterior.coords).contains(Point(testpx, testpy)):
+                                        if(ageol.geometry.type=='Polygon'):
+                                            if Polygon(ageol.geometry).contains(Point(testpx, testpy)):
                                                 azimuth=(azimuth-180)%360
-                                                break
+                                        else:
+                                            if MultiPolygon(ageol.geometry).contains(Point(testpx, testpy)):
+                                                azimuth=(azimuth-180)%360
 
                                         if(pluton_form=='saucers'):
                                             polarity=1
@@ -1104,10 +1106,13 @@ def process_plutons(tmp_path,output_path,geol_clip,local_paths,dtm,dtb,dtb_null,
                                 testpx=lineC.coords[0][0]-lsy # pt just a bit in/out from line
                                 testpy=lineC.coords[0][0]+lsx
 
-                                for cgeol in geol_clip.iterrows(): # check on direction to dip
-                                    if LineString(central_poly.exterior.coords).contains(Point(testpx, testpy)):
+                                if(ageol.geometry.type=='Polygon'):
+                                    if Polygon(ageol.geometry).contains(Point(testpx, testpy)):
                                         azimuth=(azimuth-180)%360
-                                        break
+                                else:
+                                    if MultiPolygon(ageol.geometry).contains(Point(testpx, testpy)):
+                                        azimuth=(azimuth-180)%360
+                                        
                                 if(pluton_form=='saucers'):
                                     polarity=1
                                     #ostr=str(lineC.coords[0][0])+","+str(lineC.coords[0][1])+","+str(height)+","+str(azimuth)+","+str(pluton_dip)+",1,"+newgp.replace(" ","_").replace("-","_")+"\n"
@@ -1226,6 +1231,10 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_f
     if('cover_contacts' in inputs):
         cover_contacts=pd.read_csv(output_path+'cover_grid.csv',",")
         all_contacts=pd.concat([all_contacts,cover_contacts],sort=False)
+        
+    if('fault_tip_contacts' in inputs):
+        fault_tip_contacts=pd.read_csv(output_path+'fault_tip_contacts.csv',",")
+        all_contacts=pd.concat([all_contacts,fault_tip_contacts],sort=False)
 
     all_contacts.reset_index(inplace=True)
     all_contacts.to_csv(output_path+'contacts_clean.csv', index = None, header=True)
@@ -1431,7 +1440,7 @@ def calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed,c_l):
     m = np.zeros(len(ox))
     n = np.zeros(len(ox))    
     file=open(output_path+'formation_thicknesses.csv','w')
-    file.write('X,Y,formation,thickness,cl,cm,meanl,meanm,meann,p1x,p1y,p2x,p2y,dip\n')
+    file.write('X,Y,formation,appar_th,thickness,cl,cm,meanl,meanm,meann,p1x,p1y,p2x,p2y,dip\n')
     dist=m2l_interpolation.distance_matrix(ox,oy,cx,cy)
     
     #np.savetxt(tmp_path+'dist.csv',dist,delimiter=',')
@@ -1512,8 +1521,8 @@ def calc_thickness(tmp_path,output_path,buffer,max_thickness_allowed,c_l):
                                             min_pt=f
                                     if(min_dist<max_thickness_allowed): #if not too far, add to output
                                         true_thick=sin(radians(dip_mean))*min_dist
-                                        ostr="{},{},{},{},{},{},{},{},{},{},{}\n"\
-                                              .format(cx[k],cy[k],ctextcode[k],int(true_thick),cl[k],cm[k],lm,mm,nm,p1.x,p1.y,p2.x,p2.y,dip_mean)
+                                        ostr="{},{},{},{},{},{},{},{},{},{},{},{}\n"\
+                                              .format(cx[k],cy[k],ctextcode[k],min_dist,int(true_thick),cl[k],cm[k],lm,mm,nm,p1.x,p1.y,p2.x,p2.y,dip_mean)
                                         #ostr=str(cx[k])+','+str(cy[k])+','+ctextcode[k]+','+str(int(true_thick))+\
                                         #    ','+str(cl[k])+','+str(cm[k])+','+str(lm)+','+str(mm)+','+str(nm)+','+\
                                         #    str(p1.x)+','+str(p1.y)+','+str(p2.x)+','+str(p2.y)+','+str(dip_mean)+'\n'
@@ -2005,7 +2014,7 @@ def fault_strat_offset(path_out,c_l,dst_crs,fm_thick_file, all_sorts_file,fault_
     np.savetxt(path_out+'fault_strat_offset_array.csv',fm_thick_arr,delimiter=',') 
 
     new_als.set_index('code',  inplace = True)
-    display(new_als)
+    
 
     all_long_faults=np.genfromtxt(fault_dim_file,delimiter=',',dtype='U100')
     fault_names=all_long_faults[1:,:1]
@@ -2031,49 +2040,50 @@ def fault_strat_offset(path_out,c_l,dst_crs,fm_thick_file, all_sorts_file,fault_
             rgdf = GeoDataFrame(index, crs=dst_crs, geometry=rgeom)
             lcode = gpd.sjoin(lgdf, geology, how="left", op="within")        
             rcode = gpd.sjoin(rgdf, geology, how="left", op="within")
-            
+           
             for i in range (0,len(fault.geometry.coords)-1):
-                lcode_fm=lcode.iloc[i][c_l['c']].replace(" ","_").replace("-","_").replace("\n","")
-                rcode_fm=rcode.iloc[i][c_l['c']].replace(" ","_").replace("-","_").replace("\n","")
-                
-                if(lcode_fm in codes and rcode_fm in codes and lcode_fm in formations and rcode_fm in formations ):            
-                    midx=lcode.iloc[i].geometry.x+((rcode.iloc[i].geometry.x-lcode.iloc[i].geometry.x)/2)
-                    midy=lcode.iloc[i].geometry.y+((rcode.iloc[i].geometry.y-lcode.iloc[i].geometry.y)/2)
+                if(not str(lcode.iloc[i][c_l['c']])=='nan' and not str(rcode.iloc[i][c_l['c']])=='nan'):
+                    lcode_fm=lcode.iloc[i][c_l['c']].replace(" ","_").replace("-","_").replace("\n","")
+                    rcode_fm=rcode.iloc[i][c_l['c']].replace(" ","_").replace("-","_").replace("\n","")
 
-                    fm_l= int(new_als.loc[lcode_fm]["index"])
-                    fm_r= int(new_als.loc[rcode_fm]["index"])
+                    if(lcode_fm in codes and rcode_fm in codes and lcode_fm in formations and rcode_fm in formations ):            
+                        midx=lcode.iloc[i].geometry.x+((rcode.iloc[i].geometry.x-lcode.iloc[i].geometry.x)/2)
+                        midy=lcode.iloc[i].geometry.y+((rcode.iloc[i].geometry.y-lcode.iloc[i].geometry.y)/2)
 
-                    if(fm_l>fm_r):
-                        t=fm_l
-                        fm_l=fm_r
-                        fm_r=t
-                    diff=fm_r-fm_l
-                    number_string = str(diff)
-                    diff = number_string.zfill(3)
-                    ostr="{},{},Fault_{},{},{},{},{}\n"\
-                          .format(midx,midy,fault[c_l['o']],lcode_fm,rcode_fm,fm_thick_arr[fm_l,fm_r],diff)
-                    #ostr=str(midx)+','+str(midy)+','+str('Fault_'+str(fault[c_l['o']]))+','+str(lcode_fm)+','+str(rcode_fm)+','+str(fm_thick_arr[fm_l,fm_r])+","+str(diff)+'\n'
-                elif(lcode_fm in codes and rcode_fm in codes):
-                    midx=lcode.iloc[i].geometry.x+((rcode.iloc[i].geometry.x-lcode.iloc[i].geometry.x)/2)
-                    midy=lcode.iloc[i].geometry.y+((rcode.iloc[i].geometry.y-lcode.iloc[i].geometry.y)/2)
+                        fm_l= int(new_als.loc[lcode_fm]["index"])
+                        fm_r= int(new_als.loc[rcode_fm]["index"])
 
-                    fm_l= int(new_als.loc[lcode_fm]["index"])
-                    fm_r= int(new_als.loc[rcode_fm]["index"])
+                        if(fm_l>fm_r):
+                            t=fm_l
+                            fm_l=fm_r
+                            fm_r=t
+                        diff=fm_r-fm_l
+                        number_string = str(diff)
+                        diff = number_string.zfill(3)
+                        ostr="{},{},Fault_{},{},{},{},{}\n"\
+                              .format(midx,midy,fault[c_l['o']],lcode_fm,rcode_fm,fm_thick_arr[fm_l,fm_r],diff)
+                        #ostr=str(midx)+','+str(midy)+','+str('Fault_'+str(fault[c_l['o']]))+','+str(lcode_fm)+','+str(rcode_fm)+','+str(fm_thick_arr[fm_l,fm_r])+","+str(diff)+'\n'
+                    elif(lcode_fm in codes and rcode_fm in codes):
+                        midx=lcode.iloc[i].geometry.x+((rcode.iloc[i].geometry.x-lcode.iloc[i].geometry.x)/2)
+                        midy=lcode.iloc[i].geometry.y+((rcode.iloc[i].geometry.y-lcode.iloc[i].geometry.y)/2)
 
-                    if(fm_l>fm_r):
-                        t=fm_l
-                        fm_l=fm_r
-                        fm_r=t
-                    diff=fm_r-fm_l
-                    number_string = str(diff)
-                    diff = number_string.zfill(3)
-                    ostr="{},{},Fault_{},{},{},{},{}\n"\
-                          .format(midx,midy,fault[c_l['o']],lcode_fm,rcode_fm,'-1',diff)
-                    #ostr=str(midx)+','+str(midy)+','+str('Fault_'+str(fault[c_l['o']]))+','+str(lcode_fm)+','+str(rcode_fm)+','+str('-1')+","+str(diff)+'\n'
-                else:
-                    ostr="{},{},Fault_{},{},{},{},{}\n"\
-                          .format(midx,midy,fault[c_l['o']],'','','-1','-1')
-                    #ostr=str(midx)+','+str(midy)+','+str('Fault_'+str(fault[c_l['o']]))+','+str('')+','+str('')+','+str('-1')+','+str('-1')+'\n'
+                        fm_l= int(new_als.loc[lcode_fm]["index"])
+                        fm_r= int(new_als.loc[rcode_fm]["index"])
+
+                        if(fm_l>fm_r):
+                            t=fm_l
+                            fm_l=fm_r
+                            fm_r=t
+                        diff=fm_r-fm_l
+                        number_string = str(diff)
+                        diff = number_string.zfill(3)
+                        ostr="{},{},Fault_{},{},{},{},{}\n"\
+                              .format(midx,midy,fault[c_l['o']],lcode_fm,rcode_fm,'-1',diff)
+                        #ostr=str(midx)+','+str(midy)+','+str('Fault_'+str(fault[c_l['o']]))+','+str(lcode_fm)+','+str(rcode_fm)+','+str('-1')+","+str(diff)+'\n'
+                    else:
+                        ostr="{},{},Fault_{},{},{},{},{}\n"\
+                              .format(midx,midy,fault[c_l['o']],'','','-1','-1')
+                        #ostr=str(midx)+','+str(midy)+','+str('Fault_'+str(fault[c_l['o']]))+','+str('')+','+str('')+','+str('-1')+','+str('-1')+'\n'
                     
                 f.write(ostr)  
     f.close()
