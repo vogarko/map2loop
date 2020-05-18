@@ -378,9 +378,9 @@ def interpolate_contacts(geology_file,output_path,dtm,dtb,dtb_null,cover_map,bbo
         xi, yi = xi.flatten(), yi.flatten()
             
     x = np.zeros(20000)   ############## FUDGE ################
-    y = np.zeros(20000)
-    l = np.zeros(20000)
-    m = np.zeros(20000)
+    y = np.zeros(20000)   # should go through geology file to see how many contact 
+    l = np.zeros(20000)   # segments will be made then define arrays?
+    m = np.zeros(20000)   #####################################
     
     if(fault_flag):
         f=open(output_path+'f_raw_contacts.csv','w')
