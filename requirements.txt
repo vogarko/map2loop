@@ -15,11 +15,3 @@ descartes
 gdal
 pyproj
 mplstereonet
-
-optional:
-gempy
-pyvtk
-
-LoopStructural
-pyamg
-lavavu
