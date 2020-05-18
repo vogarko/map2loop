@@ -4,7 +4,6 @@ networkx
 numpy
 pandas
 geopandas
-os
 urllib
 sys
 math
