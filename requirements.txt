@@ -4,9 +4,6 @@ networkx
 numpy
 pandas
 geopandas
-urllib
-sys
-math
 shapely
 gempy
 owslib
