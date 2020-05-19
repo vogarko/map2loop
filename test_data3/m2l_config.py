@@ -37,6 +37,7 @@ c_l= {
   "otype": 'dip direction',            #flag to determine measurement convention (currently 'strike' or 'dip direction')
 #Stratigraphy
   "g": 'GROUP_',               #field that contains coarser stratigraphic coding
+  "g2": 'SUPERSUITE',              #field that contains alternate coarser stratigraphic coding if 'g' is blank
   "c": 'CODE',                 #field that contains finer stratigraphic coding
   "ds": 'DESCRIPTN',           #field that contains information about lithology
   "u": 'UNITNAME',             #field that contains alternate stratigraphic coding (not used??)

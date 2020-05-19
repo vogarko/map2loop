@@ -204,25 +204,37 @@ def save_group(G,path_out,glabels,geol,c_l):
     nx.draw_networkx(Gp, pos=nx.kamada_kawai_layout(Gp), arrows=True,with_labels=False)
     nx.draw_networkx_labels(Gp,pos=nx.kamada_kawai_layout(Gp), labels=glabels, font_size=12,font_family='sans-serif')
 
-    glist=list(nx.all_topological_sorts(Gp)) #all possible sorted directional graphs    
-    print("group choices:",len(glist))
+    if(len(gp_ages)>10): # when lots of groups very large number of possibilities so short cut to first choice.
+        glist=list(nx.topological_sort(Gp)) #all possible sorted directional graphs    
+        print("group choices: 1 (more than 10 groups)")
+       
+        f = open(path_out+'groups.csv', 'w')
+        glen=len(glist)
+        f.write('Choice 0')
+        for n in range(0,glen):
+            f.write(','+str(glabels[glist[n]])) #check underscore
+        f.write('\n')
+        f.close()
+    else:
+        glist=list(nx.all_topological_sorts(Gp)) #all possible sorted directional graphs    
+        print("group choices:",len(glist))
+        
+        f = open(path_out+'groups.csv', 'w')
+        glen=len(glist)
+        if(glen>100):
+            glen=100
+        for n in range(0,glen):
+            f.write('Choice '+str(n))
+            for m in range(0,len(glist[0])):    
+                f.write(','+str(glabels[glist[n][m]])) #check underscore
+            f.write('\n')
+        f.close()
+        
     #display(glist)
     nx.write_gml(Gp, path_out+'groups.gml')
     #plt.show()
    
-    f = open(path_out+'groups.csv', 'w')
-    #f.write(str(len(glist))+" ")
-    #f.write(str(len(glist[0]))+"\n")
-    #print("xxxx",len(glist),len(glist[0]))
-    glen=len(glist)
-    if(glen>100):
-        glen=100
-    for n in range(0,glen):
-        f.write('Choice '+str(n))
-        for m in range(0,len(glist[0])):    
-            f.write(','+str(glabels[glist[n][m]])) #check underscore
-        f.write('\n')
-    f.close()
+
 
 
     #g=open(path_out+'groups.csv',"r")
