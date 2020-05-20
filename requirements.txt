@@ -1,0 +1,13 @@
+rasterio
+matplotlib
+networkx
+numpy
+pandas
+geopandas
+shapely
+gempy
+owslib
+descartes
+gdal
+pyproj
+mplstereonet

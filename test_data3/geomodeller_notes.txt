@@ -1,7 +1,0 @@
-to get geomodeller model to work:
-
-1) load XML
-2) load orientations
-3) Load contacts
-4) add basement fm and series 
-5) remove units with no contacts

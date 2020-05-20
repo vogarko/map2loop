@@ -1223,3 +1223,573 @@ def process_fault_throw_and_near_orientations(tmp_path,output_path,dtm_reproj_fi
     f.close()
     print('fault displacement estimates saved as',output_path+'fault_displacements3.csv')
     print('near-fault orientations saved as',tmp_path+'ex_f_combo_full.csv')
+
+
+def call_interpolator_grid(calc,x,y,l,m,n,xi,yi):
+    # Calculate IDW or other interpolators
+
+      
+    if(calc=='simple_idw'):
+        ZIl = simple_idw(x,y,l,xi,yi)
+    if(calc=='scipy_rbf'):
+        ZIl = scipy_rbf(x,y,l,xi,yi)
+    if(calc=='scipy_idw'):
+        ZIl = scipy_idw(x,y,l,xi,yi)
+
+    
+    if(calc=='simple_idw'):
+        ZIm = simple_idw(x,y,m,xi,yi)
+    if(calc=='scipy_rbf'):
+        ZIm = scipy_rbf(x,y,m,xi,yi)
+    if(calc=='scipy_idw'):
+        ZIm = scipy_idw(x,y,m,xi,yi)
+
+    
+    if(type(n) is not int):
+        if(calc=='simple_idw'):
+            ZIn = simple_idw(x,y,n,xi,yi)
+        if(calc=='scipy_rbf'):
+            ZIn = scipy_rbf(x,y,n,xi,yi)
+        if(calc=='scipy_idw'):
+            ZIn = scipy_idw(x,y,n,xi,yi)
+   
+    else:
+        ZIn=0
+    return(ZIl,ZIm,ZIn)
+
+def interpolate_orientation_grid(structures,calc,xcoords,ycoords,c_l):
+
+    npts=len(structures)
+    x = np.zeros(npts)
+    y = np.zeros(npts)
+    dip = np.zeros(npts)
+    dipdir = np.zeros(npts)
+    
+    i=0
+    for a_pt in structures.iterrows():
+        x[i]=a_pt[1]['geometry'].x+(np.random.ranf()*0.01)
+        y[i]=a_pt[1]['geometry'].y+(np.random.ranf()*0.01)
+        dip[i] = a_pt[1][c_l['d']]
+        
+        if(c_l['otype']=='strike'):
+            dipdir[i] = a_pt[1][c_l['dd']]+90
+        else:
+            dipdir[i] = a_pt[1][c_l['dd']]
+        i=i+1
+  
+    l=np.zeros(npts)
+    m=np.zeros(npts)
+    n=np.zeros(npts)
+    
+    for i in range(0,npts):
+        l[i],m[i],n[i]=m2l_utils.ddd2dircos(dip[i],dipdir[i])
+
+    ZIl,ZIm,ZIn=call_interpolator_grid(calc,x,y,l,m,n,xcoords,ycoords)
+
+    l2=ZIl/np.sqrt(ZIl**2+ZIm**2+ZIn**2)
+    m2=ZIm/np.sqrt(ZIl**2+ZIm**2+ZIn**2)
+    n2=ZIn/np.sqrt(ZIl**2+ZIm**2+ZIn**2)
+
+    dip = 90.0-np.degrees(np.arcsin(n2))
+    dip_direction=np.where(m2>0, (360+np.degrees(np.arctan(l2/m2)))%360, 1)
+    dip_direction=np.where(m2<0, (540+np.degrees(np.arctan(l2/m2)))%360, dip_direction)
+    dip_direction=np.where(m2==0, 90, dip_direction)
+    
+    return(l2,m2,n2,dip,dip_direction)
+
+def is_odd(num):
+    return num & 0x1
+
+def pts2dircos_arr(p1x,p1y,p2x,p2y):
+    dx=p1x-p2x
+    dy=p1y-p2y
+    return(dx,dy)
+
+def interpolate_contacts_grid(contacts,calc,xcoords_group,ycoords_group):
+    decimate=1
+    i=0
+    listarray = []
+    for indx,acontact in contacts.iterrows():   #loop through distinct linestrings in MultiLineString
+        if(acontact.geometry.type=='MultiLineString'):
+            for line in acontact.geometry:
+                if(m2l_utils.mod_safe(i,decimate)  ==0):
+                    listarray.append([line.coords[0][0], line.coords[0][1]])
+                i=i+1
+        else:
+            if(  m2l_utils.mod_safe(i,decimate)  ==0):
+                if(m2l_utils.mod_safe(i,decimate)  ==0):
+                    listarray.append([acontact.geometry.coords[0][0], acontact.geometry.coords[0][1]])
+                i=i+1
+
+    coords = np.array(listarray)
+    if(is_odd(len(coords))):
+        coords2=coords[:len(coords)-1,:].reshape((int(len(coords)/2),4))
+    else:
+        coords2=coords[:len(coords),:].reshape((int(len(coords)/2),4))
+
+    dx=coords2[:,0:1]-coords2[:,2:3]
+    dy=coords2[:,1:2]-coords2[:,3:4]
+    x=coords2[:,0:1]+(dx/2)
+    y=coords2[:,1:2]+(dy/2)
+
+    dx2=dx**2
+    dy2=dy**2
+    mask=np.logical_and(dx2>0,dy2>0)
+
+
+    dx=dx[mask]
+    dy=dy[mask]
+    dx2=dx2[mask]
+    dy2=dy2[mask]
+    x=x[mask]
+    y=y[mask]
+    scale=np.sqrt(dx2+dy2)
+    l=dx/scale
+    m=dy/scale
+    
+    
+    if(len(x)>2):
+        ZIl,ZIm,ZIn=call_interpolator_grid(calc,x,y,l,m,0,xcoords_group,ycoords_group)
+        l2=ZIl/np.sqrt(ZIl**2+ZIm**2)
+        m2=ZIm/np.sqrt(ZIl**2+ZIm**2)
+        S=np.degrees(np.arctan2(l2,m2))
+                        
+    return(l2,m2,S)
+    
+    
+
+def interpolation_grids(geology_file,structure_file,basal_contacts,bbox,spacing,dst_crs,scheme,super_groups,c_l):
+    geology = gpd.read_file(geology_file,bbox=bbox)
+    structures = gpd.read_file(structure_file,bbox=bbox)
+    contacts = gpd.read_file(basal_contacts,bbox=bbox)
+
+    geology[c_l['g']].fillna(geology[c_l['g2']], inplace=True)
+    geology[c_l['g']].fillna(geology[c_l['c']], inplace=True)
+
+    x=(bbox[2]-bbox[0])/spacing
+    y=(bbox[3]-bbox[1])/spacing
+
+    xcoords=np.arange(bbox[0],bbox[2],spacing)
+    ycoords=np.arange(bbox[1],bbox[3],spacing)
+    xcoords, ycoords = np.meshgrid(xcoords, ycoords)
+    xcoords, ycoords = xcoords.flatten(), ycoords.flatten()
+
+    xycoords=np.vstack((xcoords,ycoords)).transpose()
+    xycoords=xycoords.reshape(len(xcoords),2)
+
+    nodes=gpd.GeoDataFrame(xycoords, geometry=[Point(xy) for xy in zip(xcoords, ycoords)])
+    nodes.crs=dst_crs
+    nodes_code = gpd.sjoin(nodes, geology, how="left", op="within")
+    structures_code = gpd.sjoin(structures, geology, how="left", op="within")
+
+    first_supergroup=True
+    for groups in super_groups:
+        first=True
+        for group in groups:
+                        
+            if(first):
+                all_nodes=nodes_code[nodes_code['GROUP_']==group] 
+                all_structures = structures_code[structures_code['GROUP_']==group]
+                all_contacts=contacts[contacts['GROUP_']==group.replace(' ','_').replace('-','_')]
+                first=False
+            else:
+                another_node=nodes_code[nodes_code['GROUP_']==group] 
+                all_nodes=pd.concat([all_nodes,another_node],sort=False)
+                                      
+                another_contact=contacts[contacts['GROUP_']==group.replace(' ','_').replace('-','_')]
+                all_contacts=pd.concat([all_contacts,another_contact],sort=False)
+                      
+                another_structure = structures_code[structures_code['GROUP_']==group]
+                all_structures=pd.concat([all_structures,another_structure],sort=False)
+            
+        xcoords_group=all_nodes.geometry.x
+        ycoords_group=all_nodes.geometry.y
+        
+        if(len(all_structures)>2):
+            l,m,n,d,dd=interpolate_orientation_grid(all_structures,scheme,xcoords_group,ycoords_group,c_l)
+            xy_lmn=np.vstack((xcoords_group,ycoords_group,l,m,n,d,dd)).transpose()
+            xy_lmn=xy_lmn.reshape(len(l),7)
+        else:
+            print(groups,'have no structures')
+            if(len(xcoords_group)>0):
+                xy_lmn=np.zeros((5,len(xcoords_group)))
+
+                xy_lmn=np.vstack((xcoords_group,ycoords_group,xy_lmn)).transpose()
+                xy_lmn=xy_lmn.reshape(len(xcoords_group),7)
+                                         
+        if(len(all_contacts)>0):
+            l,m,S=interpolate_contacts_grid(all_contacts,scheme,xcoords_group,ycoords_group)  
+            xy_lm_contacts=np.vstack((xcoords_group,ycoords_group,l,m,S)).transpose()
+            xy_lm_contacts=xy_lm_contacts.reshape(len(l),5)
+        else:
+            print(groups,'have no contacts')
+            if(len(xcoords_group)>0):
+                xy_lm_contacts=np.zeros((3,len(xcoords_group)))
+
+                xy_lm_contacts=np.vstack((xcoords_group,ycoords_group,xy_lm_contacts)).transpose()
+                xy_lm_contacts=xy_lm_contacts.reshape(len(xcoords_group),5)
+
+        if(first_supergroup):
+            first_supergroup=False
+            xy_lmn_all=np.copy(xy_lmn)
+            xy_lm_contacts_all=np.copy(xy_lm_contacts)
+        else:
+            xy_lmn_all=np.vstack((xy_lmn_all,xy_lmn))
+            xy_lm_contacts_all=np.vstack((xy_lm_contacts_all,xy_lm_contacts))
+
+    # sort to get back to x,y grid ordering
+    dt = [('x', xy_lmn_all.dtype),('y', xy_lmn_all.dtype),('l', xy_lmn_all.dtype),('m', xy_lmn_all.dtype),('n', xy_lmn_all.dtype),('d', xy_lmn_all.dtype),('dd', xy_lmn_all.dtype)]
+    #assert xy_lmn_all.flags['C_CONTIGUOUS']
+    orientation_interp = xy_lmn_all.ravel().view(dt)
+    orientation_interp.sort(order=['x','y','l','m','n','d','dd'])
+        
+    dt = [('x', xy_lm_contacts_all.dtype),('y', xy_lm_contacts_all.dtype),('l', xy_lm_contacts_all.dtype),('m', xy_lm_contacts_all.dtype),('S', xy_lm_contacts_all.dtype)]
+    #assert xy_lm_contacts_all.flags['C_CONTIGUOUS']
+    contact_interp = xy_lm_contacts_all.ravel().view(dt)
+    contact_interp.sort(order=['x','y','l','m','S'])
+    
+    scale=np.sqrt(1-(orientation_interp['n']**2))
+    lscaled=-scale*contact_interp['m']
+    mscaled=scale*contact_interp['l']
+    scale2=np.sqrt(orientation_interp['l']**2+orientation_interp['m']**2)
+    loscaled=np.where(scale2>0, contact_interp['l']/scale2, 0)
+    moscaled=np.where(scale2>0, contact_interp['m']/scale2, 0)
+    dotproduct=(-contact_interp['m']*loscaled)+(contact_interp['l']*moscaled)
+    
+    #lscaled=np.where(dotproduct<0, -lscaled,lscaled)    
+    #mscaled=np.where(dotproduct<0, -mscaled,mscaled)
+    dotproduct=np.where(dotproduct>1,1,dotproduct)
+    dotproduct=np.where(dotproduct<-1,-1,dotproduct)
+    misorientation=np.degrees(np.arccos(dotproduct))
+    
+    dip = 90.0-np.degrees(np.arcsin(orientation_interp['n']))
+    mscaled=np.where(mscaled==0,1e-5,mscaled)
+    #dip_direction=np.where(mscaled>0, (360+np.degrees(np.arctan2(lscaled,mscaled)))%360, 1)
+    dip_direction=(360+np.degrees(np.arctan2(lscaled,mscaled)))%360
+    #dip_direction=np.where(mscaled<0, (540+np.degrees(np.arctan2(lscaled,mscaled)))%360, dip_direction)
+    #dip_direction=np.where(mscaled==0, 90, dip_direction)
+
+    combo_interp=np.vstack((contact_interp['x'],contact_interp['y'],lscaled,mscaled,orientation_interp['n'],
+                            dip,dip_direction)).transpose()
+
+    return(orientation_interp,contact_interp,combo_interp)
+
+def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_reproj_file,dtb,dtb_null,cover_map,c_l,use_gcode,use_gcode2,dst_crs,bbox,scheme,dip_grid,dip_dir_grid,xgrid,ygrid,spacing):
+    fault_file=tmp_path+'faults_clip.shp'
+    geology_file=tmp_path+'geol_clip.shp'
+
+    faults = gpd.read_file(fault_file)
+    geology = gpd.read_file(geology_file)
+    dtm = rasterio.open(dtm_reproj_file)
+
+    all_long_faults=np.genfromtxt(output_path+'fault_dimensions.csv',delimiter=',',dtype='U100')
+    fault_names=all_long_faults[1:,:1]
+    m_step=15.0 #outstep from fault
+    xi=[]
+    yi=[]
+    fdc=[]
+    all_coordsdist=[]
+    all_coords_x=[]
+    all_coords_y=[]
+
+    fftc=open(output_path+'fault_tip_contacts.csv','w')
+    fftc.write('X,Y,Z,formation\n')
+    
+    # loop through all faults
+    
+    for index,fault in faults.iterrows():
+        #if(fault[c_l['o']]!=1071):
+            #continue
+        if(fault.geometry.type=='LineString'):
+            if('Fault_'+str(fault[c_l['o']]) in fault_names): # in is dangerous as Fault_1 is in Fault_10
+                #print('LineString','Fault_'+str(fault[c_l['o']]),len(fault.geometry.coords))
+                lcoords=[]
+                rcoords=[]
+                index=[]
+                
+                # make a list of points just offset from mid-points between fault nodes and join
+                # geology polygon information to points
+                j=0                
+                for i in range (0,len(fault.geometry.coords)-1):
+                    for inc in np.arange(0.01, 1, 0.01): 
+                        midx=fault.geometry.coords[i][0]+((fault.geometry.coords[i+1][0]-fault.geometry.coords[i][0])*inc)            
+                        midy=fault.geometry.coords[i][1]+((fault.geometry.coords[i+1][1]-fault.geometry.coords[i][1])*inc)
+                        l,m=m2l_utils.pts2dircos(fault.geometry.coords[i][0],fault.geometry.coords[i][1],fault.geometry.coords[i+1][0],fault.geometry.coords[i+1][1])
+                        lcoords.append([(midx+(m_step*m),midy-(m_step*l))])
+                        rcoords.append([(midx-(m_step*m),midy+(m_step*l))])
+                        index.append([(j)])
+                        j=j+1
+                lgeom=[Point(xy) for xy in lcoords]        
+                rgeom=[Point(xy) for xy in rcoords]
+
+                lgdf = GeoDataFrame(index, crs=dst_crs, geometry=lgeom)
+                rgdf = GeoDataFrame(index, crs=dst_crs, geometry=rgeom)
+                lcode = gpd.sjoin(lgdf, geology, how="left", op="within")        
+                rcode = gpd.sjoin(rgdf, geology, how="left", op="within")
+                # display(lcode)
+                
+                # add points to list if they have different geology code than previous node on left side
+                
+                first=True
+                lcontact=[]
+                lastlcode=''
+                
+                for ind,indl in lcode.iterrows():
+                    
+                    if(ind<len(lcode) and not isnan(indl['index_right'])):
+                        ntest1=str(indl[c_l['ds']])
+                        ntest2=str(indl[c_l['r1']])
+                        
+                        if(not ntest1 == 'None' and not ntest2 == 'None'):
+                            if(ind==1 or (not lastlcode==indl[c_l['c']] and ((not c_l['sill'] in indl[c_l['ds']]) or (not c_l['intrusive'] in indl[c_l['r1']]) ))):
+                                all_coords_x.append(indl.geometry.x)
+                                all_coords_y.append(indl.geometry.y)
+                                if(first):
+                                    first=False
+                                    firstlx=indl.geometry.x
+                                    firstly=indl.geometry.y
+                                    firstlc=indl[c_l['c']].replace(" ","_").replace("-","_")
+                                lastlx=indl.geometry.x
+                                lastly=indl.geometry.y
+                                lastlc=indl[c_l['c']].replace(" ","_").replace("-","_")
+                                
+    
+                            if(lastlcode=='' and ((not c_l['sill'] in indl[c_l['ds']]) or (not c_l['intrusive'] in indl[c_l['r1']] ))):
+                                lastlcode=indl[c_l['c']]
+    
+                            #print('l',ind,indl[c_l['c']],indl[c_l['ds']],indl[c_l['r1']])
+                            if(not ntest1 == 'None' and not ntest2 == 'None' and not str(indl[c_l['c']])=='nan'):
+                                if((not indl[c_l['c']]==lastlcode) and ((not c_l['sill'] in indl[c_l['ds']]) or (not c_l['intrusive'] in indl[c_l['r1']] ))):
+                                    lcontact.append([(ind,lastlcode,indl[c_l['c']],indl.geometry)])
+                                    lastlcode=indl[c_l['c']]
+
+                                    
+                    
+                #add points to list if they have different geology code than previous node on right side
+                
+                first=True
+                rcontact=[]
+                lastrcode=''
+                for ind,indr in rcode.iterrows():
+                    if(ind<len(rcode) and not isnan(indr['index_right'])):
+                        ntest1=str(indr[c_l['ds']])
+                        ntest2=str(indr[c_l['r1']])
+                        
+                        if(not ntest1 == 'None' and not ntest2 == 'None'):                            
+                            if(ind==1 or (not lastrcode==indr[c_l['c']] and ((not c_l['sill'] in indr[c_l['ds']]) or (not c_l['intrusive'] in indr[c_l['r1']]) ))):
+                                all_coords_x.append(indr.geometry.x)
+                                all_coords_y.append(indr.geometry.y)
+                                if(first):
+                                    first=False
+                                    firstrx=indr.geometry.x
+                                    firstry=indr.geometry.y
+                                    firstrc=indr[c_l['c']].replace(" ","_").replace("-","_")
+                                lastrx=indr.geometry.x
+                                lastry=indr.geometry.y
+                                lastrc=indr[c_l['c']].replace(" ","_").replace("-","_")
+    
+                            if(lastrcode=='' and ((not c_l['sill'] in indr[c_l['ds']]) or (not c_l['intrusive'] in indr[c_l['r1']] ))):
+                                lastrcode=indr[c_l['c']]                        
+                            #print('r',ind,indr[c_l['c']],indr[c_l['ds']],indr[c_l['r1']])
+    
+                            #print(lastrcode,ntest1,ntest2,str(indr[c_l['c']]),indr[c_l['c']],c_l['sill'],c_l['intrusive'])
+                            
+                            if(not ntest1 == 'None' and not ntest2 == 'None' and not str(indr[c_l['c']])=='nan' ):
+                                if((not indr[c_l['c']]==lastrcode) and ((not c_l['sill'] in indr[c_l['ds']]) or (not c_l['intrusive'] in indr[c_l['r1']] ))):
+                                    rcontact.append([(ind,lastrcode,indr[c_l['c']],indr.geometry)]) 
+                                    lastrcode=indr[c_l['c']]             
+          
+
+                locations=[(firstlx,firstly)]
+                first_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                ostr="{},{},{},{}\n"\
+                              .format(firstlx,firstly,first_height_l,firstlc)
+                fftc.write(ostr)
+                locations=[(firstrx,firstry)]
+                first_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                ostr="{},{},{},{}\n"\
+                              .format(firstrx,firstry,first_height_r,firstrc)
+                fftc.write(ostr)
+                locations=[(lastlx,lastly)]
+                last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                ostr="{},{},{},{}\n"\
+                              .format(lastlx,lastly,last_height_l,lastlc)
+                fftc.write(ostr)
+                locations=[(lastrx,lastry)]
+                last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                ostr="{},{},{},{}\n"\
+                              .format(lastrx,lastry,last_height_r,lastrc)
+                fftc.write(ostr)   
+                                    
+                # loop through left and right sides to find equivalent contact pairs along fault
+                
+                if(len(lcontact)>0 and len(rcontact)>0):                
+                    for lc in lcontact:
+                        for rc in rcontact:
+                            #display('l',lc[0][3].x,'r',rc[0][3].x)
+                            if(lc[0][1]==rc[0][1] and lc[0][2]==rc[0][2] and not lc[0][1]==''):
+                                dist=m2l_utils.ptsdist(lc[0][3].x,lc[0][3].y,rc[0][3].x,rc[0][3].y)
+                                if(lc[0][0]<rc[0][0]):
+                                    dist=-dist
+                                #print('***',lc,rc)
+
+                                xi.append((lc[0][3].x))
+                                yi.append((lc[0][3].y))
+                                l,m=m2l_utils.pts2dircos(lc[0][3].x,lc[0][3].y,rc[0][3].x,rc[0][3].y)
+                                if(not (l==0.0 and m==0.0)):
+                                    fdc.append((l,m,'Fault_'+str(fault[c_l['o']])))
+                                    all_coordsdist.append((dist))
+        else:
+            if('Fault_'+str(fault[c_l['o']]) in fault_names): # in is dangerous as Fault_1 is in Fault_10
+                for fls in fault.geometry:              
+                    fault_ls=LineString(fls)        
+                    lcoords=[]
+                    rcoords=[]
+                    index=[]
+                    #display("MLS DEBUG",fault.geometry.type)
+                    
+                    j=0                
+                    for i in range (0,len(fault_ls.coords)-1):
+                        for inc in np.arange(0.01, 1, 0.01): 
+                            midx=fault_ls.coords[i][0]+((fault_ls.coords[i+1][0]-fault_ls.coords[i][0])*inc)            
+                            midy=fault_ls.coords[i][1]+((fault_ls.coords[i+1][1]-fault_ls.coords[i][1])*inc)
+                            l,m=m2l_utils.pts2dircos(fault_ls.coords[i][0],fault_ls.coords[i][1],fault_ls.coords[i+1][0],fault_ls.coords[i+1][1])
+                            lcoords.append([(midx+(m_step*m),midy-(m_step*l))])
+                            rcoords.append([(midx-(m_step*m),midy+(m_step*l))])
+                            index.append([(j)])
+                            j=j+1
+
+                    lgeom=[Point(xy) for xy in lcoords]        
+                    rgeom=[Point(xy) for xy in rcoords]
+                    lgdf = GeoDataFrame(index, crs=dst_crs, geometry=lgeom)
+                    rgdf = GeoDataFrame(index, crs=dst_crs, geometry=rgeom)
+                    lcode = gpd.sjoin(lgdf, geology, how="left", op="within")        
+                    rcode = gpd.sjoin(rgdf, geology, how="left", op="within")
+
+                    #add points to list if they have different geology code than previous node on left side
+
+                    first=True
+                    lcontact=[]
+                    lastlcode=''
+                    for ind,indl in lcode.iterrows():
+
+                        if(ind<len(lcode) and not isnan(indl['index_right'])):
+                            ntest1=str(indl[c_l['ds']])
+                            ntest2=str(indl[c_l['r1']])
+                            
+                            if(not ntest1 == 'None' and not ntest2 == 'None'):
+                                if(ind==1 or (not lastlcode==indl[c_l['c']] and ((not c_l['sill'] in indl[c_l['ds']]) or (not c_l['intrusive'] in indl[c_l['r1']]) ))):
+                                    all_coords_x.append(indl.geometry.x)
+                                    all_coords_y.append(indl.geometry.y)
+                                    if(first):
+                                        first=False
+                                        firstlx=indl.geometry.x
+                                        firstly=indl.geometry.y
+                                        firstlc=indl[c_l['c']].replace(" ","_").replace("-","_")
+                                    lastlx=indl.geometry.x
+                                    lastly=indl.geometry.y
+                                    lastlc=indl[c_l['c']].replace(" ","_").replace("-","_")
+    
+                                if(lastlcode=='' and ((not c_l['sill'] in indl[c_l['ds']]) or (not c_l['intrusive'] in indl[c_l['r1']] ))):
+                                    lastlcode=indl[c_l['c']]
+    
+                                if(not ntest1 == 'None' and not ntest2 == 'None' and not str(indl[c_l['c']])=='nan'):
+                                    if((not indl[c_l['c']]==lastlcode) and ((not c_l['sill'] in indl[c_l['ds']]) or (not c_l['intrusive'] in indl[c_l['r1']] ))):
+                                        lcontact.append([(ind,lastlcode,indl[c_l['c']],indl.geometry)])
+                                        lastlcode=indl[c_l['c']]
+                                    
+
+                    #add points to list if they have different geology code than previous node on right side
+
+                    first=True
+                    rcontact=[]
+                    lastrcode=''
+                    for ind,indr in rcode.iterrows():
+                        if(ind<len(rcode) and not isnan(indr['index_right'])):
+                            ntest1=str(indr[c_l['ds']])
+                            ntest2=str(indr[c_l['r1']])
+                            
+                            if(not ntest1 == 'None' and not ntest2 == 'None'):
+                                if(ind==1 or (not lastrcode==indr[c_l['c']] and ((not c_l['sill'] in indr[c_l['ds']]) or (not c_l['intrusive'] in indr[c_l['r1']]) ))):
+                                    all_coords_x.append(indr.geometry.x)
+                                    all_coords_y.append(indr.geometry.y)
+                                    if(first):
+                                        first=False
+                                        firstrx=indr.geometry.x
+                                        firstry=indr.geometry.y
+                                        firstrc=indr[c_l['c']].replace(" ","_").replace("-","_")
+                                    lastrx=indr.geometry.x
+                                    lastry=indr.geometry.y
+                                    lastrc=indr[c_l['c']].replace(" ","_").replace("-","_")
+    
+                                if(lastrcode=='' and ((not c_l['sill'] in indr[c_l['ds']]) or (not c_l['intrusive'] in indr[c_l['r1']] ))):
+                                    lastrcode=indr[c_l['c']]                        
+    
+                                if(not ntest1 == 'None' and not ntest2 == 'None' and not str(indr[c_l['c']])=='nan' ):
+                                    if((not indr[c_l['c']]==lastrcode) and ((not c_l['sill'] in indr[c_l['ds']]) or (not c_l['intrusive'] in indr[c_l['r1']] ))):
+                                        rcontact.append([(ind,lastrcode,indr[c_l['c']],indr.geometry)]) 
+                                        lastrcode=indr[c_l['c']]
+
+                    locations=[(firstlx,firstly)]
+                    first_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                    ostr="{},{},{},{}\n"\
+                                  .format(firstlx,firstly,first_height_l,firstlc)
+                    fftc.write(ostr)
+                    locations=[(firstrx,firstry)]
+                    first_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                    ostr="{},{},{},{}\n"\
+                                  .format(firstrx,firstry,first_height_r,firstrc)
+                    fftc.write(ostr)
+                    locations=[(lastlx,lastly)]
+                    last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                    ostr="{},{},{},{}\n"\
+                                  .format(lastlx,lastly,last_height_l,lastlc)
+                    fftc.write(ostr)
+                    locations=[(lastrx,lastry)]
+                    last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                    ostr="{},{},{},{}\n"\
+                                  .format(lastrx,lastry,last_height_r,lastrc)
+                    fftc.write(ostr)   
+        
+                    # loop through left and right sides to find equivalent contact pairs along fault
+
+                    if(len(lcontact)>0 and len(rcontact)>0):
+                        for lc in lcontact:
+                            for rc in rcontact:
+                                #display('l',lc[0][3].x,'r',rc[0][3].x)
+                                if(lc[0][1]==rc[0][1] and lc[0][2]==rc[0][2] and not lc[0][1]==''):
+                                    dist=m2l_utils.ptsdist(lc[0][3].x,lc[0][3].y,rc[0][3].x,rc[0][3].y)
+                                    if(lc[0][0]<rc[0][0]):
+                                        dist=-dist
+                                    #print('***',lc,rc)
+
+                                    xi.append((lc[0][3].x))
+                                    yi.append((lc[0][3].y))
+                                    l,m=m2l_utils.pts2dircos(lc[0][3].x,lc[0][3].y,rc[0][3].x,rc[0][3].y)
+                                    if(not (l==0.0 and m==0.0)):
+                                        fdc.append((l,m,'Fault_'+str(fault[c_l['o']])))
+                                        all_coordsdist.append((dist))
+                                        
+        
+                
+                            
+    fftc.close()
+    
+
+    f=open(output_path+'fault_displacements3.csv','w')
+    f.write('X,Y,fname,apparent_displacement,vertical_displacement\n')
+
+    for i in range (len(fdc)):
+        r=int((yi[i]-bbox[1])/spacing)
+        c=int((xi[i]-bbox[0])/spacing)
+
+        l,m,n=m2l_utils.ddd2dircos(dip_grid[r,c],dip_dir_grid[r,c])
+        lnorm=l/sqrt(pow(l,2)+pow(m,2))
+        mnorm=m/sqrt(pow(l,2)+pow(m,2))
+        dotproduct=fabs((fdc[i][0]*lnorm)+(fdc[i][1]*mnorm))
+        ostr=str(xi[i])+','+str(yi[i])+','+str(fdc[i][2])+','+str(int(all_coordsdist[i]))+','+str(abs(int(all_coordsdist[i]*tan(radians(dotproduct*dip_grid[r,c])))))+'\n'
+        f.write(ostr)
+
+    f.close()
+    print('fault displacement estimates saved as',output_path+'fault_displacements3.csv')
+    print('near-fault orientations saved as',tmp_path+'ex_f_combo_full.csv')

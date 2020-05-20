@@ -428,6 +428,419 @@ def loop2geomodeller(model_name,test_data_path,tmp_path,output_path,dtm_file,bbo
         f.write('}\n')
 
         f.close()
+        
+# same same expect it builds a list that then gets written all at once (this version is slower!)        
+def loop2geomodeller2(model_name,test_data_path,tmp_path,output_path,dtm_file,bbox,save_faults,compute_etc,workflow):
+
+    f=open(test_data_path+'/'+model_name+'/m2l.taskfile','w')
+    ostr=[]
+    
+    ostr.append('#---------------------------------------------------------------\n')
+    ostr.append('#-----------------------Project Header-----------------------\n')
+    ostr.append('#---------------------------------------------------------------\n')
+    ostr.append('name: "UWA_Intrepid"\n')
+    ostr.append('description: "Automate_batch_Model"\n')
+    ostr.append('    GeomodellerTask {\n')
+    ostr.append('    CreateProject {\n')
+    ostr.append('        name: "Hamersley"\n')
+    ostr.append('        author: "Mark"\n')
+    ostr.append('        date: "23/10/2019  0: 0: 0"\n')
+    ostr.append('        projection { map_projection: "GDA94 / MGA50"}\n')
+    ostr.append('        version: "2.0"\n')
+    ostr.append('        units: meters\n')
+    ostr.append('        precision: 1.0\n')
+    ostr.append('        Extents {\n')
+    ostr.append('            xmin: '+str(bbox[0])+'\n')
+    ostr.append('            ymin: '+str(bbox[1])+'\n')
+    ostr.append('            zmin: -7000\n')
+    ostr.append('            xmax: '+str(bbox[2])+'\n')
+    ostr.append('            ymax: '+str(bbox[3])+'\n')
+    ostr.append('            zmax: 1200\n')
+    ostr.append('        }\n')
+    ostr.append('        deflection2d: 0.001\n')
+    ostr.append('        deflection3d: 0.001\n')
+    ostr.append('        discretisation: 10.0\n')
+    ostr.append('        referenceTop: false\n')
+    ostr.append('        CustomDTM {\n')
+    ostr.append('            Extents {\n')
+    ostr.append('            xmin: '+str(bbox[0])+'\n')
+    ostr.append('            ymin: '+str(bbox[1])+'\n')
+    ostr.append('            xmax: '+str(bbox[2])+'\n')
+    ostr.append('            ymax: '+str(bbox[3])+'\n')
+    ostr.append('            }\n')
+    ostr.append('            name: "Topography"\n')
+    ostr.append('            filename {\n')
+    ostr.append('                Grid_Name: "'+dtm_file+'"\n')
+    ostr.append('            }\n')
+    ostr.append('            nx: 10\n')
+    ostr.append('            ny: 10\n')
+    ostr.append('        }\n')
+    ostr.append('    }\n')
+    ostr.append('}\n')
+
+
+    orientations=pd.read_csv(output_path+'orientations_clean.csv',',')
+    contacts=pd.read_csv(output_path+'contacts_clean.csv',',')
+    all_sorts=pd.read_csv(tmp_path+'all_sorts_clean.csv',',')
+
+    empty_fm=[]
+
+    for indx,afm in all_sorts.iterrows():
+        foundcontact=False
+        for indx2,acontact in contacts.iterrows():
+            if(acontact['formation'] in afm['code']):
+                foundcontact=True
+                break
+        foundorientation=False
+        for indx3,ano in orientations.iterrows():
+            if(ano['formation'] in afm['code']):
+                foundorientation=True
+                break
+        if(not foundcontact or not foundorientation):
+            empty_fm.append(afm['code'])
+
+    #print(empty_fm)
+
+    all_sorts=np.genfromtxt(tmp_path+'all_sorts_clean.csv',delimiter=',',dtype='U100')
+    nformations=len(all_sorts)
+
+    ostr.append('#---------------------------------------------------------------\n')
+    ostr.append('#-----------------------Create Formations-----------------------\n')
+    ostr.append('#---------------------------------------------------------------\n')
+       
+    for i in range (1,nformations):
+        if( not all_sorts[i,4] in empty_fm):
+            ostr.append('GeomodellerTask {\n')
+            ostr.append('CreateFormation {\n')
+
+            ostr2='    name: "'+all_sorts[i,4].replace("\n","")+'"\n'
+            ostr.append(ostr2)
+
+            ostr2='    red: '+str(random.randint(1,256)-1)+'\n'
+            ostr.append(ostr2)
+
+            ostr2='    green: '+str(random.randint(1,256)-1)+'\n'
+            ostr.append(ostr2)
+
+            ostr2='    blue: '+str(random.randint(1,256)-1)+'\n'
+            ostr.append(ostr2)
+
+            ostr.append('    }\n')
+            ostr.append('}\n')
+
+    ostr.append('#---------------------------------------------------------------\n')
+    ostr.append('#-----------------------Set Stratigraphic Pile------------------\n')
+    ostr.append('#---------------------------------------------------------------\n')
+      
+             
+    for i in range (1,nformations):
+    #for i in range (nformations-1,0,-1):
+        if(all_sorts[i,2]==str(1)):
+            ostr.append('GeomodellerTask {\n')
+            ostr.append('SetSeries {\n')
+
+            ostr2='    name: "'+all_sorts[i][5].replace("\n","")+'"\n'
+            ostr.append(ostr2)
+
+            ostr2='    position: 1\n'
+            ostr.append(ostr2)
+
+            ostr2='    relation: "erode"\n'
+            ostr.append(ostr2)
+
+            ostr.append('    }\n')
+            ostr.append('}\n')
+
+            for j in range(nformations-1,0,-1):
+    #        for j in range(1,nformations):
+                if(all_sorts[j,1]==all_sorts[i,1]):
+                    if( not all_sorts[j][4] in empty_fm):
+                        ostr.append('GeomodellerTask {\n')
+                        ostr.append('AddFormationToSeries {\n')
+
+                        ostr2='    series: "'+all_sorts[j][5]+'"\n'
+                        ostr.append(ostr2)
+
+                        ostr2='    formation: "'+all_sorts[j][4]+'"\n'
+                        ostr.append(ostr2)
+
+                        ostr.append('    }\n')
+                        ostr.append('}\n')    
+
+    if(save_faults):
+        output_path=test_data_path+'output/'
+
+        faults_len=pd.read_csv(output_path+'fault_dimensions.csv')
+
+        n_allfaults=len(faults_len)
+
+        fcount=0
+        for i in range(0,n_allfaults):
+            ostr.append('GeomodellerTask {\n')
+            ostr.append('CreateFault {\n')
+            ostr2='    name: "'+faults_len.iloc[i]["Fault"]+'"\n'
+            ostr.append(ostr2)
+
+            ostr2='    red: '+str(random.randint(1,256)-1)+'\n'
+            ostr.append(ostr2)
+
+            ostr2='    green: '+str(random.randint(1,256)-1)+'\n'
+            ostr.append(ostr2)
+
+            ostr2='    blue: '+str(random.randint(1,256)-1)+'\n'
+            ostr.append(ostr2)
+
+            ostr.append('    }\n')
+            ostr.append('}\n')
+            fcount=fcount+1
+            
+            ostr.append('GeomodellerTask {\n')
+            ostr.append('    Set3dFaultLimits {\n')
+            ostr.append('        Fault_name: "'+faults_len.iloc[i]["Fault"]+ '"\n')
+            ostr.append('        Horizontal: '+str(faults_len.iloc[i]["HorizontalRadius"])+ '\n')
+            ostr.append('        Vertical: '+str(faults_len.iloc[i]["VerticalRadius"])+ '\n')
+            ostr.append('        InfluenceDistance: '+str(faults_len.iloc[i]["InfluenceDistance"])+ '\n')
+            ostr.append('    }\n')
+            ostr.append('}\n')
+            
+
+    ostr.append('#---------------------------------------------------------------\n')
+    ostr.append('#-----------------------Import 3D contact data ---Base Model----\n')
+    ostr.append('#---------------------------------------------------------------\n')
+
+    contacts=pd.read_csv(output_path+'contacts_clean.csv',',')
+    all_sorts=pd.read_csv(tmp_path+'all_sorts_clean.csv',',')
+    #all_sorts.set_index('code',  inplace = True)
+    #display(all_sorts)
+
+    for inx,afm in all_sorts.iterrows():
+        #print(afm[0])
+        if( not afm['code'] in empty_fm):
+            ostr.append('GeomodellerTask {\n')
+            ostr.append('    Add3DInterfacesToFormation {\n')
+            ostr.append('          formation: "'+str(afm['code'])+'"\n')
+
+            for indx2,acontact in contacts.iterrows():
+                if(acontact['formation'] in afm['code'] ):
+                    ostr2='              point {x:'+str(acontact['X'])+'; y:'+str(acontact['Y'])+'; z:'+str(acontact['Z'])+'}\n'
+                    ostr.append(ostr2)
+            ostr.append('    }\n')
+            ostr.append('}\n')
+    ostr.append('#---------------------------------------------------------------\n')
+    ostr.append('#------------------Import 3D orientation data ---Base Model-----\n')
+    ostr.append('#---------------------------------------------------------------\n')
+
+    orientations=pd.read_csv(output_path+'orientations_clean.csv',',')
+    all_sorts=pd.read_csv(tmp_path+'all_sorts_clean.csv',',')
+    #all_sorts.set_index('code',  inplace = True)
+    #display(all_sorts)
+
+    for inx,afm in all_sorts.iterrows():
+        #print(groups[agp])
+        if( not afm['code'] in empty_fm):
+            ostr.append('GeomodellerTask {\n')
+            ostr.append('    Add3DFoliationToFormation {\n')
+            ostr.append('          formation: "'+str(afm['code'])+'"\n')
+            for indx2,ano in orientations.iterrows():
+                if(ano['formation'] in afm['code']):
+                    ostr.append('           foliation {\n')
+                    ostr2='                  Point3D {x:'+str(ano['X'])+'; y:'+str(ano['Y'])+'; z:'+str(ano['Z'])+'}\n'
+                    ostr.append(ostr2)
+                    ostr2='                  direction: '+str(ano['azimuth'])+'\n'
+                    ostr.append(ostr2)
+                    ostr2='                  dip: '+str(ano['dip'])+'\n'
+                    ostr.append(ostr2)
+                    if(ano['polarity']==1):
+                        ostr2='                  polarity: Normal_Polarity\n'
+                    else:
+                        ostr2='                  polarity: Reverse_Polarity\n'
+                    ostr.append(ostr2)            
+                    ostr2='           }\n'
+                    ostr.append(ostr2)
+            ostr.append('    }\n')
+            ostr.append('}\n')
+
+    ostr.append('#---------------------------------------------------------------\n')
+    ostr.append('#-----------------------Import 3D fault data ---Base Model------\n')
+    ostr.append('#---------------------------------------------------------------\n')
+
+    contacts=pd.read_csv(output_path+'faults.csv',',')
+    faults=pd.read_csv(output_path+'fault_dimensions.csv',',')
+
+    for indx,afault in faults.iterrows():
+        ostr.append('GeomodellerTask {\n')
+        ostr.append('    Add3DInterfacesToFormation {\n')
+        ostr.append('          formation: "'+str(afault['Fault'])+'"\n')
+        for indx2,acontact in contacts.iterrows():
+            if(acontact['formation'] == afault['Fault']):
+                ostr2='              point {x:'+str(acontact['X'])+'; y:'+str(acontact['Y'])+'; z:'+str(acontact['Z'])+'}\n'
+                ostr.append(ostr2)
+        ostr.append('    }\n')
+        ostr.append('}\n')
+
+    ostr.append('#---------------------------------------------------------------\n')
+    ostr.append('#------------------Import 3D fault orientation data ------------\n')
+    ostr.append('#---------------------------------------------------------------\n')
+
+    orientations=pd.read_csv(output_path+'fault_orientations.csv',',')
+    faults=pd.read_csv(output_path+'fault_dimensions.csv',',')
+
+    for indx,afault in faults.iterrows():
+        ostr.append('GeomodellerTask {\n')
+        ostr.append('    Add3DFoliationToFormation {\n')
+        ostr.append('          formation: "'+str(afault['Fault'])+'"\n')
+        for indx2,ano in orientations.iterrows():
+            if(ano['formation'] == afault['Fault']):
+                ostr.append('           foliation {\n')
+                ostr2='                  Point3D {x:'+str(ano['X'])+'; y:'+str(ano['Y'])+'; z:'+str(ano['Z'])+'}\n'
+                ostr.append(ostr2)
+                ostr2='                  direction: '+str(ano['DipDirection'])+'\n'
+                ostr.append(ostr2)
+                if(ano['dip'] == -999):
+                    ostr2='                  dip: '+str(random.randint(60,90))+'\n'
+                else:    
+                    ostr2='                  dip: '+str(ano['dip'])+'\n'
+                ostr.append(ostr2)
+                if(ano['DipPolarity']==1):
+                    ostr2='                  polarity: Normal_Polarity\n'
+                else:
+                    ostr2='                  polarity: Reverse_Polarity\n'
+                ostr.append(ostr2)            
+                ostr2='           }\n'
+                ostr.append(ostr2)
+        ostr.append('    }\n')
+        ostr.append('}\n')
+
+    if(save_faults):
+        G=nx.read_gml(tmp_path+"fault_network.gml",label='label')
+        #nx.draw(G, with_labels=True, font_weight='bold')
+        edges=list(G.edges)
+        #for i in range(0,len(edges)):
+            #print(edges[i][0],edges[i][1])
+        cycles=list(nx.simple_cycles(G))
+        #display(cycles)
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('#-----------------------Link faults with faults ----------------\n')
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('GeomodellerTask {\n')
+        ostr.append('    LinkFaultsWithFaults {\n')
+
+        for i in range(0,len(edges)):
+                found=False
+                for j in range(0,len(cycles)):
+                    if(edges[i][0]== cycles[j][0] and edges[i][1]== cycles[j][1]):
+                        found=True # fault pair is first two elements in a cycle list so don't save to taskfile
+                if(not found):
+                    ostr2='        FaultStopsOnFaults{ fault: "'+edges[i][1]+'"; stopson: "'+edges[i][0]+'"}\n'
+                    ostr.append(ostr2)
+
+        ostr.append('    }\n')
+        ostr.append('}\n')
+
+    if(save_faults):
+        all_fault_group=np.genfromtxt(output_path+'group-fault-relationships.csv',delimiter=',',dtype='U100')
+        ngroups=len(all_fault_group)
+        all_fault_group=np.transpose(all_fault_group)
+        nfaults=len(all_fault_group)
+
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('#-----------------------Link series with faults ----------------\n')
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('GeomodellerTask {\n')
+        ostr.append('    LinkFaultsWithSeries {\n')
+
+        for i in range(1,nfaults):
+            first=True
+            for j in range(1,ngroups):
+                if(all_fault_group[i,j]==str(1)):
+                    if(first):
+                        ostr2='    FaultSeriesLinks{ fault: "'+all_fault_group[i,0]+'"; series: ['
+                        ostr.append(ostr2)
+                        ostr2='"'+all_fault_group[0,j]+'"'
+                        ostr.append(ostr2)
+                        first=False
+                    else:
+                        ostr2=', "'+all_fault_group[0,j]+'"'
+                        ostr.append(ostr2)
+            if(not first):
+                ostr2=']}\n'
+                ostr.append(ostr2)
+
+        ostr.append('    }\n')
+        ostr.append('}\n')
+    
+
+    ostr.append('GeomodellerTask {\n')
+    ostr.append('    SaveProjectAs {\n')
+    ostr.append('        filename: "./'+model_name+'.xml"\n')
+    ostr.append('    }\n')
+    ostr.append('}\n')
+    f.close()
+    
+
+    if(compute_etc):
+        f=open(test_data_path+model_name+'/'+'m2l_compute.taskfile','w')
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('#----------------------------Load Model----------------------\n')
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('GeomodellerTask {\n')
+        ostr.append('    OpenProjectNoGUI {\n')
+        ostr.append('        filename: "./'+model_name+'.xml"\n')
+        ostr.append('    }\n')
+        ostr.append('}\n')
+     
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('#----------------------------Compute Model----------------------\n')
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('\n')
+        ostr.append('GeomodellerTask {\n')
+        ostr.append('    ComputeModel {\n')
+        ostr.append('        SeriesList {\n')
+        ostr.append('            node: "All" \n')
+        ostr.append('        }\n')
+        ostr.append('        SectionList {\n')
+        ostr.append('            node: "All"\n')
+        ostr.append('        }\n')
+        ostr.append('        FaultList {\n')
+        ostr.append('            node: "All"\n')
+        ostr.append('        }\n')
+        ostr.append('        radius: 10.0\n')
+        ostr.append('    }\n')
+        ostr.append('}\n')
+
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('#-----------------------Add geophysical Properties--------------\n')
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('\n')
+        ostr.append('\n')
+        ostr.append('\n')
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('#--------------------------Export Lithology Voxet---------------\n')
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('GeomodellerTask {\n')
+        ostr.append('    SaveLithologyVoxet {\n')
+        ostr.append('        nx: 25\n')
+        ostr.append('        ny: 25\n')
+        ostr.append('        nz: 40\n')
+        ostr.append('        LithologyVoxetFileStub: "./Litho_Voxet/LithoVoxet.vo"\n')
+        ostr.append('    }\n')
+        ostr.append('}\n')
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('#--------------------------Save As Model------------------------\n')
+        ostr.append('#---------------------------------------------------------------\n')
+        ostr.append('\n')
+    
+        ostr.append('GeomodellerTask {\n')
+        ostr.append('    SaveProjectAs {\n')
+        ostr.append('        filename: "/'+model_name+'.xml"\n')
+        ostr.append('    }\n')
+        ostr.append('}\n')   
+        ostr.append('GeomodellerTask {\n')
+        ostr.append('    CloseProjectNoGUI {\n')
+        ostr.append('    }\n')
+        ostr.append('}\n')
+        f.writelines(ostr)
+        f.close()
 
 from pyamg import solve
 def solve_pyamg(A,B):
