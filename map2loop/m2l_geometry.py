@@ -1716,8 +1716,8 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,
                                 midxl=midx-(fat_step*-m)
                                 midyl=midy-(fat_step*l)
                                 if(close_dip==-999):
-                                    r=int(midy-bbox[1])/spacing)
-                                    c=int(midx-bbox[0])/spacing)
+                                    r=int((midy-bbox[1])/spacing)
+                                    c=int((midx-bbox[0])/spacing)
                                     dip_mean=dip_grid[r,c]
                                 else:
                                     dip_mean=close_dip
@@ -1786,8 +1786,8 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,
                             midxl=midx-(fat_step*-m)
                             midyl=midy-(fat_step*l)
                             if(close_dip==-999):
-                                r=int(midy-bbox[1])/spacing)
-                                c=int(midx-bbox[0])/spacing)
+                                r=int((midy-bbox[1])/spacing)
+                                c=int((midx-bbox[0])/spacing)
                                 dip_mean=dip_grid[r,c]
                             else:
                                 dip_mean=close_dip
