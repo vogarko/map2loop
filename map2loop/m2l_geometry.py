@@ -1678,7 +1678,7 @@ def normalise_thickness(output_path):
 
 ###################################################
 
-def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,dtb_null,cover_map,c_l,dst_crs,fold_decimate,fat_step,close_dip,scheme,bbox,spacing,dip_grid):
+def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,dtb_null,cover_map,c_l,dst_crs,fold_decimate,fat_step,close_dip,scheme,bbox,spacing,dip_grid,dip_dir_grid):
     geology = gpd.read_file(tmp_path+'geol_clip.shp')
     #contacts=np.genfromtxt(tmp_path+'interpolation_contacts_'+scheme+'.csv',delimiter=',',dtype='float')
     f=open(output_path+'fold_axial_trace_orientations2.csv','w')
@@ -1718,21 +1718,19 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,
                                 if(close_dip==-999):
                                     r=int((midy-bbox[1])/spacing)
                                     c=int((midx-bbox[0])/spacing)
-                                    dip_mean=dip_grid[r,c]
+                                    dip=dip_grid[r,c]
                                 else:
-                                    dip_mean=close_dip
-                                dip,dipdir=m2l_utils.dircos2ddd(-m,l,cos(radians(dip_mean)))
+                                    dip=close_dip
+                                r=int((midy-bbox[1])/spacing)
+                                c=int((midx-bbox[0])/spacing)
+                                dip_dir=dip_dir_grid[r,c]
+                                
+                                dip2,dipdir2=m2l_utils.dircos2ddd(-m,l,cos(radians(dip)))
                                 if(c_l['syn'] in fold[c_l['t']]):
-                                    dipdir=dipdir+180
-                                mindist=1e9
-                                minind=-1
-                                for i in range(1,len(contacts)):
-                                    dist=m2l_utils.ptsdist(contacts[i,0],contacts[i,1],midx,midy)
-                                    if(dist<mindist):
-                                        mindist=dist
-                                        minind=i
-                                lc=sin(radians(contacts[minind,2]))
-                                mc=cos(radians(contacts[minind,2]))
+                                    dipdir2=dipdir2+180
+
+                                lc=sin(radians(dip_dir-90))
+                                mc=cos(radians(dip_dir-90))
                                 dotprod=fabs((l*lc)+(m*mc))
                                 #print(dotprod,midx,midy,minind,contacts[minind,2],l,m,lc,mc)   
                                 # if FAT is sub-parallel to local interpolated contacts, save out as orientations  
@@ -1744,7 +1742,7 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,
                                         locations=[(midxr,midyr)]                  
                                         height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                                         ostr="{},{},{},{},{},{},{},{}\n"\
-                                              .format(midxr,midyr,height,dipdir,int(dip),1,str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_"),structure_code.iloc[0][c_l['g']])
+                                              .format(midxr,midyr,height,dipdir2,int(dip),1,str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_"),structure_code.iloc[0][c_l['g']])
                                         #ostr=str(midxr)+','+str(midyr)+','+str(height)+','+str(dipdir)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
                                         f.write(ostr)
                                     
@@ -1755,7 +1753,7 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,
                                         locations=[(midxl,midyl)]                  
                                         height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                                         ostr="{},{},{},{},{},{},{},{}\n"\
-                                              .format(midxl,midyl,height,dipdir+180,int(dip),1,str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_"),structure_code.iloc[0][c_l['g']])
+                                              .format(midxl,midyl,height,dipdir2+180,int(dip),1,str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_"),structure_code.iloc[0][c_l['g']])
                                         #ostr=str(midxl)+','+str(midyl)+','+str(height)+','+str(dipdir+180)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
                                         f.write(ostr)
                             first=False
@@ -1788,21 +1786,15 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,
                             if(close_dip==-999):
                                 r=int((midy-bbox[1])/spacing)
                                 c=int((midx-bbox[0])/spacing)
-                                dip_mean=dip_grid[r,c]
+                                dip=dip_grid[r,c]
                             else:
-                                dip_mean=close_dip
-                            dip,dipdir=m2l_utils.dircos2ddd(-m,l,cos(radians(dip_mean)))
+                                dip=close_dip
+                            dipdir=dip_dir_grid[r,c]
+                            dip2,dipdir2=m2l_utils.dircos2ddd(-m,l,cos(radians(dip)))
                             if(c_l['syn'] in fold[c_l['t']]):
-                                dipdir=dipdir+180
-                            mindist=1e9
-                            minind=-1
-                            for i in range(1,len(contacts)):
-                                dist=m2l_utils.ptsdist(contacts[i,0],contacts[i,1],midx,midy)
-                                if(dist<mindist):
-                                    mindist=dist
-                                    minind=i
-                            lc=sin(radians(contacts[minind,2]))
-                            mc=cos(radians(contacts[minind,2]))
+                                dipdir2=dipdir2+180
+                            lc=sin(radians(dipdir-90))
+                            mc=cos(radians(dipdir-90))
                             dotprod=fabs((l*lc)+(m*mc))
                             #print(dotprod,midx,midy,minind,contacts[minind,2],l,m,lc,mc)   
                             # if FAT is sub-parallel to local interpolated contacts, save out as orientations  
@@ -1814,7 +1806,7 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,
                                     locations=[(midxr,midyr)]                  
                                     height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                                     ostr="{},{},{},{},{},{},{},{}\n"\
-                                          .format(midxr,midyr,height,dipdir,int(dip),1,str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_"),structure_code.iloc[0][c_l['g']])
+                                          .format(midxr,midyr,height,dipdir2,int(dip),1,str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_"),structure_code.iloc[0][c_l['g']])
                                     #ostr=str(midxr)+','+str(midyr)+','+str(height)+','+str(dipdir)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
                                     f.write(ostr)
                                 
@@ -1825,7 +1817,7 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,
                                     locations=[(midxl,midyl)]                  
                                     height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                                     ostr="{},{},{},{},{},{},{},{}\n"\
-                                          .format(midxl,midyl,height,dipdir+180,int(dip),1,str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_"),structure_code.iloc[0][c_l['g']])
+                                          .format(midxl,midyl,height,dipdir2+180,int(dip),1,str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_"),structure_code.iloc[0][c_l['g']])
                                     #ostr=str(midxl)+','+str(midyl)+','+str(height)+','+str(dipdir+180)+','+str(int(dip))+',1,'+str(structure_code.iloc[0][c_l['c']]).replace(" ","_").replace("-","_")+','+str(structure_code.iloc[0][c_l['g']])+'\n'
                                     f.write(ostr)
                         first=False
