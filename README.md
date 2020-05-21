@@ -52,6 +52,7 @@ A recent workshop as part of the Loop/MinEx CRC collaborations provides a tutori
 | content | filename | created by | example notebook |
 | ----- | ----- | ----- | ----- |
 | Contact info with z and formation | \*/output/contacts4.csv or contacts_clean.csv| m2l_geometry. save_basal_contacts |  1 |
+| Contact info with tangent info | \*/tmp/raw_contacts.csv| m2l_interppolation. save_contact_vectors |  1 |
 | Fault trace with z | \*/output/faults.csv | m2l_geometry. save_faults |  1 |
 | Basal contacts shapefile | \*/tmp/basal_contacts.shp | m2l_geometry. save_basal_no_faults |  1 |
 | Clipped geology map shapefile | \*/tmp/geol_clip.shp | Notebook 1 |  1 |
