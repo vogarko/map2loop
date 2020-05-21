@@ -8,7 +8,7 @@ maxx=603028
 miny=7455348
 maxy=7567953
 model_top=1200
-model_base=-8200
+model_base=-3200
 
 #PATHS
 
@@ -23,8 +23,8 @@ mindep_file='mindeps_2018.shp' #input mineral deposit file (if local)
 
 #CRS
 
-src_crs = {'init': 'EPSG:4326'}  # coordinate reference system for imported dtms (geodetic lat/long WGS84)
-dst_crs = {'init': 'EPSG:28350'} # coordinate system for data
+src_crs = {'init': 'epsg:4326'}  # coordinate reference system for imported dtms (geodetic lat/long WGS84)
+dst_crs = {'init': 'epsg:28350'} # coordinate system for data
 
 #CODES AND LABELS 
 # these refer to specific fields (codes) in GIS layer or database that contain the info needed for these calcs and text substrings (labels) in the contents of these fields
