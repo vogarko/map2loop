@@ -2381,7 +2381,7 @@ def process_cover(output_path,dtm,dtb,dtb_null,cover,cover_map,cover_dip,bbox,ds
 # Save out dip info along basal contacts, dip defined, dip direction normal to local vector
 ##########################################################
 def save_basal_contacts_orientations_csv(contacts,orientations,geol_clip,tmp_path,output_path,dtm,dtb,
-                                         dtb_null,cover_map,contact_decimate,c_l,contact_dip):
+                                         dtb_null,cover_map,contact_decimate,c_l,contact_dip,dip_grid,spacing,bbox):
 
     interpolated_combo_file=tmp_path+'combo_full.csv'
     #orientations=pd.read_csv(interpolated_combo_file)
@@ -2429,14 +2429,14 @@ def save_basal_contacts_orientations_csv(contacts,orientations,geol_clip,tmp_pat
                             locations=[(midx,midy)]
                             
                             height=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
-                            #closest=1e10
-                            #for indx,ori in orientations.iterrows():
-                            #    dist=m2l_utils.ptsdist(ori['X'],ori['Y'],midx,midy)
-                            #    if(dist<closest):
-                            #        closest=dist
-                            #        dip=ori['dip']
+                            if(contact_dip==-999):
+                                r=int((midy-bbox[1])/spacing)
+                                c=int((midx-bbox[0])/spacing)
+                                dip=dip_grid[r,c]
+                            else:
+                                dip=contact_dip
                             ostr="{},{},{},{},{},{},{}\n"\
-                                  .format(midx,midy,height,dipdir,str(contact_dip),'1',str(contact[c_l['c']]).replace(" ","_").replace("-","_"))
+                                  .format(midx,midy,height,dipdir,str(dip),'1',str(contact[c_l['c']]).replace(" ","_").replace("-","_"))
                             #ostr=str(midx)+','+str(midy)+','+str(height)+','+str(dipdir)+','+str(contact_dip)+',1,'+str(contact[c_l['c']]).replace(" ","_").replace("-","_")+'\n'
                             f.write(ostr)
                     else:
