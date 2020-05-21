@@ -6,7 +6,7 @@ A package to extract information from geological maps to feed 3D modelling packa
 
 ### Fastest install path (thanks to Yohan de Rose) is via docker, go to development version at http://github.com/Loop3D/map2loop-2
    
-A recent workshop as part of the Loop/MinEx CRC collaborations provides a tutorial for map2loop and dh2loop codes. It refers to a Virtual Machine but all the codes and data can be installed by a normal github clone from the relevant repositories at https://github.com/Loop3D and then a setup.py install for each code. The tutorial notes are available here: <a href="https://github.com/Loop3D/map2loop/tree/master/docs/map2loop_dh2loop_tutorial.pdf" target="_blank"> HERE</a>   
+A recent workshop as part of the Loop/MinEx CRC collaborations provides a tutorial for map2loop and dh2loop codes. It refers to a Virtual Machine but all the codes and data can installed as above. The tutorial notes are available here: <a href="https://github.com/Loop3D/map2loop/tree/master/docs/map2loop_dh2loop_tutorial.pdf" target="_blank"> HERE</a>   
    
 #### What it does:
   
