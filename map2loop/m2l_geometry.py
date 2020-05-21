@@ -1678,7 +1678,7 @@ def normalise_thickness(output_path):
 
 ###################################################
 
-def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,dtb_null,cover_map,c_l,dst_crs,fold_decimate,fat_step,close_dip,scheme):
+def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,dtb_null,cover_map,c_l,dst_crs,fold_decimate,fat_step,close_dip,scheme,bbox,spacing,dip_grid):
     geology = gpd.read_file(tmp_path+'geol_clip.shp')
     #contacts=np.genfromtxt(tmp_path+'interpolation_contacts_'+scheme+'.csv',delimiter=',',dtype='float')
     f=open(output_path+'fold_axial_trace_orientations2.csv','w')
@@ -1785,7 +1785,13 @@ def save_fold_axial_traces_orientations(path_folds,output_path,tmp_path,dtm,dtb,
                             midyr=midy+(fat_step*l)
                             midxl=midx-(fat_step*-m)
                             midyl=midy-(fat_step*l)
-                            dip,dipdir=m2l_utils.dircos2ddd(-m,l,cos(radians(close_dip)))
+                            if(close_dip==-999):
+                                r=int(midy-bbox[1])/spacing)
+                                c=int(midx-bbox[0])/spacing)
+                                dip_mean=dip_grid[r,c]
+                            else:
+                                dip_mean=close_dip
+                            dip,dipdir=m2l_utils.dircos2ddd(-m,l,cos(radians(dip_mean)))
                             if(c_l['syn'] in fold[c_l['t']]):
                                 dipdir=dipdir+180
                             mindist=1e9
