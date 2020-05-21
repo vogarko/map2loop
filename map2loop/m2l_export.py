@@ -19,7 +19,7 @@ import os
 #
 # Creates geomodeller taskfile files from varous map2loop outputs
 ##########################################################################
-def loop2geomodeller(model_name,test_data_path,tmp_path,output_path,dtm_file,bbox,save_faults,compute_etc,workflow):
+def loop2geomodeller(model_name,test_data_path,tmp_path,output_path,dtm_file,bbox,model_top,model_base,save_faults,compute_etc,workflow):
 
     f=open(test_data_path+'/'+model_name+'/m2l.taskfile','w')
     f.write('#---------------------------------------------------------------\n')
@@ -39,10 +39,10 @@ def loop2geomodeller(model_name,test_data_path,tmp_path,output_path,dtm_file,bbo
     f.write('        Extents {\n')
     f.write('            xmin: '+str(bbox[0])+'\n')
     f.write('            ymin: '+str(bbox[1])+'\n')
-    f.write('            zmin: -7000\n')
+    f.write('            zmin: '+str(model_base)'+\n')
     f.write('            xmax: '+str(bbox[2])+'\n')
     f.write('            ymax: '+str(bbox[3])+'\n')
-    f.write('            zmax: 1200\n')
+    f.write('            zmax: '+str(model_top)'+\n')
     f.write('        }\n')
     f.write('        deflection2d: 0.001\n')
     f.write('        deflection3d: 0.001\n')
