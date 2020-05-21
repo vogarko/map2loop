@@ -1405,38 +1405,37 @@ def interpolation_grids(geology_file,structure_file,basal_contacts,bbox,spacing,
         xcoords_group=all_nodes.geometry.x
         ycoords_group=all_nodes.geometry.y
         
-        if(len(all_structures)>2):
-            l,m,n,d,dd=interpolate_orientation_grid(all_structures,scheme,xcoords_group,ycoords_group,c_l)
-            xy_lmn=np.vstack((xcoords_group,ycoords_group,l,m,n,d,dd)).transpose()
-            xy_lmn=xy_lmn.reshape(len(l),7)
-        else:
-            print(groups,'have no structures')
-            if(len(xcoords_group)>0):
-                xy_lmn=np.zeros((5,len(xcoords_group)))
+        if(len(xcoords_group)>0):
+            if(len(all_structures)>2):
+                l,m,n,d,dd=interpolate_orientation_grid(all_structures,scheme,xcoords_group,ycoords_group,c_l)
+                xy_lmn=np.vstack((xcoords_group,ycoords_group,l,m,n,d,dd)).transpose()
+                xy_lmn=xy_lmn.reshape(len(l),7)
+            else:
+                print(groups,'have no structures')
 
+                xy_lmn=np.zeros((5,len(xcoords_group)))    
                 xy_lmn=np.vstack((xcoords_group,ycoords_group,xy_lmn)).transpose()
                 xy_lmn=xy_lmn.reshape(len(xcoords_group),7)
-                                         
-        if(len(all_contacts)>0):
-            l,m,S=interpolate_contacts_grid(all_contacts,scheme,xcoords_group,ycoords_group)  
-            xy_lm_contacts=np.vstack((xcoords_group,ycoords_group,l,m,S)).transpose()
-            xy_lm_contacts=xy_lm_contacts.reshape(len(l),5)
-        else:
-            print(groups,'have no contacts')
-            if(len(xcoords_group)>0):
-                xy_lm_contacts=np.zeros((3,len(xcoords_group)))
+                                             
+            if(len(all_contacts)>0):
+                l,m,S=interpolate_contacts_grid(all_contacts,scheme,xcoords_group,ycoords_group)  
+                xy_lm_contacts=np.vstack((xcoords_group,ycoords_group,l,m,S)).transpose()
+                xy_lm_contacts=xy_lm_contacts.reshape(len(l),5)
+            else:
+                print(groups,'have no contacts')
 
+                xy_lm_contacts=np.zeros((3,len(xcoords_group)))   
                 xy_lm_contacts=np.vstack((xcoords_group,ycoords_group,xy_lm_contacts)).transpose()
                 xy_lm_contacts=xy_lm_contacts.reshape(len(xcoords_group),5)
-
-        if(first_supergroup):
-            first_supergroup=False
-            xy_lmn_all=np.copy(xy_lmn)
-            xy_lm_contacts_all=np.copy(xy_lm_contacts)
-        else:
-            xy_lmn_all=np.vstack((xy_lmn_all,xy_lmn))
-            xy_lm_contacts_all=np.vstack((xy_lm_contacts_all,xy_lm_contacts))
-
+    
+            if(first_supergroup):
+                first_supergroup=False
+                xy_lmn_all=np.copy(xy_lmn)
+                xy_lm_contacts_all=np.copy(xy_lm_contacts)
+            else:
+                xy_lmn_all=np.vstack((xy_lmn_all,xy_lmn))
+                xy_lm_contacts_all=np.vstack((xy_lm_contacts_all,xy_lm_contacts))
+    
     # sort to get back to x,y grid ordering
     dt = [('x', xy_lmn_all.dtype),('y', xy_lmn_all.dtype),('l', xy_lmn_all.dtype),('m', xy_lmn_all.dtype),('n', xy_lmn_all.dtype),('d', xy_lmn_all.dtype),('dd', xy_lmn_all.dtype)]
     #assert xy_lmn_all.flags['C_CONTIGUOUS']

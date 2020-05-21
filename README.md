@@ -4,7 +4,11 @@ A package to extract information from geological maps to feed 3D modelling packa
 
 ### This is very much a proof of concept code that is unlikely to work first time with anything but the example dataset provided, but if you would like to try it with your own data please feel free to contact me at mark.jessell@uwa.edu.au to discuss your plans.  
 
-### Fastest install path (thanks to Yohan de Rose) is via docker, go to development version at http://github.com/Loop3D/map2loop-2 Try the 1. All in one - All engines - new_interpolation_test.ipynb notebook.
+### Fastest install path (thanks to Yohan de Rose) is via docker, go to development version at:
+       
+   http://github.com/Loop3D/map2loop-2    
+   
+Try the *1. All in one - All engines - new_interpolation_test.ipynb* notebook.
    
 A recent workshop as part of the Loop/MinEx CRC collaborations provides a tutorial for map2loop and dh2loop codes. It refers to a Virtual Machine but all the codes and data can installed as above. The tutorial notes are available here: <a href="https://github.com/Loop3D/map2loop/tree/master/docs/map2loop_dh2loop_tutorial.pdf" target="_blank"> HERE</a> but are now out of sync with the latest notebooks      
    
@@ -67,12 +71,13 @@ A recent workshop as part of the Loop/MinEx CRC collaborations provides a tutori
 | Extra orientations for empty series | \*/output/empty_series_orientations.csv | m2l_geometry. create_orientations |  1 |
 | Fault orientation with z | \*/output/fault_orientations.csv |  m2l_geometry. save_faults |  1 |
 | Clipped orientations shapefile | \*/tmp/structure_clip.shp | Notebook 1 |  1 |
-| Interpolated dip dip direction grid | \*/tmp/interpolation_scipy_rbf.csv | m2l_interpolation. interpolate_orientations |  1 |
-| Interpolated contact vector grid | \*/tmp/interpolation_contacts_scipy_rbf.csv | m2l_interpolation. interpolate_contacts |  1 |
-| Combined interpolation grid | \*/tmp/combo_full.csv | m2l_interpolation. join_contacts_and_orientations |  1 |
+| Interpolated dip dip direction grid | \*/tmp/interpolated_orientations.csv | m2l_interpolation. interpolate_orientations_grid |  1 |
+| Interpolated contact vector grid | \*/tmp/interpolated_contacts.csv | m2l_interpolation. interpolate_contacts_grid |  1 |
+| Combined interpolation grid | \*/tmp/interpolated_combined.csv | m2l_interpolation. interpolation_grids |  1 |
 | Pluton contact orientations | \*/output/ign_orientations_\*.csv | m2l_geometry. process_plutons |  1 |
 | Near-Fault strat orientations | \*/tmp/ex_f_combo_full\*.csv | Notebook 6 |  6 |
 | Near-Fold Axial Trace strat orientations | \*/output/fold_axial_trace_orientations2\*.csv | m2l_geometry. save_fold_axial_traces_orientations |  5 |
+| Estimated contact orientations | \*/output/contact_orientations\*.csv | m2l_geometry. save_basal_contacts_orientations_csv |  1 |
 
 ##### loop2model:
 | content | filename | created by | example notebook |
