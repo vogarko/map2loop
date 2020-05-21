@@ -2,9 +2,11 @@
 
 A package to extract information from geological maps to feed 3D modelling packages
 
-## This is very much a proof of concept code that is unlikely to work first time with anything but the example dataset provided, but if you would like to try it with your own data please feel free to contact me at mark.jessell@uwa.edu.au to discuss your plans.   
+### This is very much a proof of concept code that is unlikely to work first time with anything but the example dataset provided, but if you would like to try it with your own data please feel free to contact me at mark.jessell@uwa.edu.au to discuss your plans.  
+
+### Fastest install path (thanks to Yohan de Rose) is via docker, go to development version at http://github.com/Loop3D/map2loop-2
    
-A recent workshop as part of the Loop/MinEx CRC collaborations provides a tutorial for map2loop and dh2loop codes. It refers to a Virtual Machine but all the codes and data can be installed by a normal github clone from the relevant repositories at https://github.com/Loop3D and then a setup.py install for each code. The tutorial notes are available here: <a href="https://github.com/Loop3D/map2loop/tree/master/docs/map2loop_dh2loop_tutorial.pdf" target="_blank"> HERE</a>   
+A recent workshop as part of the Loop/MinEx CRC collaborations provides a tutorial for map2loop and dh2loop codes. It refers to a Virtual Machine but all the codes and data can installed as above. The tutorial notes are available here: <a href="https://github.com/Loop3D/map2loop/tree/master/docs/map2loop_dh2loop_tutorial.pdf" target="_blank"> HERE</a>   
    
 #### What it does:
   
@@ -85,11 +87,7 @@ Does not deal with sills yet.
 Standalone map2model cpp code from Vitaliy provides fault/fault and fault/strat relationships   
 
 #### Installation
-For the moment installation uses:  
-  
-pip install --index-url https://test.pypi.org/simple/ --no-deps map2loop  
-or   
-setup.py install
+The best path to isntallation is via a docker. To do this visit the development version at https://github.com/Loop3D/map2loop-2 and follow the instructions.
   
 #### Requirements
 rasterio
