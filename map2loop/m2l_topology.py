@@ -5,6 +5,11 @@ import pandas as pd
 import numpy as np
 import functools 
 import operator  
+import shapely.affinity
+from shapely.ops import split
+from shapely.geometry import Point, LineString, MultiLineString, GeometryCollection, Polygon
+from math import degrees,atan2
+from map2loop import m2l_utils
 
 
 ####################################
@@ -623,3 +628,109 @@ def save_Parfile(m2m_cpp_path,c_l,graph_path,geology_file_csv,fault_file_csv,str
     f.write('Map subregion size dx, dy [m] (zeros for full map)  =0. 0.\n')
     f.write('------------------------------------------------------------------------------------------------\n')
     f.close()
+
+def check_near_fault_contacts(path_faults,all_sorts_path,fault_dimensions_path,gp_fault_rel_path,contacts_path,c_l,dst_crs):
+    faults_clip=gpd.read_file(path_faults)
+    gp_fault_rel=pd.read_csv(gp_fault_rel_path)
+    gp_fault_rel.set_index('group',  inplace = True)
+    contacts=pd.read_csv(contacts_path)
+    all_sorts=pd.read_csv(all_sorts_path)
+    all_sorts.set_index('code',  inplace = True)
+    fault_dimensions=pd.read_csv(fault_dimensions_path)
+    fault_dimensions2=fault_dimensions.set_index('Fault')
+    groups=all_sorts['group'].unique()
+    
+    for indx,flt in faults_clip.iterrows():
+        #print('Fault_'+str(flt[c_l['o']]) )
+        if('Fault_'+str(flt[c_l['o']]) in fault_dimensions['Fault'].values):
+            #print('Fault_'+str(flt[c_l['o']]),flt.geometry.type,flt.geometry.centroid )
+            if(flt.geometry.type=='LineString'):
+                flt_ls=LineString(flt.geometry)
+                midx=flt_ls.coords[0][0]+((flt_ls.coords[0][0]-flt_ls.coords[len(flt_ls.coords)-1][0])/2)
+                midy=flt_ls.coords[0][1]+((flt_ls.coords[0][1]-flt_ls.coords[len(flt_ls.coords)-1][1])/2)
+                l,m=m2l_utils.pts2dircos(flt_ls.coords[0][0],flt_ls.coords[0][1],
+                                         flt_ls.coords[len(flt_ls.coords)-1][0],flt_ls.coords[len(flt_ls.coords)-1][1])
+                angle=(360+degrees(atan2(l,m)))%360
+                xax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['HorizontalRadius']*.99
+                yax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['InfluenceDistance']*.99
+                circle = Point(flt.geometry.centroid.x,flt.geometry.centroid.y).buffer(1)  # type(circle)=polygon
+                ellipse = shapely.affinity.scale(circle, xax, yax)  # type(ellipse)=polygon
+                ellipse = shapely.affinity.rotate(ellipse,90-angle,origin='center', use_radians=False)
+                splits=split(ellipse,flt.geometry)                
+                #display(flt.geometry)
+                i=0
+                for gp in groups:
+                    all_sorts2=all_sorts[all_sorts["group"]==gp]
+                    first=True
+                    for half in splits:
+                        half_poly=Polygon(half)
+                        half_ellipse = gpd.GeoDataFrame(index=[0], crs=dst_crs, geometry=[half_poly]) 
+                        has_contacts=True
+                        for indx,as2 in all_sorts2.iterrows():
+                            contacts2=contacts[contacts["formation"]==indx]
+                            if(first):
+                                first=False
+                                all_contacts=contacts2.copy()
+                            else:
+                                all_contacts=pd.concat([all_contacts,contacts2],sort=False)
+                        contacts_gdf = gpd.GeoDataFrame(all_contacts, geometry=[Point(x, y) for x, y in zip(all_contacts.X, all_contacts.Y)])
+                        found=gpd.sjoin(contacts_gdf, half_ellipse, how='inner', op='within')
+
+                        if(len(found)>0 and has_contacts):
+                            has_contacts=True
+                        else:
+                            has_contacts=False
+                        i=i+1
+                    #print('Fault_'+str(flt[c_l['o']]),gp,has_contacts)
+                    if(not has_contacts):
+                        if(gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]==1):
+                            print(gp,'Fault_'+str(flt[c_l['o']]),'combination switched OFF')
+                            gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]=0
+
+            elif(flt.geometry.type=='MultiLineString' or flt.geometry.type=='GeometryCollection' ):
+                
+                for pline in flt.geometry:
+                    flt_ls=LineString(pline)
+                    midx=flt_ls.coords[0][0]+((flt_ls.coords[0][0]-flt_ls.coords[len(flt_ls.coords)-1][0])/2)
+                    midy=flt_ls.coords[0][1]+((flt_ls.coords[0][1]-flt_ls.coords[len(flt_ls.coords)-1][1])/2)
+                l,m=m2l_utils.pts2dircos(flt_ls.coords[0][0],flt_ls.coords[0][1],
+                                         flt_ls.coords[len(flt_ls.coords)-1][0],flt_ls.coords[len(flt_ls.coords)-1][1])
+                angle=(360+degrees(atan2(l,m)))%360
+            
+                xax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['HorizontalRadius']
+                yax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['InfluenceDistance']
+                circle = Point(flt.geometry.centroid.x,flt.geometry.centroid.y).buffer(1)  # type(circle)=polygon
+                ellipse = shapely.affinity.scale(circle, xax, yax)  # type(ellipse)=polygon
+                ellipse = shapely.affinity.rotate(ellipse,90-angle,origin='center', use_radians=False)
+                splits=split(ellipse,flt.geometry)
+                #display(splits)
+                i=0
+                for gp in groups:
+                    all_sorts2=all_sorts[all_sorts["group"]==gp]
+                    first=True
+                    for half in splits:
+                        half_poly=Polygon(half)
+                        half_ellipse = gpd.GeoDataFrame(index=[0], crs=dst_crs, geometry=[half_poly]) 
+                        has_contacts=True
+                        for indx,as2 in all_sorts2.iterrows():
+                            contacts2=contacts[contacts["formation"]==indx]
+                            if(first):
+                                first=False
+                                all_contacts=contacts2.copy()
+                            else:
+                                all_contacts=pd.concat([all_contacts,contacts2],sort=False)
+                        contacts_gdf = gpd.GeoDataFrame(all_contacts, geometry=[Point(x, y) for x, y in zip(all_contacts.X, all_contacts.Y)])
+                        found=gpd.sjoin(contacts_gdf, half_ellipse, how='inner', op='within')
+
+                        if(len(found)>0 and has_contacts):
+                            has_contacts=True
+                        else:
+                            has_contacts=False
+                        i=i+1
+                    #print('Fault_'+str(flt[c_l['o']]),gp,has_contacts)
+                    if(not has_contacts):
+                        if(gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]==1):
+                            print(gp,'Fault_'+str(flt[c_l['o']]),'combination switched OFF')
+                            gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]=0
+                            
+    gp_fault_rel.to_csv(gp_fault_rel_path)
