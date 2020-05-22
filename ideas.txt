@@ -107,15 +107,6 @@ Doneish
 65. xxx How to use fold axial traces to constrain interpolations: combine azimuth normal of trace; sign of dip from trace plus low dip?
 54. xxx Fix geomodeller notebook (doesn't load properly, plus dead groups from igneous shouldn't be loaded)
 
-Mahtab
-1. 3D potential field extrapolation
-2. Graph cut training from seismic applied to regional grav/mag
-3. Topology as constraint 
-
-Nuwan
-1:Test GPT
-2: SimPEG/ loop?
-3: uncertainty in 1D from Loop/cure applied as constraint on full 3D
 
 Better models
 1. Supergroup similar groups
@@ -210,11 +201,6 @@ MinEx 1: week for uncertainty-charactetised model suites
 DARE: Cohort of natural data scientists
 DECRA: what data for all this?
 
-Full MinEx:
-
-Life-of-Project Performance Target for Project 6: Reduce to one week the time taken from receiving data to constructing probabilistic models. 
-
-Status: We can make a first-pass model now in 10 minutes, without code optimisation. We have 6 days, 23 hours and 50 minutes worth of computation time and 8 years of development time to improve our models and still meet our time target. 
 
 fiona.supported_drivers
 {'ESRI Shapefile': 'raw', 
@@ -254,19 +240,6 @@ Ows supports wcs
 Opendap supports opendap
 Netcdf supports netcdf
 SQL
-
-Monash Visit
-
-Standards:
-⁃ Intra-code data transfer 
-⁃ GeoData storage
-⁃ Documentation
-⁃ Parameter files
-⁃ RDB
-⁃ Code commenting
-⁃ Model storage 
-
-map2loop loopstructural
 
 
 
