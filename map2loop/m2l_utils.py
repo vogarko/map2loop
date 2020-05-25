@@ -633,7 +633,7 @@ def tri_angle(p1x,p1y,p2x,p2y,p3x,p3y):
     divisor=2*p12*p13
 
     if(fabs(numerator/divisor)>1.0 ):
-        angle=0.0
+        angle=180.0
     else:
         angle=degrees(acos(numerator/divisor))
     
@@ -656,8 +656,98 @@ def plot_points(point_source,geol_clip, colour_code,x_code,y_code,legend):
 ###########################################
 # plot bedding stereonets
 ###########################################
+def plot_bedding_stereonets(orientations_clean,geology,c_l):
+    import mplstereonet
+    import matplotlib.pyplot as plt
     
-def plot_bedding_stereonets(orientations,all_sorts):
+    orientations = gpd.sjoin(orientations_clean, geology, how="left", op="within")
+    
+    groups=geology[c_l['g']].unique()
+    codes=geology[c_l['c']].unique()
+    print("All observations n=",len(orientations_clean))
+    print('groups',groups,'\ncodes',codes)
+
+    fig, ax = mplstereonet.subplots(figsize=(7,7))
+    if(c_l['otype']=='dip direction'):
+        strikes = orientations[c_l['dd']].values -90
+    else:
+        strikes = orientations[c_l['dd']].values
+       
+    dips = orientations[c_l['d']].values
+    cax = ax.density_contourf(strikes, dips, measurement='poles')
+    ax.pole(strikes, dips, markersize=5, color='w')
+    ax.grid(True)
+    text = ax.text(2.2, 1.37, "All data", color='b')
+    plt.show()
+
+    for gp in groups:
+
+        all_orientations=orientations[orientations[c_l['g']]==gp]
+
+        if(len(all_orientations)>0):
+            print("----------------------------------------------------------------------------------------------------------------------")
+            print(gp,"observations n=",len(all_orientations))
+            fig, ax = mplstereonet.subplots(figsize=(5,5))
+            if(c_l['otype']=='dip direction'):
+                strikes = all_orientations[c_l['dd']].values -90
+            else:
+                strikes = all_orientations[c_l['dd']].values
+               
+            dips = all_orientations[c_l['d']].values
+            cax = ax.density_contourf(strikes, dips, measurement='poles')
+            ax.pole(strikes, dips, markersize=5, color='w')
+            ax.grid(True)
+            text = ax.text(2.2, 1.37,gp, color='b')
+            plt.show()
+        else:
+            print("----------------------------------------------------------------------------------------------------------------------")
+            print(gp,"observations has no observations")
+
+
+    for gp in groups:
+
+        print("----------------------------------------------------------------------------------------------------------------------")
+        print(gp)
+        #display(all_sorts2)
+        ind=0
+        orientations2=orientations[orientations[c_l['g']]==gp]
+
+        for code in codes:
+            orientations3=orientations2[orientations2[c_l['c']]==code]
+            ind2=int(fmod(ind,3))
+            if(len(orientations3)>0):
+                print(code,"observations n=",len(orientations3))
+            #display(orientations2)
+            if(len(orientations3)>0):
+                if(ind2==0):
+                    fig, ax = mplstereonet.subplots(1,3,figsize=(15,15))
+                if(c_l['otype']=='dip direction'):
+                    strikes = orientations3[c_l['dd']].values -90
+                else:
+                    strikes = orientations3[c_l['dd']].values
+
+                dips = orientations3[c_l['d']].values
+
+                cax = ax[ind2].density_contourf(strikes, dips, measurement='poles')
+                ax[ind2].pole(strikes, dips, markersize=5, color='w')
+                ax[ind2].grid(True)
+                #fig.colorbar(cax)
+                text = ax[ind2].text(2.2, 1.37, code, color='b')
+                
+                # Fit a plane to the girdle of the distribution and display it.
+                fit_strike, fit_dip = mplstereonet.fit_girdle(strikes, dips)
+                print('strike/dip of girdle',fit_strike, '/', fit_dip)                
+               
+                if(ind2==2):
+                    plt.show()
+
+                ind=ind+1
+                
+
+        if(ind>0 and not ind2==2):
+            plt.show()
+            
+def plot_bedding_stereonets_old(orientations,all_sorts):
     import mplstereonet
     import matplotlib.pyplot as plt
     

@@ -1388,18 +1388,18 @@ def interpolation_grids(geology_file,structure_file,basal_contacts,bbox,spacing,
         for group in groups:
                         
             if(first):
-                all_nodes=nodes_code[nodes_code['GROUP_']==group] 
-                all_structures = structures_code[structures_code['GROUP_']==group]
-                all_contacts=contacts[contacts['GROUP_']==group.replace(' ','_').replace('-','_')]
+                all_nodes=nodes_code[nodes_code[c_l['g']]==group] 
+                all_structures = structures_code[structures_code[c_l['g']]==group]
+                all_contacts=contacts[contacts[c_l['g']]==group.replace(' ','_').replace('-','_')]
                 first=False
             else:
-                another_node=nodes_code[nodes_code['GROUP_']==group] 
+                another_node=nodes_code[nodes_code[c_l['g']]==group] 
                 all_nodes=pd.concat([all_nodes,another_node],sort=False)
                                       
-                another_contact=contacts[contacts['GROUP_']==group.replace(' ','_').replace('-','_')]
+                another_contact=contacts[contacts[c_l['g']]==group.replace(' ','_').replace('-','_')]
                 all_contacts=pd.concat([all_contacts,another_contact],sort=False)
                       
-                another_structure = structures_code[structures_code['GROUP_']==group]
+                another_structure = structures_code[structures_code[c_l['g']]==group]
                 all_structures=pd.concat([all_structures,another_structure],sort=False)
             
         xcoords_group=all_nodes.geometry.x
@@ -1473,7 +1473,7 @@ def interpolation_grids(geology_file,structure_file,basal_contacts,bbox,spacing,
 
     return(orientation_interp,contact_interp,combo_interp)
 
-def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_reproj_file,dtb,dtb_null,cover_map,c_l,use_gcode,use_gcode2,dst_crs,bbox,scheme,dip_grid,dip_dir_grid,xgrid,ygrid,spacing):
+def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_reproj_file,dtb,dtb_null,cover_map,c_l,dst_crs,bbox,scheme,dip_grid,dip_dir_grid,xgrid,ygrid,spacing):
     fault_file=tmp_path+'faults_clip.shp'
     geology_file=tmp_path+'geol_clip.shp'
 
@@ -1561,6 +1561,11 @@ def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_repro
                                 if((not indl[c_l['c']]==lastlcode) and ((not c_l['sill'] in indl[c_l['ds']]) or (not c_l['intrusive'] in indl[c_l['r1']] ))):
                                     lcontact.append([(ind,lastlcode,indl[c_l['c']],indl.geometry)])
                                     lastlcode=indl[c_l['c']]
+                                    locations=[(lastlx,lastly)]
+                                    last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                                    ostr="{},{},{},{}\n"\
+                                                  .format(lastlx,lastly,last_height_l,indl[c_l['c']])
+                                    fftc.write(ostr)
 
                                     
                     
@@ -1597,6 +1602,11 @@ def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_repro
                                 if((not indr[c_l['c']]==lastrcode) and ((not c_l['sill'] in indr[c_l['ds']]) or (not c_l['intrusive'] in indr[c_l['r1']] ))):
                                     rcontact.append([(ind,lastrcode,indr[c_l['c']],indr.geometry)]) 
                                     lastrcode=indr[c_l['c']]             
+                                    locations=[(lastrx,lastry)]
+                                    last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                                    ostr="{},{},{},{}\n"\
+                                                  .format(lastrx,lastry,last_height_r,indr[c_l['c']])
+                                    fftc.write(ostr)
           
 
                 locations=[(firstlx,firstly)]
@@ -1619,6 +1629,19 @@ def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_repro
                 ostr="{},{},{},{}\n"\
                               .format(lastrx,lastry,last_height_r,lastrc)
                 fftc.write(ostr)   
+                
+                locations=[(lcode.iloc[len(lcode)-3].geometry.x,lcode.iloc[len(lcode)-3].geometry.y)]
+                last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                ostr="{},{},{},{}\n"\
+                              .format(lcode.iloc[len(lcode)-2].geometry.x,lcode.iloc[len(lcode)-3].geometry.y,last_height_l,lcode.iloc[len(lcode)-3][c_l['c']])
+                if(not str(lcode.iloc[len(lcode)-3][c_l['c']])=='nan'):
+                   fftc.write(ostr)   
+                locations=[(rcode.iloc[len(rcode)-3].geometry.x,rcode.iloc[len(rcode)-3].geometry.y)]
+                last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                ostr="{},{},{},{}\n"\
+                              .format(lcode.iloc[len(rcode)-3].geometry.x,rcode.iloc[len(lcode)-2].geometry.y,last_height_r,rcode.iloc[len(rcode)-3][c_l['c']])
+                if(not str(rcode.iloc[len(rcode)-3][c_l['c']])=='nan'):
+                   fftc.write(ostr)   
                                     
                 # loop through left and right sides to find equivalent contact pairs along fault
                 
@@ -1696,7 +1719,12 @@ def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_repro
                                     if((not indl[c_l['c']]==lastlcode) and ((not c_l['sill'] in indl[c_l['ds']]) or (not c_l['intrusive'] in indl[c_l['r1']] ))):
                                         lcontact.append([(ind,lastlcode,indl[c_l['c']],indl.geometry)])
                                         lastlcode=indl[c_l['c']]
-                                    
+                                        locations=[(lastlx,lastly)]
+                                        last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                                        ostr="{},{},{},{}\n"\
+                                                      .format(lastlx,lastly,last_height_l,indl[c_l['c']])
+                                        fftc.write(ostr)
+                                        
 
                     #add points to list if they have different geology code than previous node on right side
 
@@ -1728,7 +1756,12 @@ def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_repro
                                     if((not indr[c_l['c']]==lastrcode) and ((not c_l['sill'] in indr[c_l['ds']]) or (not c_l['intrusive'] in indr[c_l['r1']] ))):
                                         rcontact.append([(ind,lastrcode,indr[c_l['c']],indr.geometry)]) 
                                         lastrcode=indr[c_l['c']]
-
+                                        locations=[(lastrx,lastry)]
+                                        last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                                        ostr="{},{},{},{}\n"\
+                                                      .format(lastrx,lastry,last_height_r,indr[c_l['c']])
+                                        fftc.write(ostr)
+    
                     locations=[(firstlx,firstly)]
                     first_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                     ostr="{},{},{},{}\n"\
@@ -1749,6 +1782,19 @@ def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_repro
                     ostr="{},{},{},{}\n"\
                                   .format(lastrx,lastry,last_height_r,lastrc)
                     fftc.write(ostr)   
+                    
+                    locations=[(lcode.iloc[len(lcode)-3].geometry.x,lcode.iloc[len(lcode)-3].geometry.y)]
+                    last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                    ostr="{},{},{},{}\n"\
+                                  .format(lcode.iloc[len(lcode)-3].geometry.x,lcode.iloc[len(lcode)-3].geometry.y,last_height_l,lcode.iloc[len(lcode)-3][c_l['c']])
+                    if(not str(lcode.iloc[len(lcode)-3][c_l['c']])=='nan'):
+                        fftc.write(ostr)                     
+                    locations=[(rcode.iloc[len(rcode)-3].geometry.x,rcode.iloc[len(rcode)-3].geometry.y)]
+                    last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
+                    ostr="{},{},{},{}\n"\
+                                  .format(lcode.iloc[len(rcode)-3].geometry.x,rcode.iloc[len(lcode)-3].geometry.y,last_height_r,rcode.iloc[len(rcode)-3][c_l['c']])
+                    if(not str(rcode.iloc[len(rcode)-3][c_l['c']])=='nan'):
+                        fftc.write(ostr)                     
         
                     # loop through left and right sides to find equivalent contact pairs along fault
 

@@ -651,8 +651,8 @@ def check_near_fault_contacts(path_faults,all_sorts_path,fault_dimensions_path,g
                 l,m=m2l_utils.pts2dircos(flt_ls.coords[0][0],flt_ls.coords[0][1],
                                          flt_ls.coords[len(flt_ls.coords)-1][0],flt_ls.coords[len(flt_ls.coords)-1][1])
                 angle=(360+degrees(atan2(l,m)))%360
-                xax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['HorizontalRadius']*.99
-                yax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['InfluenceDistance']*.99
+                xax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['HorizontalRadius']*.99*.81
+                yax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['InfluenceDistance']*.99*.81
                 circle = Point(flt.geometry.centroid.x,flt.geometry.centroid.y).buffer(1)  # type(circle)=polygon
                 ellipse = shapely.affinity.scale(circle, xax, yax)  # type(ellipse)=polygon
                 ellipse = shapely.affinity.rotate(ellipse,90-angle,origin='center', use_radians=False)
@@ -660,32 +660,33 @@ def check_near_fault_contacts(path_faults,all_sorts_path,fault_dimensions_path,g
                 #display(flt.geometry)
                 i=0
                 for gp in groups:
-                    all_sorts2=all_sorts[all_sorts["group"]==gp]
-                    first=True
-                    for half in splits:
-                        half_poly=Polygon(half)
-                        half_ellipse = gpd.GeoDataFrame(index=[0], crs=dst_crs, geometry=[half_poly]) 
-                        has_contacts=True
-                        for indx,as2 in all_sorts2.iterrows():
-                            contacts2=contacts[contacts["formation"]==indx]
-                            if(first):
-                                first=False
-                                all_contacts=contacts2.copy()
-                            else:
-                                all_contacts=pd.concat([all_contacts,contacts2],sort=False)
-                        contacts_gdf = gpd.GeoDataFrame(all_contacts, geometry=[Point(x, y) for x, y in zip(all_contacts.X, all_contacts.Y)])
-                        found=gpd.sjoin(contacts_gdf, half_ellipse, how='inner', op='within')
-
-                        if(len(found)>0 and has_contacts):
+                    if(not gp=='cover'):
+                        all_sorts2=all_sorts[all_sorts["group"]==gp]
+                        first=True
+                        for half in splits:
+                            half_poly=Polygon(half)
+                            half_ellipse = gpd.GeoDataFrame(index=[0], crs=dst_crs, geometry=[half_poly]) 
                             has_contacts=True
-                        else:
-                            has_contacts=False
-                        i=i+1
-                    #print('Fault_'+str(flt[c_l['o']]),gp,has_contacts)
-                    if(not has_contacts):
-                        if(gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]==1):
-                            print(gp,'Fault_'+str(flt[c_l['o']]),'combination switched OFF')
-                            gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]=0
+                            for indx,as2 in all_sorts2.iterrows():
+                                contacts2=contacts[contacts["formation"]==indx]
+                                if(first):
+                                    first=False
+                                    all_contacts=contacts2.copy()
+                                else:
+                                    all_contacts=pd.concat([all_contacts,contacts2],sort=False)
+                            contacts_gdf = gpd.GeoDataFrame(all_contacts, geometry=[Point(x, y) for x, y in zip(all_contacts.X, all_contacts.Y)])
+                            found=gpd.sjoin(contacts_gdf, half_ellipse, how='inner', op='within')
+    
+                            if(len(found)>0 and has_contacts):
+                                has_contacts=True
+                            else:
+                                has_contacts=False
+                            i=i+1
+                        #print('Fault_'+str(flt[c_l['o']]),gp,has_contacts)
+                        if(not has_contacts):
+                            if(gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]==1):
+                                print(gp,'Fault_'+str(flt[c_l['o']]),'combination switched OFF')
+                                gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]=0
 
             elif(flt.geometry.type=='MultiLineString' or flt.geometry.type=='GeometryCollection' ):
                 
@@ -697,8 +698,8 @@ def check_near_fault_contacts(path_faults,all_sorts_path,fault_dimensions_path,g
                                          flt_ls.coords[len(flt_ls.coords)-1][0],flt_ls.coords[len(flt_ls.coords)-1][1])
                 angle=(360+degrees(atan2(l,m)))%360
             
-                xax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['HorizontalRadius']
-                yax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['InfluenceDistance']
+                xax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['HorizontalRadius']*.99*.81
+                yax=fault_dimensions2.loc['Fault_'+str(flt[c_l['o']])]['InfluenceDistance']*.99*.81
                 circle = Point(flt.geometry.centroid.x,flt.geometry.centroid.y).buffer(1)  # type(circle)=polygon
                 ellipse = shapely.affinity.scale(circle, xax, yax)  # type(ellipse)=polygon
                 ellipse = shapely.affinity.rotate(ellipse,90-angle,origin='center', use_radians=False)
@@ -706,31 +707,32 @@ def check_near_fault_contacts(path_faults,all_sorts_path,fault_dimensions_path,g
                 #display(splits)
                 i=0
                 for gp in groups:
-                    all_sorts2=all_sorts[all_sorts["group"]==gp]
-                    first=True
-                    for half in splits:
-                        half_poly=Polygon(half)
-                        half_ellipse = gpd.GeoDataFrame(index=[0], crs=dst_crs, geometry=[half_poly]) 
-                        has_contacts=True
-                        for indx,as2 in all_sorts2.iterrows():
-                            contacts2=contacts[contacts["formation"]==indx]
-                            if(first):
-                                first=False
-                                all_contacts=contacts2.copy()
-                            else:
-                                all_contacts=pd.concat([all_contacts,contacts2],sort=False)
-                        contacts_gdf = gpd.GeoDataFrame(all_contacts, geometry=[Point(x, y) for x, y in zip(all_contacts.X, all_contacts.Y)])
-                        found=gpd.sjoin(contacts_gdf, half_ellipse, how='inner', op='within')
-
-                        if(len(found)>0 and has_contacts):
+                    if(not gp=='cover'):
+                        all_sorts2=all_sorts[all_sorts["group"]==gp]
+                        first=True
+                        for half in splits:
+                            half_poly=Polygon(half)
+                            half_ellipse = gpd.GeoDataFrame(index=[0], crs=dst_crs, geometry=[half_poly]) 
                             has_contacts=True
-                        else:
-                            has_contacts=False
-                        i=i+1
-                    #print('Fault_'+str(flt[c_l['o']]),gp,has_contacts)
-                    if(not has_contacts):
-                        if(gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]==1):
-                            print(gp,'Fault_'+str(flt[c_l['o']]),'combination switched OFF')
-                            gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]=0
-                            
+                            for indx,as2 in all_sorts2.iterrows():
+                                contacts2=contacts[contacts["formation"]==indx]
+                                if(first):
+                                    first=False
+                                    all_contacts=contacts2.copy()
+                                else:
+                                    all_contacts=pd.concat([all_contacts,contacts2],sort=False)
+                            contacts_gdf = gpd.GeoDataFrame(all_contacts, geometry=[Point(x, y) for x, y in zip(all_contacts.X, all_contacts.Y)])
+                            found=gpd.sjoin(contacts_gdf, half_ellipse, how='inner', op='within')
+    
+                            if(len(found)>0 and has_contacts):
+                                has_contacts=True
+                            else:
+                                has_contacts=False
+                            i=i+1
+                        #print('Fault_'+str(flt[c_l['o']]),gp,has_contacts)
+                        if(not has_contacts):
+                            if(gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]==1):
+                                print(gp,'Fault_'+str(flt[c_l['o']]),'combination switched OFF')
+                                gp_fault_rel.loc[gp,'Fault_'+str(flt[c_l['o']])]=0
+                                
     gp_fault_rel.to_csv(gp_fault_rel_path)

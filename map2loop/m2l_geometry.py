@@ -613,6 +613,7 @@ def save_faults(path_faults,output_path,dtm,dtb,dtb_null,cover_map,c_l,fault_dec
                                  height,azimuth,fault_dip,1,fault_name)
                     #ostr=str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][0])+","+str(flt_ls.coords[int((len(flt_ls.coords)-1)/2)][1])+","+height+","+str(azimuth)+","+str(fault_dip)+",1,"+fault_name+"\n"
                     fo.write(ostr)
+                    strike=strike*1.25
                     ostr="{},{},{},{}\n"\
                          .format(fault_name,strike/2,strike,strike/4.0)
                     #ostr=fault_name+","+str(strike/2)+","+str(strike)+","+str(strike/4.0)+"\n"
@@ -1195,30 +1196,44 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_f
     if('invented_orientations' in inputs and os.path.exists(output_path+'empty_series_orientations.csv')):
         invented_orientations=pd.read_csv(output_path+'empty_series_orientations.csv',",")
         all_orientations=pd.concat([all_orientations,invented_orientations],sort=False)
+    elif('invented_orientations' in inputs and not os.path.exists(output_path+'empty_series_orientations.csv')):
+        print('No invented orientations available for merging.')
         
     if('interpolated_orientations' in inputs and os.path.exists(tmp_path+'combo_full.csv')):
         interpolated_orientations=pd.read_csv(tmp_path+'combo_full.csv',",")
         all_orientations=pd.concat([all_orientations,interpolated_orientations.iloc[::2, :]],sort=False)
+    elif('interpolated_orientations' in inputs and not os.path.exists(tmp_path+'combo_full.csv')):
+        print('No interpolated orientations available for merging.')
         
     if('intrusive_orientations' in inputs and os.path.exists(output_path+'ign_orientations_'+pluton_form+'.csv')):
         intrusive_orientations=pd.read_csv(output_path+'ign_orientations_'+pluton_form+'.csv',",")
         all_orientations=pd.concat([all_orientations,intrusive_orientations],sort=False)
+    elif('intrusive_orientations' in inputs and not os.path.exists(output_path+'ign_orientations_'+pluton_form+'.csv')):
+        print('No intrusive orientations available for merging.')
         
     if('fat_orientations' in inputs and os.path.exists(output_path+'fold_axial_trace_orientations2.csv')):
         fat_orientations=pd.read_csv(output_path+'fold_axial_trace_orientations2.csv',",")
         all_orientations=pd.concat([all_orientations,fat_orientations],sort=False)
+    elif('fat_orientations' in inputs and not os.path.exists(output_path+'fold_axial_trace_orientations2.csv')):
+        print('No fat orientations available for merging.')
         
     if('near_fault_orientations' in inputs and os.path.exists(tmp_path+'ex_f_combo_full.csv')):
         near_fault_orientations=pd.read_csv(tmp_path+'ex_f_combo_full.csv',",")
         all_orientations=pd.concat([all_orientations,near_fault_orientations],sort=False)
+    elif('near_fault_orientations' in inputs and not os.path.exists(tmp_path+'ex_f_combo_full.csv')):
+        print('No near fault orientations orientations available for merging.')
 
     if('cover_orientations' in inputs and os.path.exists(output_path+'cover_orientations.csv')):
         cover_orientations=pd.read_csv(output_path+'cover_orientations.csv',",")
         all_orientations=pd.concat([all_orientations,cover_orientations],sort=False)
+    elif('cover_orientations' in inputs and not os.path.exists(output_path+'cover_orientations.csv')):
+        print('No cover orientations available for merging.')
         
     if('contact_orientations' in inputs and os.path.exists(output_path+'contact_orientations.csv')):
         contact_orientations=pd.read_csv(output_path+'contact_orientations.csv',",")
         all_orientations=pd.concat([all_orientations,contact_orientations],sort=False)
+    elif('contact_orientations' in inputs and not os.path.exists(output_path+'contact_orientations.csv')):
+        print('No contact orientations available for merging.')
 
     #display(cover_orientations)        
     #display(all_orientations)        
@@ -1228,13 +1243,17 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_f
 
     all_contacts=pd.concat([intrusive_contacts,contacts],sort=False)
     
-    if('cover_contacts' in inputs):
+    if('cover_contacts' in inputs and os.path.exists(output_path+'cover_grid.csv')):
         cover_contacts=pd.read_csv(output_path+'cover_grid.csv',",")
         all_contacts=pd.concat([all_contacts,cover_contacts],sort=False)
+    elif('cover_contacts' in inputs and not os.path.exists(output_path+'cover_grid.csv')):
+        print('No cover grid contacts available for merging.')
         
     if('fault_tip_contacts' in inputs):
         fault_tip_contacts=pd.read_csv(output_path+'fault_tip_contacts.csv',",")
         all_contacts=pd.concat([all_contacts,fault_tip_contacts],sort=False)
+    elif('fault_tip_contacts' in inputs and not os.path.exists(output_path+'fault_tip_contacts.csv')):
+        print('No fault tip contacts available for merging.')
 
     all_contacts.reset_index(inplace=True)
     all_contacts.to_csv(output_path+'contacts_clean.csv', index = None, header=True)
@@ -1287,10 +1306,10 @@ def tidy_data(output_path,tmp_path,use_group,use_interpolations,use_fat,pluton_f
             groups.append(contents[i].replace("\n",""))
 
     # Make new list of groups
-
+    #print('groups contents',len(groups),len(contents))
     fgp=open(tmp_path+'groups_clean.csv',"w")
     for i in range(0,len(groups)):
-        fgp.write(contents[i+1].replace("\n","")+'\n')
+        fgp.write(groups[i].replace("\n","")+'\n')
     fgp.close()        
     
     #print(all_groups,use_group)
