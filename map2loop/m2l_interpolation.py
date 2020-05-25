@@ -1564,7 +1564,7 @@ def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_repro
                                     locations=[(lastlx,lastly)]
                                     last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                                     ostr="{},{},{},{}\n"\
-                                                  .format(lastlx,lastly,last_height_l,indl[c_l['c']])
+                                                  .format(lastlx,lastly,last_height_l,indl[c_l['c']].replace(" ","_").replace("-","_"))
                                     fftc.write(ostr)
 
                                     
@@ -1605,41 +1605,41 @@ def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_repro
                                     locations=[(lastrx,lastry)]
                                     last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                                     ostr="{},{},{},{}\n"\
-                                                  .format(lastrx,lastry,last_height_r,indr[c_l['c']])
+                                                  .format(lastrx,lastry,last_height_r,indr[c_l['c']].replace(" ","_").replace("-","_"))
                                     fftc.write(ostr)
           
 
                 locations=[(firstlx,firstly)]
                 first_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                 ostr="{},{},{},{}\n"\
-                              .format(firstlx,firstly,first_height_l,firstlc)
+                              .format(firstlx,firstly,first_height_l,firstlc.replace(" ","_").replace("-","_"))
                 fftc.write(ostr)
                 locations=[(firstrx,firstry)]
                 first_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                 ostr="{},{},{},{}\n"\
-                              .format(firstrx,firstry,first_height_r,firstrc)
+                              .format(firstrx,firstry,first_height_r,firstrc.replace(" ","_").replace("-","_"))
                 fftc.write(ostr)
                 locations=[(lastlx,lastly)]
                 last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                 ostr="{},{},{},{}\n"\
-                              .format(lastlx,lastly,last_height_l,lastlc)
+                              .format(lastlx,lastly,last_height_l,lastlc.replace(" ","_").replace("-","_"))
                 fftc.write(ostr)
                 locations=[(lastrx,lastry)]
                 last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                 ostr="{},{},{},{}\n"\
-                              .format(lastrx,lastry,last_height_r,lastrc)
+                              .format(lastrx,lastry,last_height_r,lastrc.replace(" ","_").replace("-","_"))
                 fftc.write(ostr)   
                 
                 locations=[(lcode.iloc[len(lcode)-3].geometry.x,lcode.iloc[len(lcode)-3].geometry.y)]
                 last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                 ostr="{},{},{},{}\n"\
-                              .format(lcode.iloc[len(lcode)-2].geometry.x,lcode.iloc[len(lcode)-3].geometry.y,last_height_l,lcode.iloc[len(lcode)-3][c_l['c']])
+                              .format(lcode.iloc[len(lcode)-3].geometry.x,lcode.iloc[len(lcode)-3].geometry.y,last_height_l,str(lcode.iloc[len(lcode)-3][c_l['c']]).replace(" ","_").replace("-","_"))
                 if(not str(lcode.iloc[len(lcode)-3][c_l['c']])=='nan'):
                    fftc.write(ostr)   
                 locations=[(rcode.iloc[len(rcode)-3].geometry.x,rcode.iloc[len(rcode)-3].geometry.y)]
                 last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                 ostr="{},{},{},{}\n"\
-                              .format(lcode.iloc[len(rcode)-3].geometry.x,rcode.iloc[len(lcode)-2].geometry.y,last_height_r,rcode.iloc[len(rcode)-3][c_l['c']])
+                              .format(lcode.iloc[len(rcode)-3].geometry.x,rcode.iloc[len(lcode)-3].geometry.y,last_height_r,str(rcode.iloc[len(rcode)-3][c_l['c']]).replace(" ","_").replace("-","_"))
                 if(not str(rcode.iloc[len(rcode)-3][c_l['c']])=='nan'):
                    fftc.write(ostr)   
                                     
@@ -1722,7 +1722,7 @@ def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_repro
                                         locations=[(lastlx,lastly)]
                                         last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                                         ostr="{},{},{},{}\n"\
-                                                      .format(lastlx,lastly,last_height_l,indl[c_l['c']])
+                                                      .format(lastlx,lastly,last_height_l,indl[c_l['c']].replace(" ","_").replace("-","_"))
                                         fftc.write(ostr)
                                         
 
@@ -1759,40 +1759,40 @@ def process_fault_throw_and_near_faults_from_grid(tmp_path,output_path,dtm_repro
                                         locations=[(lastrx,lastry)]
                                         last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                                         ostr="{},{},{},{}\n"\
-                                                      .format(lastrx,lastry,last_height_r,indr[c_l['c']])
+                                                      .format(lastrx,lastry,last_height_r,indr[c_l['c']].replace(" ","_").replace("-","_"))
                                         fftc.write(ostr)
     
                     locations=[(firstlx,firstly)]
                     first_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                     ostr="{},{},{},{}\n"\
-                                  .format(firstlx,firstly,first_height_l,firstlc)
+                                  .format(firstlx,firstly,first_height_l,firstlc.replace(" ","_").replace("-","_"))
                     fftc.write(ostr)
                     locations=[(firstrx,firstry)]
                     first_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                     ostr="{},{},{},{}\n"\
-                                  .format(firstrx,firstry,first_height_r,firstrc)
+                                  .format(firstrx,firstry,first_height_r,firstrc.replace(" ","_").replace("-","_"))
                     fftc.write(ostr)
                     locations=[(lastlx,lastly)]
                     last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                     ostr="{},{},{},{}\n"\
-                                  .format(lastlx,lastly,last_height_l,lastlc)
+                                  .format(lastlx,lastly,last_height_l,lastlc.replace(" ","_").replace("-","_"))
                     fftc.write(ostr)
                     locations=[(lastrx,lastry)]
                     last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                     ostr="{},{},{},{}\n"\
-                                  .format(lastrx,lastry,last_height_r,lastrc)
+                                  .format(lastrx,lastry,last_height_r,lastrc.replace(" ","_").replace("-","_"))
                     fftc.write(ostr)   
                     
                     locations=[(lcode.iloc[len(lcode)-3].geometry.x,lcode.iloc[len(lcode)-3].geometry.y)]
                     last_height_l=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                     ostr="{},{},{},{}\n"\
-                                  .format(lcode.iloc[len(lcode)-3].geometry.x,lcode.iloc[len(lcode)-3].geometry.y,last_height_l,lcode.iloc[len(lcode)-3][c_l['c']])
+                                  .format(lcode.iloc[len(lcode)-3].geometry.x,lcode.iloc[len(lcode)-3].geometry.y,last_height_l,str(lcode.iloc[len(lcode)-3][c_l['c']]).replace(" ","_").replace("-","_"))
                     if(not str(lcode.iloc[len(lcode)-3][c_l['c']])=='nan'):
                         fftc.write(ostr)                     
                     locations=[(rcode.iloc[len(rcode)-3].geometry.x,rcode.iloc[len(rcode)-3].geometry.y)]
                     last_height_r=m2l_utils.value_from_dtm_dtb(dtm,dtb,dtb_null,cover_map,locations)
                     ostr="{},{},{},{}\n"\
-                                  .format(lcode.iloc[len(rcode)-3].geometry.x,rcode.iloc[len(lcode)-3].geometry.y,last_height_r,rcode.iloc[len(rcode)-3][c_l['c']])
+                                  .format(lcode.iloc[len(rcode)-3].geometry.x,rcode.iloc[len(lcode)-3].geometry.y,last_height_r,str(rcode.iloc[len(rcode)-3][c_l['c']]).replace(" ","_").replace("-","_"))
                     if(not str(rcode.iloc[len(rcode)-3][c_l['c']])=='nan'):
                         fftc.write(ostr)                     
         
